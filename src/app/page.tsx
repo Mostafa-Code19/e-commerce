@@ -66,26 +66,28 @@ export default function Home() {
             
 
             <div className="grid grid-cols-2">
-                <div className='bg-white m-1 p-1 rounded-lg'>
-                    <div className='bg-blue-400 relative flex flex-col aspect-square from-blue-400 to-blue-200 bg-gradient-to-bl rounded-xl'>
-                        <Image
-                            className='object-cover justify-center m-auto p-2'
-                            src="/product/2.png"
-                            alt="nike shoe"
-                            width='200'
-                            height='200'
-                        />
-                        <div className='mx-3 flex justify-between mb-1 items-center'>
-                            <div className=''>
-                                <h3>Nike Shoe</h3>
-                                <span className='font-semibold text-black text-sm'>$20</span>
+                <Link href='/product/1'>
+                    <div className='bg-white m-1 p-1 rounded-lg'>
+                        <div className='bg-blue-400 relative flex flex-col aspect-square from-blue-400 to-blue-200 bg-gradient-to-bl rounded-xl'>
+                            <Image
+                                className='object-cover justify-center m-auto p-2'
+                                src="/product/2.png"
+                                alt="nike shoe"
+                                width='200'
+                                height='200'
+                            />
+                            <div className='mx-3 flex justify-between mb-1 items-center'>
+                                <div className=''>
+                                    <h3>Nike Shoe</h3>
+                                    <span className='font-semibold text-black text-sm'>$20</span>
+                                </div>
+                                <button className='bg-slate-700 p-1 rounded-full'>
+                                    <svg className="h-5 w-5 text-white"  width="24" height="24" viewBox="0 0 24 24" strokeWidth="2" stroke="currentColor" fill="none" strokeLinecap="round" strokeLinejoin="round">  <path stroke="none" d="M0 0h24v24H0z"/>  <line x1="12" y1="5" x2="12" y2="19" />  <line x1="5" y1="12" x2="19" y2="12" /></svg>
+                                </button>
                             </div>
-                            <button className='bg-slate-700 p-1 rounded-full'>
-                                <svg className="h-5 w-5 text-white"  width="24" height="24" viewBox="0 0 24 24" strokeWidth="2" stroke="currentColor" fill="none" strokeLinecap="round" strokeLinejoin="round">  <path stroke="none" d="M0 0h24v24H0z"/>  <line x1="12" y1="5" x2="12" y2="19" />  <line x1="5" y1="12" x2="19" y2="12" /></svg>
-                            </button>
                         </div>
                     </div>
-                </div>
+                </Link>
 
                 <div className='bg-white m-1 p-1 rounded-lg'>
                     <div className='bg-blue-400 relative flex flex-col aspect-square from-blue-400 to-blue-200 bg-gradient-to-bl rounded-xl'>
