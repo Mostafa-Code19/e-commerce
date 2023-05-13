@@ -122,3 +122,14 @@ h6 {
   font-family: IRANYekanRegular, sans-serif;
   color: gray;
 }
+
+.toman {
+  display: flex;
+
+  &:before {
+    content: 'تومان';
+    display: block;
+    margin-right: .2rem;
+    font-size: .7rem;
+  }
+}
