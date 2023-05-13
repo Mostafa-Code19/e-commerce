@@ -34,18 +34,15 @@ const getProduct = async (slug: string) => {
         })
 }
 
-type ProductProps = {
-    id: string;
-    thumbnail: string;
-    title: string;
-    price: number
-}
+// type ProductProps = {
+//     id: string;
+//     thumbnail: string;
+//     title: string;
+//     price: number
+// }
 
 const Product = async ({ params }: {params: {slug: string}}) => {
     const product = await getProduct(params.slug)
-
-    console.log('product')
-    console.log(product)
 
     return (
         <Options product={product}>

@@ -18,10 +18,6 @@ const Options = ({
     const { state, dispatch }: any = useContext(CartContext as any)
     const { cart } = state
 
-    useEffect(() => {
-        console.log(cart)
-    }, [cart])
-
     return (
         <div className='mx-8 space-y-6'>
             {children}
@@ -80,8 +76,11 @@ const Options = ({
                         type: "ADD_TO_CART",
                         payload: {
                             id: product.id,
+                            title: product.title,
                             color: selectedColor,
-                            size: selectedSize
+                            size: selectedSize,
+                            price: product.price,
+                            thumbnail: product.thumbnail
                         }
                     })
                 }} style={{ fontSize: '1.2rem' }} className='from-blue-400 to-blue-200 bg-gradient-to-bl w-full ml-5 rounded-xl font-semibold '>
