@@ -22,7 +22,7 @@ model Product {
 
 model Image {
   id  String @id @default(cuid())
-  picture String
+  src String @default("/product/")
   alt String
   product Product @relation(fields: [product_id], references: [id])
   product_id String

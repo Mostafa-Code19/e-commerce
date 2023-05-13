@@ -124,12 +124,27 @@ h6 {
 }
 
 .toman {
-  display: flex;
+  &_card {
+    display: flex;
+  
+    &:before {
+      content: 'تومان';
+      display: block;
+      margin-right: .2rem;
+      font-size: .7rem;
+      font-family: IRANYekanRegular, sans-serif;
+    }
+  };
 
-  &:before {
-    content: 'تومان';
-    display: block;
-    margin-right: .2rem;
-    font-size: .7rem;
+  &_product {
+    display: flex;
+  
+    &:before {
+      content: 'تومان';
+      display: block;
+      margin-right: .2rem;
+      font-size: 1rem;
+      font-family: IRANYekanRegular, sans-serif;
+    }
   }
 }

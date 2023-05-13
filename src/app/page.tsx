@@ -100,7 +100,7 @@ export default async function Home()  {
                                             <div className='mx-3 flex justify-between mb-1 items-center'>
                                                 <div className=''>
                                                     <h3>{product.title}</h3>
-                                                    <span className='font-semibold text-black text-sm toman'>{product.price.toLocaleString()}</span>
+                                                    <span className='font-semibold text-black text-sm toman_card'>{product.price.toLocaleString()}</span>
                                                 </div>
                                                 <button className='bg-slate-700 p-1 rounded-full'>
                                                     <svg className="h-5 w-5 text-white"  width="24" height="24" viewBox="0 0 24 24" strokeWidth="2" stroke="currentColor" fill="none" strokeLinecap="round" strokeLinejoin="round">  <path stroke="none" d="M0 0h24v24H0z"/>  <line x1="12" y1="5" x2="12" y2="19" />  <line x1="5" y1="12" x2="19" y2="12" /></svg>

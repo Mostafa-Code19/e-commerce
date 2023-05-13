@@ -1,18 +1,18 @@
 import BackButton from '@/components/back-button';
 import Images from './images'
 
-const Detail = () => {
+const Detail = async ({ product }: any) => {
     return (
         <>
             <BackButton />
 
-            <Images />
+            <Images thumbnail={product.thumbnail} sources={product.gallery} />
 
-            <h1 style={{ fontSize: '1.75rem' }}>Shoe Title</h1>
+            <h1 style={{ fontSize: '1.75rem' }}>{product.title}</h1>
 
             <div>
                 <h2>Description</h2>
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Obcaecati, fugit accusamus officia magnam ab, repellat corrupti, ducimus saepe provident natus officiis fugiat pariatur sunt. Ratione animi explicabo odit molestias mollitia?</p>
+                <p>{product.description}</p>
             </div>
         </>
     );

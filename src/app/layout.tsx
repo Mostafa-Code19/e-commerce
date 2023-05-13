@@ -1,6 +1,6 @@
 import './globals.scss'
 import Navbar from '../components/navbar'
-import { CartContextProvider } from '@/context/cart'
+import { CartContextProvider } from '@/context/provider/cart'
 
 export const metadata = {
   title: 'Next App',

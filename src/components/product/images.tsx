@@ -9,18 +9,9 @@ type ImageType = {
     alt: string;
 }
 
-const Images = () => {
+const Images = ({ thumbnail, sources }: any) => {
     const [lightboxOpen, setLightboxOpen] = useState(false)
-    const [galleryList, setGalleryList] = useState<ImageType[]>([
-        {
-            src: '/product/4.png',
-            alt: 'image 4'
-        },
-        {
-            src: '/product/3.png',
-            alt: 'image 3'
-        },
-    ])
+    // const [galleryList, setGalleryList] = useState<ImageType[]>(sources)
     const [currentImageIndex, setCurrentIndex] = useState(0);
 
     const gotoPrevious = () =>
@@ -33,7 +24,7 @@ const Images = () => {
     // useEffect(() => {
     //     setGalleryList(project.gallery.map(image => {
     //         return {
-    //             src: image.picture,
+    //             src: image.src,
     //             alt: image.alt
     //         }
     //     }))
@@ -47,44 +38,38 @@ const Images = () => {
             }}>
                 <Image
                     className='object-cover justify-center m-auto p-2'
-                    src="/product/4.png"
+                    src={`/product/${thumbnail}`}
                     alt="nike shoe"
                     width='500'
                     height='500'
                 />
             </div>
             <div className='flex space-x-3 justify-center'>
-                <div onClick={() => {
-                    setLightboxOpen(true)
-                    setCurrentIndex(0)
-                }}>
-                    <Image
-                        className='object-cover justify-center m-auto p-2'
-                        src="/product/4.png"
-                        alt="nike shoe"
-                        width='100'
-                        height='100'
-                    />
-                </div>
-                <div onClick={() => {
-                    setLightboxOpen(true)
-                    setCurrentIndex(1)
-                }}>
-                    <Image
-                        className='object-cover justify-center m-auto p-2'
-                        src="/product/3.png"
-                        alt="nike shoe"
-                        width='100'
-                        height='100'
-                    />
-                </div>
+                {
+                    sources.map((data: any, index: number) => {
+                        return (
+                            <div key={index} onClick={() => {
+                                setLightboxOpen(true)
+                                setCurrentIndex(index)
+                            }}>
+                                <Image
+                                    className='object-cover justify-center m-auto p-2'
+                                    src={`${data.src}`}
+                                    alt={data.alt}
+                                    width='100'
+                                    height='100'
+                                />
+                            </div>
+                        )
+                    })
+                }
             </div>
 
             <Lightbox
                 isOpen={lightboxOpen}
                 onPrev={gotoPrevious}
                 onNext={gotoNext}
-                images={galleryList}
+                images={sources}
                 currentIndex={currentImageIndex}
                 /* Add your own UI */
                 // renderHeader={() => (<CustomHeader />)}

@@ -1,15 +1,4 @@
-'use client'
-
-import { useReducer, createContext } from "react";
-
-// initial state
-const initialState = {
-  cart: {},
-};
-
-const CartContext = createContext({});
-
-function cartReducer(state, action) {
+const cartReducer = (state: any, action: any) => {
   switch (action.type) {
     case "ADD_TO_CART":
       const item = state.cart[action.payload.id];
@@ -38,14 +27,4 @@ function cartReducer(state, action) {
   }
 }
 
-// context provider
-const CartContextProvider = ({ children }) => {
-  const [state, dispatch] = useReducer(cartReducer, initialState);
-  return (
-    <CartContext.Provider value={{ state, dispatch }}>
-      {children}
-    </CartContext.Provider>
-  );
-}
-
-export { CartContext, CartContextProvider }; 
+export default cartReducer
