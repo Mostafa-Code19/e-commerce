@@ -3,7 +3,7 @@ import Link from 'next/link'
 
 export default function Home() {
   return (
-    <div className='mx-8 my-16 md:w-4/5 md:m-auto'>
+    <div className='mx-8 my-16'>
         <Link href={`#`}>
             <div>
                 <div className='flex relative justify-between mb-16 from-blue-400 to-blue-700 w-full bg-gradient-to-r rounded-3xl'>

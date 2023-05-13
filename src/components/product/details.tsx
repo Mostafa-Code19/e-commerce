@@ -1,4 +1,4 @@
-import BackButton from '@/app/components/back-button';
+import BackButton from '@/components/back-button';
 import Images from './images'
 
 const Detail = () => {
@@ -8,7 +8,7 @@ const Detail = () => {
 
             <Images />
 
-            <h1 style={{fontSize: '1.75rem'}}>Shoe Title</h1>
+            <h1 style={{ fontSize: '1.75rem' }}>Shoe Title</h1>
 
             <div>
                 <h2>Description</h2>
@@ -17,5 +17,5 @@ const Detail = () => {
         </>
     );
 }
- 
+
 export default Detail;

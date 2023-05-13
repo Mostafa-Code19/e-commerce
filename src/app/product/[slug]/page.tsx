@@ -1,6 +1,6 @@
 
-import Detail from './components/details'
-import Options from './components/options'
+import Detail from '../../../components/product/details'
+import Options from '../../../components/product/options'
 
 const Product = () => {
     return (

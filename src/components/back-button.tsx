@@ -7,7 +7,7 @@ const BackButton = () => {
 
     return (
         <button onClick={() => router.back()}>
-            <svg className="h-8 w-8 mt-6 text-black"  fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <svg className="h-8 w-8 my-6 text-black"  fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 19l-7-7 7-7"/>
             </svg>
         </button>

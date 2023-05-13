@@ -1,8 +1,9 @@
 'use client'
 
-import { useState } from "react";
+import { useState, useContext, useEffect } from "react";
 
-import styles  from '../Product.module.scss'
+import styles  from './Product.module.scss'
+import { CartContext } from "@/context/cart";
 
 const Options = ({
     children
@@ -11,6 +12,13 @@ const Options = ({
   }) => {
     const [selectedColor, selectColor] = useState<string | null>(null)
     const [selectedSize, selectSize] = useState<string | null>(null)
+
+    const { state, dispatch } = useContext(CartContext as any)
+    const { cart } = state
+
+    useEffect(() => {
+        console.log(cart)
+    }, [cart])
 
     return (
         <div className='mx-8 space-y-6'>
@@ -64,8 +72,16 @@ const Options = ({
                     $400
                 </div>
 
-                <button onClick={() => console.log(`color: ${selectedColor} size: ${selectedSize}`)} style={{fontSize: '1.2rem'}} className='from-blue-400 to-blue-200 bg-gradient-to-bl w-full ml-5 rounded-xl font-semibold '>
-                    Buy Now
+                <button onClick={() => {
+                    dispatch({
+                        type: "ADD_TO_CART",
+                        payload: {
+                            id: 'id'
+                            // detail
+                        }
+                    })
+                }} style={{fontSize: '1.2rem'}} className='from-blue-400 to-blue-200 bg-gradient-to-bl w-full ml-5 rounded-xl font-semibold '>
+                    Add
                 </button>
             </div>
         </div>
