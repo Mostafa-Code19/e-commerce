@@ -20,8 +20,8 @@ const Options = ({
 
     const reducerPayload = {
         title: product.title,
-        color: product.color,
-        size: product.size
+        color: selectedColor,
+        size: selectedSize
     }
 
     return (

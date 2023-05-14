@@ -1,7 +1,7 @@
 'use client'
 
 import Image from 'next/image'
-import { useState, useContext, useEffect } from "react";
+import { useContext } from "react";
 
 import BackButton from "../../components/back-button";
 import { CartContext } from "@/context/provider/cart";
