@@ -11,7 +11,6 @@ const Cart = () => {
     const { cart } = state
 
     return (
-
         <div className='mx-8 space-y-6'>
             <div className='flex items-center justify-between'>
                 <BackButton />
@@ -24,20 +23,33 @@ const Cart = () => {
                     Object.keys(cart).length ?
                     Object.keys(cart).map((key) => {
                         const item = cart[key]
+                        const reducerPayload = {
+                            title: item.title,
+                            color: item.color,
+                            size: item.size
+                        }
 
                         return (
                             <div key={item.id} className='flex justify-around bg-white rounded-xl py-8 space-y-3'>
                                 <div className='space-y-3'>
                                     <h2>{item.title}</h2>
                                     <h2 className='toman_card'>{(item.price * item.quantity).toLocaleString()}</h2>
+                                    <div className='flex space-x-5 items-center'>
+                                        <div className='flex items-center space-x-1'>
+                                            <span style={{ fontSize: '.8rem', color: 'black'}}>رنگ :</span>
+                                            <span style={{ background: item.color }} className='block w-6 h-6 rounded-full'></span>
+                                        </div>
+                                        <div className='flex items-center space-x-1'>
+                                            <span style={{ fontSize: '.8rem', color: 'black'}}>size :</span>
+                                            <span style={{ fontSize: '1rem', color: 'black'}}>{item.size}</span>
+                                        </div>
+                                    </div>
                                     <div className='flex items-center space-x-2'>
                                         <button
                                             onClick={() => {
                                                 dispatch({
                                                     type: "REMOVE_FROM_CART",
-                                                    payload: {
-                                                        title: item.title,
-                                                    }
+                                                    payload: reducerPayload
                                                 })
                                             }}
                                         >
@@ -48,9 +60,7 @@ const Cart = () => {
                                             onClick={() => {
                                                 dispatch({
                                                     type: "ADD_TO_CART",
-                                                    payload: {
-                                                        title: item.title,
-                                                    }
+                                                    payload: reducerPayload
                                                 })
                                             }}
                                         >

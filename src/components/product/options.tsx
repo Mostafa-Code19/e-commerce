@@ -12,11 +12,17 @@ const Options = ({
     children: React.ReactNode,
     product: any
 }) => {
-    const [selectedColor, selectColor] = useState<string | null>(null)
-    const [selectedSize, selectSize] = useState<string | null>(null)
+    const [selectedColor, selectColor] = useState<string>(product.colors[0].color)
+    const [selectedSize, selectSize] = useState<string>(product.sizes[0].size)
 
     const { state, dispatch }: any = useContext(CartContext as any)
     const { cart } = state
+
+    const reducerPayload = {
+        title: product.title,
+        color: product.color,
+        size: product.size
+    }
 
     return (
         <div className='mx-8 space-y-6'>
@@ -71,21 +77,52 @@ const Options = ({
                     {product.price.toLocaleString()}
                 </div>
 
-                <button onClick={() => {
-                    dispatch({
-                        type: "ADD_TO_CART",
-                        payload: {
-                            id: product.id,
-                            title: product.title,
-                            color: selectedColor,
-                            size: selectedSize,
-                            price: product.price,
-                            thumbnail: product.thumbnail
-                        }
-                    })
-                }} style={{ fontSize: '1.2rem' }} className='from-blue-400 to-blue-200 bg-gradient-to-bl w-full ml-5 rounded-xl font-semibold '>
-                    Add
-                </button>
+                <div  style={{ fontSize: '1.2rem' }} className='justify-center flex from-blue-400 to-blue-200 bg-gradient-to-bl w-full ml-5 rounded-xl font-semibold '>
+                    {
+                        Object.keys(cart).length &&
+                        cart[`${product.title}_${selectedColor}_${selectedSize}`]
+                        ?
+                        <div className='flex items-center justify-around w-full'>
+                            <button
+                                onClick={() => {
+                                    dispatch({
+                                        type: "REMOVE_FROM_CART",
+                                        payload: reducerPayload
+                                    })
+                                }}
+                            >
+                                <svg className="h-9 w-9 text-black" width="24" height="24" viewBox="0 0 24 24" strokeWidth="2" stroke="currentColor" fill="none" strokeLinecap="round" strokeLinejoin="round">  <path stroke="none" d="M0 0h24v24H0z" />  <circle cx="12" cy="12" r="9" />  <line x1="9" y1="12" x2="15" y2="12" /></svg>
+                            </button>
+                            <span className='text-black font-semibold text-base'>{cart[`${product.title}_${selectedColor}_${selectedSize}`].quantity}</span>
+                            <button
+                                onClick={() => {
+                                    dispatch({
+                                        type: "ADD_TO_CART",
+                                        payload: reducerPayload
+                                    })
+                                }}
+                            >
+                                <svg className="h-9 w-9 text-black" width="24" height="24" viewBox="0 0 24 24" strokeWidth="2" stroke="currentColor" fill="none" strokeLinecap="round" strokeLinejoin="round">  <path stroke="none" d="M0 0h24v24H0z" />  <circle cx="12" cy="12" r="9" />  <line x1="9" y1="12" x2="15" y2="12" />  <line x1="12" y1="9" x2="12" y2="15" /></svg>
+                            </button>
+                        </div>
+                        :
+                        <button onClick={() => {
+                            dispatch({
+                                type: "ADD_TO_CART",
+                                payload: {
+                                    id: product.id,
+                                    title: product.title,
+                                    color: selectedColor,
+                                    size: selectedSize,
+                                    price: product.price,
+                                    thumbnail: product.thumbnail
+                                }
+                            })
+                        }}>
+                            Add
+                        </button>
+                    }
+                </div>
             </div>
         </div>
     );
