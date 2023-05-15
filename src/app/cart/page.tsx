@@ -33,11 +33,31 @@ const Cart = () => {
                             <div key={item.id} className='flex justify-around bg-white rounded-xl py-8 space-y-3'>
                                 <div className='space-y-3'>
                                     <h2>{item.title}</h2>
-                                    <h2 className='toman_card'>{(item.price * item.quantity).toLocaleString()}</h2>
+                                    <div className='-space-y-1'>
+                                        {
+                                            item.discount ?
+                                            <div className='justify-end flex space-x-1'>
+                                                <span className='text-red-400'>تخفیف</span>
+                                                <span className='text-red-400 text-sm'>
+                                                    {(((item.price * item.discount) / 100) * item.quantity).toLocaleString()}
+                                                </span>
+                                            </div>
+                                            :
+                                            ''
+                                        }
+                                        <span style={{ fontSize: '1.7rem' }} className='text-black font-bold toman_product'>
+                                            {
+                                                item.discount ?
+                                                ((item.price - ((item.price * item.discount) / 100)) * item.quantity).toLocaleString()
+                                                :
+                                                (item.price * item.quantity).toLocaleString()
+                                            }
+                                        </span>
+                                    </div>
                                     <div className='flex space-x-5 items-center'>
                                         <div className='flex items-center space-x-1'>
                                             <span style={{ fontSize: '.8rem', color: 'black'}}>رنگ :</span>
-                                            <span style={{ background: item.color }} className='block w-6 h-6 rounded-full'></span>
+                                            <span style={{ background: item.color }} className='block w-6 h-6 rounded-full shadow-[0_0_5px_#a4a4a4]'></span>
                                         </div>
                                         <div className='flex items-center space-x-1'>
                                             <span style={{ fontSize: '.8rem', color: 'black'}}>size :</span>

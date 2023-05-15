@@ -14,7 +14,8 @@ type ProductProps = {
     id: string;
     thumbnail: string;
     title: string;
-    price: number
+    price: number;
+    discount: number;
 }
 
 export default async function Home()  {
@@ -97,14 +98,35 @@ export default async function Home()  {
                                                 width='200'
                                                 height='200'
                                             />
-                                            <div className='mx-3 flex justify-between mb-1 items-center'>
-                                                <div className=''>
-                                                    <h3>{product.title}</h3>
-                                                    <span className='font-semibold text-black text-sm toman_card'>{product.price.toLocaleString()}</span>
+                                            <div className='mx-3 mb-1'>
+                                                <h2>{product.title}</h2>
+                                                
+                                                <div className='flex justify-between items-center'>
+                                                    <span className='font-semibold text-black text-sm toman_card'>
+                                                        {
+                                                            product.discount ?
+                                                            (product.price - ((product.price * product.discount) / 100)).toLocaleString()
+                                                            :
+                                                            product.price.toLocaleString()
+                                                        }
+                                                    </span>
+                                                    {
+                                                        product.discount ?
+                                                        <span style={{paddingTop: '.1rem'}} className='bg-red-500 rounded-2xl px-1 text-white'>
+                                                            {product.discount}%
+                                                        </span>
+                                                        :
+                                                        ''
+                                                    }
                                                 </div>
-                                                <button className='bg-slate-700 p-1 rounded-full'>
-                                                    <svg className="h-5 w-5 text-white"  width="24" height="24" viewBox="0 0 24 24" strokeWidth="2" stroke="currentColor" fill="none" strokeLinecap="round" strokeLinejoin="round">  <path stroke="none" d="M0 0h24v24H0z"/>  <line x1="12" y1="5" x2="12" y2="19" />  <line x1="5" y1="12" x2="19" y2="12" /></svg>
-                                                </button>
+                                                {
+                                                    product.discount ?
+                                                    <span className='text-slate-400 line-through ml-8'>
+                                                        {product.price.toLocaleString()}
+                                                    </span>
+                                                    :
+                                                    <span className='mb-6 block'></span>
+                                                }
                                             </div>
                                         </div>
                                     </div>

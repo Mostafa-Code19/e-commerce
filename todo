@@ -15,7 +15,7 @@ header:
     - https://dribbble.com/shots/17237296-Shoe-Store-Ecommerce-Landing-Page @done
 
 cart:
-    - https://dribbble.com/shots/16964801-Shoes-App-Design
+    - https://dribbble.com/shots/16964801-Shoes-App-Design @done
 
 filter:
     - https://dribbble.com/shots/15844591-Nike-Shoe-Website
@@ -32,3 +32,11 @@ footer:
 
 
 - https://dribbble.com/shots/6994649-Empty-State-Illustration
+ 
+- discount @done
+- coupon code
+- search page
+- category
+- after cart
+- profile
+- quantity in product model and affect product in frontend

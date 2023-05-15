@@ -16,6 +16,7 @@ model Product {
   colors Color[]
   sizes Size[]
   price Int
+  discount Int @default(0)
   created_at DateTime @default(now())
   updated_at DateTime @updatedAt
 }
@@ -32,15 +33,13 @@ model Image {
 model Color {
   id String @id @default(cuid())
   color String
-  product Product @relation(fields: [product_id], references: [id])
-  product_id String
+  product Product[]
   created_at DateTime @default(now())
 }
 
 model Size {
   id String @id @default(cuid())
   size Int
-  product Product @relation(fields: [product_id], references: [id])
-  product_id String
+  product Product[]
   created_at DateTime @default(now())
 }
