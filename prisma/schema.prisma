@@ -7,39 +7,81 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Product {
-  id String @id @default(cuid())
-  title String
-  thumbnail String
-  gallery Image[]
-  description String?
-  colors Color[]
-  sizes Size[]
-  price Int
-  discount Int @default(0)
+model User {
+  id             String   @id @default(cuid())
+  name           String
+  email          String   @unique
+  phone_number   String   @unique
+  phone_verified Boolean  @default(false)
+  address        String?
+  blocked        Boolean  @default(false)
+  blocked_for    String?
+  created_at     DateTime @default(now())
+  updated_at     DateTime @updatedAt
+  last_login     DateTime @default(now())
+  orders Order[]
+}
+
+model Order {
+  id     Int @id @default(autoincrement())
+  status Status @default(PENDING)
   created_at DateTime @default(now())
-  updated_at DateTime @updatedAt
+  client User @relation(fields: [client_id], references: [id])
+  client_id String
+  price Int
+  discout Int
+  payment Payment
+  shipping_cost Int
+  Tracking_code String?
+  items Product[]
+}
+
+enum Status {
+  CANCELED
+  POSTED
+  PREPARING
+  PENDING
+}
+
+enum Payment {
+  DEPOSIT
+  CASH
+}
+
+model Product {
+  id          String   @id @default(cuid())
+  title       String
+  thumbnail   String
+  gallery     Image[]
+  description String?
+  colors      Color[]
+  sizes       Size[]
+  price       Int
+  discount    Int      @default(0)
+  created_at  DateTime @default(now())
+  updated_at  DateTime @updatedAt
+  orders Order[]
 }
 
 model Image {
-  id  String @id @default(cuid())
-  src String @default("/product/")
-  alt String
-  product Product @relation(fields: [product_id], references: [id])
+  id         String   @id @default(cuid())
+  src        String   @default("/product/")
+  alt        String
+  product    Product  @relation(fields: [product_id], references: [id])
   product_id String
   created_at DateTime @default(now())
 }
 
 model Color {
-  id String @id @default(cuid())
-  color String
-  product Product[]
-  created_at DateTime @default(now())
+  id         String    @id @default(cuid())
+  color      String
+  product    Product[]
+  created_at DateTime  @default(now())
 }
 
 model Size {
-  id String @id @default(cuid())
-  size Int
-  product Product[]
-  created_at DateTime @default(now())
+  id         String    @id @default(cuid())
+  size       Int
+  product    Product[]
+  created_at DateTime  @default(now())
 }
