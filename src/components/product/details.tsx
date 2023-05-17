@@ -1,4 +1,4 @@
-import BackButton from '@/components/back-button';
+import BackButton from '@/components/back-btn';
 import Images from './images'
 
 const Detail = async ({ product }: any) => {

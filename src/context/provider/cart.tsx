@@ -6,7 +6,7 @@ import cartReducer from '../reducer/cart';
 
 const CartContext = createContext({});
 
-const cartLocal = JSON.parse(localStorage.getItem('cart'))
+const cartLocal = JSON.parse(localStorage.getItem('cart') || '{}')
 
 const initialState = {
     cart: cartLocal || {},

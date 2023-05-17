@@ -18,7 +18,9 @@ type ProductProps = {
     discount: number;
 }
 
-export default async function Home()  {
+export default async function Home(props: any)  {
+    console.log('props')
+    console.log(props)
     const products = await getProducts();
 
     return (
