@@ -35,22 +35,24 @@ model Session {
 }
 
 model User {
-  id             String   @id @default(cuid())
-  name           String
-  email          String   @unique
-  emailVerified  DateTime?
-  phone_number   String   @unique
-  phone_verified Boolean  @default(false)
-  image          String?
-  address        String?
-  blocked        Boolean  @default(false)
-  blocked_for    String?
-  created_at     DateTime @default(now())
-  updated_at     DateTime @updatedAt
-  last_login     DateTime @default(now())
-  orders         Order[]
-  accounts       Account[]
-  sessions       Session[]
+  id              String   @id @default(cuid())
+  name            String?
+  email           String   @unique
+  email_verified  DateTime?
+  phone_number    String?
+  mobile_number   String?  @unique
+  mobile_verified Boolean  @default(false)
+  melli_code      String?  @unique
+  image           String?
+  address         String?
+  blocked         Boolean  @default(false)
+  blocked_for     String?
+  created_at      DateTime @default(now())
+  updated_at      DateTime @updatedAt
+  last_login      DateTime @default(now())
+  orders          Order[]
+  accounts        Account[]
+  sessions        Session[]
 }
 
 model VerificationToken {
