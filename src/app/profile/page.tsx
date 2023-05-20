@@ -19,7 +19,7 @@ const Profile = async () => {
 
                     <div className='text-center'>
                         <h1 className='font-semibold'>{user.name || user.email}</h1>
-                        <h2 className='text-zinc-400 text-base'>{user.phone_number}</h2>
+                        <h2 className='text-zinc-400 text-base'>{user.mobile_number || user.phone_number }</h2>
                     </div>
 
                     <div className='px-4 py-10 space-y-8 bg-zinc-100 rounded-t-2xl'>
@@ -76,6 +76,8 @@ const Profile = async () => {
                             </Link>
                         </div>
                     </div>
+                    
+                    <LogoutButton />
                 </>
                 :
                 <>

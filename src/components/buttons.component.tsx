@@ -12,8 +12,8 @@ export const LoginButton = () => {
 
 export const LogoutButton = () => {
   return (
-    <button style={{ marginRight: 10 }} onClick={() => signOut()}>
-      Sign Out
+    <button className='border border-red-700 text-red-700 w-full py-2 yekan1 rounded-xl' onClick={() => signOut()}>
+      خروج از حساب
     </button>
   );
 }
