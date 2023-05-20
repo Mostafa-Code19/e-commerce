@@ -3,8 +3,9 @@
 import Image from 'next/image'
 import { useContext, useState, useEffect } from "react";
 
-import BackButton from "../../components/back-btn";
+import BackButton from "../../../components/back-btn";
 import { CartContext } from "@/context/provider/cart";
+import Link from 'next/link';
 
 const Cart = () => {
     const { state, dispatch }: any = useContext(CartContext as any)
@@ -151,9 +152,11 @@ const Cart = () => {
                                     </span>
                                 </div>
 
-                                <button className='bg-red-500 text-white w-full py-3 rounded-xl yekan1'>
-                                    ثبت سفارش
-                                </button>
+                                <Link href='/checkout/payment' className='block'>
+                                    <button className='bg-blue-500 text-white w-full py-3 rounded-xl yekan1'>
+                                        ثبت سفارش
+                                    </button>
+                                </Link>
                             </div>
 
                         </div>
