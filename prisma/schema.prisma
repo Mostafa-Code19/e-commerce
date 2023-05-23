@@ -126,3 +126,18 @@ model Size {
   product    Product[]
   created_at DateTime  @default(now())
 }
+
+model Coupon {
+  id String @id @default(cuid())
+  code String @unique
+  type CouponType @default(PERCENTAGE)
+  value Int
+  quantity Int @default(1)
+  created_at DateTime @default(now())
+  expires_at DateTime?
+}
+
+enum CouponType {
+  PERCENTAGE
+  PRICE
+}

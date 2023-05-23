@@ -1,16 +1,27 @@
 'use client'
 
-import { useState, useContext, useEffect } from 'react'
+import { useState, useContext, useEffect, useRef } from 'react'
 import Image from 'next/image'
 
 import BackButton from "@/components/back-btn";
 import { CartContext } from "@/context/provider/cart";
+import axios from 'axios';
+
+type Discount = {
+    type: string
+    value: number
+} | null
 
 const Payment = () => {
     const [method, setMethod] = useState<string>('internet')
-    const { state, dispatch }: any = useContext(CartContext as any)
+    const { state }: any = useContext(CartContext as any)
     const { cart } = state
     const [paymentPrice, setPaymentPrice] = useState(0)
+    const [discount, setDiscount] = useState<Discount>(null)
+    const [discountPrice, setDiscountPrice] = useState<number>(null)
+    const [finalPaymentPrice, setFinalPaymentPrice] = useState(0)
+
+    const couponRef = useRef<HTMLInputElement>(null)
 
     useEffect(() => {
         setPaymentPrice(0)
@@ -21,8 +32,33 @@ const Payment = () => {
         })
     }, [cart])
 
+    useEffect(() => {
+        let discountPrice = 0
+
+        if (discount) {
+            if (discount.type == 'PERCENTAGE') { discountPrice = ((discount.value * paymentPrice) / 100) }
+            else if (discount.type == 'PRICE') { discountPrice = discount.value }
+            else return
+        }
+
+        discountPrice = Math.round(discountPrice / 1000) *  1000
+        setDiscountPrice(discountPrice)
+        setFinalPaymentPrice(Math.round((paymentPrice - discountPrice) / 1000) * 1000)
+
+    }, [paymentPrice, discount])
+
     const changeMethod = (event: React.ChangeEvent<HTMLInputElement>) => {
         setMethod((event.target as HTMLInputElement).value);
+    }
+
+    const couponCheck = async () => {
+        if (couponRef.current !== null) {
+            const couponCode = couponRef.current.value
+
+            await axios.get(`/api/coupon?c=${couponCode}`,)
+                .then(res => setDiscount(res.data))
+                .catch(err => console.log('err couponCheck'))
+        }
     }
 
     return (
@@ -60,13 +96,22 @@ const Payment = () => {
                     </div>
                 </form>
             </div>
-
-            <div className='bg-white rounded-xl py-8 px-6 flex justify-between items-center'>
-                <div className='border rounded-lg px-4 py-2 space-x-4'>
-                    <button><span>ثبت</span></button>
-                    <input type="text" className='text-right text-sm' placeholder='کد تخفیف' />
+            
+            <div className='bg-white rounded-xl py-8 px-6'>
+                <div className='flex justify-between items-center'>
+                    <div className='border rounded-lg px-4 py-2 space-x-4'>
+                        <button onClick={couponCheck}><span>ثبت</span></button>
+                        <input ref={couponRef} type="text" className='text-right text-sm' placeholder='کد تخفیف' />
+                    </div>
+                    <h3>کد تخفیف</h3>
                 </div>
-                <h3>کد تخفیف</h3>
+                
+                {
+                    discount &&
+                    <div className='text-center mt-5'>
+                            <span className='text-green-700'>کد تخفیف با موفقیت اعمال شد: {discountPrice.toLocaleString()} تومان</span>
+                    </div>
+                }
             </div>
 
             <div className='bg-white rounded-xl py-8 px-6 space-y-6 text-right'>
@@ -106,7 +151,7 @@ const Payment = () => {
 
                 <div className='flex justify-end space-x-3'>
                     <span className='toman_card'>
-                        {paymentPrice.toLocaleString()}
+                        { finalPaymentPrice.toLocaleString() }
                     </span>
                     <span>
                         :جمع سبد خرید
