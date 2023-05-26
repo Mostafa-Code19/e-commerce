@@ -7,6 +7,9 @@ const User = async () => {
     return await prisma.user.findMany({
         where: {
             email: session?.email
+        },
+        include: {
+            orders: true
         }
     })
         .then((res: any) => {

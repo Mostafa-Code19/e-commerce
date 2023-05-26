@@ -7,11 +7,11 @@ export async function POST(request: Request) {
 
     const payload = await request.json()
 
-    let cartItemsIdObject:{}[] = []
+    let cartItemsIdObject: {}[] = []
 
     Object.keys(payload.cart).map((key) => {
         const item = payload.cart[key]
-        cartItemsIdObject.push({id: item.id})
+        cartItemsIdObject.push({ id: item.id })
     })
 
     const user = await prisma.user.findUnique({
@@ -27,10 +27,9 @@ export async function POST(request: Request) {
     const order = await prisma.order.create({
         data: {
             price: payload.price,
-            discout: payload.discout || 0,
+            discount: payload.discount || 0,
             payment: 'CASH',
             shipping_cost: 0,
-            tracking_code: 'NULL',
             client_id: user.id
         }
     })
@@ -46,6 +45,6 @@ export async function POST(request: Request) {
             }
         }
     })
-        
+
     return NextResponse.json(orderItems);
 }

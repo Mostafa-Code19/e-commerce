@@ -60,16 +60,12 @@ const Edit = () => {
         if (melliCode) payload.melli_code = melliCode
         if (address) payload.address = address
 
-        console.log(payload)
         await axios.patch('/api/user/update', payload)
-            .then(res => {
-                console.log('res')
-                console.log(res)
-            })
-            .catch(err => {
-                console.log('err')
-                console.log(err)
-            })
+            // .then(res => {
+            //     console.log('res')
+            //     console.log(res)
+            // })
+            .catch(err => console.log('err user/update'))
     }
 
     return (
