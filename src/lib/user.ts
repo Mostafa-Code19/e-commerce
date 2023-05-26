@@ -9,7 +9,20 @@ const User = async () => {
             email: session?.email
         },
         include: {
-            orders: true
+            orders: {
+                include: {
+                    items: {
+                        select: {
+                            quantity: true,
+                            color: {
+                                select: {
+                                    gallery: true
+                                }
+                            }
+                        }
+                    }
+                }
+            }
         }
     })
         .then((res: any) => {

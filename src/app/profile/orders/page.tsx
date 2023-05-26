@@ -1,5 +1,6 @@
 import BackButton from "@/components/back-btn";
 import User from "@/lib/user";
+import Image from 'next/image'
 
 const Orders = async () => {
     const user = await User()
@@ -105,7 +106,27 @@ const Orders = async () => {
                                 }
                             </div>
                             <hr />
-                            <div>items</div>
+                            <div className='flex space-x-3 justify-end'>
+                                {
+                                    order.items.map((item: any) => {
+                                        return (
+                                            <div key={item.id} className='relative w-fit'>
+                                                <Image
+                                                    className='object-cover justify-center m-auto p-2'
+                                                    src={item.color.gallery[0].src}
+                                                    alt={item.color.gallery[0].alt}
+                                                    width='100'
+                                                    height='100'
+                                                />
+
+                                                <span style={{ fontSize: '.6rem'}} className='absolute left-0 bottom-0 p-1 px-2 bg-slate-200 rounded-md text-black'>
+                                                    {item.quantity}
+                                                </span>
+                                            </div>
+                                        )
+                                    })
+                                }
+                            </div>
                         </div>
                     )
                 })
