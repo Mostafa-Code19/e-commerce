@@ -4,7 +4,30 @@ import Link from 'next/link'
 import prisma from '../../lib/prisma';
 
 async function getProducts() {
-    return await prisma.product.findMany()
+    return await prisma.product.findMany({
+        include: {
+            productLocation: {
+                include: {
+                    color: {
+                        select: {
+                            color: true,
+                            gallery: {
+                                select: {
+                                    src: true,
+                                    alt: true
+                                }
+                            }
+                        }
+                    },
+                    size: {
+                        select: {
+                            size: true
+                        }
+                    },
+                }
+            }
+        }
+    })
         .then((res: any) => {
             return JSON.parse(JSON.stringify(res))
         })
@@ -12,15 +35,24 @@ async function getProducts() {
 
 type ProductProps = {
     id: string;
-    thumbnail: string;
     title: string;
-    price: number;
-    discount: number;
+    productLocation: {
+        price: number;
+        discount: number;
+        color: {
+            color: string;
+            gallery: {
+                src: string
+                alt: string
+            }[]
+        }
+        size: {
+            size: number
+        }
+    }[]
 }
 
-export default async function Home(props: any)  {
-    console.log('props')
-    console.log(props)
+export default async function Home()  {
     const products = await getProducts();
 
     return (
@@ -95,7 +127,7 @@ export default async function Home(props: any)  {
                                         <div className='bg-blue-400 relative flex flex-col aspect-square from-blue-400 to-blue-200 bg-gradient-to-bl rounded-xl'>
                                             <Image
                                                 className='object-cover justify-center m-auto p-2'
-                                                src={`/product/${product.thumbnail}`}
+                                                src={`${product.productLocation[0].color.gallery[0].src}`}
                                                 alt={product.title}
                                                 width='200'
                                                 height='200'
@@ -106,25 +138,25 @@ export default async function Home(props: any)  {
                                                 <div className='flex justify-between items-center'>
                                                     <span className='font-semibold text-black text-sm toman_card'>
                                                         {
-                                                            product.discount ?
-                                                            (product.price - ((product.price * product.discount) / 100)).toLocaleString()
+                                                            product.productLocation[0].discount ?
+                                                            (product.productLocation[0].price - ((product.productLocation[0].price * product.productLocation[0].discount) / 100)).toLocaleString()
                                                             :
-                                                            product.price.toLocaleString()
+                                                            product.productLocation[0].price.toLocaleString()
                                                         }
                                                     </span>
                                                     {
-                                                        product.discount ?
+                                                        product.productLocation[0].discount ?
                                                         <span style={{paddingTop: '.1rem'}} className='bg-red-500 rounded-2xl px-1 text-white'>
-                                                            {product.discount}%
+                                                            {product.productLocation[0].discount}%
                                                         </span>
                                                         :
                                                         ''
                                                     }
                                                 </div>
                                                 {
-                                                    product.discount ?
+                                                    product.productLocation[0].discount ?
                                                     <span className='text-slate-400 line-through ml-8'>
-                                                        {product.price.toLocaleString()}
+                                                        {product.productLocation[0].price.toLocaleString()}
                                                     </span>
                                                     :
                                                     <span className='mb-6 block'></span>

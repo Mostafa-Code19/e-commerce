@@ -1,27 +1,75 @@
 'use client'
 
-import { useState, useContext } from "react";
+import { useState, useContext, useEffect } from "react";
 
 import styles from './Product.module.scss'
 import { CartContext } from "@/context/provider/cart";
 
 const Options = ({
     children,
-    product
+    productLocation
 }: {
     children: React.ReactNode,
-    product: any
+    productLocation: any
 }) => {
-    const [selectedColor, selectColor] = useState<string>(product.colors[0].color)
-    const [selectedSize, selectSize] = useState<string>(product.sizes[0].size)
+    const [selectedColor, selectColor] = useState<string>(productLocation[0].color.color)
+    const [productWithSelectedColor, setProductWithSelectedColor] = useState<any[]>([productLocation[0]])
+    const [selectedSize, selectSize] = useState<number>(productLocation[0].size.size)
+    const [productWithSelectedColorAndSize, selectProductWithSelectedColorAndSize] = useState(productLocation[0])
 
     const { state, dispatch }: any = useContext(CartContext as any)
     const { cart } = state
 
-    const reducerPayload = {
-        title: product.title,
-        color: selectedColor,
-        size: selectedSize
+    // useEffect(() => {
+    //     const products = productLocation.map((product: any) => {
+    //         if (selectedColor == product.color.color) return product
+    //         else return null
+    //     })
+    //     setProductWithSelectedColor(products)
+
+    // }, [selectedColor, productLocation])
+
+    useEffect(() => {
+        let productsBaseSize = null
+        let productBaseColor: any = []
+
+        productLocation.map((product: any) => {
+            if (selectedColor == product.color.color) {
+                productBaseColor.push(product)
+
+                if (selectedSize == product.size.size) {
+                     return productsBaseSize = product
+                }
+            }
+        })
+
+        setProductWithSelectedColor(productBaseColor)
+        selectProductWithSelectedColorAndSize(productsBaseSize)
+
+    }, [selectedSize, productLocation, selectedColor])
+
+    const colors = () => {
+        let list: any = []
+
+        return productLocation.map((data: any) => {
+            const color = data.color.color
+            
+            if (list.includes(color)) return
+            else {
+                list.push(color)
+                
+                return (
+                    <button key={color} onClick={() => {
+                        selectColor(color)
+                        selectSize(data.size.size)
+                    }}>
+                        <span style={{ borderColor: `${selectedColor == color ? color : 'transparent'}` }} className='border-2 p-1 flex rounded-full'>
+                            <span style={{ background: color }} className='m-auto block w-6 h-6 rounded-full shadow-[0_0_5px_#a4a4a4]'></span>
+                        </span>
+                    </button>
+                )
+            }
+        })
     }
 
     return (
@@ -31,17 +79,7 @@ const Options = ({
             <h2>Color</h2>
             <div className='flex space-x-2'>
                 {
-                    product.colors.map((data: any) => {
-                        const color = data.color
-
-                        return (
-                            <button key={color} onClick={() => selectColor(color)}>
-                                <span style={{ borderColor: `${selectedColor == color ? color : 'transparent'}` }} className='border-2 p-1 flex rounded-full'>
-                                    <span style={{ background: color }} className='m-auto block w-6 h-6 rounded-full shadow-[0_0_5px_#a4a4a4]'></span>
-                                </span>
-                            </button>
-                        )
-                    })
+                    colors()
                 }
             </div>
 
@@ -50,23 +88,26 @@ const Options = ({
 
                 <div className='flex space-x-2'>
                     {
-                        product.sizes.map((data: any) => {
-                            const size = data.size
-
-                            return (
-                                <button
-                                    key={size}
-                                    onClick={() => selectSize(size)}
-                                    style={{ color: 'green' }}
-                                    className='flex items-center'
-                                >
-                                    <span
-                                        className={selectedSize == size ? styles.selected_size : styles.size}
+                        productWithSelectedColor?.map((data: any) => {
+                            if (data) {
+                                const size = data.size.size
+    
+                                return (
+                                    <button
+                                        key={size}
+                                        onClick={() => selectSize(size)}
+                                        style={{ color: 'green' }}
+                                        className='flex items-center'
                                     >
-                                        {size}
-                                    </span>
-                                </button>
-                            )
+                                        <span
+                                            className={selectedSize == size ? styles.selected_size : styles.size}
+                                        >
+                                            {size}
+                                        </span>
+                                    </button>
+                                )
+                            }
+
                         })
                     }
                 </div>
@@ -75,15 +116,15 @@ const Options = ({
             <div className='flex justify-between'>
                 <div className=''>
                     {
-                        product.discount ?
+                        productWithSelectedColorAndSize.discount ?
                         <div className='flex justify-between'>
                             <span className='text-slate-400 line-through font-semibold text-sm'>
-                                {product.price.toLocaleString()}
+                                {productWithSelectedColorAndSize.price.toLocaleString()}
                             </span>
                             {
-                                product.discount ?
+                                productWithSelectedColorAndSize.discount ?
                                 <span className='bg-red-500 rounded-2xl px-2 pt-1 text-white'>
-                                    {product.discount}%
+                                    {productWithSelectedColorAndSize.discount}%
                                 </span>
                                 :
                                 ''
@@ -92,38 +133,38 @@ const Options = ({
                         :
                         ''
                     }
-                    <div style={{ fontSize: '2rem' }} className='font-bold toman_product'>
+                    <div style={{ fontSize: '2rem' }} className='font-bold toman_productLocation'>
                         {
-                            product.discount ?
-                            (product.price - ((product.price * product.discount) / 100)).toLocaleString()
+                            productWithSelectedColorAndSize.discount ?
+                            (productWithSelectedColorAndSize.price - ((productWithSelectedColorAndSize.price * productWithSelectedColorAndSize.discount) / 100)).toLocaleString()
                             :
-                            product.price.toLocaleString()
+                            productWithSelectedColorAndSize.price.toLocaleString()
                         }
                     </div>
                 </div>
 
                 <div  style={{ fontSize: '1.2rem' }} className='justify-center flex from-blue-400 to-blue-200 bg-gradient-to-bl w-full ml-5 rounded-xl font-semibold '>
                     {
-                        Object.keys(cart).length &&
-                        cart[`${product.title}_${selectedColor}_${selectedSize}`]
+                        Object.keys(cart)?.length &&
+                        cart[productWithSelectedColorAndSize.id]
                         ?
                         <div className='flex items-center justify-around w-full'>
                             <button
                                 onClick={() => {
                                     dispatch({
                                         type: "REMOVE_FROM_CART",
-                                        payload: reducerPayload
+                                        payload: {id: productWithSelectedColorAndSize.id}
                                     })
                                 }}
                             >
                                 <svg className="h-9 w-9 text-black" width="24" height="24" viewBox="0 0 24 24" strokeWidth="2" stroke="currentColor" fill="none" strokeLinecap="round" strokeLinejoin="round">  <path stroke="none" d="M0 0h24v24H0z" />  <circle cx="12" cy="12" r="9" />  <line x1="9" y1="12" x2="15" y2="12" /></svg>
                             </button>
-                            <span className='text-black font-semibold text-lg'>{cart[`${product.title}_${selectedColor}_${selectedSize}`].quantity}</span>
+                            <span className='text-black font-semibold text-lg'>{cart[productWithSelectedColorAndSize.id].quantity}</span>
                             <button
                                 onClick={() => {
                                     dispatch({
                                         type: "ADD_TO_CART",
-                                        payload: reducerPayload
+                                        payload: {id: productWithSelectedColorAndSize.id}
                                     })
                                 }}
                             >
@@ -135,13 +176,13 @@ const Options = ({
                             dispatch({
                                 type: "ADD_TO_CART",
                                 payload: {
-                                    id: product.id,
-                                    title: product.title,
-                                    color: selectedColor,
-                                    size: selectedSize,
-                                    price: product.price,
-                                    discount: product.discount,
-                                    thumbnail: product.thumbnail
+                                    id: productWithSelectedColorAndSize.id,
+                                    title: productWithSelectedColorAndSize.title,
+                                    color: productWithSelectedColorAndSize.color.color,
+                                    size: productWithSelectedColorAndSize.size.size,
+                                    price: productWithSelectedColorAndSize.price,
+                                    discount: productWithSelectedColorAndSize.discount,
+                                    thumbnail: productWithSelectedColorAndSize.color.gallery[0]
                                 }
                             })
                         }}>

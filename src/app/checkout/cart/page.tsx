@@ -11,7 +11,7 @@ const Cart = () => {
     const { state, dispatch }: any = useContext(CartContext as any)
     const { cart } = state
     const [price, setPrice] = useState(0)
-    const [discount, setDiscount] = useState(0)
+    const [discount, setDiscount] = useState<number>(0)
 
     useEffect(() => {
         setPrice(0), setDiscount(0) // reset price and discount
@@ -39,11 +39,6 @@ const Cart = () => {
 
                                 Object.keys(cart).map((key) => {
                                     const item = cart[key]
-                                    const reducerPayload = {
-                                        title: item.title,
-                                        color: item.color,
-                                        size: item.size
-                                    }
 
                                     return (
                                         <div key={item.id} className='flex justify-around bg-white rounded-xl py-8 space-y-3'>
@@ -82,7 +77,7 @@ const Cart = () => {
                                                         onClick={() => {
                                                             dispatch({
                                                                 type: "REMOVE_FROM_CART",
-                                                                payload: reducerPayload
+                                                                payload: {id: item.id}
                                                             })
                                                         }}
                                                     >
@@ -93,7 +88,7 @@ const Cart = () => {
                                                         onClick={() => {
                                                             dispatch({
                                                                 type: "ADD_TO_CART",
-                                                                payload: reducerPayload
+                                                                payload: {id: item.id}
                                                             })
                                                         }}
                                                     >
@@ -104,8 +99,8 @@ const Cart = () => {
                                             <div>
                                                 <Image
                                                     className='object-cover justify-center m-auto p-2'
-                                                    src={`/product/${item.thumbnail}`}
-                                                    alt={item.title}
+                                                    src={item.thumbnail.src}
+                                                    alt={item.thumbnail.alt}
                                                     width='200'
                                                     height='200'
                                                 />
@@ -140,17 +135,21 @@ const Cart = () => {
                                         جمع سبد خرید
                                     </span>
                                 </div>
-                                <div className='flex justify-between'>
-                                    <div className='flex space-x-1'>
-                                        <span className='text-red-500 font-semibold'>تومان</span>
+                                {
+                                    discount ?
+                                    <div className='flex justify-between'>
+                                        <div className='flex space-x-1'>
+                                            <span className='text-red-500 font-semibold'>تومان</span>
+                                            <span className='text-red-500 font-semibold'>
+                                                {(discount).toLocaleString()} (%{Math.round((discount * 100) / (price - discount))})
+                                            </span>
+                                        </div>
                                         <span className='text-red-500 font-semibold'>
-                                            {(discount).toLocaleString()} (%{Math.round((discount * 100) / (price - discount))})
+                                            سود شما از خرید
                                         </span>
                                     </div>
-                                    <span className='text-red-500 font-semibold'>
-                                        سود شما از خرید
-                                    </span>
-                                </div>
+                                    :''
+                                }
 
                                 <Link href='/checkout/payment' className='block'>
                                     <button className='bg-blue-500 text-white w-full py-3 rounded-xl yekan1'>

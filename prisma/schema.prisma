@@ -38,10 +38,10 @@ model User {
   id              String   @id @default(cuid())
   name            String?
   email           String   @unique
-  email_verified  DateTime?
+  emailVerified  DateTime?
   phone_number    String?
   mobile_number   String?  @unique
-  mobile_verified Boolean  @default(false)
+  mobileVerified Boolean  @default(false)
   melli_code      String?  @unique
   image           String?
   address         String?
@@ -64,7 +64,7 @@ model VerificationToken {
 }
 
 model Order {
-  id            Int @id @default(autoincrement())
+  id            String @id @default(cuid())
   status        Status @default(PENDING)
   created_at    DateTime @default(now())
   client        User @relation(fields: [client_id], references: [id])
@@ -73,8 +73,8 @@ model Order {
   discout       Int
   payment       Payment
   shipping_cost Int
-  Tracking_code String?
-  items         Product[]
+  tracking_code String?
+  items         ProductLocation[]
 }
 
 enum Status {
@@ -89,52 +89,64 @@ enum Payment {
   CASH
 }
 
-model Product {
-  id          String   @id @default(cuid())
-  title       String
-  thumbnail   String
-  gallery     Image[]
-  description String?
-  colors      Color[]
-  sizes       Size[]
+model ProductLocation {
+  id          String  @id @default(cuid())
+  product     Product @relation(fields: [productId], references: [id])
+  productId   String
+  color       Color   @relation(fields: [colorId], references: [id])
+  colorId     String  @unique
+  size        Size    @relation(fields: [sizeId], references: [id])
+  sizeId      String  @unique
+  quantity    Int     @default(1)
   price       Int
-  discount    Int      @default(0)
-  created_at  DateTime @default(now())
-  updated_at  DateTime @updatedAt
+  discount    Int     @default(0)
   orders      Order[]
 }
 
+model Product {
+  id              String   @id @default(cuid())
+  title           String
+  description     String?
+  productLocation ProductLocation[]
+  created_at      DateTime @default(now())
+  updated_at      DateTime @updatedAt
+}
+
 model Image {
-  id         String   @id @default(cuid())
-  src        String   @default("/product/")
-  alt        String
-  product    Product  @relation(fields: [product_id], references: [id])
-  product_id String
-  created_at DateTime @default(now())
+  id          String    @id @default(cuid())
+  src         String    @default("/product/")
+  alt         String
+  color       Color     @relation(fields: [colorId], references: [id])
+  colorId     String    @unique
+  created_at  DateTime  @default(now())
+  updated_at  DateTime  @updatedAt
 }
 
 model Color {
-  id         String    @id @default(cuid())
-  color      String
-  product    Product[]
-  created_at DateTime  @default(now())
+  id              String     @id @default(cuid())
+  color           String
+  gallery         Image[]
+  productLocation ProductLocation?
+  created_at      DateTime  @default(now())
+  updated_at      DateTime  @updatedAt
 }
 
 model Size {
-  id         String    @id @default(cuid())
-  size       Int
-  product    Product[]
-  created_at DateTime  @default(now())
+  id              String    @id @default(cuid())
+  size            Int
+  productLocation ProductLocation?
+  created_at      DateTime  @default(now())
+  updated_at      DateTime  @updatedAt
 }
 
 model Coupon {
-  id String @id @default(cuid())
-  code String @unique
-  type CouponType @default(PERCENTAGE)
-  value Int
-  quantity Int @default(1)
-  created_at DateTime @default(now())
-  expires_at DateTime?
+  id          String @id @default(cuid())
+  code        String @unique
+  type        CouponType @default(PERCENTAGE)
+  value       Int
+  quantity    Int @default(1)
+  created_at  DateTime @default(now())
+  expires_at  DateTime?
 }
 
 enum CouponType {

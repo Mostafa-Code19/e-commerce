@@ -10,20 +10,24 @@ const getProduct = async (slug: string) => {
                 id: slug
             },
             include: {
-                gallery: {
-                    select: {
-                        src: true,
-                        alt: true
-                    }
-                },
-                colors: {
-                    select: {
-                        color: true
-                    }
-                },
-                sizes: {
-                    select: {
-                        size: true
+                productLocation: {
+                    include: {
+                        color: {
+                            select: {
+                                color: true,
+                                gallery: {
+                                    select: {
+                                        src: true,
+                                        alt: true
+                                    }
+                                }
+                            }
+                        },
+                        size: {
+                            select: {
+                                size: true
+                            }
+                        }
                     }
                 }
             }
@@ -45,7 +49,7 @@ const Product = async ({ params }: {params: {slug: string}}) => {
     const product = await getProduct(params.slug)
 
     return (
-        <Options product={product}>
+        <Options productLocation={product.productLocation}>
             <Detail product={product}/>
         </Options>
     );

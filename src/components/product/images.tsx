@@ -9,9 +9,9 @@ type ImageType = {
     alt: string;
 }
 
-const Images = ({ thumbnail, sources }: any) => {
+const Images = ({ thumbnail, productLocation }: any) => {
     const [lightboxOpen, setLightboxOpen] = useState(false)
-    // const [galleryList, setGalleryList] = useState<ImageType[]>(sources)
+    const [galleryList, setGalleryList] = useState<ImageType[]>([])
     const [currentImageIndex, setCurrentIndex] = useState(0);
 
     const gotoPrevious = () =>
@@ -21,14 +21,22 @@ const Images = ({ thumbnail, sources }: any) => {
         currentImageIndex + 1 < 2 &&  // project.gallery.length
         setCurrentIndex(currentImageIndex + 1);
 
-    // useEffect(() => {
-    //     setGalleryList(project.gallery.map(image => {
-    //         return {
-    //             src: image.src,
-    //             alt: image.alt
-    //         }
-    //     }))
-    // }, [project.gallery])
+    useEffect(() => {
+        let galleryList: {src: string, alt: string}[] = []
+        
+        productLocation.map((product: any) => {
+            product.color.gallery.map((data: any) => {
+                galleryList.push(
+                    {
+                        src: data.src,
+                        alt: data.alt
+                    }
+                )
+            })
+        })
+
+        setGalleryList(galleryList)
+    }, [productLocation])
 
     return (
         <div className='space-y-5'>
@@ -38,15 +46,15 @@ const Images = ({ thumbnail, sources }: any) => {
             }}>
                 <Image
                     className='object-cover justify-center m-auto p-2'
-                    src={`/product/${thumbnail}`}
-                    alt="nike shoe"
+                    src={thumbnail.src}
+                    alt={thumbnail.alt}
                     width='500'
                     height='500'
                 />
             </div>
             <div className='flex space-x-3 justify-center'>
                 {
-                    sources.map((data: any, index: number) => {
+                    galleryList.map((data: any, index: number) => {
                         return (
                             <div key={index} onClick={() => {
                                 setLightboxOpen(true)
@@ -69,7 +77,7 @@ const Images = ({ thumbnail, sources }: any) => {
                 isOpen={lightboxOpen}
                 onPrev={gotoPrevious}
                 onNext={gotoNext}
-                images={sources}
+                images={galleryList}
                 currentIndex={currentImageIndex}
                 /* Add your own UI */
                 // renderHeader={() => (<CustomHeader />)}

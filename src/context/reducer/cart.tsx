@@ -1,9 +1,7 @@
 const cartReducer = (state: any, action: any) => {
-  const title = action.payload.title
-  const color = action.payload.color
-  const size = action.payload.size
+  const id = action.payload?.id
 
-  const item = state.cart[`${title}_${color}_${size}`];
+  const item = state.cart[id];
 
   switch (action.type) {
     case "ADD_TO_CART":
@@ -11,7 +9,7 @@ const cartReducer = (state: any, action: any) => {
         ...state,
         cart: {
           ...state.cart,
-          [`${title}_${color}_${size}`]: item ?
+          [id]: item ?
           {
             ...item,
             quantity: item.quantity + 1,
@@ -26,7 +24,7 @@ const cartReducer = (state: any, action: any) => {
     case "REMOVE_FROM_CART":
       if (item.quantity == 1) {
         let newCart = { ...state.cart };
-        delete newCart[`${title}_${color}_${size}`];
+        delete newCart[id];
 
         return {
           ...state,
@@ -37,13 +35,15 @@ const cartReducer = (state: any, action: any) => {
           ...state,
           cart: {
             ...state.cart,
-            [`${title}_${color}_${size}`]: {
+            [id]: {
               ...item,
               quantity: item.quantity - 1,
             }
           }
         }
       }
+    case "RESET":
+      return {cart: {}}
 
     default:
       return state;

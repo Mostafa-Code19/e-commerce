@@ -2,26 +2,29 @@
 
 import { useState, useContext, useEffect, useRef } from 'react'
 import Image from 'next/image'
+import { useRouter } from 'next/navigation';
+import axios from 'axios';
 
 import BackButton from "@/components/back-btn";
 import { CartContext } from "@/context/provider/cart";
-import axios from 'axios';
 
 type Discount = {
     type: string
     value: number
-} | null
+} | null | false
 
 const Payment = () => {
-    const [method, setMethod] = useState<string>('internet')
-    const { state }: any = useContext(CartContext as any)
+    const [method, setMethod] = useState<string>('atTheDoor')
+    const { state, dispatch }: any = useContext(CartContext as any)
     const { cart } = state
     const [paymentPrice, setPaymentPrice] = useState(0)
     const [discount, setDiscount] = useState<Discount>(null)
-    const [discountPrice, setDiscountPrice] = useState<number>(null)
+    const [discountPrice, setDiscountPrice] = useState<number>(0)
     const [finalPaymentPrice, setFinalPaymentPrice] = useState(0)
 
     const couponRef = useRef<HTMLInputElement>(null)
+
+    const router = useRouter();
 
     useEffect(() => {
         setPaymentPrice(0)
@@ -56,9 +59,32 @@ const Payment = () => {
             const couponCode = couponRef.current.value
 
             await axios.get(`/api/coupon?c=${couponCode}`,)
-                .then(res => setDiscount(res.data))
+                .then(res => {
+                    if (res.data) setDiscount(res.data)
+                    else setDiscount(false)
+                })
                 .catch(err => console.log('err couponCheck'))
         }
+    }
+
+    const submitOrder = async () => {
+        // final check for quantity
+
+        const payload = {
+            cart : cart,
+            discount: discountPrice,
+            price: finalPaymentPrice
+        }
+
+        await axios.post('/api/order/submit', payload)
+            .then(res => {
+                if (res.status == 200) {
+                    dispatch({type: "RESET"})
+                    router.push('/profile')
+                }
+            })
+            .catch(err => console.log('err submit order'))
+        // 
     }
 
     return (
@@ -73,12 +99,12 @@ const Payment = () => {
                 <h3>انتخاب روش پرداخت</h3>
 
                 <form className='flex flex-col space-y-4 yekan1 rtl'>
-                    <div className={`flex space-x-3 space-x-reverse ${method=='internet'?'text-blue-400':'text-black'}`}>
-                        <input checked={method == 'internet'} onChange={changeMethod} type='radio' id="methodInternet" name="methodOptions" value="internet" />
+                    <div className={`flex space-x-3 space-x-reverse text-slate-400`}>  {/* ${method=='internet'?'text-blue-400':'text-black'} */}
+                        <input disabled checked={method == 'internet'} onChange={changeMethod} type='radio' id="methodInternet" name="methodOptions" value="internet" />
                         <label htmlFor="methodInternet" className='flex space-x-3 space-x-reverse'>
                             <svg className="h-6 w-6"  width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">  <path stroke="none" d="M0 0h24v24H0z"/>  <rect x="3" y="5" width="18" height="14" rx="3" />  <line x1="3" y1="10" x2="21" y2="10" />  <line x1="7" y1="15" x2="7.01" y2="15" />  <line x1="11" y1="15" x2="13" y2="15" /></svg>
                             <div>
-                                پرداخت اینترنتی
+                                پرداخت اینترنتی (غیرفعال)
                             </div>
                         </label>
                     </div>
@@ -109,7 +135,14 @@ const Payment = () => {
                 {
                     discount &&
                     <div className='text-center mt-5'>
-                            <span className='text-green-700'>کد تخفیف با موفقیت اعمال شد: {discountPrice.toLocaleString()} تومان</span>
+                        <span className='text-green-700'>کد تخفیف با موفقیت اعمال شد: {discountPrice.toLocaleString()} تومان</span>
+                    </div>
+                }
+
+                {
+                    discount === false &&
+                    <div className='text-center mt-5'>
+                        <span className='text-red-700'>کد تخفیف وارد شده صحیح نمی‌باشد</span>
                     </div>
                 }
             </div>
@@ -128,8 +161,8 @@ const Payment = () => {
                                         <div className='relative'>
                                             <Image
                                                 className='object-cover justify-center m-auto p-2'
-                                                src={`/product/${item.thumbnail}`}
-                                                alt={item.title}
+                                                src={item.thumbnail.src}
+                                                alt={item.thumbnail.src}
                                                 width='100'
                                                 height='100'
                                             />
@@ -159,7 +192,7 @@ const Payment = () => {
                 </div>
             </div>
 
-            <button className='bg-blue-500 text-white w-full py-3 rounded-xl yekan1'>
+            <button onClick={submitOrder} className='bg-blue-500 text-white w-full py-3 rounded-xl yekan1'>
                 پرداخت
             </button>
             
