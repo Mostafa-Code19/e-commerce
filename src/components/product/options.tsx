@@ -72,21 +72,34 @@ const Options = ({
         })
     }
 
+    const addToCartReducer = (payload) => {
+        let available = productWithSelectedColorAndSize.quantity
+        let addedToCart = cart[productWithSelectedColorAndSize.id]?.quantity || 0
+        
+        if (addedToCart < available) {
+            dispatch({
+                type: "ADD_TO_CART",
+                payload: payload
+            })
+        }
+    }
+
     return (
         <div className='mx-8 space-y-6'>
             {children}
 
-            <h2>Color</h2>
-            <div className='flex space-x-2'>
+            <h2 className='text-right'>رنگ ها</h2>
+
+            <div className='flex space-x-2 justify-end'>
                 {
                     colors()
                 }
             </div>
 
             <div>
-                <h2>Size</h2>
+                <h2 className='text-right'>Size</h2>
 
-                <div className='flex space-x-2'>
+                <div className='flex space-x-2 justify-end'>
                     {
                         productWithSelectedColor?.map((data: any) => {
                             if (data) {
@@ -160,33 +173,24 @@ const Options = ({
                                 <svg className="h-9 w-9 text-black" width="24" height="24" viewBox="0 0 24 24" strokeWidth="2" stroke="currentColor" fill="none" strokeLinecap="round" strokeLinejoin="round">  <path stroke="none" d="M0 0h24v24H0z" />  <circle cx="12" cy="12" r="9" />  <line x1="9" y1="12" x2="15" y2="12" /></svg>
                             </button>
                             <span className='text-black font-semibold text-lg'>{cart[productWithSelectedColorAndSize.id].quantity}</span>
-                            <button
-                                onClick={() => {
-                                    dispatch({
-                                        type: "ADD_TO_CART",
-                                        payload: {id: productWithSelectedColorAndSize.id}
-                                    })
-                                }}
-                            >
+                            <button onClick={() => addToCartReducer({id: productWithSelectedColorAndSize.id})}>
                                 <svg className="h-9 w-9 text-black" width="24" height="24" viewBox="0 0 24 24" strokeWidth="2" stroke="currentColor" fill="none" strokeLinecap="round" strokeLinejoin="round">  <path stroke="none" d="M0 0h24v24H0z" />  <circle cx="12" cy="12" r="9" />  <line x1="9" y1="12" x2="15" y2="12" />  <line x1="12" y1="9" x2="12" y2="15" /></svg>
                             </button>
                         </div>
                         :
-                        <button onClick={() => {
-                            dispatch({
-                                type: "ADD_TO_CART",
-                                payload: {
-                                    id: productWithSelectedColorAndSize.id,
-                                    title: productWithSelectedColorAndSize.title,
-                                    color: productWithSelectedColorAndSize.color.color,
-                                    size: productWithSelectedColorAndSize.size.size,
-                                    price: productWithSelectedColorAndSize.price,
-                                    discount: productWithSelectedColorAndSize.discount,
-                                    thumbnail: productWithSelectedColorAndSize.color.gallery[0]
-                                }
-                            })
-                        }}>
-                            Add
+                        <button onClick={() => addToCartReducer(
+                            {
+                            id: productWithSelectedColorAndSize.id,
+                            title: productWithSelectedColorAndSize.title,
+                            color: productWithSelectedColorAndSize.color.color,
+                            size: productWithSelectedColorAndSize.size.size,
+                            price: productWithSelectedColorAndSize.price,
+                            discount: productWithSelectedColorAndSize.discount,
+                            thumbnail: productWithSelectedColorAndSize.color.gallery[0],
+                            maxQuantity: productWithSelectedColorAndSize.quantity
+                            }
+                        )}>
+                            <span className='text-black text-base'> افزودن به سبد</span>
                         </button>
                     }
                 </div>

@@ -27,7 +27,7 @@ const Cart = () => {
         <div className='mx-8 space-y-6'>
             <div className='flex items-center justify-between'>
                 <BackButton />
-                <h1>Cart</h1>
+                <h1>سبد خرید</h1>
                 <span></span>
             </div>
 
@@ -86,10 +86,12 @@ const Cart = () => {
                                                     <span className='text-black font-semibold text-base'>{item.quantity}</span>
                                                     <button
                                                         onClick={() => {
-                                                            dispatch({
-                                                                type: "ADD_TO_CART",
-                                                                payload: {id: item.id}
-                                                            })
+                                                            if (item.quantity <= item.maxQuantity) {
+                                                                dispatch({
+                                                                    type: "ADD_TO_CART",
+                                                                    payload: {id: item.id}
+                                                                })
+                                                            }
                                                         }}
                                                     >
                                                         <svg className="h-7 w-7 text-black" width="24" height="24" viewBox="0 0 24 24" strokeWidth="2" stroke="currentColor" fill="none" strokeLinecap="round" strokeLinejoin="round">  <path stroke="none" d="M0 0h24v24H0z" />  <circle cx="12" cy="12" r="9" />  <line x1="9" y1="12" x2="15" y2="12" />  <line x1="12" y1="9" x2="12" y2="15" /></svg>

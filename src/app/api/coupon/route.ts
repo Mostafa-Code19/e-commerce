@@ -17,5 +17,5 @@ export async function GET(request: Request) {
         .then((res: any) => res)
         .catch((err: any) => console.log('err coupon api'))
         
-  return NextResponse.json(coupon);
+    return NextResponse.json(coupon);
 }

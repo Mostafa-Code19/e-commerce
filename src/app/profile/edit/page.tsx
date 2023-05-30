@@ -1,9 +1,9 @@
 'use client'
 
 import { useCallback, useEffect, useRef, useState } from 'react'
+import axios from 'axios'
 
 import BackButton from "@/components/back-btn";
-import axios from 'axios'
 
 type User = {
     address: string
@@ -45,7 +45,11 @@ const Edit = () => {
         fetchUser()
     }, [fetchUser])
 
+    let submitPermission = true
     const submit = async () => {
+        if (!submitPermission) return
+
+        submitPermission = false
         let payload: any = {}
 
         const name = nameRef.current?.value
@@ -60,12 +64,18 @@ const Edit = () => {
         if (melliCode) payload.melli_code = melliCode
         if (address) payload.address = address
 
-        await axios.patch('/api/user/update', payload)
-            // .then(res => {
-            //     console.log('res')
-            //     console.log(res)
-            // })
-            .catch(err => console.log('err user/update'))
+        const payloadLength = Object.keys(payload).length
+        if (payloadLength) {
+            await axios.patch('/api/user/update', payload)
+                .then(res => {
+                    // push message
+                    window.location.reload()
+                })
+                .catch(err => {
+                    console.log('user/update', err)
+                    submitPermission = true
+                })
+        }
     }
 
     return (
