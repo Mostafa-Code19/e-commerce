@@ -86,7 +86,7 @@ const Cart = () => {
                                                     <span className='text-black font-semibold text-base'>{item.quantity}</span>
                                                     <button
                                                         onClick={() => {
-                                                            if (item.quantity <= item.maxQuantity) {
+                                                            if (item.quantity < item.maxQuantity) {
                                                                 dispatch({
                                                                     type: "ADD_TO_CART",
                                                                     payload: {id: item.id}

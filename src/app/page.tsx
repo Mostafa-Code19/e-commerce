@@ -72,12 +72,12 @@ const colors = (locations: any) => {
     })
 }
 
-export default async function Home()  {
+async function Home()  {
     const products = await getProducts();
 
     return (
         <div className='mx-8 my-16'>
-            <Link href={`#`}>
+            <Link href='#'>
                 <div>
                     <div className='flex relative justify-between mb-16 from-blue-400 to-blue-700 w-full bg-gradient-to-r rounded-3xl'>
                         <div className='py-8 px-3'>
@@ -200,3 +200,5 @@ export default async function Home()  {
         </div>
     )
 }
+
+export default Home
