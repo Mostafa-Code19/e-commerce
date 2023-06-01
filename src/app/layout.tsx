@@ -4,6 +4,7 @@ import './globals.scss'
 import Navbar from '../components/navbar'
 import { CartContextProvider } from '@/context/provider/cart'
 import { SessionProvider } from "next-auth/react";
+import { ToastContainer } from 'react-toastify';
 
 export const metadata = {
   title: 'Shoe E-Commerce',
@@ -29,6 +30,19 @@ export default function RootLayout({
                 <input className='rounded-xl w-full mx-7 pl-10 py-2' type="text" placeholder='Search' />
               </div>
             </header>
+            
+            <ToastContainer
+              position="top-right"
+              autoClose={3000}
+              hideProgressBar={false}
+              newestOnTop={false}
+              closeOnClick
+              rtl
+              pauseOnFocusLoss
+              draggable
+              pauseOnHover
+              theme="light"
+            />
 
             <main className='mb-24'>
               {children}

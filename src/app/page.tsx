@@ -57,17 +57,20 @@ const colors = (locations: any) => {
         id: string,
         color: {
             color: string
-        }
+        },
+        quantity: number
     }) => {
-        const color = location.color.color
-        
-        if (list.includes(color)) return
-        else {
-            list.push(color)
+        if (location.quantity) {
+            const color = location.color.color
             
-            return (
-                <span key={location.id} style={{background: color}} className='w-3 h-3 block rounded-full'></span>
-            )
+            if (list.includes(color)) return
+            else {
+                list.push(color)
+                
+                return (
+                    <span key={location.id} style={{background: color}} className='w-3 h-3 block rounded-full'></span>
+                )
+            }
         }
     })
 }

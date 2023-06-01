@@ -4,6 +4,8 @@ import { useState, useContext, useEffect, useRef } from 'react'
 import Image from 'next/image'
 import { useRouter } from 'next/navigation';
 import axios from 'axios';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 import BackButton from "@/components/back-btn";
 import { CartContext } from "@/context/provider/cart";
@@ -64,13 +66,20 @@ const Payment = () => {
 
             await axios.get(`/api/coupon?c=${couponCode}`,)
                 .then(res => {
-                    if (res.data) setDiscount(res.data)
-                    else setDiscount(false)
+                    if (res.data) {
+                        setDiscount(res.data)
+                        toast.success(`تخفیف با موفقیت به شما تعلق گرفت`);
+                    }
+                    else {
+                        setDiscount(false)
+                        toast.error(`کد تخفیف وارد شده منقضی یا نامعتبر می‌باشد`);
+                    }
                     checkPermission = true
                 })
                 .catch(err => {
                     console.log('err couponCheck')
                     checkPermission = true
+                    toast.error(`به مشکلی برخوردیم! لطفا مجدد تلاش کنید.`);
                 })
         }
     }
@@ -155,7 +164,7 @@ const Payment = () => {
                             {
                                 discount === false &&
                                 <div className='text-center mt-5'>
-                                    <span className='text-red-700'>کد تخفیف وارد شده صحیح نمی‌باشد</span>
+                                    <span className='text-red-700'>کد تخفیف وارد شده منقضی یا نامعتبر می‌باشد</span>
                                 </div>
                             }
                         </div>

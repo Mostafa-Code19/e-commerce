@@ -2,6 +2,8 @@
 
 import { useCallback, useEffect, useRef, useState } from 'react'
 import axios from 'axios'
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 import BackButton from "@/components/back-btn";
 
@@ -68,10 +70,11 @@ const Edit = () => {
         if (payloadLength) {
             await axios.patch('/api/user/update', payload)
                 .then(res => {
-                    // push message
+                    toast.success('تغییرات با موفقیت ثبت گردید.');
                     window.location.reload()
                 })
                 .catch(err => {
+                    toast.error('در ثبت تغییرات خطایی رخ داد. لطفا مجدد تلاش کنید.');
                     console.log('user/update', err)
                     submitPermission = true
                 })

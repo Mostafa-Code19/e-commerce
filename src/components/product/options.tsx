@@ -174,7 +174,6 @@ const Options = ({
                         <button onClick={() => addToCartReducer(
                             {
                             id: productWithSelectedColorAndSize.id,
-                            title: productWithSelectedColorAndSize.title,
                             color: productWithSelectedColorAndSize.color.color,
                             size: productWithSelectedColorAndSize.size.size,
                             price: productWithSelectedColorAndSize.price,
