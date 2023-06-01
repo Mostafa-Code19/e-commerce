@@ -20,15 +20,6 @@ const Options = ({
     const { state, dispatch }: any = useContext(CartContext as any)
     const { cart } = state
 
-    // useEffect(() => {
-    //     const products = productLocation.map((product: any) => {
-    //         if (selectedColor == product.color.color) return product
-    //         else return null
-    //     })
-    //     setProductWithSelectedColor(products)
-
-    // }, [selectedColor, productLocation])
-
     useEffect(() => {
         let productsBaseSize = null
         let productBaseColor: any = []
@@ -52,22 +43,24 @@ const Options = ({
         let list: any = []
 
         return productLocation.map((data: any) => {
-            const color = data.color.color
-            
-            if (list.includes(color)) return
-            else {
-                list.push(color)
+            if (data.quantity) {
+                const color = data.color.color
                 
-                return (
-                    <button key={color} onClick={() => {
-                        selectColor(color)
-                        selectSize(data.size.size)
-                    }}>
-                        <span style={{ borderColor: `${selectedColor == color ? color : 'transparent'}` }} className='border-2 p-1 flex rounded-full'>
-                            <span style={{ background: color }} className='m-auto block w-6 h-6 rounded-full shadow-[0_0_5px_#a4a4a4]'></span>
-                        </span>
-                    </button>
-                )
+                if (list.includes(color)) return
+                else {
+                    list.push(color)
+                    
+                    return (
+                        <button key={color} onClick={() => {
+                            selectColor(color)
+                            selectSize(data.size.size)
+                        }}>
+                            <span style={{ borderColor: `${selectedColor == color ? color : 'transparent'}` }} className='border-2 p-1 flex rounded-full'>
+                                <span style={{ background: color }} className='m-auto block w-6 h-6 rounded-full shadow-[0_0_5px_#a4a4a4]'></span>
+                            </span>
+                        </button>
+                    )
+                }
             }
         })
     }
@@ -102,7 +95,7 @@ const Options = ({
                 <div className='flex space-x-2 justify-end'>
                     {
                         productWithSelectedColor?.map((data: any) => {
-                            if (data) {
+                            if (data.quantity) {
                                 const size = data.size.size
     
                                 return (

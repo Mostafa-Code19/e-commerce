@@ -76,8 +76,6 @@ const Payment = () => {
     }
 
     const submitOrder = async () => {
-        // final check for quantity
-
         const payload = {
             cart : cart,
             discount: discountPrice,
@@ -87,11 +85,16 @@ const Payment = () => {
         await axios.post('/api/order/submit', payload)
             .then(res => {
                 if (res.status == 200) {
-                    dispatch({type: "RESET"})
-                    router.push(`/checkout/payment/success?id=${res.data.id}`)
+                    if (res.data.type == 'lack') {
+                        console.log('lack')
+                    }
+                    else if (res.data.id) {
+                        dispatch({type: "RESET"})
+                        router.push(`/checkout/payment/success?id=${res.data.id}`)
+                    }
                 }
             })
-            .catch(err => console.log('err submit order'))
+            .catch(err => console.log('err submit order', err))
     }
 
     return (

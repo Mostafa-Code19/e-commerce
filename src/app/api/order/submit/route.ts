@@ -4,14 +4,15 @@ import { getServerSession } from "next-auth";
 
 export async function POST(request: Request) {
     const session = await getServerSession(authOptions);
-
     const payload = await request.json()
 
     let cartItemsIdObject: {}[] = []
+    let cartItemsId: string[] = []
 
     Object.keys(payload.cart).map((key) => {
         const item = payload.cart[key]
         cartItemsIdObject.push({ id: item.id })
+        cartItemsId.push(item.id)
     })
 
     const user = await prisma.user.findUnique({
@@ -23,6 +24,37 @@ export async function POST(request: Request) {
             return res
         })
 
+    const checkQuantity = await prisma.productLocation.findMany({
+        where: {
+            id: {
+                in: cartItemsId
+            }
+        }
+    })
+        .then(res => res)
+        .catch(err => console.log('checkQuantity', err))
+
+
+    let notEnough: {type: string, id: null|string, quantity: number} = {type: 'lack', id: null, quantity: -1}
+
+    checkQuantity?.map(item => {
+        if (payload.cart[item.id].quantity > item.quantity) {
+            notEnough['id'] = item.id
+            notEnough['quantity'] = item.quantity
+            return
+        }
+    })
+
+    if (notEnough.id) return NextResponse.json(notEnough)
+
+    checkQuantity?.map(async (item) => {
+        await prisma.productLocation.update({
+            where: { id: item.id },
+            data: {
+                quantity: item.quantity - payload.cart[item.id].quantity
+            }
+        })
+    })
 
     const order = await prisma.order.create({
         data: {

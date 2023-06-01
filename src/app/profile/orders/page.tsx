@@ -62,7 +62,7 @@ const Orders = async () => {
     }
 
     return (
-        <div className='mx-8 my-16 space-y-11'>
+        <div className='mx-8 my-16 space-y-7'>
             <div className='flex justify-between items-center'>
                 <BackButton />
                 <h1 className='text-center font-bold'>سفارش های من</h1>
@@ -70,7 +70,7 @@ const Orders = async () => {
             </div>
 
             {
-                user.orders.map((order: any) => {
+                user.orders.reverse().map((order: any) => {
                     return (
                         <div key={order.id} className='px-4 py-10 space-y-2 bg-zinc-100 rounded-xl'>
                             <div className='text-right'>
