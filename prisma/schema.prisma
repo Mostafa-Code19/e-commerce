@@ -36,6 +36,7 @@ model Session {
 
 model User {
   id             String    @id @default(cuid())
+  role           Role      @default(CLIENT)
   name           String?
   email          String    @unique
   emailVerified  DateTime?
@@ -53,6 +54,11 @@ model User {
   orders         Order[]
   accounts       Account[]
   sessions       Session[]
+}
+
+enum Role {
+  CLIENT
+  ADMIN
 }
 
 model VerificationToken {
@@ -91,6 +97,7 @@ enum Payment {
 
 model ProductLocation {
   id        String  @id @default(cuid())
+  public    Boolean @default(true)
   product   Product @relation(fields: [productId], references: [id])
   productId String
   color     Color   @relation(fields: [colorId], references: [id])
@@ -108,6 +115,7 @@ model Product {
   title           String
   description     String?
   productLocation ProductLocation[]
+  gallery         Image[]
   created_at      DateTime          @default(now())
   updated_at      DateTime          @updatedAt
 }
@@ -116,8 +124,8 @@ model Image {
   id         String   @id @default(cuid())
   src        String   @default("/product/")
   alt        String
-  color      Color    @relation(fields: [colorId], references: [id])
-  colorId    String   @unique
+  product    Product  @relation(fields: [productId], references: [id])
+  productId  String
   created_at DateTime @default(now())
   updated_at DateTime @updatedAt
 }
@@ -125,7 +133,6 @@ model Image {
 model Color {
   id              String           @id @default(cuid())
   color           String
-  gallery         Image[]
   productLocation ProductLocation?
   created_at      DateTime         @default(now())
   updated_at      DateTime         @updatedAt

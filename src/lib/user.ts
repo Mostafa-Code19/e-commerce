@@ -4,9 +4,13 @@ import authOptions from "@/lib/auth";
 const User = async () => {
     const session = await getServerSession(authOptions);
 
+    if (!session) return null
+
+    const email: string = String(session.user?.email)
+
     return await prisma.user.findMany({
         where: {
-            email: session?.email
+            email: email
         },
         include: {
             orders: {
@@ -14,7 +18,7 @@ const User = async () => {
                     items: {
                         select: {
                             quantity: true,
-                            color: {
+                            product: {
                                 select: {
                                     gallery: true
                                 }

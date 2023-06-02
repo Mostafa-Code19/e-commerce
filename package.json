@@ -9,8 +9,11 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@emotion/react": "^11.11.0",
+    "@emotion/styled": "^11.11.0",
+    "@mui/material": "^5.13.3",
     "@next-auth/prisma-adapter": "^1.0.6",
-    "@prisma/client": "^4.14.1",
+    "@prisma/client": "^4.15.0",
     "@types/bcryptjs": "^2.4.2",
     "@types/node": "20.1.1",
     "@types/react": "18.2.6",
@@ -20,6 +23,7 @@
     "bcryptjs": "^2.4.3",
     "eslint": "8.40.0",
     "eslint-config-next": "13.4.1",
+    "mui-color-input": "^1.0.6",
     "next": "13.4.1",
     "next-auth": "^4.22.1",
     "nodemailer": "^6.9.2",
@@ -33,6 +37,6 @@
     "typescript": "5.0.4"
   },
   "devDependencies": {
-    "prisma": "^4.14.1"
+    "prisma": "^4.15.0"
   }
 }

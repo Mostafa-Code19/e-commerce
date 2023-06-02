@@ -1,7 +1,7 @@
 import Image from 'next/image'
 import Link from 'next/link'
 
-import prisma from '../../lib/prisma';
+import prisma from '../lib/prisma'
 
 async function getProducts() {
     return await prisma.product.findMany({
@@ -10,13 +10,7 @@ async function getProducts() {
                 include: {
                     color: {
                         select: {
-                            color: true,
-                            gallery: {
-                                select: {
-                                    src: true,
-                                    alt: true
-                                }
-                            }
+                            color: true
                         }
                     },
                     size: {
@@ -24,6 +18,12 @@ async function getProducts() {
                             size: true
                         }
                     },
+                }
+            },
+            gallery: {
+                select: {
+                    src: true,
+                    alt: true
                 }
             }
         }
@@ -34,15 +34,15 @@ async function getProducts() {
 type ProductProps = {
     id: string;
     title: string;
+    gallery: {
+        src: string
+        alt: string
+    }[];
     productLocation: {
         price: number;
         discount: number;
         color: {
             color: string;
-            gallery: {
-                src: string
-                alt: string
-            }[]
         }
         size: {
             size: number
@@ -62,20 +62,20 @@ const colors = (locations: any) => {
     }) => {
         if (location.quantity) {
             const color = location.color.color
-            
+
             if (list.includes(color)) return
             else {
                 list.push(color)
-                
+
                 return (
-                    <span key={location.id} style={{background: color}} className='w-3 h-3 block rounded-full'></span>
+                    <span key={location.id} style={{ background: color }} className='w-3 h-3 block rounded-full'></span>
                 )
             }
         }
     })
 }
 
-async function Home()  {
+async function Home() {
     const products = await getProducts();
 
     return (
@@ -105,7 +105,7 @@ async function Home()  {
             </Link>
 
             <div className="mb-8">
-                
+
                 <div className='my-10 space-y-5'>
                     <div className='flex justify-center space-x-3'>
                         <Link href='#'>
@@ -142,7 +142,7 @@ async function Home()  {
 
                 <div className="grid grid-cols-2 space-x-3">
                     {
-                        products.map((product:ProductProps) => {
+                        products.map((product: ProductProps) => {
                             return (
                                 <Link key={product.id} href={`/product/${product.id}`}>
                                     <div className='bg-white w-full h-full m-1 p-1 rounded-lg'>
@@ -163,32 +163,32 @@ async function Home()  {
                                             />
                                             <div className='mx-3 mb-1 text-right space'>
                                                 <h2>{product.title}</h2>
-                                                
+
                                                 <div className='flex justify-between items-center'>
                                                     {
                                                         product.productLocation[0].discount ?
-                                                        <span style={{paddingTop: '.1rem'}} className='bg-red-500 rounded-2xl px-2 text-white'>
-                                                            {product.productLocation[0].discount}%
-                                                        </span>
-                                                        :
-                                                        ''
+                                                            <span style={{ paddingTop: '.1rem' }} className='bg-red-500 rounded-2xl px-2 text-white'>
+                                                                {product.productLocation[0].discount}%
+                                                            </span>
+                                                            :
+                                                            ''
                                                     }
                                                     <span className='font-semibold text-black text-sm toman_card'>
                                                         {
                                                             product.productLocation[0].discount ?
-                                                            (product.productLocation[0].price - ((product.productLocation[0].price * product.productLocation[0].discount) / 100)).toLocaleString()
-                                                            :
-                                                            product.productLocation[0].price.toLocaleString()
+                                                                (product.productLocation[0].price - ((product.productLocation[0].price * product.productLocation[0].discount) / 100)).toLocaleString()
+                                                                :
+                                                                product.productLocation[0].price.toLocaleString()
                                                         }
                                                     </span>
                                                 </div>
                                                 {
                                                     product.productLocation[0].discount ?
-                                                    <span className='text-slate-500 line-through ml-8'>
-                                                        {product.productLocation[0].price.toLocaleString()}
-                                                    </span>
-                                                    :
-                                                    <span className='mb-6 block'></span>
+                                                        <span className='text-slate-500 line-through ml-8'>
+                                                            {product.productLocation[0].price.toLocaleString()}
+                                                        </span>
+                                                        :
+                                                        <span className='mb-6 block'></span>
                                                 }
                                             </div>
                                         </div>
@@ -198,7 +198,7 @@ async function Home()  {
                         })
                     }
                 </div>
-                
+
             </div>
         </div>
     )

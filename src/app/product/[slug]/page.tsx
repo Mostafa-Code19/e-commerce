@@ -1,6 +1,6 @@
 import Detail from '../../../components/product/details'
 import Options from '../../../components/product/options'
-import prisma from '../../../../lib/prisma'
+import prisma from '../../../lib/prisma'
 
 
 const getProduct = async (slug: string) => {
@@ -14,13 +14,7 @@ const getProduct = async (slug: string) => {
                     include: {
                         color: {
                             select: {
-                                color: true,
-                                gallery: {
-                                    select: {
-                                        src: true,
-                                        alt: true
-                                    }
-                                }
+                                color: true
                             }
                         },
                         size: {
@@ -28,6 +22,12 @@ const getProduct = async (slug: string) => {
                                 size: true
                             }
                         }
+                    }
+                },
+                gallery: {
+                    select: {
+                        src: true,
+                        alt: true
                     }
                 }
             }
@@ -45,14 +45,14 @@ const getProduct = async (slug: string) => {
 //     price: number
 // }
 
-const Product = async ({ params }: {params: {slug: string}}) => {
+const Product = async ({ params }: { params: { slug: string } }) => {
     const product = await getProduct(params.slug)
 
     return (
         <Options productLocation={product.productLocation}>
-            <Detail product={product}/>
+            <Detail product={product} />
         </Options>
     );
 }
- 
+
 export default Product;

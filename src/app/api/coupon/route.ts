@@ -1,4 +1,4 @@
-import prisma from '../../../../lib/prisma'
+import prisma from '../../../lib/prisma'
 import { NextResponse } from "next/server";
 
 export async function GET(request: Request) {
@@ -16,6 +16,6 @@ export async function GET(request: Request) {
     })
         .then((res: any) => res)
         .catch((err: any) => console.log('err coupon api'))
-        
+
     return NextResponse.json(coupon);
 }

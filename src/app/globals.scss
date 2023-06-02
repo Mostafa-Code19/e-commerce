@@ -92,6 +92,13 @@ h5 {
   font-family: IRANYekanRegular, sans-serif;
 }
 
+button {
+  font-size: 1rem;
+  letter-spacing: -1px;
+  font-family: IRANYekanRegular, sans-serif;
+  padding: .5rem .1rem;
+}
+
 p {
   font-size: 1rem;
   font-family: IRANYekanRegular, sans-serif;
@@ -160,4 +167,16 @@ h6 {
 .Toastify__toast-body {
   font-size: 1rem;
   font-family: IRANYekanRegular, sans-serif;
+}
+
+.MuiFormLabel-root {
+  font-family: IRANYekanRegular, sans-serif !important;
+}
+
+.MuiInputBase-root {
+  font-family: IRANYekanRegular, sans-serif !important;
+}
+
+.MuiAutocomplete-option {
+  font-family: IRANYekanRegular, sans-serif !important;
 }
