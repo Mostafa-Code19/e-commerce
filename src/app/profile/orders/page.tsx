@@ -114,8 +114,8 @@ const Orders = async () => {
                                             <div key={item.id} className='relative w-fit'>
                                                 <Image
                                                     className='object-cover justify-center m-auto p-2'
-                                                    src={item.color.gallery[0].src}
-                                                    alt={item.color.gallery[0].alt}
+                                                    src={item.product.gallery[0].src}
+                                                    alt={item.product.gallery[0].alt}
                                                     width='100'
                                                     height='100'
                                                 />

@@ -156,7 +156,7 @@ async function Home() {
                                             </div>
                                             <Image
                                                 className='object-cover justify-center m-auto p-2'
-                                                src={`${product.productLocation[0].color.gallery[0].src}`}
+                                                src={`${product.gallery[0].src}`}
                                                 alt={product.title}
                                                 width='200'
                                                 height='200'

@@ -49,7 +49,7 @@ const Product = async ({ params }: { params: { slug: string } }) => {
     const product = await getProduct(params.slug)
 
     return (
-        <Options productLocation={product.productLocation}>
+        <Options product={product}>
             <Detail product={product} />
         </Options>
     );

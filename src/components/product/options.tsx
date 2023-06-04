@@ -7,15 +7,15 @@ import { CartContext } from "@/context/provider/cart";
 
 const Options = ({
     children,
-    productLocation
+    product
 }: {
     children: React.ReactNode,
-    productLocation: any
+    product: any
 }) => {
-    const [selectedColor, selectColor] = useState<string>(productLocation[0].color.color)
-    const [productWithSelectedColor, setProductWithSelectedColor] = useState<any[]>([productLocation[0]])
-    const [selectedSize, selectSize] = useState<number>(productLocation[0].size.size)
-    const [productWithSelectedColorAndSize, selectProductWithSelectedColorAndSize] = useState(productLocation[0])
+    const [selectedColor, selectColor] = useState<string>(product.productLocation[0].color.color)
+    const [productWithSelectedColor, setProductWithSelectedColor] = useState<any[]>([product.productLocation[0]])
+    const [selectedSize, selectSize] = useState<number>(product.productLocation[0].size.size)
+    const [productWithSelectedColorAndSize, selectProductWithSelectedColorAndSize] = useState(product.productLocation[0])
 
     const { state, dispatch }: any = useContext(CartContext as any)
     const { cart } = state
@@ -24,7 +24,7 @@ const Options = ({
         let productsBaseSize = null
         let productBaseColor: any = []
 
-        productLocation.map((product: any) => {
+        product.productLocation.map((product: any) => {
             if (selectedColor == product.color.color) {
                 productBaseColor.push(product)
 
@@ -37,12 +37,12 @@ const Options = ({
         setProductWithSelectedColor(productBaseColor)
         selectProductWithSelectedColorAndSize(productsBaseSize)
 
-    }, [selectedSize, productLocation, selectedColor])
+    }, [selectedSize, product, selectedColor])
 
     const colors = () => {
         let list: any = []
 
-        return productLocation.map((data: any) => {
+        return product.productLocation.map((data: any) => {
             if (data.quantity) {
                 const color = data.color.color
                 
@@ -139,7 +139,7 @@ const Options = ({
                         :
                         ''
                     }
-                    <div style={{ fontSize: '2rem' }} className='font-bold toman_productLocation'>
+                    <div style={{ fontSize: '2rem' }} className='font-bold toman_product'>
                         {
                             productWithSelectedColorAndSize.discount ?
                             (productWithSelectedColorAndSize.price - ((productWithSelectedColorAndSize.price * productWithSelectedColorAndSize.discount) / 100)).toLocaleString()
@@ -178,7 +178,7 @@ const Options = ({
                             size: productWithSelectedColorAndSize.size.size,
                             price: productWithSelectedColorAndSize.price,
                             discount: productWithSelectedColorAndSize.discount,
-                            thumbnail: productWithSelectedColorAndSize.color.gallery[0],
+                            thumbnail: product.gallery[0],
                             maxQuantity: productWithSelectedColorAndSize.quantity
                             }
                         )}>

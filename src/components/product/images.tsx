@@ -9,7 +9,7 @@ type ImageType = {
     alt: string;
 }
 
-const Images = ({ thumbnail, productLocation }: any) => {
+const Images = ({ thumbnail, product }: any) => {
     const [lightboxOpen, setLightboxOpen] = useState(false)
     const [galleryList, setGalleryList] = useState<ImageType[]>([])
     const [currentImageIndex, setCurrentIndex] = useState(0);
@@ -24,19 +24,17 @@ const Images = ({ thumbnail, productLocation }: any) => {
     useEffect(() => {
         let galleryList: {src: string, alt: string}[] = []
         
-        productLocation.map((product: any) => {
-            product.color.gallery.map((data: any) => {
-                galleryList.push(
-                    {
-                        src: data.src,
-                        alt: data.alt
-                    }
-                )
-            })
+        product.gallery.map((data: any) => {
+            galleryList.push(
+                {
+                    src: data.src,
+                    alt: data.alt
+                }
+            )
         })
 
         setGalleryList(galleryList)
-    }, [productLocation])
+    }, [product])
 
     return (
         <div className='space-y-5'>
