@@ -37,14 +37,14 @@ type ProductProps = {
         discount: number;
         color: {
             color: string;
-            gallery: {
-                src: string
-                alt: string
-            }[]
         }
         size: {
             size: number
         }
+    }[],
+    gallery: {
+        src: string
+        alt: string
     }[]
 }
 
@@ -100,13 +100,16 @@ const Admin = async () => {
                                                 }
                                             </div>
                                         </div>
-                                        <Image
-                                            className='object-cover justify-center m-auto p-2'
-                                            src={`${product.productLocation[0].color.gallery[0].src}`}
-                                            alt={product.title}
-                                            width='200'
-                                            height='200'
-                                        />
+                                        {
+                                            product.gallery[0] &&
+                                            <Image
+                                                className='object-cover justify-center m-auto p-2'
+                                                src={`${product.gallery[0].src}`}
+                                                alt={product.title}
+                                                width='200'
+                                                height='200'
+                                            />
+                                        }
                                         <div className='mx-3 mb-1 text-right space'>
                                             <h2>{product.title}</h2>
                                             
