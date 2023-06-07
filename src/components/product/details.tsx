@@ -1,7 +1,7 @@
 import BackButton from '@/components/back-btn';
 import Images from './images'
 
-const Detail = async ({ product }: any) => {
+const Detail = ({ product }: any) => {
     return (
         <>
             <BackButton />

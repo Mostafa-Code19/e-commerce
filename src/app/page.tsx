@@ -7,6 +7,14 @@ async function getProducts() {
     return await prisma.product.findMany({
         include: {
             productLocation: {
+                where: {
+                    public: {
+                        equals: true
+                    },
+                    quantity: {
+                        gt: 0
+                    }
+                },
                 include: {
                     color: {
                         select: {
@@ -60,17 +68,15 @@ const colors = (locations: any) => {
         },
         quantity: number
     }) => {
-        if (location.quantity) {
-            const color = location.color.color
+        const color = location.color.color
 
-            if (list.includes(color)) return
-            else {
-                list.push(color)
+        if (list.includes(color)) return
+        else {
+            list.push(color)
 
-                return (
-                    <span key={location.id} style={{ background: color }} className='w-3 h-3 block rounded-full'></span>
-                )
-            }
+            return (
+                <span key={location.id} style={{ background: color }} className='w-3 h-3 block rounded-full'></span>
+            )
         }
     })
 }
@@ -143,6 +149,8 @@ async function Home() {
                 <div className="grid grid-cols-2 space-x-3">
                     {
                         products.map((product: ProductProps) => {
+                            if (!product.productLocation.length) return
+
                             return (
                                 <Link key={product.id} href={`/product/${product.id}`}>
                                     <div className='bg-white w-full h-full m-1 p-1 rounded-lg'>
