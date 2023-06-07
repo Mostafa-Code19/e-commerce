@@ -1,12 +1,12 @@
 'use client'
 
-import { useState, useRef } from 'react'
+import { useRef } from 'react'
 import axios from 'axios'
 import { toast } from 'react-toastify'
 
-const EditQty = ({ id, quantity }) => {
+const QtyEdit = ({ id, quantity }) => {
     const qtyRef = useRef<HTMLInputElement>()
-    
+
     const checkKey = (e) => {
         if (e.key == 'Enter') submit()
     }
@@ -17,7 +17,7 @@ const EditQty = ({ id, quantity }) => {
         const payload = {
             id: id,
             qty: qtyRef?.current?.value
-        }   
+        }
 
         await axios.patch('/api/product/location/update/qty', payload)
             .then(res => {
@@ -33,5 +33,5 @@ const EditQty = ({ id, quantity }) => {
         <input ref={qtyRef} className='placeholder:text-black' min={0} placeholder={quantity} onKeyDown={checkKey} type="number" name="" id="" />
     );
 }
- 
-export default EditQty;
+
+export default QtyEdit;
