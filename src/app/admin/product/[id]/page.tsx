@@ -1,7 +1,6 @@
 import Link from "next/link";
-import Image from 'next/image'
 import Images from "@/components/product/images";
-import QtyEdit from "./qtyEdit";
+import PriceDiscountQtyEdit from "./priceDiscountQtyEdit";
 import prisma from "@/lib/prisma";
 import PublicEdit from "./publicEdit";
 
@@ -59,7 +58,7 @@ const ProductLocations = async ({ params }) => {
             <Link href='/admin/product/add'>
                 <button className='bg-blue-400 rounded-full p-3 fixed bottom-24 right-5'>
                     <svg class="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 4v16m8-8H4" />
                     </svg>
                 </button>
             </Link>
@@ -107,15 +106,7 @@ const ProductLocations = async ({ params }) => {
                                     {location.size.size}
                                 </span>
 
-                                <span className='font-semibold text-black text-sm'>
-                                    {location.price.toLocaleString()}
-                                </span>
-
-                                <span className='font-semibold text-black text-sm'>
-                                    {location.discount}%
-                                </span>
-
-                                <QtyEdit id={location.id} quantity={location.quantity} />
+                                <PriceDiscountQtyEdit id={location.id} price={location.price} discount={location.discount} quantity={location.quantity} />
 
                                 <PublicEdit id={location.id} publicProp={location.public} />
 

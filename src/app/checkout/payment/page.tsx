@@ -47,7 +47,7 @@ const Payment = () => {
             else return
         }
 
-        discountPrice = Math.round(discountPrice / 1000) *  1000
+        discountPrice = Math.round(discountPrice / 1000) * 1000
         setDiscountPrice(discountPrice)
         setFinalPaymentPrice(Math.round((paymentPrice - discountPrice) / 1000) * 1000)
 
@@ -58,7 +58,7 @@ const Payment = () => {
     }
 
     let checkPermission = true
-    
+
     const couponCheck = async () => {
         if (couponRef.current !== null && checkPermission) {
             checkPermission = false
@@ -86,7 +86,7 @@ const Payment = () => {
 
     const submitOrder = async () => {
         const payload = {
-            cart : cart,
+            cart: cart,
             discount: discountPrice,
             price: finalPaymentPrice
         }
@@ -98,7 +98,7 @@ const Payment = () => {
                         console.log('lack')
                     }
                     else if (res.data.id) {
-                        dispatch({type: "RESET"})
+                        dispatch({ type: "RESET" })
                         router.push(`/checkout/payment/success?id=${res.data.id}`)
                     }
                 }
@@ -116,26 +116,26 @@ const Payment = () => {
                             <h1>پرداخت</h1>
                             <span></span>
                         </div>
-                        
+
                         <div className='bg-white rounded-xl py-8 px-6 space-y-6 text-right'>
                             <h3>انتخاب روش پرداخت</h3>
-            
+
                             <form className='flex flex-col space-y-4 yekan1 rtl'>
                                 <div className={`flex space-x-3 space-x-reverse text-slate-400`}>  {/* ${method=='internet'?'text-blue-400':'text-black'} */}
                                     <input disabled checked={method == 'internet'} onChange={changeMethod} type='radio' id="methodInternet" name="methodOptions" value="internet" />
                                     <label htmlFor="methodInternet" className='flex space-x-3 space-x-reverse'>
-                                        <svg className="h-6 w-6"  width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">  <path stroke="none" d="M0 0h24v24H0z"/>  <rect x="3" y="5" width="18" height="14" rx="3" />  <line x1="3" y1="10" x2="21" y2="10" />  <line x1="7" y1="15" x2="7.01" y2="15" />  <line x1="11" y1="15" x2="13" y2="15" /></svg>
+                                        <svg className="h-6 w-6" width="24" height="24" viewBox="0 0 24 24" strokeWidth="2" stroke="currentColor" fill="none" strokeLinecap="round" strokeLinejoin="round">  <path stroke="none" d="M0 0h24v24H0z" />  <rect x="3" y="5" width="18" height="14" rx="3" />  <line x1="3" y1="10" x2="21" y2="10" />  <line x1="7" y1="15" x2="7.01" y2="15" />  <line x1="11" y1="15" x2="13" y2="15" /></svg>
                                         <div>
                                             پرداخت اینترنتی (غیرفعال)
                                         </div>
                                     </label>
                                 </div>
-            
-                                <div className={`flex space-x-3 space-x-reverse ${method=='atTheDoor'?'text-blue-400':'text-black'}`}>
+
+                                <div className={`flex space-x-3 space-x-reverse ${method == 'atTheDoor' ? 'text-blue-400' : 'text-black'}`}>
                                     <input checked={method == 'atTheDoor'} onChange={changeMethod} type='radio' id="methodAtTheDoor" name="methodOptions" value="atTheDoor" />
                                     <label htmlFor="methodAtTheDoor" className='flex space-x-3 space-x-reverse'>
-                                        <svg className="h-6 w-6"  fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"/>
+                                        <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
                                         </svg>
                                         <div>
                                             پرداخت درب منزل
@@ -144,7 +144,7 @@ const Payment = () => {
                                 </div>
                             </form>
                         </div>
-                        
+
                         <div className='bg-white rounded-xl py-8 px-6'>
                             <div className='flex justify-between items-center'>
                                 <div className='border rounded-lg px-4 py-2 space-x-4'>
@@ -153,14 +153,14 @@ const Payment = () => {
                                 </div>
                                 <h3>کد تخفیف</h3>
                             </div>
-                            
+
                             {
                                 discount &&
                                 <div className='text-center mt-5'>
                                     <span className='text-green-700'>کد تخفیف با موفقیت اعمال شد: {discountPrice.toLocaleString()} تومان</span>
                                 </div>
                             }
-            
+
                             {
                                 discount === false &&
                                 <div className='text-center mt-5'>
@@ -168,16 +168,16 @@ const Payment = () => {
                                 </div>
                             }
                         </div>
-            
+
                         <div className='bg-white rounded-xl py-8 px-6 space-y-6 text-right'>
                             <h3>خلاصه سفارش</h3>
                             <div className='space-x-5'>
                                 <div className='flex justify-end'>
                                     {
-            
+
                                         Object.keys(cart).map((key) => {
                                             const item = cart[key]
-            
+
                                             return (
                                                 <div key={item.id} className='space-y-3'>
                                                     <div className='relative'>
@@ -188,8 +188,8 @@ const Payment = () => {
                                                             width='100'
                                                             height='100'
                                                         />
-            
-                                                        <span style={{ fontSize: '.6rem'}} className='absolute left-0 bottom-0 p-1 px-2 bg-slate-200 rounded-md text-black'>
+
+                                                        <span style={{ fontSize: '.6rem' }} className='absolute left-0 bottom-0 p-1 px-2 bg-slate-200 rounded-md text-black'>
                                                             {item.quantity}
                                                         </span>
                                                     </div>
@@ -203,17 +203,17 @@ const Payment = () => {
                                     }
                                 </div>
                             </div>
-            
+
                             <div className='flex justify-end space-x-3'>
                                 <span className='toman_card'>
-                                    { finalPaymentPrice.toLocaleString() }
+                                    {finalPaymentPrice.toLocaleString()}
                                 </span>
                                 <span>
                                     :جمع سبد خرید
                                 </span>
                             </div>
                         </div>
-            
+
                         <button onClick={submitOrder} className='bg-blue-500 text-white w-full py-3 rounded-xl yekan1'>
                             پرداخت
                         </button>
@@ -224,5 +224,5 @@ const Payment = () => {
         </div>
     );
 }
- 
+
 export default Payment;
