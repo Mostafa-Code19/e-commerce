@@ -46,9 +46,9 @@ const PriceDiscountQtyEdit = ({ id, price, discount, quantity }: PropsType) => {
 
     return (
         <>
-            <input ref={priceRef} className='placeholder:text-black' min={0} placeholder={price.toLocaleString()} onKeyDown={checkKey} type="number" name="priceInput" id="priceInput" />
-            <input ref={discountRef} className='placeholder:text-black' min={0} max={100} placeholder={`${discount}%`} onKeyDown={checkKey} type="number" name="discountInput" id="discountInput" />
-            <input ref={qtyRef} className='placeholder:text-black' min={0} placeholder={quantity} onKeyDown={checkKey} type="number" name="qtyInput" id="qtyInput" />
+            <input ref={priceRef} className='placeholder:text-black placeholder:font-semibold placeholder:text-sm font-semibold text-sm' min={0} placeholder={price.toLocaleString()} onKeyDown={checkKey} type="number" name="priceInput" id="priceInput" />
+            <input ref={discountRef} className='placeholder:text-black placeholder:font-semibold placeholder:text-sm font-semibold text-sm' min={0} max={100} placeholder={`${discount}%`} onKeyDown={checkKey} type="number" name="discountInput" id="discountInput" />
+            <input ref={qtyRef} className='placeholder:text-black placeholder:font-semibold placeholder:text-sm font-semibold text-sm' min={0} placeholder={quantity} onKeyDown={checkKey} type="number" name="qtyInput" id="qtyInput" />
         </>
     );
 }

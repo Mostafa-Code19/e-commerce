@@ -36,7 +36,6 @@ const Edit = () => {
     const fetchUser = useCallback(async () => {
         const user = await new Promise(async (resolve) => {
             const res = await axios.get('/api/user');
-            // res.data => {authenticated:boolean, user: {...}}\
             resolve(res.data.user);
         })
 
