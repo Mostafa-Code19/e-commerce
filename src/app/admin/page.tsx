@@ -78,7 +78,7 @@ const Admin = async () => {
         <div className='mx-8 my-16 relative'>
             <Link href='/admin/product/add'>
                 <button className='bg-blue-400 rounded-full p-3 fixed bottom-24 right-5'>
-                    <svg class="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <svg className="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 4v16m8-8H4" />
                     </svg>
                 </button>

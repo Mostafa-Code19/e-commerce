@@ -3,18 +3,19 @@ import authOptions from "@/lib/auth";
 import { NextResponse } from "next/server";
 
 export async function PATCH(request: Request) {
-    const session = await getServerSession(authOptions);
-
+    const session: {user: {email: string}}| null = await getServerSession(authOptions);
     const payload = await request.json()
+
+    if (!session) return
 
     const user = await prisma.user.update({
         where: {
-            email: session?.user?.email
+            email: session.user.email
         },
         data: payload
     })
         .then((res: any) => {
-            return res[0]
+            return res
         })
         
   return NextResponse.json({

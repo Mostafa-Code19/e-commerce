@@ -65,7 +65,17 @@ const Options = ({
         })
     }
 
-    const addToCartReducer = (payload) => {
+    interface AddToCartReducerType {
+        id: string;
+        color: string;
+        size: string;
+        price: string;
+        discount: string;
+        thumbnail: string;
+        maxQuantity: string;
+    }
+
+    const addToCartReducer = (payload: AddToCartReducerType|{id: string}) => {
         let available = productWithSelectedColorAndSize.quantity
         let addedToCart = cart[productWithSelectedColorAndSize.id]?.quantity || 0
         

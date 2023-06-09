@@ -15,7 +15,7 @@ const Cart = () => {
     const [discount, setDiscount] = useState<number>(0)
 
     useEffect(() => {
-        setPrice(0), setDiscount(0) // reset price and discount
+        setPrice(0), setDiscount(0)
 
         Object.keys(cart).map((item: any) => {
             item = cart[item]

@@ -23,11 +23,7 @@ type ProductProps = {
         price: number;
         discount: number;
         color: {
-            color: string;
-            gallery: {
-                src: string
-                alt: string
-            }[]
+            color: string
         }
         size: {
             size: number
@@ -35,18 +31,12 @@ type ProductProps = {
     }[]
 }
 
-type SelectedCategory = {
-    id: {
-        id: string | null
-    }
-}
-
 const AdminProduct = () => {
     // const user = await User()
 
     const [products, setProducts] = useState<ProductProps[]>([])
     const [newProductPanel, setNewProductPanel] = useState<boolean>(false)
-    const [selectedProduct, selectProduct] = useState<SelectedCategory>({ id: { id: null } })
+    const [selectedProductId, selectProductId] = useState<string|null>(null)
     const [publicState, setPublic] = useState<boolean>(false)
     const [color, setColor] = useState<string>('#696969')
     const [productImages, setProductImages] = useState<FileList | null>(null)
@@ -74,7 +64,7 @@ const AdminProduct = () => {
     }
 
     const addProductLocation = async () => {
-        if (selectedProduct.id.id === null) return toast.warning(`هیچ محصولی انتخاب نشده است!`)
+        if (selectedProductId === null) return toast.warning(`هیچ محصولی انتخاب نشده است!`)
         if (
             !publicState || color == '#696969' || !sizeRef ||
             !quantityRef || !priceRef || !discountRef ||
@@ -84,7 +74,7 @@ const AdminProduct = () => {
 
         const payload = {
             public: publicState,
-            productId: selectedProduct.id.id,
+            productId: selectedProductId,
             color: color,
             size: sizeRef.current?.value,
             quantity: quantityRef.current?.value,
@@ -129,7 +119,7 @@ const AdminProduct = () => {
 
     const submitImagesToProduct = async () => {
         if (productImages === null) return toast.warning(`هیچ تصویری برای آپلود انتخاب نشده است!`)
-        if (selectedProduct.id.id === null) return toast.warning(`محصول مورد نظر جهت آپلود تصویر انتخاب نشده است!`)
+        if (selectedProductId === null) return toast.warning(`محصول مورد نظر جهت آپلود تصویر انتخاب نشده است!`)
 
         let imageSources: string[] = []
 
@@ -138,7 +128,7 @@ const AdminProduct = () => {
         })
 
         const payload = {
-            productId: selectedProduct.id.id,
+            productId: selectedProductId,
             imageSources: imageSources
         }
 
@@ -176,7 +166,7 @@ const AdminProduct = () => {
                             <Autocomplete
                                 id="productKey"
                                 options={products}
-                                onChange={(e, value: string) => selectProduct({ id: value })}
+                                onChange={(e, value) => selectProductId(String(value))}
                                 getOptionLabel={(option: ProductProps) => option.title}
                                 renderInput={(params) => <TextField {...params} label="محصول" />}
                                 sx={{ width: '100%' }}

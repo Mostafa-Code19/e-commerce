@@ -5,7 +5,7 @@ import { NextResponse } from "next/server";
 export async function GET() {
     const session: {user: {email: string}}| null = await getServerSession(authOptions);
     if (!session) return
-    const user = await prisma.user.findFirst({
+    const user = await prisma.user.findUnique({
         where: {
             email: session.user.email
         },

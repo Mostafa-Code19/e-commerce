@@ -3,7 +3,7 @@ import { NextResponse } from "next/server";
 import { getServerSession } from "next-auth";
 
 export async function POST(request: Request) {
-    const session = await getServerSession(authOptions);
+    const session: {user: {email: string}}| null = await getServerSession(authOptions);
     const payload = await request.json()
 
     let cartItemsIdObject: {}[] = []
@@ -15,9 +15,11 @@ export async function POST(request: Request) {
         cartItemsId.push(item.id)
     })
 
+    if (!session) return
+
     const user = await prisma.user.findUnique({
         where: {
-            email: session?.user?.email
+            email: session.user.email
         }
     })
         .then((res: any) => {

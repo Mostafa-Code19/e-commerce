@@ -16,7 +16,7 @@ const PriceDiscountQtyEdit = ({ id, price, discount, quantity }: PropsType) => {
     const priceRef = useRef<HTMLInputElement>(null)
     const discountRef = useRef<HTMLInputElement>(null)
 
-    const checkKey = (e) => {
+    const checkKey = (e: { key: string }) => {
         if (e.key == 'Enter') submit()
     }
 

@@ -5,7 +5,7 @@ import prisma from "@/lib/prisma";
 import PublicEdit from "./publicEdit";
 import BackButton from "@/components/back-btn";
 
-async function getProductLocations(productId) {
+async function getProductLocations(productId: string) {
     return await prisma.product.findUnique({
         where: {
             id: productId
