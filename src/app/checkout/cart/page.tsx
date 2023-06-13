@@ -1,7 +1,7 @@
 'use client'
 
 import Image from 'next/image'
-import { useContext, useState, useEffect } from "react";
+import { useContext, useState, useEffect, useMemo } from "react";
 
 import BackButton from "../../../components/back-btn";
 import { CartContext } from "@/context/provider/cart";
@@ -10,19 +10,22 @@ import EmptyCart from '@/components/empty-cart';
 
 const Cart = () => {
     const { state, dispatch }: any = useContext(CartContext as any)
-    const { cart } = state
     const [price, setPrice] = useState(0)
     const [discount, setDiscount] = useState<number>(0)
+
+    const cartItems = useMemo(() => {
+        return state.cart;
+     }, [state]);
 
     useEffect(() => {
         setPrice(0), setDiscount(0)
 
-        Object.keys(cart).map((item: any) => {
-            item = cart[item]
+        Object.keys(cartItems).map((item: any) => {
+            item = cartItems[item]
             setPrice((prev) => prev + ((item.price) * item.quantity))
             setDiscount((prev) => prev + ((item.price * item.discount) / 100) * item.quantity)
         })
-    }, [cart])
+    }, [cartItems])
 
     return (
         <div className='mx-8 space-y-6'>
@@ -34,12 +37,12 @@ const Cart = () => {
 
             <div>
                 {
-                    Object.keys(cart).length ?
+                    Object.keys(cartItems).length ?
                         <div className='space-y-3'>
                             {
 
-                                Object.keys(cart).map((key) => {
-                                    const item = cart[key]
+                                Object.keys(cartItems).map((key) => {
+                                    const item = cartItems[key]
 
                                     return (
                                         <div key={item.id} className='flex justify-around bg-white rounded-xl py-8 space-y-3'>
@@ -124,7 +127,7 @@ const Cart = () => {
                                         </span>
                                     </div>
                                     <span className='text-slate-600 font-semibold'>
-                                        قیمت کالا ها ({Object.keys(cart).length})
+                                        قیمت کالا ها ({Object.keys(cartItems).length})
                                     </span>
                                 </div>
                                 <div className='flex justify-between'>

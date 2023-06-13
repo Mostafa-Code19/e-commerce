@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useContext, useEffect, useRef } from 'react'
+import { useState, useContext, useEffect, useRef, useMemo } from 'react'
 import Image from 'next/image'
 import { useRouter } from 'next/navigation';
 import axios from 'axios';
@@ -17,13 +17,17 @@ type Discount = {
 } | null | false
 
 const Payment = () => {
-    const [method, setMethod] = useState<string>('atTheDoor')
     const { state, dispatch }: any = useContext(CartContext as any)
-    const { cart } = state
+
+    const [method, setMethod] = useState<string>('atTheDoor')
     const [paymentPrice, setPaymentPrice] = useState(0)
     const [discount, setDiscount] = useState<Discount>(null)
     const [discountPrice, setDiscountPrice] = useState<number>(0)
     const [finalPaymentPrice, setFinalPaymentPrice] = useState(0)
+
+    const cartItems = useMemo(() => {
+        return state.cart;
+     }, [state]);
 
     const couponRef = useRef<HTMLInputElement>(null)
 
@@ -32,11 +36,11 @@ const Payment = () => {
     useEffect(() => {
         setPaymentPrice(0)
 
-        Object.keys(cart).map((item: any) => {
-            item = cart[item]
+        Object.keys(cartItems).map((item: any) => {
+            item = cartItems[item]
             setPaymentPrice((prev) => prev + ((item.price - ((item.price * item.discount) / 100)) * item.quantity))
         })
-    }, [cart, router])
+    }, [cartItems, router])
 
     useEffect(() => {
         let discountPrice = 0
@@ -77,7 +81,7 @@ const Payment = () => {
                     checkPermission = true
                 })
                 .catch(err => {
-                    console.log('err couponCheck')
+                    console.log('err couponCheck', err)
                     checkPermission = true
                     toast.error(`به مشکلی برخوردیم! لطفا مجدد تلاش کنید.`);
                 })
@@ -86,7 +90,7 @@ const Payment = () => {
 
     const submitOrder = async () => {
         const payload = {
-            cart: cart,
+            cart: cartItems,
             discount: discountPrice,
             price: finalPaymentPrice
         }
@@ -109,7 +113,7 @@ const Payment = () => {
     return (
         <div className='mx-8 space-y-6'>
             {
-                Object.keys(cart).length ?
+                Object.keys(cartItems).length ?
                     <>
                         <div className='flex items-center justify-between'>
                             <BackButton />
@@ -175,8 +179,8 @@ const Payment = () => {
                                 <div className='flex justify-end'>
                                     {
 
-                                        Object.keys(cart).map((key) => {
-                                            const item = cart[key]
+                                        Object.keys(cartItems).map((key) => {
+                                            const item = cartItems[key]
 
                                             return (
                                                 <div key={item.id} className='space-y-3'>

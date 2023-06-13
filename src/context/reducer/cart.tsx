@@ -1,26 +1,32 @@
-const cartReducer = (state: any, action: any) => {
+export const initialState = { cart: {} };
+
+export const CartReducer = (state: any, action: any) => {
   const id = action.payload?.id
 
   const item = state.cart[id];
 
   switch (action.type) {
+    case "initLocalStorage":
+      return action.value
+
     case "ADD_TO_CART":
       return {
         ...state,
         cart: {
           ...state.cart,
           [id]: item ?
-          {
-            ...item,
-            quantity: item.quantity + 1,
-          }
-          :
-          {
-            ...action.payload,
-            quantity: 1,
-          }
+            {
+              ...item,
+              quantity: item.quantity + 1,
+            }
+            :
+            {
+              ...action.payload,
+              quantity: 1,
+            }
         }
       }
+
     case "REMOVE_FROM_CART":
       if (item.quantity == 1) {
         let newCart = { ...state.cart };
@@ -42,12 +48,11 @@ const cartReducer = (state: any, action: any) => {
           }
         }
       }
+
     case "RESET":
-      return {cart: {}}
+      return { cart: {} }
 
     default:
       return state;
   }
 }
-
-export default cartReducer

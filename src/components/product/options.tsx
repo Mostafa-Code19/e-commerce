@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useContext, useEffect } from "react";
+import { useState, useContext, useEffect, useMemo } from "react";
 
 import styles from './Product.module.scss'
 import { CartContext } from "@/context/provider/cart";
@@ -18,7 +18,10 @@ const Options = ({
     const [productWithSelectedColorAndSize, selectProductWithSelectedColorAndSize] = useState(product.productLocation[0])
 
     const { state, dispatch }: any = useContext(CartContext as any)
-    const { cart } = state
+
+    const cartItems = useMemo(() => {
+        return state.cart;
+     }, [state]);
 
     useEffect(() => {
         let productsBaseSize = null
@@ -77,7 +80,7 @@ const Options = ({
 
     const addToCartReducer = (payload: AddToCartReducerType|{id: string}) => {
         let available = productWithSelectedColorAndSize.quantity
-        let addedToCart = cart[productWithSelectedColorAndSize.id]?.quantity || 0
+        let addedToCart = cartItems[productWithSelectedColorAndSize.id]?.quantity || 0
         
         if (addedToCart < available) {
             dispatch({
@@ -161,8 +164,8 @@ const Options = ({
 
                 <div  style={{ fontSize: '1.2rem' }} className='justify-center flex from-blue-400 to-blue-200 bg-gradient-to-bl w-full ml-5 rounded-xl font-semibold '>
                     {
-                        Object.keys(cart)?.length &&
-                        cart[productWithSelectedColorAndSize.id]
+                        Object.keys(cartItems)?.length &&
+                        cartItems[productWithSelectedColorAndSize.id]
                         ?
                         <div className='flex items-center justify-around w-full'>
                             <button
@@ -175,7 +178,7 @@ const Options = ({
                             >
                                 <svg className="h-9 w-9 text-black" width="24" height="24" viewBox="0 0 24 24" strokeWidth="2" stroke="currentColor" fill="none" strokeLinecap="round" strokeLinejoin="round">  <path stroke="none" d="M0 0h24v24H0z" />  <circle cx="12" cy="12" r="9" />  <line x1="9" y1="12" x2="15" y2="12" /></svg>
                             </button>
-                            <span className='text-black font-semibold text-lg'>{cart[productWithSelectedColorAndSize.id].quantity}</span>
+                            <span className='text-black font-semibold text-lg'>{cartItems[productWithSelectedColorAndSize.id].quantity}</span>
                             <button onClick={() => addToCartReducer({id: productWithSelectedColorAndSize.id})}>
                                 <svg className="h-9 w-9 text-black" width="24" height="24" viewBox="0 0 24 24" strokeWidth="2" stroke="currentColor" fill="none" strokeLinecap="round" strokeLinejoin="round">  <path stroke="none" d="M0 0h24v24H0z" />  <circle cx="12" cy="12" r="9" />  <line x1="9" y1="12" x2="15" y2="12" />  <line x1="12" y1="9" x2="12" y2="15" /></svg>
                             </button>
