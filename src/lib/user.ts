@@ -1,5 +1,6 @@
 import { getServerSession } from "next-auth";
 import authOptions from "@/lib/auth";
+import { User } from "@prisma/client";
 
 const User = async () => {
     const session = await getServerSession(authOptions);
@@ -8,7 +9,7 @@ const User = async () => {
 
     const email: string = String(session.user?.email)
 
-    return await prisma.user.findMany({
+    return await prisma.user.findUnique({
         where: {
             email: email
         },
@@ -29,8 +30,8 @@ const User = async () => {
             }
         }
     })
-        .then((res: any) => {
-            return res[0]
+        .then((res: User | null) => {
+            return res
         })
 }
 

@@ -37,8 +37,13 @@ footer:
 - coupon code @done
 - search page
 - category
-- after cart
+- types component @done
+- on payment check if user detail complited
+- after cart @done
 - profile @done
 - quantity in product model and affect product in frontend @done
 - digicala shipping header for mappign @done
-- 
+- orders take the count from available in db not the amount of buyed
+- product: color and size problem @done
+- alt for images
+- empty class=''

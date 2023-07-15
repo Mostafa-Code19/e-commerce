@@ -37,7 +37,7 @@ const AdminProduct = () => {
     const [products, setProducts] = useState<ProductProps[]>([])
     const [newProductPanel, setNewProductPanel] = useState<boolean>(false)
     const [selectedProductId, selectProductId] = useState<string|null>(null)
-    const [publicState, setPublic] = useState<boolean>(false)
+    const [publicState, setPublic] = useState<boolean>(true)
     const [color, setColor] = useState<string>('#696969')
     const [productImages, setProductImages] = useState<FileList | null>(null)
 
@@ -66,7 +66,7 @@ const AdminProduct = () => {
     const addProductLocation = async () => {
         if (selectedProductId === null) return toast.warning(`هیچ محصولی انتخاب نشده است!`)
         if (
-            !publicState || color == '#696969' || !sizeRef ||
+            color == '#696969' || !sizeRef ||
             !quantityRef || !priceRef || !discountRef ||
             !sizeRef.current?.value.length || !quantityRef.current?.value.length ||
             !priceRef.current?.value.length || !discountRef.current?.value.length
@@ -92,9 +92,8 @@ const AdminProduct = () => {
             .catch(err => {
                 // enqueueSnackbar('در ایجاد کوییز تریویا خطایی رخ داد.', { variant: 'success', anchorOrigin: { horizontal: 'right', vertical: 'top' }})
                 toast.error(`در ثبت چهره جدید محصول خطایی رخ داد!`);
-                console.log('err: postTrivia')
+                console.log('err: در ثبت چهره جدید محصول خطایی رخ داد!')
                 console.log(err)
-                console.log(err.response)
             })
     }
 
@@ -166,7 +165,7 @@ const AdminProduct = () => {
                             <Autocomplete
                                 id="productKey"
                                 options={products}
-                                onChange={(e, value) => selectProductId(String(value))}
+                                onChange={(e, value) => value && selectProductId(value.id)}
                                 getOptionLabel={(option: ProductProps) => option.title}
                                 renderInput={(params) => <TextField {...params} label="محصول" />}
                                 sx={{ width: '100%' }}
@@ -197,13 +196,13 @@ const AdminProduct = () => {
                     <div>
                         {
                             productImages &&
-                            Object.keys(productImages).map((image: any) => {
-                                image = productImages[image]
+                            Object.keys(productImages).map((imageId: string) => {
+                                const imageData: File = productImages[parseInt(imageId)]
                                 return (
                                     <img
-                                        key={image.id}
+                                        key={imageId}
                                         className='my-5 w-60 mx-auto'
-                                        src={URL.createObjectURL(image)} alt=""
+                                        src={URL.createObjectURL(imageData)} alt=""
                                     />
                                 )
                             })

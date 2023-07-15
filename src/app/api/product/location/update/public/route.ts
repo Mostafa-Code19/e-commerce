@@ -1,3 +1,4 @@
+import { ProductLocation } from "@prisma/client";
 import { NextResponse } from "next/server";
 
 export async function PATCH(request: Request) {
@@ -13,7 +14,7 @@ export async function PATCH(request: Request) {
             }
         }
     })
-        .then((res: any) => {
+        .then((res: ProductLocation) => {
             return res
         })
         

@@ -2,9 +2,19 @@ import { getServerSession } from "next-auth";
 import authOptions from "@/lib/auth";
 import { NextResponse } from "next/server";
 
+type UserType = {
+    name: string | null;
+    mobile_number: string | null;
+    phone_number: string | null;
+    melli_code: string | null;
+    address: string | null
+} | null
+
 export async function GET() {
     const session: {user: {email: string}}| null = await getServerSession(authOptions);
+
     if (!session) return
+
     const user = await prisma.user.findUnique({
         where: {
             email: session.user.email
@@ -17,7 +27,7 @@ export async function GET() {
             address: true,
         }
     })
-        .then((res: any) => {
+        .then((res: UserType) => {
             return res
         })
         

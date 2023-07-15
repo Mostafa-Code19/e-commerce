@@ -4,18 +4,31 @@ import { useState, useContext, useEffect, useMemo } from "react";
 
 import styles from './Product.module.scss'
 import { CartContext } from "@/context/provider/cart";
+import { ProductLocation, Color, Size, Image } from "@prisma/client";
+
+type ProductLocationExtended = ProductLocation & {
+    id: string
+    color: Color
+    size: Size
+    quantity: number
+    discount: number
+    price: number
+}[]
 
 const Options = ({
     children,
     product
 }: {
     children: React.ReactNode,
-    product: any
+    product: {
+        gallery: Image[]
+        productLocation: ProductLocationExtended
+        title: string
+    }
 }) => {
-    const [selectedColor, selectColor] = useState<string>(product.productLocation[0].color.color)
-    const [productWithSelectedColor, setProductWithSelectedColor] = useState<any[]>([product.productLocation[0]])
-    const [selectedSize, selectSize] = useState<number>(product.productLocation[0].size.size)
-    const [productWithSelectedColorAndSize, selectProductWithSelectedColorAndSize] = useState(product.productLocation[0])
+    const [selectedColor, selectColor] = useState(product.productLocation[0].color.color)
+    const [selectedSize, selectSize] = useState(product.productLocation[0].size.size)
+    const [selectedLocation, selectFinalLocation] = useState(product.productLocation[0])
 
     const { state, dispatch }: any = useContext(CartContext as any)
 
@@ -24,30 +37,18 @@ const Options = ({
      }, [state]);
 
     useEffect(() => {
-        let productsBaseSize = null
-        let productBaseColor: any = []
-
-        product.productLocation.map((product: any) => {
-            if (selectedColor == product.color.color) {
-                productBaseColor.push(product)
-
-                if (selectedSize == product.size.size) {
-                     return productsBaseSize = product
-                }
-            }
+        product.productLocation.map((product) => {
+            if (selectedColor == product.color.color && selectedSize == product.size.size) selectFinalLocation(product)
         })
-
-        setProductWithSelectedColor(productBaseColor)
-        selectProductWithSelectedColorAndSize(productsBaseSize)
 
     }, [selectedSize, product, selectedColor])
 
     const colors = () => {
-        let list: any = []
+        let list: string[] = []
 
-        return product.productLocation.map((data: any) => {
-            if (data.quantity) {
-                const color = data.color.color
+        return product.productLocation.map(product => {
+            if (product.quantity) {
+                const color = product.color.color
                 
                 if (list.includes(color)) return
                 else {
@@ -56,7 +57,7 @@ const Options = ({
                     return (
                         <button key={color} onClick={() => {
                             selectColor(color)
-                            selectSize(data.size.size)
+                            selectSize(product.size.size)
                         }}>
                             <span style={{ borderColor: `${selectedColor == color ? color : 'transparent'}` }} className='border-2 p-1 flex rounded-full'>
                                 <span style={{ background: color }} className='m-auto block w-6 h-6 rounded-full shadow-[0_0_5px_#a4a4a4]'></span>
@@ -70,17 +71,20 @@ const Options = ({
 
     interface AddToCartReducerType {
         id: string;
+        title: string;
         color: string;
-        size: string;
-        price: string;
-        discount: string;
-        thumbnail: string;
-        maxQuantity: string;
+        size: number;
+        price: number;
+        discount: number;
+        thumbnail: Image;
+        maxQuantity: number;
     }
 
     const addToCartReducer = (payload: AddToCartReducerType|{id: string}) => {
-        let available = productWithSelectedColorAndSize.quantity
-        let addedToCart = cartItems[productWithSelectedColorAndSize.id]?.quantity || 0
+        if (!selectedLocation.id || !selectedLocation.quantity) return
+        
+        let available = selectedLocation.quantity
+        let addedToCart = cartItems[selectedLocation.id]?.quantity || 0
         
         if (addedToCart < available) {
             dispatch({
@@ -88,6 +92,7 @@ const Options = ({
                 payload: payload
             })
         }
+
     }
 
     return (
@@ -103,30 +108,29 @@ const Options = ({
             </div>
 
             <div>
-                <h2 className='text-right'>Size</h2>
+                <h2 className='text-right'>سایز</h2>
 
                 <div className='flex space-x-2 justify-end'>
                     {
-                        productWithSelectedColor?.map((data: any) => {
-                            if (data.quantity) {
-                                const size = data.size.size
-    
-                                return (
-                                    <button
-                                        key={size}
-                                        onClick={() => selectSize(size)}
-                                        style={{ color: 'green' }}
-                                        className='flex items-center'
-                                    >
-                                        <span
-                                            className={selectedSize == size ? styles.selected_size : styles.size}
-                                        >
-                                            {size}
-                                        </span>
-                                    </button>
-                                )
-                            }
+                        product.productLocation.map(product => {
+                            if (product.color.color !== selectedColor || !product.quantity) return
 
+                            const size = product.size.size
+
+                            return (
+                                <button
+                                    key={size}
+                                    onClick={() => selectSize(size)}
+                                    style={{ color: 'green' }}
+                                    className='flex items-center'
+                                >
+                                    <span
+                                        className={selectedSize == size ? styles.selected_size : styles.size}
+                                    >
+                                        {size}
+                                    </span>
+                                </button>
+                            )
                         })
                     }
                 </div>
@@ -135,15 +139,15 @@ const Options = ({
             <div className='flex justify-between'>
                 <div className=''>
                     {
-                        productWithSelectedColorAndSize.discount ?
+                        selectedLocation.discount ?
                         <div className='flex justify-between'>
                             <span className='text-slate-400 line-through font-semibold text-sm'>
-                                {productWithSelectedColorAndSize.price.toLocaleString()}
+                                {selectedLocation.price.toLocaleString()}
                             </span>
                             {
-                                productWithSelectedColorAndSize.discount ?
+                                selectedLocation.discount ?
                                 <span className='bg-red-500 rounded-2xl px-2 pt-1 text-white'>
-                                    {productWithSelectedColorAndSize.discount}%
+                                    {selectedLocation.discount}%
                                 </span>
                                 :
                                 ''
@@ -154,10 +158,10 @@ const Options = ({
                     }
                     <div style={{ fontSize: '2rem' }} className='font-bold toman_product'>
                         {
-                            productWithSelectedColorAndSize.discount ?
-                            (productWithSelectedColorAndSize.price - ((productWithSelectedColorAndSize.price * productWithSelectedColorAndSize.discount) / 100)).toLocaleString()
+                            selectedLocation.discount ?
+                            (selectedLocation.price - ((selectedLocation.price * selectedLocation.discount) / 100)).toLocaleString()
                             :
-                            productWithSelectedColorAndSize.price.toLocaleString()
+                            selectedLocation.price.toLocaleString()
                         }
                     </div>
                 </div>
@@ -165,34 +169,35 @@ const Options = ({
                 <div  style={{ fontSize: '1.2rem' }} className='justify-center flex from-blue-400 to-blue-200 bg-gradient-to-bl w-full ml-5 rounded-xl font-semibold '>
                     {
                         Object.keys(cartItems)?.length &&
-                        cartItems[productWithSelectedColorAndSize.id]
+                        cartItems[selectedLocation.id]
                         ?
                         <div className='flex items-center justify-around w-full'>
                             <button
                                 onClick={() => {
                                     dispatch({
                                         type: "REMOVE_FROM_CART",
-                                        payload: {id: productWithSelectedColorAndSize.id}
+                                        payload: {id: selectedLocation.id}
                                     })
                                 }}
                             >
                                 <svg className="h-9 w-9 text-black" width="24" height="24" viewBox="0 0 24 24" strokeWidth="2" stroke="currentColor" fill="none" strokeLinecap="round" strokeLinejoin="round">  <path stroke="none" d="M0 0h24v24H0z" />  <circle cx="12" cy="12" r="9" />  <line x1="9" y1="12" x2="15" y2="12" /></svg>
                             </button>
-                            <span className='text-black font-semibold text-lg'>{cartItems[productWithSelectedColorAndSize.id].quantity}</span>
-                            <button onClick={() => addToCartReducer({id: productWithSelectedColorAndSize.id})}>
+                            <span className='text-black font-semibold text-lg'>{cartItems[selectedLocation.id].quantity}</span>
+                            <button onClick={() => addToCartReducer({id: selectedLocation.id})}>
                                 <svg className="h-9 w-9 text-black" width="24" height="24" viewBox="0 0 24 24" strokeWidth="2" stroke="currentColor" fill="none" strokeLinecap="round" strokeLinejoin="round">  <path stroke="none" d="M0 0h24v24H0z" />  <circle cx="12" cy="12" r="9" />  <line x1="9" y1="12" x2="15" y2="12" />  <line x1="12" y1="9" x2="12" y2="15" /></svg>
                             </button>
                         </div>
                         :
                         <button onClick={() => addToCartReducer(
                             {
-                            id: productWithSelectedColorAndSize.id,
-                            color: productWithSelectedColorAndSize.color.color,
-                            size: productWithSelectedColorAndSize.size.size,
-                            price: productWithSelectedColorAndSize.price,
-                            discount: productWithSelectedColorAndSize.discount,
+                            id: selectedLocation.id,
+                            title: product.title,
+                            color: selectedLocation.color.color,
+                            size: selectedLocation.size.size,
+                            price: selectedLocation.price,
+                            discount: selectedLocation.discount,
                             thumbnail: product.gallery[0],
-                            maxQuantity: productWithSelectedColorAndSize.quantity
+                            maxQuantity: selectedLocation.quantity
                             }
                         )}>
                             <span className='text-black text-base'> افزودن به سبد</span>

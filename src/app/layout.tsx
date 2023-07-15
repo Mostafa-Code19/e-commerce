@@ -1,15 +1,10 @@
 'use client'
 
 import './globals.scss'
-import Navbar from '../components/navbar'
+import Navbar from '@/components/navbar'
 import { CartContextProvider } from '@/context/provider/cart'
 import { SessionProvider } from "next-auth/react";
 import { ToastContainer } from 'react-toastify';
-
-export const metadata = {
-  title: 'Shoe E-Commerce',
-  description: 'Create by Me <3',
-}
 
 export default function RootLayout({
   children

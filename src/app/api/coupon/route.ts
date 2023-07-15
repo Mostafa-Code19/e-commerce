@@ -1,6 +1,10 @@
 import prisma from '../../../lib/prisma'
 import { NextResponse } from "next/server";
 
+type CouponType = {
+    type: string, value: number
+} | null
+
 export async function GET(request: Request) {
     const { searchParams } = new URL(request.url);
     const couponCode = searchParams.get('c')
@@ -16,8 +20,8 @@ export async function GET(request: Request) {
             value: true
         }
     })
-        .then((res: any) => res)
-        .catch((err: any) => console.log('err coupon api'))
+        .then((res:CouponType) => res)
+        .catch((err: Error) => console.log('err coupon api'))
 
     return NextResponse.json(coupon);
 }

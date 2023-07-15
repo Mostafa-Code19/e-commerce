@@ -1,6 +1,7 @@
 import authOptions from "@/lib/auth";
 import { NextResponse } from "next/server";
 import { getServerSession } from "next-auth";
+import { Order, User, ProductLocation } from "@prisma/client";
 
 export async function POST(request: Request) {
     const session: {user: {email: string}}| null = await getServerSession(authOptions);
@@ -22,7 +23,7 @@ export async function POST(request: Request) {
             email: session.user.email
         }
     })
-        .then((res: any) => {
+        .then((res: User | null) => {
             return res
         })
 
@@ -33,8 +34,8 @@ export async function POST(request: Request) {
             }
         }
     })
-        .then(res => res)
-        .catch(err => console.log('checkQuantity', err))
+        .then((res: ProductLocation[]) => res)
+        .catch((err: Error) => console.log('checkQuantity', err))
 
 
     let notEnough: {type: string, id: null|string, quantity: number} = {type: 'lack', id: null, quantity: -1}
@@ -58,6 +59,10 @@ export async function POST(request: Request) {
         })
     })
 
+    if (!user) {
+        return NextResponse.json({'message': 'user not found', 'status': 401})
+    }
+
     const order = await prisma.order.create({
         data: {
             price: payload.price,
@@ -67,7 +72,7 @@ export async function POST(request: Request) {
             client_id: user.id
         }
     })
-        .then((res: any) => {
+        .then((res: Order) => {
             return res
         })
 

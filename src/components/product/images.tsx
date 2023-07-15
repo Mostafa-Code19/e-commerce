@@ -13,8 +13,23 @@ type ImageType = {
     alt: string;
 }
 
+type PropsType = {
+    isAdmin: boolean
+    thumbnail: {
+        src: string
+        alt: string
+    }
+    product: {
+        gallery: {
+            id: string
+            src: string
+            alt: string
+        }[]
+    }
+}
 
-const Images = ({ isAdmin, thumbnail, product }: any) => {
+
+const Images = ({ isAdmin, thumbnail, product }: PropsType) => {
     const [lightboxOpen, setLightboxOpen] = useState(false)
     const [galleryList, setGalleryList] = useState<ImageType[]>([])
     const [currentImageIndex, setCurrentIndex] = useState(0);
@@ -29,12 +44,12 @@ const Images = ({ isAdmin, thumbnail, product }: any) => {
     useEffect(() => {
         let galleryList: { id: string, src: string, alt: string }[] = []
 
-        product.gallery.map((data: any) => {
+        product.gallery.map(img => {
             galleryList.push(
                 {
-                    id: data.id,
-                    src: data.src,
-                    alt: data.alt
+                    id: img.id,
+                    src: img.src,
+                    alt: img.alt
                 }
             )
         })
@@ -84,7 +99,7 @@ const Images = ({ isAdmin, thumbnail, product }: any) => {
             </div>
             <div className='flex space-x-3 justify-center'>
                 {
-                    galleryList.map((data: any, index: number) => {
+                    galleryList.map((data, index) => {
                         return (
                             <div key={index} onClick={() => {
                                 setLightboxOpen(true)

@@ -1,8 +1,9 @@
-import Detail from '../../../components/product/details'
-import Options from '../../../components/product/options'
-import prisma from '../../../lib/prisma'
+import Detail from '@/components/product/details'
+import Options from '@/components/product/options'
+import prisma from '@/lib/prisma'
 import Image from 'next/image'
 
+import { Product } from '@prisma/client'
 
 const getProduct = async (slug: string) => {
     return await prisma.product.findUnique(
@@ -42,7 +43,7 @@ const getProduct = async (slug: string) => {
             }
         }
     )
-        .then((res: any) => {
+        .then((res: Product | null) => {
             return JSON.parse(JSON.stringify(res))
         })
 }

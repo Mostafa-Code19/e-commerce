@@ -36,8 +36,8 @@ const Payment = () => {
     useEffect(() => {
         setPaymentPrice(0)
 
-        Object.keys(cartItems).map((item: any) => {
-            item = cartItems[item]
+        Object.keys(cartItems).map((key: string) => {
+            const item = cartItems[key]
             setPaymentPrice((prev) => prev + ((item.price - ((item.price * item.discount) / 100)) * item.quantity))
         })
     }, [cartItems, router])

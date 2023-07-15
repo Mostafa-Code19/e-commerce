@@ -2,6 +2,10 @@ import Image from 'next/image'
 import Link from 'next/link'
 
 import prisma from '../lib/prisma'
+import { Product, ProductLocation } from '@prisma/client'
+
+type ProductLocationExtended = ProductLocation & { color: { color: string }, size: { size: number } }
+type ProductExtended = Product & { gallery: { src: string, alt: string }[], productLocation: ProductLocationExtended[] }
 
 async function getProducts() {
     return await prisma.product.findMany({
@@ -36,38 +40,13 @@ async function getProducts() {
             }
         }
     })
-        .then((res: any) => res)
+        .then((res: ProductExtended[]) => res)
 }
 
-type ProductProps = {
-    id: string;
-    title: string;
-    gallery: {
-        src: string
-        alt: string
-    }[];
-    productLocation: {
-        price: number;
-        discount: number;
-        color: {
-            color: string;
-        }
-        size: {
-            size: number
-        }
-    }[]
-}
+const colors = (locations: ProductLocationExtended[]) => {
+    let list: string[] = []
 
-const colors = (locations: any) => {
-    let list: any = []
-
-    return locations.map((location: {
-        id: string,
-        color: {
-            color: string
-        },
-        quantity: number
-    }) => {
+    return locations.map((location: ProductLocationExtended) => {
         const color = location.color.color
 
         if (list.includes(color)) return
@@ -79,6 +58,11 @@ const colors = (locations: any) => {
             )
         }
     })
+}
+
+export const metadata = {
+    title: 'Shoe E-Commerce',
+    description: 'Create by Me <3',
 }
 
 async function Home() {
@@ -148,7 +132,7 @@ async function Home() {
 
                 <div className="grid grid-cols-2 space-x-3">
                     {
-                        products.map((product: ProductProps) => {
+                        products.map((product: ProductExtended) => {
                             if (!product.productLocation.length) return
 
                             return (

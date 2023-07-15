@@ -1,3 +1,4 @@
+import { Product } from "@prisma/client";
 import { NextResponse } from "next/server";
 
 export async function POST(request: Request) {
@@ -9,7 +10,7 @@ export async function POST(request: Request) {
             description: payload.description,
         }
     })
-        .then((res: any) => {
+        .then((res: Product) => {
             return res
         })
 

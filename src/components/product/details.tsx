@@ -1,7 +1,10 @@
 import BackButton from '@/components/back-btn';
 import Images from './images'
+import { Product, Image } from '@prisma/client';
 
-const Detail = ({ product }: any) => {
+type ProductAndLocation = Product & {gallery: Image[]}
+
+const Detail = ({ product }: { product: ProductAndLocation }) => {
     return (
         <>
             <BackButton />

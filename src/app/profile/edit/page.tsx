@@ -1,57 +1,44 @@
 'use client'
 
-import { useCallback, useEffect, useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import axios from 'axios'
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { User } from '@prisma/client'
 
 import BackButton from "@/components/back-btn";
 
-type User = {
-    address: string
-    blocked: boolean
-    blocked_for: string
-    created_at: string
-    email:  string
-    email_verified: boolean
-    id: string
-    image: string
-    last_login: string
-    melli_code: string
-    mobile_number: string
-    mobile_verified: boolean
-    name: string
-    phone_number: string
-    updated_at: string
-}
-
 const Edit = () => {
-    const [user, setUser] = useState<any>()
+    const [user, setUser] = useState<User>()
     const nameRef = useRef<HTMLInputElement>(null)
     const mobileNumberRef = useRef<HTMLInputElement>(null)
     const phoneNumberRef = useRef<HTMLInputElement>(null)
     const melliCodeRef = useRef<HTMLInputElement>(null)
     const addressRef = useRef<HTMLTextAreaElement>(null)
 
-    const fetchUser = useCallback(async () => {
-        const user = await new Promise(async (resolve) => {
-            const res = await axios.get('/api/user');
-            resolve(res.data.user);
-        })
-
-        setUser(user)
-    }, [])
+    const fetchUser = async () => {
+        return await axios.get('/api/user')
+            .then(res => {
+                setUser(res.data.user);
+            })
+    }
 
     useEffect(() => {
         fetchUser()
-    }, [fetchUser])
+    }, [])
 
     let submitPermission = true
     const submit = async () => {
         if (!submitPermission) return
 
         submitPermission = false
-        let payload: any = {}
+        let payload: {
+            name?: string
+            mobile_number?: string
+            phone_number?: string
+            melli_code?: string
+            address?: string
+        } = {}
 
         const name = nameRef.current?.value
         const mobileNumber = mobileNumberRef.current?.value
@@ -90,27 +77,27 @@ const Edit = () => {
 
             <div className='space-y-10'>
                 <div className='flex justify-between items-center'>
-                    <input ref={nameRef} type="text" className='placeholder:text-slate-400 px-1 py-1 border-b bg-transparent border-black' placeholder={user?.name} />
+                    <input ref={nameRef} type="text" className='placeholder:text-slate-400 px-1 py-1 border-b bg-transparent border-black' placeholder={user?.name || ''} />
                     <span className='text-base text-black'>نام و نام خانوادگی</span>
                 </div>
 
                 <div className='flex justify-between items-center'>
-                    <input ref={mobileNumberRef} type="text" className='placeholder:text-slate-400 px-1 py-1 border-b bg-transparent border-black' placeholder={user?.mobile_number} />
+                    <input ref={mobileNumberRef} type="text" className='placeholder:text-slate-400 px-1 py-1 border-b bg-transparent border-black' placeholder={user?.mobile_number || ''} />
                     <span className='text-base text-black'>تلفن همراه</span>
                 </div>
 
                 <div className='flex justify-between items-center'>
-                    <input ref={phoneNumberRef} type="text" className='placeholder:text-slate-400 px-1 py-1 border-b bg-transparent border-black' placeholder={user?.phone_number} />
+                    <input ref={phoneNumberRef} type="text" className='placeholder:text-slate-400 px-1 py-1 border-b bg-transparent border-black' placeholder={user?.phone_number || ''} />
                     <span className='text-base text-black'>تلفن منزل</span>
                 </div>
 
                 <div className='flex justify-between items-center'>
-                    <input ref={melliCodeRef} type="text" className='placeholder:text-slate-400 px-1 py-1 border-b bg-transparent border-black' placeholder={user?.melli_code} />
+                    <input ref={melliCodeRef} type="text" className='placeholder:text-slate-400 px-1 py-1 border-b bg-transparent border-black' placeholder={user?.melli_code || ''} />
                     <span className='text-base text-black'>کد ملی</span>
                 </div>
 
                 <div className='flex justify-between items-center'>
-                    <textarea ref={addressRef} rows={3} className='placeholder:text-slate-400 px-1 py-1 border-b bg-transparent border-black' placeholder={user?.address} />
+                    <textarea ref={addressRef} rows={3} className='placeholder:text-slate-400 px-1 py-1 border-b bg-transparent border-black' placeholder={user?.address || ''} />
                     <span className='text-base text-black'>آدرس محل سکونت</span>
                 </div>
             </div>
