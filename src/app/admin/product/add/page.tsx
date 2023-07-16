@@ -12,6 +12,7 @@ import Dialog from '@mui/material/Dialog';
 import axios from 'axios';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { Brand } from '@prisma/client'
 
 // import User from "@/lib/user";
 import BackButton from '@/components/back-btn';
@@ -32,11 +33,11 @@ type ProductProps = {
 }
 
 const AdminProduct = () => {
-    // const user = await User()
-
     const [products, setProducts] = useState<ProductProps[]>([])
+    const [brands, setBrands] = useState<Brand[]>([])
     const [newProductPanel, setNewProductPanel] = useState<boolean>(false)
-    const [selectedProductId, selectProductId] = useState<string|null>(null)
+    const [selectedProduct, selectProduct] = useState<string|null>(null)
+    const [selectedBrand, selectBrand] = useState<string|null>(null)
     const [publicState, setPublic] = useState<boolean>(true)
     const [color, setColor] = useState<string>('#696969')
     const [productImages, setProductImages] = useState<FileList | null>(null)
@@ -50,6 +51,7 @@ const AdminProduct = () => {
 
     useEffect(() => {
         fetchProducts()
+        fetchBrands()
     }, []);
 
     const fetchProducts = async () => {
@@ -63,8 +65,19 @@ const AdminProduct = () => {
             })
     }
 
+    const fetchBrands = async () => {
+        await axios.get('/api/product/brand/')
+            .then(res => {
+                setBrands(res.data)
+            })
+            .catch(err => {
+                toast.error(`دریافت برند ها به مشکل برخورد کرد!`);
+                console.log('err fetch brands', err)
+            })
+    }
+
     const addProductLocation = async () => {
-        if (selectedProductId === null) return toast.warning(`هیچ محصولی انتخاب نشده است!`)
+        if (selectedProduct === null) return toast.warning(`هیچ محصولی انتخاب نشده است!`)
         if (
             color == '#696969' || !sizeRef ||
             !quantityRef || !priceRef || !discountRef ||
@@ -74,7 +87,7 @@ const AdminProduct = () => {
 
         const payload = {
             public: publicState,
-            productId: selectedProductId,
+            productId: selectedProduct,
             color: color,
             size: sizeRef.current?.value,
             quantity: quantityRef.current?.value,
@@ -98,9 +111,15 @@ const AdminProduct = () => {
     }
 
     const addNewProduct = async () => {
+        const title = titleRef?.current?.value
+        const description = descriptionRef?.current?.value
+
+        if (!title?.trim().length || !description?.trim().length || !selectedBrand) return toast.error('برای افزودن محصول جدید لطفا تمام ورودی ها را کامل کنید')
+
         await axios.post('/api/product/add', {
-            title: titleRef?.current?.value,
-            description: descriptionRef?.current?.value
+            title: title,
+            brand: selectedBrand,
+            description: description
         })
             .then(res => {
                 if (res.data.id) {
@@ -118,7 +137,7 @@ const AdminProduct = () => {
 
     const submitImagesToProduct = async () => {
         if (productImages === null) return toast.warning(`هیچ تصویری برای آپلود انتخاب نشده است!`)
-        if (selectedProductId === null) return toast.warning(`محصول مورد نظر جهت آپلود تصویر انتخاب نشده است!`)
+        if (selectedProduct === null) return toast.warning(`محصول مورد نظر جهت آپلود تصویر انتخاب نشده است!`)
 
         let imageSources: string[] = []
 
@@ -127,7 +146,7 @@ const AdminProduct = () => {
         })
 
         const payload = {
-            productId: selectedProductId,
+            productId: selectedProduct,
             imageSources: imageSources
         }
 
@@ -165,7 +184,7 @@ const AdminProduct = () => {
                             <Autocomplete
                                 id="productKey"
                                 options={products}
-                                onChange={(e, value) => value && selectProductId(value.id)}
+                                onChange={(e, value) => value && selectProduct(value.id)}
                                 getOptionLabel={(option: ProductProps) => option.title}
                                 renderInput={(params) => <TextField {...params} label="محصول" />}
                                 sx={{ width: '100%' }}
@@ -175,6 +194,14 @@ const AdminProduct = () => {
 
                     <Dialog onClose={() => setNewProductPanel(false)} open={newProductPanel}>
                         <input type="text" placeholder='عنوان' ref={titleRef} className='px-6 py-1 text-right text-base' />
+                        <Autocomplete
+                            id="brandKey"
+                            options={brands}
+                            onChange={(e, value) => value && selectBrand(value.id)}
+                            getOptionLabel={(option: Brand) => option.name}
+                            renderInput={(params) => <TextField {...params} label="برند" />}
+                            sx={{ width: '100%' }}
+                        />
                         <textarea placeholder='توضیحات' ref={descriptionRef} cols={30} rows={10} className='pl-4 pr-6 py-1 border border-[#8C939D] rounded text-right bg-transparent text-[0.9rem] my-auto pt-3'></textarea>
                         <button onClick={addNewProduct} >ثبت محصول</button>
                     </Dialog>

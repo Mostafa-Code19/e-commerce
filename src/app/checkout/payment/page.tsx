@@ -99,7 +99,7 @@ const Payment = () => {
             .then(res => {
                 if (res.status == 200) {
                     if (res.data.type == 'lack') {
-                        toast.error('یک یا تعدادی از محصولات موجود نمی‌باشند!')
+                        toast.error(`تعداد موجودی "${cartItems[res.data.id].title}" ${cartItems[res.data.id].quantity} عدد است. لطفا پس از تغییر سبد خرید خود مجدد تلاش کنید.`)
                     }
                     else if (res.data.id) {
                         dispatch({ type: "RESET" })

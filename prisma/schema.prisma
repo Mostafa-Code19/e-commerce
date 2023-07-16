@@ -121,9 +121,17 @@ model ProductLocation {
   orderItem    OrderItem[]
 }
 
+model Brand {
+  id    String    @id @default(cuid())
+  name  String
+  products  Product[]
+}
+
 model Product {
   id              String            @id @default(cuid())
   title           String
+  brand           Brand             @relation(fields: [brandId], references: [id])
+  brandId         String
   description     String?
   productLocation ProductLocation[]
   gallery         Image[]
