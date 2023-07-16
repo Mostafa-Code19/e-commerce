@@ -35,7 +35,7 @@ footer:
  
 - discount @done
 - coupon code @done
-- search page
+- search page @done
 - category
 - types component @done
 - on payment check if user detail complited
@@ -43,7 +43,8 @@ footer:
 - profile @done
 - quantity in product model and affect product in frontend @done
 - digicala shipping header for mappign @done
-- orders take the count from available in db not the amount of buyed
+- orders take the count from available in db not the amount of buyed @done
 - product: color and size problem @done
-- alt for images
-- empty class=''
+- alt for images @done
+- empty class='' @done
+- lack in qty

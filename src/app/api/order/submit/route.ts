@@ -3,16 +3,16 @@ import { NextResponse } from "next/server";
 import { getServerSession } from "next-auth";
 import { Order, User, ProductLocation } from "@prisma/client";
 
+type QuantityType = {id: string, quantity: number}
+
 export async function POST(request: Request) {
     const session: {user: {email: string}}| null = await getServerSession(authOptions);
     const payload = await request.json()
 
-    let cartItemsIdObject: {}[] = []
     let cartItemsId: string[] = []
 
     Object.keys(payload.cart).map((key) => {
         const item = payload.cart[key]
-        cartItemsIdObject.push({ id: item.id })
         cartItemsId.push(item.id)
     })
 
@@ -40,7 +40,7 @@ export async function POST(request: Request) {
 
     let notEnough: {type: string, id: null|string, quantity: number} = {type: 'lack', id: null, quantity: -1}
 
-    checkQuantity?.map(item => {
+    checkQuantity?.map((item: QuantityType) => {
         if (payload.cart[item.id].quantity > item.quantity) {
             notEnough['id'] = item.id
             notEnough['quantity'] = item.quantity
@@ -50,7 +50,7 @@ export async function POST(request: Request) {
 
     if (notEnough.id) return NextResponse.json(notEnough)
 
-    checkQuantity?.map(async (item) => {
+    checkQuantity?.map(async (item: QuantityType) => {
         await prisma.productLocation.update({
             where: { id: item.id },
             data: {
@@ -66,7 +66,7 @@ export async function POST(request: Request) {
     const order = await prisma.order.create({
         data: {
             price: payload.price,
-            discount: payload.discount || 0,
+            discount: payload.discount,  // coupon
             payment: 'CASH',
             shipping_cost: 0,
             client_id: user.id
@@ -76,14 +76,22 @@ export async function POST(request: Request) {
             return res
         })
 
-    const orderItems = await prisma.order.update({
-        where: { id: order.id },
-        data: {
-            items: {
-                set: cartItemsIdObject
+    Object.keys(payload.cart).map(async (key) => {
+        const item = payload.cart[key]
+
+        await prisma.orderItem.create({
+            data: {
+                order_id: order.id,
+                item_id: item.id,
+                price: item.price,
+                discount: item.discount,
+                quantity: item.quantity
             }
-        }
+        })
+            .catch(err => {
+                NextResponse.json({'message': err.response, 'statue': 500})
+            })
     })
 
-    return NextResponse.json(orderItems);
+    return NextResponse.json(order);
 }

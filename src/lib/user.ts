@@ -19,9 +19,13 @@ const User = async () => {
                     items: {
                         select: {
                             quantity: true,
-                            product: {
-                                select: {
-                                    gallery: true
+                            item: {
+                                include: {
+                                    product: {
+                                        include: {
+                                            gallery: true
+                                        }
+                                    }
                                 }
                             }
                         }

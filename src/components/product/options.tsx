@@ -137,7 +137,7 @@ const Options = ({
             </div>
 
             <div className='flex justify-between'>
-                <div className=''>
+                <div>
                     {
                         selectedLocation.discount ?
                         <div className='flex justify-between'>

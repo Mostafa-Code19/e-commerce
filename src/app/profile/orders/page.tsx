@@ -7,11 +7,13 @@ type UserAndOrders = User & {orders?: OrderAndItems[]}
 type OrderAndItems = Order & {
     items: {
         id: string
-        product: {
-            gallery: {
-                src: string
-                alt: string
-            }[]
+        item: {
+            product: {
+                gallery: {
+                    src: string
+                    alt: string
+                }[]
+            }
         }
         quantity: number
     }[]
@@ -128,8 +130,8 @@ const Orders = async () => {
                                                     <div key={item.id} className='relative w-fit'>
                                                         <Image
                                                             className='object-cover justify-center m-auto p-2'
-                                                            src={item.product.gallery[0].src}
-                                                            alt={item.product.gallery[0].alt}
+                                                            src={item.item.product.gallery[0].src}
+                                                            alt={item.item.product.gallery[0].alt}
                                                             width='100'
                                                             height='100'
                                                         />

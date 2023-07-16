@@ -202,7 +202,7 @@ const AdminProduct = () => {
                                     <img
                                         key={imageId}
                                         className='my-5 w-60 mx-auto'
-                                        src={URL.createObjectURL(imageData)} alt=""
+                                        src={URL.createObjectURL(imageData)} alt={titleRef?.current?.value || 'NaN'}
                                     />
                                 )
                             })

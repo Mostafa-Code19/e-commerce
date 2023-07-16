@@ -22,7 +22,7 @@ const Payment = () => {
     const [method, setMethod] = useState<string>('atTheDoor')
     const [paymentPrice, setPaymentPrice] = useState(0)
     const [discount, setDiscount] = useState<Discount>(null)
-    const [discountPrice, setDiscountPrice] = useState<number>(0)
+    const [discountPrice, setDiscountPrice] = useState(0)
     const [finalPaymentPrice, setFinalPaymentPrice] = useState(0)
 
     const cartItems = useMemo(() => {
@@ -99,7 +99,7 @@ const Payment = () => {
             .then(res => {
                 if (res.status == 200) {
                     if (res.data.type == 'lack') {
-                        console.log('lack')
+                        toast.error('یک یا تعدادی از محصولات موجود نمی‌باشند!')
                     }
                     else if (res.data.id) {
                         dispatch({ type: "RESET" })

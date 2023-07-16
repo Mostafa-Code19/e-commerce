@@ -80,7 +80,7 @@ model Order {
   payment       Payment
   shipping_cost Int
   tracking_code String?
-  items         ProductLocation[]
+  items         OrderItem[]
 }
 
 enum Status {
@@ -95,6 +95,17 @@ enum Payment {
   CASH
 }
 
+model OrderItem {
+  id          String   @id @default(cuid())
+  order       Order    @relation(fields: [order_id], references: [id])
+  order_id    String
+  item        ProductLocation     @relation(fields: [item_id], references: [id])
+  item_id     String
+  price       Int
+  discount    Int
+  quantity    Int
+}
+
 model ProductLocation {
   id        String  @id @default(cuid())
   public    Boolean @default(true)
@@ -104,10 +115,10 @@ model ProductLocation {
   colorId   String  @unique
   size      Size    @relation(fields: [sizeId], references: [id])
   sizeId    String  @unique
-  quantity  Int     @default(1)
+  quantity  Int     @default(0)
   price     Int
   discount  Int     @default(0)
-  orders    Order[]
+  orderItem    OrderItem[]
 }
 
 model Product {
