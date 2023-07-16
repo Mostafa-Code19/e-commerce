@@ -82,22 +82,22 @@ async function Home() {
 
                 <div className='my-10 space-y-5'>
                     <div className='flex justify-center space-x-3'>
-                        <Link href='#'>
+                        <Link href='/brand/nike'>
                             <div className='px-6 py-2 text-center rounded-xl bg-white'>
                                 نایک
                             </div>
                         </Link>
-                        <Link href='#'>
+                        <Link href='/brand/adidas'>
                             <div className='px-6 py-2 text-center rounded-xl bg-white'>
                                 آدیداس
                             </div>
                         </Link>
-                        <Link href='#'>
+                        <Link href='/brand/puma'>
                             <div className='px-6 py-2 text-center rounded-xl bg-white'>
                                 پوما
                             </div>
                         </Link>
-                        <Link href='#'>
+                        <Link href='/brand/skechers'>
                             <div className='px-6 py-2 text-center rounded-xl bg-white'>
                                 اسکیچرز
                             </div>

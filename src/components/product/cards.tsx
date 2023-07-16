@@ -79,7 +79,7 @@ const ProductCards = ({products} : {products: ProductExtended[]}) => {
                 }
             </div>
             :
-            <h1>محصولی یافت نشد!. لطفا عبارت دیگری را جستجو کنید!</h1>
+            <h1>!محصولی یافت نشد</h1>
     )
 }
  

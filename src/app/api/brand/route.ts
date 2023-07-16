@@ -4,9 +4,7 @@ import { NextResponse } from "next/server";
 
 export async function GET() {
     const brand = await prisma.brand.findMany()
-        .then((res: Brand[]) => {
-            return res
-        })
+        .then((res: Brand[]) => res)
         .catch((err: AxiosError) => {
             console.log('brand fetch err', err)
         })

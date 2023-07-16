@@ -66,7 +66,7 @@ const AdminProduct = () => {
     }
 
     const fetchBrands = async () => {
-        await axios.get('/api/product/brand/')
+        await axios.get('/api/brand/')
             .then(res => {
                 setBrands(res.data)
             })
