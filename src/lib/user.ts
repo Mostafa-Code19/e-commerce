@@ -1,17 +1,15 @@
 import { getServerSession } from "next-auth";
 import authOptions from "@/lib/auth";
-import { User } from "@prisma/client";
+import { User as UserType } from "@prisma/client";
 
 const User = async () => {
-    const session = await getServerSession(authOptions);
+    const session: {email: string} | null = await getServerSession(authOptions);
 
     if (!session) return null
 
-    const email: string = String(session.user?.email)
-
     return await prisma.user.findUnique({
         where: {
-            email: email
+            email: session.email
         },
         include: {
             orders: {
@@ -34,8 +32,9 @@ const User = async () => {
             }
         }
     })
-        .then((res: User | null) => {
-            return res
+        .then((user: UserType | null) => {
+            const { password, ...filteredUser } = user as UserType & { password: string };
+            return filteredUser
         })
 }
 

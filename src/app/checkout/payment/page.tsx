@@ -98,7 +98,10 @@ const Payment = () => {
         await axios.post('/api/order/submit', payload)
             .then(res => {
                 if (res.status == 200) {
-                    if (res.data.type == 'lack') {
+                    if (res.data.status == 401) {
+                        toast.warning('ابتدا می‌بایست وارد شوید!')
+                    }
+                    else if (res.data.type == 'lack') {
                         toast.error(`تعداد موجودی "${cartItems[res.data.id].title}" ${cartItems[res.data.id].quantity} عدد است. لطفا پس از تغییر سبد خرید خود مجدد تلاش کنید.`)
                     }
                     else if (res.data.id) {

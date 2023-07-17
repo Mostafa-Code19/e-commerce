@@ -16,7 +16,7 @@ export async function POST(request: Request) {
         cartItemsId.push(item.id)
     })
 
-    if (!session) return
+    if (!session) return NextResponse.json({'message': 'unAuthorized', 'status': 401})
 
     const user = await prisma.user.findUnique({
         where: {
