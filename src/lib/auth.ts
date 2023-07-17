@@ -1,6 +1,8 @@
 import type { NextAuthOptions } from 'next-auth'
 import bcrypt from 'bcrypt'
 import CredentialsProvider from "next-auth/providers/credentials";
+import { User } from '@prisma/client'
+
 import prisma from './prisma';
 
 const authOptions: NextAuthOptions = {
@@ -18,23 +20,23 @@ const authOptions: NextAuthOptions = {
       async authorize(credentials: { email: string, password: string}) {
         const { email, password } = credentials
 
-        const user = await (async () => {
-            return await prisma.user.findUnique({
-                where: {
-                    email: email
-                }
-            })
-        })()
+        const user = await prisma.user.findUnique({
+          where: {
+              email: email
+          }
+        })
 
         if (!user) return null
 
         // bcrypt.hashSync('password', bcrypt.genSaltSync(10))    // Encryption
 
-        const passwordsMatch = bcrypt.compareSync(password, user?.password)
+        const passwordsMatch = bcrypt.compareSync(password, user.password)
 
         if (!passwordsMatch) return null
+
+        const { password: _, ...filteredUser } = user as User & { password: string }
         
-        return user
+        return filteredUser
       }
     })
   ],

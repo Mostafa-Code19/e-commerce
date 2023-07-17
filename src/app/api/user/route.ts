@@ -11,13 +11,13 @@ type UserType = {
 } | null
 
 export async function GET() {
-    const session: {user: {email: string}}| null = await getServerSession(authOptions);
+    const session: {email: string} | null = await getServerSession(authOptions);
 
     if (!session) return
 
     const user = await prisma.user.findUnique({
         where: {
-            email: session.user.email
+            email: session.email
         },
         select: {
             name: true,
@@ -27,9 +27,7 @@ export async function GET() {
             address: true,
         }
     })
-        .then((res: UserType) => {
-            return res
-        })
+        .then((res: UserType) => res)
         
   return NextResponse.json({
     authenticated: !!session,
