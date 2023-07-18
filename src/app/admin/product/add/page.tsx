@@ -223,11 +223,10 @@ const AdminProduct = () => {
                     <div>
                         {
                             productImages &&
-                            Object.keys(productImages).map((imageId: string) => {
-                                const imageData: File = productImages[parseInt(imageId)]
+                            Object.values(productImages).map((imageData: File) => {
                                 return (
                                     <img
-                                        key={imageId}
+                                        key={imageData.name}
                                         className='my-5 w-60 mx-auto'
                                         src={URL.createObjectURL(imageData)} alt={titleRef?.current?.value || 'NaN'}
                                     />

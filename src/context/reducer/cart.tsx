@@ -1,6 +1,10 @@
+import CartItemType from "@/types/type.cartItems";
+
 export const initialState = { cart: {} };
 
-export const CartReducer = (state: any, action: any) => {
+type CartItem = { cart: CartItemType }
+
+export const CartReducer = (state: CartItem, action: any) => {
   const id = action.payload?.id
 
   const item = state.cart[id];

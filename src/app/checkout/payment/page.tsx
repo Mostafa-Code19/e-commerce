@@ -10,6 +10,8 @@ import 'react-toastify/dist/ReactToastify.css';
 import BackButton from "@/components/back-btn";
 import { CartContext } from "@/context/provider/cart";
 import EmptyCart from '@/components/empty-cart';
+import Link from 'next/link';
+import CartItemType from '@/types/type.cartItems';
 
 type Discount = {
     type: string
@@ -19,13 +21,13 @@ type Discount = {
 const Payment = () => {
     const { state, dispatch }: any = useContext(CartContext as any)
 
-    const [method, setMethod] = useState<string>('atTheDoor')
+    const [paymentMethod, setPaymentMethod] = useState<string>('atTheDoor')
     const [paymentPrice, setPaymentPrice] = useState(0)
     const [discount, setDiscount] = useState<Discount>(null)
     const [discountPrice, setDiscountPrice] = useState(0)
     const [finalPaymentPrice, setFinalPaymentPrice] = useState(0)
 
-    const cartItems = useMemo(() => {
+    const cartItems: CartItemType = useMemo(() => {
         return state.cart;
      }, [state]);
 
@@ -36,8 +38,7 @@ const Payment = () => {
     useEffect(() => {
         setPaymentPrice(0)
 
-        Object.keys(cartItems).map((key: string) => {
-            const item = cartItems[key]
+        Object.values(cartItems).map((item) => {
             setPaymentPrice((prev) => prev + ((item.price - ((item.price * item.discount) / 100)) * item.quantity))
         })
     }, [cartItems, router])
@@ -57,8 +58,8 @@ const Payment = () => {
 
     }, [paymentPrice, discount])
 
-    const changeMethod = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setMethod((event.target as HTMLInputElement).value);
+    const changePaymentMethod = (event: React.ChangeEvent<HTMLInputElement>) => {
+        setPaymentMethod((event.target as HTMLInputElement).value);
     }
 
     let checkPermission = true
@@ -98,13 +99,12 @@ const Payment = () => {
         await axios.post('/api/order/submit', payload)
             .then(res => {
                 if (res.status == 200) {
-                    if (res.data.status == 401) {
-                        toast.warning('ابتدا می‌بایست وارد شوید!')
-                    }
-                    else if (res.data.type == 'lack') {
-                        toast.error(`تعداد موجودی "${cartItems[res.data.id].title}" ${cartItems[res.data.id].quantity} عدد است. لطفا پس از تغییر سبد خرید خود مجدد تلاش کنید.`)
-                    }
-                    else if (res.data.id) {
+                    const { id, message } = res.data 
+                    if (message == 'unAuthorized') toast.warning('ابتدا می‌بایست وارد شوید!')
+                    else if (message == 'userNotFound') toast.error('در دریافت اطلاعات کاربر خطایی رخ داد!')
+                    else if (message == 'incompleteProfile') toast.warning(<Link href='/profile/edit'>برای ثبت نهایی سفارش می‌بایست اطلاعات پروفایل خود را کامل کنید. برای ورود کلیک کنید</Link>, {autoClose: 10_000})
+                    else if (message == 'qtyNotEnough') toast.error(`تعداد موجودی "${cartItems[res.data.id].title}" ${cartItems[res.data.id].quantity} عدد است. لطفا پس از تغییر سبد خرید خود مجدد تلاش کنید.`)
+                    else if (id) {
                         dispatch({ type: "RESET" })
                         router.push(`/checkout/payment/success?id=${res.data.id}`)
                     }
@@ -128,8 +128,8 @@ const Payment = () => {
                             <h3>انتخاب روش پرداخت</h3>
 
                             <form className='flex flex-col space-y-4 yekan1 rtl'>
-                                <div className={`flex space-x-3 space-x-reverse text-slate-400`}>  {/* ${method=='internet'?'text-blue-400':'text-black'} */}
-                                    <input disabled checked={method == 'internet'} onChange={changeMethod} type='radio' id="methodInternet" name="methodOptions" value="internet" />
+                                <div className={`flex space-x-3 space-x-reverse text-slate-400`}>  {/* ${paymentMethod=='internet'?'text-blue-400':'text-black'} */}
+                                    <input disabled checked={paymentMethod == 'internet'} onChange={changePaymentMethod} type='radio' id="methodInternet" name="methodOptions" value="internet" />
                                     <label htmlFor="methodInternet" className='flex space-x-3 space-x-reverse'>
                                         <svg className="h-6 w-6" width="24" height="24" viewBox="0 0 24 24" strokeWidth="2" stroke="currentColor" fill="none" strokeLinecap="round" strokeLinejoin="round">  <path stroke="none" d="M0 0h24v24H0z" />  <rect x="3" y="5" width="18" height="14" rx="3" />  <line x1="3" y1="10" x2="21" y2="10" />  <line x1="7" y1="15" x2="7.01" y2="15" />  <line x1="11" y1="15" x2="13" y2="15" /></svg>
                                         <div>
@@ -138,8 +138,8 @@ const Payment = () => {
                                     </label>
                                 </div>
 
-                                <div className={`flex space-x-3 space-x-reverse ${method == 'atTheDoor' ? 'text-blue-400' : 'text-black'}`}>
-                                    <input checked={method == 'atTheDoor'} onChange={changeMethod} type='radio' id="methodAtTheDoor" name="methodOptions" value="atTheDoor" />
+                                <div className={`flex space-x-3 space-x-reverse ${paymentMethod == 'atTheDoor' ? 'text-blue-400' : 'text-black'}`}>
+                                    <input checked={paymentMethod == 'atTheDoor'} onChange={changePaymentMethod} type='radio' id="methodAtTheDoor" name="methodOptions" value="atTheDoor" />
                                     <label htmlFor="methodAtTheDoor" className='flex space-x-3 space-x-reverse'>
                                         <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
@@ -182,9 +182,7 @@ const Payment = () => {
                                 <div className='flex justify-end'>
                                     {
 
-                                        Object.keys(cartItems).map((key) => {
-                                            const item = cartItems[key]
-
+                                        Object.values(cartItems).map((item) => {
                                             return (
                                                 <div key={item.id} className='space-y-3'>
                                                     <div className='relative'>

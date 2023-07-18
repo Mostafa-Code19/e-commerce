@@ -170,38 +170,38 @@ const Options = ({
                     {
                         Object.keys(cartItems)?.length &&
                         cartItems[selectedLocation.id]
-                        ?
-                        <div className='flex items-center justify-around w-full'>
-                            <button
-                                onClick={() => {
-                                    dispatch({
-                                        type: "REMOVE_FROM_CART",
-                                        payload: {id: selectedLocation.id}
-                                    })
-                                }}
-                            >
-                                <svg className="h-9 w-9 text-black" width="24" height="24" viewBox="0 0 24 24" strokeWidth="2" stroke="currentColor" fill="none" strokeLinecap="round" strokeLinejoin="round">  <path stroke="none" d="M0 0h24v24H0z" />  <circle cx="12" cy="12" r="9" />  <line x1="9" y1="12" x2="15" y2="12" /></svg>
+                            ?
+                            <div className='flex items-center justify-around w-full'>
+                                <button
+                                    onClick={() => {
+                                        dispatch({
+                                            type: "REMOVE_FROM_CART",
+                                            payload: {id: selectedLocation.id}
+                                        })
+                                    }}
+                                >
+                                    <svg className="h-9 w-9 text-black" width="24" height="24" viewBox="0 0 24 24" strokeWidth="2" stroke="currentColor" fill="none" strokeLinecap="round" strokeLinejoin="round">  <path stroke="none" d="M0 0h24v24H0z" />  <circle cx="12" cy="12" r="9" />  <line x1="9" y1="12" x2="15" y2="12" /></svg>
+                                </button>
+                                <span className='text-black font-semibold text-lg'>{cartItems[selectedLocation.id].quantity}</span>
+                                <button onClick={() => addToCartReducer({id: selectedLocation.id})}>
+                                    <svg className="h-9 w-9 text-black" width="24" height="24" viewBox="0 0 24 24" strokeWidth="2" stroke="currentColor" fill="none" strokeLinecap="round" strokeLinejoin="round">  <path stroke="none" d="M0 0h24v24H0z" />  <circle cx="12" cy="12" r="9" />  <line x1="9" y1="12" x2="15" y2="12" />  <line x1="12" y1="9" x2="12" y2="15" /></svg>
+                                </button>
+                            </div>
+                            :
+                            <button onClick={() => addToCartReducer(
+                                {
+                                id: selectedLocation.id,
+                                title: product.title,
+                                color: selectedLocation.color.color,
+                                size: selectedLocation.size.size,
+                                price: selectedLocation.price,
+                                discount: selectedLocation.discount,
+                                thumbnail: product.gallery[0],
+                                maxQuantity: selectedLocation.quantity
+                                }
+                            )}>
+                                <span className='text-black text-base'> افزودن به سبد</span>
                             </button>
-                            <span className='text-black font-semibold text-lg'>{cartItems[selectedLocation.id].quantity}</span>
-                            <button onClick={() => addToCartReducer({id: selectedLocation.id})}>
-                                <svg className="h-9 w-9 text-black" width="24" height="24" viewBox="0 0 24 24" strokeWidth="2" stroke="currentColor" fill="none" strokeLinecap="round" strokeLinejoin="round">  <path stroke="none" d="M0 0h24v24H0z" />  <circle cx="12" cy="12" r="9" />  <line x1="9" y1="12" x2="15" y2="12" />  <line x1="12" y1="9" x2="12" y2="15" /></svg>
-                            </button>
-                        </div>
-                        :
-                        <button onClick={() => addToCartReducer(
-                            {
-                            id: selectedLocation.id,
-                            title: product.title,
-                            color: selectedLocation.color.color,
-                            size: selectedLocation.size.size,
-                            price: selectedLocation.price,
-                            discount: selectedLocation.discount,
-                            thumbnail: product.gallery[0],
-                            maxQuantity: selectedLocation.quantity
-                            }
-                        )}>
-                            <span className='text-black text-base'> افزودن به سبد</span>
-                        </button>
                     }
                 </div>
             </div>

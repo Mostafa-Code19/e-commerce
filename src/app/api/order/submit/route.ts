@@ -2,7 +2,7 @@ import authOptions from "@/lib/auth";
 import { NextResponse } from "next/server";
 import { getServerSession } from "next-auth";
 
-type ItemNotEnoughQtyType = {type: string, id: string | null, quantity: number}
+type ItemNotEnoughQtyType = {message: string, id: string | null, quantity: number}
 type ItemQtyType = {id: string, quantity: number}
 type PayloadType = {
     cart: {
@@ -21,7 +21,7 @@ export async function POST(request: Request) {
     const session: { email: string } | null = await getServerSession(authOptions);
     const payload: PayloadType = await request.json()
 
-    if (!session) return NextResponse.json({'message': 'unAuthorized', 'status': 401})
+    if (!session) return NextResponse.json({'message': 'unAuthorized'})
     
     const user = await prisma.user.findUnique({
         where: {
@@ -30,10 +30,12 @@ export async function POST(request: Request) {
     })
 
     if (!user) {
-        return NextResponse.json({'message': 'user not found', 'status': 401})
+        return NextResponse.json({'message': 'userNotFound'})
     }
 
-    // check if profile complete
+    // if profile must be complete
+    const { name, mobile_number, phone_number, melli_code, address } = user
+    if (!name || !mobile_number || !phone_number || !melli_code || !address) return NextResponse.json({'message': 'incompleteProfile'})
 
     const cartItemsId: string[] = Object.values(payload.cart).map((item) => item.id);
 
@@ -47,11 +49,11 @@ export async function POST(request: Request) {
 
     const itemWithNotEnoughQty: ItemNotEnoughQtyType = itemsQtyList.reduce((result: ItemNotEnoughQtyType, item: ItemQtyType) => {
         if (payload.cart[item.id].quantity > item.quantity) {
-            return {type: 'lack', id: item.id, quantity: item.quantity}
+            return {message: 'qtyNotEnough', id: item.id, quantity: item.quantity}
         }
 
         return result
-    }, {type: 'lack', id: null, quantity: -1})
+    }, {message: 'qtyNotEnough', id: null, quantity: -1})
 
     if (itemWithNotEnoughQty.id) return NextResponse.json(itemWithNotEnoughQty)
 

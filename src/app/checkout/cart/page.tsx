@@ -7,21 +7,21 @@ import BackButton from "@/components/back-btn";
 import { CartContext } from "@/context/provider/cart";
 import Link from 'next/link';
 import EmptyCart from '@/components/empty-cart';
+import CartItemType from '@/types/type.cartItems';
 
 const Cart = () => {
     const { state, dispatch }: any = useContext(CartContext)
     const [price, setPrice] = useState(0)
     const [discount, setDiscount] = useState<number>(0)
 
-    const cartItems = useMemo(() => {
+    const cartItems: CartItemType = useMemo(() => {
         return state.cart;
      }, [state]);
 
     useEffect(() => {
         setPrice(0), setDiscount(0)
 
-        Object.keys(cartItems).map((key: string) => {
-            const item = cartItems[key]
+        Object.values(cartItems).map((item) => {
             setPrice((prev) => prev + ((item.price) * item.quantity))
             setDiscount((prev) => prev + ((item.price * item.discount) / 100) * item.quantity)
         })
@@ -41,9 +41,7 @@ const Cart = () => {
                         <div className='space-y-3'>
                             {
 
-                                Object.keys(cartItems).map((key: string) => {
-                                    const item = cartItems[key]
-
+                                Object.values(cartItems).map((item) => {
                                     return (
                                         <div key={item.id} className='flex items-center justify-around bg-white rounded-xl py-8 space-y-3'>
                                             <div>
