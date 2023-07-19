@@ -66,7 +66,6 @@ const Images = ({ isAdmin, thumbnail, product }: PropsType) => {
             await axios.post('/api/product/image/delete', payload)
                 .then(res => {
                     toast.success('تصویر با موفقیت حذف گردید.');
-                    // console.log(res)
                 })
                 .catch(err => {
                     toast.error('تصویر موجود نمی باشد یا در حذف تصویر خطایی رخ داد!');

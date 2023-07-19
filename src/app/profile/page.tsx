@@ -3,6 +3,14 @@ import { LogoutButton } from "@/components/buttons.component";
 import User from "@/lib/user";
 import Link from "next/link";
 
+export const generateMetadata = async () => {
+    const user = await User()
+   
+    return {
+      title: `پرفایل من | ${(user?.name || user?.email)}`
+    }
+}
+
 const Profile = async () => {
     const user = await User()
 

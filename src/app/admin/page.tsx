@@ -52,6 +52,10 @@ const colors = (locations: ProductLocationExtended[]) => {
     })
 }
 
+export const metadata = {
+    title: 'فروشگاه اینترنتی | پنل ادمین'
+}
+
 const Admin = async () => {
     const products = await getProducts();
 

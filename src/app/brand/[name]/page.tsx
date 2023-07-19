@@ -1,50 +1,28 @@
-'use client'
-
 import BackButton from "@/components/back-btn";
-import ProductCards from "@/components/product/cards";
+import Brand_Products from "./brand.products";
 
-import axios, { AxiosError } from 'axios'
-import { toast } from "react-toastify";
-import 'react-toastify/dist/ReactToastify.css';
-import { useState, useEffect } from 'react'
-import { Product, ProductLocation } from '@prisma/client'
-
-type ProductLocationExtended = ProductLocation & { color: { color: string }, size: { size: number } }
-type ProductExtended = Product & { gallery: { src: string, alt: string }[], productLocation: ProductLocationExtended[] }
-
-const Brand = ({ params }: { params: { name: string }} ) => {
-    const [brandProducts, setBrandProducts] = useState<ProductExtended[]>([])
-
-    const brandName = params.name
-
-    const fetchProducts = async () => {
-        if (!brandName?.trim().length) return
-
-        return await axios.post('/api/brand/product', { name: brandName })
-            .then(res => {
-                setBrandProducts(res.data.products)
-            })
-            .catch((err: AxiosError) => {
-                toast.error(`دریافت محصولات به مشکل برخورد کرد!`);
-                console.log('err fetch products', err)
-            })
+export const generateMetadata = async (
+    { params }: { params: { name: string } }
+) => {
+    return {
+        title: params.name + ' | فروشگاه اینترنتی'
     }
+}
 
-    useEffect(() => {
-        fetchProducts()
-    }, [brandName])
+const Brand = ({ params }: { params: { name: string } }) => {
+    const brandName = params.name
 
     return (
         <div className='mx-4 my-8 space-y-7'>
             <div className='flex justify-between items-center'>
                 <BackButton />
-                <h1 className='text-center font-bold'>{ brandName }</h1>
+                <h1 className='text-center font-bold'>{brandName}</h1>
                 <span></span>
             </div>
 
-            <ProductCards products={brandProducts} />
+            <Brand_Products brandName={brandName} />
         </div>
     );
 }
- 
+
 export default Brand;

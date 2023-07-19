@@ -34,18 +34,21 @@ const Search = () => {
     }
 
     useEffect(() => {
+        document.title = 'Search | فروشگاه اینترنتی'
         fetchProducts()
     }, [query])
 
     return (
-        <div className='mx-4 my-8 space-y-7'>
-            <div className='flex justify-between items-center'>
-                <BackButton />
-                <h1 className='text-center font-bold'>{query}</h1>
-                <span></span>
+        <>
+            <div className='mx-4 my-8 space-y-7'>
+                <div className='flex justify-between items-center'>
+                    <BackButton />
+                    <h1 className='text-center font-bold'>{query}</h1>
+                    <span></span>
+                </div>
+                <ProductCards products={searchResult} />
             </div>
-            <ProductCards products={searchResult} />
-        </div>
+        </>
     );
 }
 

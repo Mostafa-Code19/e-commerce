@@ -4,8 +4,6 @@ import { NextResponse } from "next/server";
 export async function POST(request: Request) {
     const payload: {title: string} = await request.json()
 
-    console.log(payload.title)
-
     const searchResult = await prisma.product.findMany({
         where: {
             title: {

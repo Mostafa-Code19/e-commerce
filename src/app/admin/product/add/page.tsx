@@ -1,4 +1,3 @@
-/* eslint-disable @next/next/no-img-element */
 'use client'
 
 import React, { useEffect, useState, useRef } from 'react'
@@ -14,7 +13,6 @@ import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { Brand } from '@prisma/client'
 
-// import User from "@/lib/user";
 import BackButton from '@/components/back-btn';
 
 type ProductProps = {
@@ -50,6 +48,7 @@ const AdminProduct = () => {
     const quantityRef = useRef<HTMLInputElement>(null)
 
     useEffect(() => {
+        document.title = 'فروشگاه اینترنتی | ادمین | ‌افزودن محصول جدید'
         fetchProducts()
         fetchBrands()
     }, []);

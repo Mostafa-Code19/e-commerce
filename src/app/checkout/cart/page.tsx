@@ -16,7 +16,9 @@ const Cart = () => {
 
     const cartItems: CartItemType = useMemo(() => {
         return state.cart;
-     }, [state]);
+    }, [state]);
+
+    useEffect(() => { document.title = 'فروشگاه اینترنتی | سبد خرید' }, [])
 
     useEffect(() => {
         setPrice(0), setDiscount(0)
@@ -89,7 +91,7 @@ const Cart = () => {
                                                             if (item.quantity < item.maxQuantity) {
                                                                 dispatch({
                                                                     type: "ADD_TO_CART",
-                                                                    payload: {id: item.id}
+                                                                    payload: { id: item.id }
                                                                 })
                                                             }
                                                         }}
@@ -101,7 +103,7 @@ const Cart = () => {
                                                         onClick={() => {
                                                             dispatch({
                                                                 type: "REMOVE_FROM_CART",
-                                                                payload: {id: item.id}
+                                                                payload: { id: item.id }
                                                             })
                                                         }}
                                                     >
@@ -141,18 +143,18 @@ const Cart = () => {
                                 </div>
                                 {
                                     discount ?
-                                    <div className='flex justify-between'>
-                                        <div className='flex space-x-1'>
-                                            <span className='text-red-500 font-semibold'>تومان</span>
+                                        <div className='flex justify-between'>
+                                            <div className='flex space-x-1'>
+                                                <span className='text-red-500 font-semibold'>تومان</span>
+                                                <span className='text-red-500 font-semibold'>
+                                                    {(discount).toLocaleString()} (%{Math.round((discount * 100) / (price - discount))})
+                                                </span>
+                                            </div>
                                             <span className='text-red-500 font-semibold'>
-                                                {(discount).toLocaleString()} (%{Math.round((discount * 100) / (price - discount))})
+                                                سود شما از خرید
                                             </span>
                                         </div>
-                                        <span className='text-red-500 font-semibold'>
-                                            سود شما از خرید
-                                        </span>
-                                    </div>
-                                    :''
+                                        : ''
                                 }
 
                                 <Link href='/checkout/payment' className='block'>

@@ -20,7 +20,6 @@ const PublicEdit = ({ id, publicProp }: PropsType) => {
 
         await axios.patch('/api/product/location/update/public', payload)
             .then(res => {
-                console.log(res)
                 if (res.status == 200) {
                     setPublicStatus(prev => !prev)
                     toast.success(' عمومیت با موفقیت تغییر یافت.')

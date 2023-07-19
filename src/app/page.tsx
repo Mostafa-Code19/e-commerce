@@ -45,8 +45,7 @@ async function getProducts() {
 }
 
 export const metadata = {
-    title: 'Shoe E-Commerce',
-    description: 'Create by Me <3',
+    title: 'فروشگاه اینترنتی'
 }
 
 async function Home() {

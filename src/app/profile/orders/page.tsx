@@ -3,7 +3,10 @@ import User from "@/lib/user";
 import { Order } from "@prisma/client";
 import Image from 'next/image'
 
-type UserAndOrders = User & {orders?: OrderAndItems[]}
+import { User as UserType } from '@prisma/client'
+
+type UserAndOrders = UserType & { orders?: OrderAndItems[] }
+type UserWithoutPasswordAndOrders = Omit<UserAndOrders, 'password'>;
 type OrderAndItems = Order & {
     items: {
         id: string
@@ -19,8 +22,13 @@ type OrderAndItems = Order & {
     }[]
 }
 
+
+export const metadata = {
+    title: 'فروشگاه اینترنتی | سفارش های من'
+}
+
 const Orders = async () => {
-    const user: UserAndOrders | null = await User()
+    const user: UserWithoutPasswordAndOrders | null = await User()
 
     const status = (status: string) => {
         if (status == 'CANCELED') return '❌ لغو شده '

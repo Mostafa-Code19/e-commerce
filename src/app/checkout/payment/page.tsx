@@ -35,6 +35,8 @@ const Payment = () => {
 
     const router = useRouter();
 
+    useEffect(() => { document.title = 'فروشگاه اینترنتی | پرداخت '}, [])
+
     useEffect(() => {
         setPaymentPrice(0)
 

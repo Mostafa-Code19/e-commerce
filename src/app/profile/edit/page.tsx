@@ -24,6 +24,7 @@ const Edit = () => {
     }
 
     useEffect(() => {
+        document.title = 'فروشگاه اینترنتی | ویرایش پروفایل'
         fetchUser()
     }, [])
 
@@ -111,5 +112,5 @@ const Edit = () => {
         </div>
     );
 }
- 
+
 export default Edit;
