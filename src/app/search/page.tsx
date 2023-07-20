@@ -4,7 +4,7 @@ import BackButton from "@/components/back-btn";
 import axios, { AxiosError } from "axios";
 
 import { useSearchParams } from 'next/navigation';
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -20,9 +20,9 @@ const Search = () => {
     const router = useSearchParams();
     const query = router.get('query')
 
-    const fetchProducts = async () => {
-        if (!query?.trim().length) return
-
+    const fetchProducts = useCallback(async () => {
+        if (!query?.trim().length) return;
+      
         return await axios.post('/api/search', { title: query })
             .then(res => {
                 setSearchResult(res.data)
@@ -31,12 +31,12 @@ const Search = () => {
                 toast.error(`دریافت محصولات به مشکل برخورد کرد!`);
                 console.log('err fetch products', err)
             })
-    }
+      }, [query]);
 
     useEffect(() => {
         document.title = 'Search | فروشگاه اینترنتی'
         fetchProducts()
-    }, [query])
+    }, [fetchProducts])
 
     return (
         <>

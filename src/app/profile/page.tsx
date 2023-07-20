@@ -29,7 +29,7 @@ const Profile = async () => {
 
             <div className='px-4 py-10 space-y-8 bg-zinc-100 rounded-t-2xl'>
                 {
-                    user?.role == 'ADMIN' &&
+                    user?.role == 'ADMIN' ?
                     <div>
                         <Link href='/admin'>
                             <div className='flex justify-between items-center'>
@@ -43,6 +43,7 @@ const Profile = async () => {
                             </div>
                         </Link>
                     </div>
+                    : ''
                 }
                 <div>
                     <Link href='/profile/edit'>

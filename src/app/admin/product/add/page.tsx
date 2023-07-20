@@ -1,6 +1,7 @@
 'use client'
 
-import React, { useEffect, useState, useRef } from 'react'
+import React, { useEffect, useState, useRef, useMemo } from 'react'
+import Image from 'next/image'
 import Switch from '@mui/material/Switch';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import TextField from '@mui/material/TextField';
@@ -14,6 +15,9 @@ import 'react-toastify/dist/ReactToastify.css';
 import { Brand } from '@prisma/client'
 
 import BackButton from '@/components/back-btn';
+
+import { useSession } from "next-auth/react"
+
 
 type ProductProps = {
     id: string;
@@ -53,6 +57,12 @@ const AdminProduct = () => {
         fetchBrands()
     }, []);
 
+    const { data: session } = useSession()
+
+    const productImagesMemo = useMemo(() => {
+        return productImages && Object.values(productImages);
+    }, [productImages]);
+
     const fetchProducts = async () => {
         await axios.get('/api/product/')
             .then(res => {
@@ -78,10 +88,8 @@ const AdminProduct = () => {
     const addProductLocation = async () => {
         if (selectedProduct === null) return toast.warning(`هیچ محصولی انتخاب نشده است!`)
         if (
-            color == '#696969' || !sizeRef ||
-            !quantityRef || !priceRef || !discountRef ||
-            !sizeRef.current?.value.length || !quantityRef.current?.value.length ||
-            !priceRef.current?.value.length || !discountRef.current?.value.length
+            color == '#696969' || !sizeRef.current?.value ||
+            !quantityRef.current?.value || !priceRef.current?.value || !discountRef.current?.value
         ) return toast.warning('برخی از ورود ها تکمیل نمی‌باشد!')
 
         const payload = {
@@ -160,126 +168,130 @@ const AdminProduct = () => {
     }
 
     return (
-        <>
-            {/* {
-                // user.role == 'ADMIN' ? */}
-            <div className='mx-8'>
-                <div className='flex items-center justify-between'>
-                    <BackButton />
-                    <h1>افزودن محصول</h1>
-                    <span></span>
-                </div>
+        <div className='mx-8 my-16'>
+            {
+                session?.role === 'ADMIN' ?
+                    <>
+                        <div className='flex items-center justify-between'>
+                            <BackButton />
+                            <h1>افزودن محصول</h1>
+                            <span></span>
+                        </div>
 
-                <div className='flex flex-col space-y-3'>
+                        <div className='flex flex-col space-y-3'>
 
-                    <div className='flex space-x-5 w-full'>
-                        <button onClick={() => setNewProductPanel(true)}>
-                            <svg className="h-6 w-6 text-black" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 4v16m8-8H4" />
-                            </svg>
-                        </button>
-                        {
-                            products &&
-                            <Autocomplete
-                                id="productKey"
-                                options={products}
-                                onChange={(e, value) => value && selectProduct(value.id)}
-                                getOptionLabel={(option: ProductProps) => option.title}
-                                renderInput={(params) => <TextField {...params} label="محصول" />}
-                                sx={{ width: '100%' }}
-                            />
-                        }
-                    </div>
-
-                    <Dialog onClose={() => setNewProductPanel(false)} open={newProductPanel}>
-                        <input type="text" placeholder='عنوان' ref={titleRef} className='px-6 py-1 text-right text-base' />
-                        <Autocomplete
-                            id="brandKey"
-                            options={brands}
-                            onChange={(e, value) => value && selectBrand(value.id)}
-                            getOptionLabel={(option: Brand) => option.name}
-                            renderInput={(params) => <TextField {...params} label="برند" />}
-                            sx={{ width: '100%' }}
-                        />
-                        <textarea placeholder='توضیحات' ref={descriptionRef} cols={30} rows={10} className='pl-4 pr-6 py-1 border border-[#8C939D] rounded text-right bg-transparent text-[0.9rem] my-auto pt-3'></textarea>
-                        <button onClick={addNewProduct} >ثبت محصول</button>
-                    </Dialog>
-
-                    <hr />
-
-                    <Button
-                        variant="outlined"
-                        component="label"
-                    >
-                        <h5>تصاویر محصول</h5>
-                        <input
-                            hidden accept="image/*" type="file"
-                            onChange={e => setProductImages(e.target.files)}
-                            multiple
-                        />
-                    </Button>
-
-                    <div>
-                        {
-                            productImages &&
-                            Object.values(productImages).map((imageData: File) => {
-                                return (
-                                    <img
-                                        key={imageData.name}
-                                        className='my-5 w-60 mx-auto'
-                                        src={URL.createObjectURL(imageData)} alt={titleRef?.current?.value || 'NaN'}
+                            <div className='flex space-x-5 w-full'>
+                                <button onClick={() => setNewProductPanel(true)}>
+                                    <svg className="h-6 w-6 text-black" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 4v16m8-8H4" />
+                                    </svg>
+                                </button>
+                                {
+                                    products &&
+                                    <Autocomplete
+                                        id="productKey"
+                                        options={products}
+                                        onChange={(e, value) => value && selectProduct(value.id)}
+                                        getOptionLabel={(option: ProductProps) => option.title}
+                                        renderInput={(params) => <TextField {...params} label="محصول" />}
+                                        sx={{ width: '100%' }}
                                     />
-                                )
-                            })
-                        }
-                    </div>
+                                }
+                            </div>
 
-                    <button
-                        className='w-full px-5 py-3 mt-10 border border-green-500 rounded hover:text-black hover:bg-green-500'
-                        onClick={submitImagesToProduct}
-                    >
-                        ثبت تصاویر
-                    </button>
-
-                    <hr />
-
-                    <div className='flex justify-end'>
-                        <FormControlLabel
-                            control={
-                                <Switch
-                                    onChange={() => { setPublic(publicState ? false : true) }}
+                            <Dialog onClose={() => setNewProductPanel(false)} open={newProductPanel}>
+                                <input type="text" placeholder='عنوان' ref={titleRef} className='px-6 py-1 text-right text-base' />
+                                <Autocomplete
+                                    id="brandKey"
+                                    options={brands}
+                                    onChange={(e, value) => value && selectBrand(value.id)}
+                                    getOptionLabel={(option: Brand) => option.name}
+                                    renderInput={(params) => <TextField {...params} label="برند" />}
+                                    sx={{ width: '100%' }}
                                 />
-                            }
-                            label={<h5>عمومی</h5>}
-                        />
-                    </div>
+                                <textarea placeholder='توضیحات' ref={descriptionRef} cols={30} rows={10} className='pl-4 pr-6 py-1 border border-[#8C939D] rounded text-right bg-transparent text-[0.9rem] my-auto pt-3'></textarea>
+                                <button onClick={addNewProduct} >ثبت محصول</button>
+                            </Dialog>
 
-                    <input type="number" placeholder='قیمت به تومان' ref={priceRef} className='px-6 py-1 text-right text-base' />
-                    <input type="number" placeholder='تخفیف به درصد' ref={discountRef} className='px-6 py-1 text-right text-base' />
-                    <input type="number" placeholder='سایز' ref={sizeRef} className='px-6 py-1 text-right text-base' />
-                    <input type="number" placeholder='تعداد موجود' ref={quantityRef} className='px-6 py-1 text-right text-base' />
+                            <hr />
 
-                    <div className='flex justify-between items-center'>
-                        <MuiColorInput
-                            value={color}
-                            format="hex"
-                            onChange={(e) => setColor(e)}
-                        />
-                        <h5>رنگ چهره محصول</h5>
-                    </div>
+                            <Button
+                                variant="outlined"
+                                component="label"
+                            >
+                                <h5>تصاویر محصول</h5>
+                                <input
+                                    hidden accept="image/*" type="file"
+                                    onChange={e => setProductImages(e.target.files)}
+                                    multiple
+                                />
+                            </Button>
 
-                </div>
+                            <div>
+                                {
+                                    productImagesMemo && productImagesMemo.map((imageData: File) => {
+                                        return (
+                                            <Image
+                                                key={imageData.name}
+                                                src={URL.createObjectURL(imageData)}
+                                                alt={titleRef?.current?.value || 'NaN'}
+                                                width={300}
+                                                height={200}
+                                                layout="responsive"
+                                            />
+                                        )
+                                    })
+                                }
+                            </div>
 
-                <button
-                    className='w-full px-5 py-3 mt-10 border border-green-500 rounded hover:text-black hover:bg-green-500'
-                    onClick={addProductLocation}
-                >
-                    افزودن
-                </button>
-            </div>
-            {/* } */}
-        </>
-    );
+                            <button
+                                className='w-full px-5 py-3 mt-10 border border-green-500 rounded hover:text-black hover:bg-green-500'
+                                onClick={submitImagesToProduct}
+                            >
+                                ثبت تصاویر
+                            </button>
+
+                            <hr />
+
+                            <div className='flex justify-end'>
+                                <FormControlLabel
+                                    control={
+                                        <Switch
+                                            onChange={() => { setPublic(publicState ? false : true) }}
+                                        />
+                                    }
+                                    label={<h5>عمومی</h5>}
+                                />
+                            </div>
+
+                            <input type="number" placeholder='قیمت به تومان' ref={priceRef} className='px-6 py-1 text-right text-base' />
+                            <input type="number" placeholder='تخفیف به درصد' ref={discountRef} className='px-6 py-1 text-right text-base' />
+                            <input type="number" placeholder='سایز' ref={sizeRef} className='px-6 py-1 text-right text-base' />
+                            <input type="number" placeholder='تعداد موجود' ref={quantityRef} className='px-6 py-1 text-right text-base' />
+
+                            <div className='flex justify-between items-center'>
+                                <MuiColorInput
+                                    value={color}
+                                    format="hex"
+                                    onChange={(e) => setColor(e)}
+                                />
+                                <h5>رنگ چهره محصول</h5>
+                            </div>
+
+                        </div>
+
+                        <button
+                            className='w-full px-5 py-3 mt-10 border border-green-500 rounded hover:text-black hover:bg-green-500'
+                            onClick={addProductLocation}
+                        >
+                            افزودن
+                        </button>
+                    </>
+                    :
+                    <h1>شما اجازه وارد شدن به این صفحه را ندارید!</h1>
+            }
+        </div>
+    )
 }
 
 export default AdminProduct;

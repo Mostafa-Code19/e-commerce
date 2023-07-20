@@ -3,7 +3,7 @@
 import axios, { AxiosError } from 'axios'
 import { toast } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 import { Product, ProductLocation } from '@prisma/client'
 
 import ProductCards from "@/components/product/cards";
@@ -14,7 +14,7 @@ type ProductExtended = Product & { gallery: { src: string, alt: string }[], prod
 const Brand_Products = ({ brandName }: { brandName: string}) => {
     const [brandProducts, setBrandProducts] = useState<ProductExtended[]>([])
 
-    const fetchProducts = async () => {
+    const fetchProducts = useCallback(async () => {
         if (!brandName?.trim().length) return
 
         return await axios.post('/api/brand/product', { name: brandName })
@@ -25,11 +25,11 @@ const Brand_Products = ({ brandName }: { brandName: string}) => {
                 toast.error(`دریافت محصولات به مشکل برخورد کرد!`);
                 console.log('err fetch products', err)
             })
-    }
+    }, [brandName])
 
     useEffect(() => {
         fetchProducts()
-    }, [brandName])
+    }, [fetchProducts])
     
     return (
         <ProductCards products={brandProducts} />
