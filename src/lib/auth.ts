@@ -1,9 +1,15 @@
 import type { NextAuthOptions } from 'next-auth'
 import bcrypt from 'bcrypt'
 import CredentialsProvider from "next-auth/providers/credentials";
-import { User } from '@prisma/client'
+import { User as UserType } from '@prisma/client'
+import type { Session, User as UserAuth } from "next-auth";
 
 import prisma from './prisma';
+
+interface Credential {
+  email: string
+  password: string
+}
 
 const authOptions: NextAuthOptions = {
   secret: process.env.NEXTAUTH_SECRET,
@@ -17,7 +23,10 @@ const authOptions: NextAuthOptions = {
         password: { label: 'رمز عبور', type: 'password', placeholder: '1234'}
       },
 
-      async authorize(credentials: { email: string, password: string}) {
+      async authorize(credentials: Credential | undefined) {
+
+        if (!credentials) return null;
+
         const { email, password } = credentials
 
         const user = await prisma.user.findUnique({
@@ -34,17 +43,17 @@ const authOptions: NextAuthOptions = {
 
         if (!passwordsMatch) return null
 
-        const { password: _, ...filteredUser } = user as User & { password: string }
+        const { password: _, ...filteredUser } = user as UserType & { password: string }
         
         return filteredUser
       }
     })
   ],
   callbacks: {
-    async jwt({ token, user }: any) {
+    async jwt({ token, user }: { token: any; user?: UserAuth }) {
         return { ...token, ...user };
     },
-    async session({ session, token }: any) {
+    async session({ session, token }: { session: Session; token: any }) {
         session.user = token;
 
         delete token.password

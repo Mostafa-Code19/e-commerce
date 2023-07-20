@@ -45,7 +45,8 @@ async function getProducts() {
 }
 
 export const metadata = {
-    title: 'فروشگاه اینترنتی'
+    title: 'فروشگاه اینترنتی',
+    description: 'https://github.com/Mostafa-Code19',
 }
 
 async function Home() {
