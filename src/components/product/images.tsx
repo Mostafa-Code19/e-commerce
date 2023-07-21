@@ -83,7 +83,7 @@ const Images = ({ isAdmin, thumbnail, product }: PropsType) => {
     }
 
     return (
-        <div className='space-y-5'>
+        <div className='space-y-3'>
             <div onClick={() => {
                 setLightboxOpen(true)
                 setCurrentIndex(0)
@@ -93,7 +93,7 @@ const Images = ({ isAdmin, thumbnail, product }: PropsType) => {
                     src={thumbnail.src}
                     alt={thumbnail.alt}
                     width='500'
-                    height='500'
+                    height='300'
                 />
             </div>
             <div className='flex space-x-3 justify-center'>

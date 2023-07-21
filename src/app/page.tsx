@@ -67,6 +67,7 @@ async function Home() {
                         </div>
                         <div className='w-[230px] h-[230px] absolute -right-4 -top-9'>
                             <Image
+                                priority
                                 className='object-contain'
                                 src="/hero.png"
                                 alt="nike shoe"
