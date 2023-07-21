@@ -1,13 +1,11 @@
 import CartItemType from "@/types/type.cartItems";
 
-export const initialState = { cart: {} };
+export const initialCart = {}
 
-type CartItem = { cart: CartItemType }
-
-export const CartReducer = (state: CartItem, action: any) => {
+export const CartReducer = (cart: CartItemType, action: any) => {
   const id = action.payload?.id
 
-  const item = state.cart[id];
+  const item = cart[id];
 
   switch (action.type) {
     case "initLocalStorage":
@@ -15,48 +13,37 @@ export const CartReducer = (state: CartItem, action: any) => {
 
     case "ADD_TO_CART":
       return {
-        ...state,
-        cart: {
-          ...state.cart,
-          [id]: item ?
-            {
-              ...item,
-              quantity: item.quantity + 1,
-            }
-            :
-            {
-              ...action.payload,
-              quantity: 1,
-            }
-        }
+        ...cart,
+        [id]: item ?
+          {
+            ...item,
+            quantity: item.quantity + 1,
+          }
+          :
+          {
+            ...action.payload,
+            quantity: 1,
+          }
       }
 
     case "REMOVE_FROM_CART":
       if (item.quantity == 1) {
-        let newCart = { ...state.cart };
-        delete newCart[id];
-
-        return {
-          ...state,
-          cart: newCart,
-        }
+        const { [item.id]: _, ...updatedCart } = cart
+        return updatedCart
       } else {
         return {
-          ...state,
-          cart: {
-            ...state.cart,
-            [id]: {
-              ...item,
-              quantity: item.quantity - 1,
-            }
+          ...cart,
+          [id]: {
+            ...item,
+            quantity: item.quantity - 1,
           }
         }
       }
 
     case "RESET":
-      return { cart: {} }
+      return {}
 
     default:
-      return state;
+      return cart;
   }
 }

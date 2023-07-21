@@ -1,13 +1,13 @@
 'use client'
 
-import { createContext, useReducer, useEffect, useState } from 'react'
+import { createContext, useReducer, useEffect } from 'react'
 
-import { CartReducer, initialState } from '../reducer/cart';
+import { CartReducer, initialCart } from '../reducer/cart';
 
 const CartContext = createContext({});
 
 const CartContextProvider = ({ children }: any) => {
-    const [state, dispatch] = useReducer(CartReducer, initialState);
+    const [cart, dispatch] = useReducer(CartReducer, initialCart);
 
     useEffect(() => {
         if (JSON.parse(localStorage.getItem("cart") || '{}')) {
@@ -19,13 +19,13 @@ const CartContextProvider = ({ children }: any) => {
     }, []);
 
     useEffect(() => {
-        if (state !== initialState) {
-            localStorage.setItem("cart", JSON.stringify(state));
+        if (cart !== initialCart) {
+            localStorage.setItem("cart", JSON.stringify(cart));
         }
-    }, [state]);
+    }, [cart]);
 
     return (
-        <CartContext.Provider value={{ state, dispatch }}>
+        <CartContext.Provider value={{ cart, dispatch }}>
             {children}
         </CartContext.Provider>
     );

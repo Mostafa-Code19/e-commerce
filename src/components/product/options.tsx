@@ -30,11 +30,11 @@ const Options = ({
     const [selectedSize, selectSize] = useState(product.productLocation[0].size.size)
     const [selectedLocation, selectFinalLocation] = useState(product.productLocation[0])
 
-    const { state, dispatch }: any = useContext(CartContext as any)
+    const { cart, dispatch }: any = useContext(CartContext as any)
 
     const cartItems = useMemo(() => {
-        return state.cart;
-     }, [state]);
+        return cart;
+     }, [cart]);
 
     useEffect(() => {
         product.productLocation.map((product) => {
@@ -168,7 +168,7 @@ const Options = ({
 
                 <div  style={{ fontSize: '1.2rem' }} className='justify-center flex from-blue-400 to-blue-200 bg-gradient-to-bl w-full ml-5 rounded-xl font-semibold '>
                     {
-                        Object.keys(cartItems)?.length &&
+                        Object.keys(cartItems ?? {})?.length &&
                         cartItems[selectedLocation.id]
                             ?
                             <div className='flex items-center justify-around w-full'>

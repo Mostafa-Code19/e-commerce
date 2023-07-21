@@ -1,5 +1,7 @@
 import { getServerSession } from "next-auth";
+
 import authOptions from "@/lib/auth";
+import prisma from "@/lib/prisma";
 
 const isAdmin = async () => {
     const session: {email: string} | null = await getServerSession(authOptions);

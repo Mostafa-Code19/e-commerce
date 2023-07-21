@@ -1,7 +1,7 @@
 import Image from 'next/image'
 import Link from 'next/link'
 
-import prisma from '../lib/prisma'
+import prisma from '@/lib/prisma'
 import ProductCards from '@/components/product/cards'
 import { Product, ProductLocation } from '@prisma/client'
 
@@ -65,13 +65,15 @@ async function Home() {
                                 مشاهده
                             </button>
                         </div>
-                        <div className='absolute -right-4 -top-9'>
+                        <div className='w-[200px] h-[200px] absolute -right-4 -top-9'>
                             <Image
+                                priority
                                 className='object-cover'
                                 src="/hero.png"
                                 alt="nike shoe"
                                 width='200'
                                 height='200'
+                                layout="responsive"
                             />
                         </div>
                     </div>

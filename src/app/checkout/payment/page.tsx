@@ -19,7 +19,7 @@ type Discount = {
 } | null | false
 
 const Payment = () => {
-    const { state, dispatch }: any = useContext(CartContext as any)
+    const { cart, dispatch }: any = useContext(CartContext as any)
 
     const [paymentMethod, setPaymentMethod] = useState<string>('atTheDoor')
     const [paymentPrice, setPaymentPrice] = useState(0)
@@ -28,8 +28,8 @@ const Payment = () => {
     const [finalPaymentPrice, setFinalPaymentPrice] = useState(0)
 
     const cartItems: CartItemType = useMemo(() => {
-        return state.cart;
-     }, [state]);
+        return cart;
+     }, [cart]);
 
     const couponRef = useRef<HTMLInputElement>(null)
 
@@ -118,7 +118,7 @@ const Payment = () => {
     return (
         <div className='mx-8 space-y-6'>
             {
-                Object.keys(cartItems).length ?
+                Object.keys(cartItems ?? {}).length ?
                     <>
                         <div className='flex items-center justify-between'>
                             <BackButton />

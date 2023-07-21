@@ -1,10 +1,10 @@
 import type { NextAuthOptions } from 'next-auth'
 import bcrypt from 'bcrypt'
 import CredentialsProvider from "next-auth/providers/credentials";
-import { User as UserType } from '@prisma/client'
 import type { Session, User as UserAuth } from "next-auth";
 
-import prisma from './prisma';
+import { User as UserType } from '@prisma/client'
+import prisma from "./prisma";
 
 interface Credential {
   email: string

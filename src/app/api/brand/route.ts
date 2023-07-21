@@ -1,4 +1,6 @@
 import { Brand } from "@prisma/client";
+import prisma from "@/lib/prisma";
+
 import { AxiosError } from "axios";
 import { NextResponse } from "next/server";
 
