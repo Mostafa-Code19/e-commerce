@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useContext, useEffect, useRef, useMemo } from 'react'
-import Image from 'next/image'
+import Image from "next/legacy/image"
 import { useRouter } from 'next/navigation';
 import axios from 'axios';
 import { toast } from 'react-toastify';
@@ -189,11 +189,11 @@ const Payment = () => {
                                                 <div key={item.id} className='space-y-3'>
                                                     <div className='relative'>
                                                         <Image
-                                                            className='object-cover justify-center m-auto p-2'
+                                                            className='object-contain'
                                                             src={item.thumbnail.src}
                                                             alt={item.thumbnail.src}
                                                             width='100'
-                                                            height='100'
+                                                            height='60'
                                                         />
 
                                                         <span style={{ fontSize: '.6rem' }} className='absolute left-0 bottom-0 p-1 px-2 bg-slate-200 rounded-md text-black'>

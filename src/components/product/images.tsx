@@ -1,6 +1,6 @@
 'use client'
 
-import Image from 'next/image'
+import Image from "next/legacy/image"
 import Lightbox from 'react-spring-lightbox';
 import { useState, useEffect } from 'react'
 import axios from 'axios';
@@ -89,7 +89,7 @@ const Images = ({ isAdmin, thumbnail, product }: PropsType) => {
                 setCurrentIndex(0)
             }}>
                 <Image
-                    className='object-cover justify-center m-auto p-2'
+                    className='object-contain'
                     src={thumbnail.src}
                     alt={thumbnail.alt}
                     width='500'
@@ -105,11 +105,11 @@ const Images = ({ isAdmin, thumbnail, product }: PropsType) => {
                                 setCurrentIndex(index)
                             }}>
                                 <Image
-                                    className='object-cover justify-center m-auto p-2'
+                                    className='object-contain'
                                     src={`${data.src}`}
                                     alt={data.alt}
                                     width='100'
-                                    height='100'
+                                    height='120'
                                 />
                             </div>
                         )
@@ -123,30 +123,9 @@ const Images = ({ isAdmin, thumbnail, product }: PropsType) => {
                 onNext={gotoNext}
                 images={galleryList}
                 currentIndex={currentImageIndex}
-                /* Add your own UI */
                 renderHeader={deleteButton}
-                // renderFooter={() => (<CustomFooter />)}
-                // renderPrevButton={() => (<CustomLeftArrowButton />)}
-                // renderNextButton={() => (<CustomRightArrowButton />)}
-                // renderImageOverlay={() => (<ImageOverlayComponent >)}
-
-                /* Add styling */
-                // className="cool-class"
                 style={{ backdropFilter: "blur(10px) brightness(.5)" }}
-
-                /* Handle closing */
                 onClose={() => setLightboxOpen(false)}
-
-            /* Use single or double click to zoom */
-            // singleClickToZoom
-
-            /* react-spring config for open/close animation */
-            // pageTransitionConfig={{
-            //   from: { transform: "scale(0.75)", opacity: 0 },
-            //   enter: { transform: "scale(1)", opacity: 1 },
-            //   leave: { transform: "scale(0.75)", opacity: 0 },
-            //   config: { mass: 1, tension: 320, friction: 32 }
-            // }}
             />
         </div>
     );

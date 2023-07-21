@@ -2,7 +2,7 @@ import Detail from '@/components/product/details'
 import Options from '@/components/product/options'
 import prisma from '@/lib/prisma'
 
-import Image from 'next/image'
+import Image from "next/legacy/image"
 import { Product } from '@prisma/client'
 
 const getProduct = async (slug: string) => {
@@ -54,7 +54,7 @@ export const generateMetadata = async (
     const product = await getProduct(params.slug)
 
     return {
-        title: product.title + ' | فروشگاه اینترنتی'
+        title: (product?.title || 'محصولی یافت نشد!') + ' | فروشگاه اینترنتی'
     }
 }
 
@@ -64,19 +64,21 @@ const Product = async ({ params }: { params: { slug: string } }) => {
     return (
         <>
             {
-                product.productLocation.length ?
+                product?.productLocation.length ?
                     <Options product={product}>
                         <Detail product={product} />
                     </Options>
                     :
                     <div className='space-y-10 m-10'>
-                        <Image
-                            className='object-cover justify-center m-auto p-2'
-                            src={`/empty-cart.png`}
-                            alt='empty cart'
-                            width='300'
-                            height='300'
-                        />
+                        <div className='flex justify-center'>
+                            <Image
+                                className='object-contain'
+                                src='/empty-cart.png'
+                                alt='empty cart'
+                                width='300'
+                                height='300'
+                            />
+                        </div>
                         <h1 style={{ fontSize: '1.5rem' }} className='text-center'>
                             این محصول در حال حاضر در دسترس نمی‌باشد
                         </h1>

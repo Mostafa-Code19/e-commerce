@@ -1,4 +1,4 @@
-import Image from 'next/image'
+import Image from "next/legacy/image"
 import Link from 'next/link'
 
 import { Product, ProductLocation } from '@prisma/client'
@@ -6,7 +6,7 @@ import { Product, ProductLocation } from '@prisma/client'
 type ProductLocationExtended = ProductLocation & { color: { color: string }, size: { size: number } }
 type ProductExtended = Product & { gallery: { src: string, alt: string }[], productLocation: ProductLocationExtended[] }
 
-const ProductCards = ({products} : {products: ProductExtended[]}) => {
+const ProductCards = ({products, pageTarget} : {products: ProductExtended[], pageTarget: string}) => {
     
     const colors = (locations: ProductLocationExtended[]) => {
         let list: string[] = []
@@ -33,7 +33,7 @@ const ProductCards = ({products} : {products: ProductExtended[]}) => {
                         if (!product.productLocation.length) return
                 
                         return (
-                            <Link key={product.id} href={`/product/${product.id}`}>
+                            <Link key={product.id} href={pageTarget + product.id}>
                                 <div className='bg-white w-full h-full m-1 p-1 rounded-lg'>
                                     <div className='bg-blue-400 w-full h-full relative flex flex-col aspect-square from-blue-400 to-blue-200 bg-gradient-to-bl rounded-xl'>
                                         <div className='m-2'>
@@ -41,13 +41,16 @@ const ProductCards = ({products} : {products: ProductExtended[]}) => {
                                                 {colors(product.productLocation)}
                                             </div>
                                         </div>
-                                        <Image
-                                            className='object-cover justify-center m-auto p-2'
-                                            src={`${product.gallery[0].src}`}
-                                            alt={product.title}
-                                            width='200'
-                                            height='200' />
-                                        <div className='mx-3 mb-1 text-right space'>
+                                        <div className='p-2'>
+                                            <Image
+                                                className='object-contain'
+                                                src={`${product.gallery[0].src}`}
+                                                alt={product.title}
+                                                width='200'
+                                                height='120'
+                                            />
+                                        </div>
+                                        <div className='mx-3 text-right space'>
                                             <h2>{product.title}</h2>
                 
                                             <div className='flex justify-between items-center'>
@@ -69,7 +72,7 @@ const ProductCards = ({products} : {products: ProductExtended[]}) => {
                                                     {product.productLocation[0].price.toLocaleString()}
                                                 </span>
                                                 :
-                                                <span className='mb-6 block'></span>}
+                                                <span className='mb-3 block'></span>}
                                         </div>
                                     </div>
                                 </div>

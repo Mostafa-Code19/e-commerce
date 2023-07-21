@@ -1,4 +1,4 @@
-import Image from 'next/image'
+import Image from "next/legacy/image"
 import Link from 'next/link'
 
 import prisma from '@/lib/prisma'
@@ -65,14 +65,13 @@ async function Home() {
                                 مشاهده
                             </button>
                         </div>
-                        <div className='w-[200px] h-[200px] absolute -right-4 -top-9'>
+                        <div className='w-[230px] h-[230px] absolute -right-4 -top-9'>
                             <Image
-                                priority
-                                className='object-cover'
+                                className='object-contain'
                                 src="/hero.png"
                                 alt="nike shoe"
-                                width='200'
-                                height='200'
+                                width='230'
+                                height='230'
                                 layout="responsive"
                             />
                         </div>
@@ -117,7 +116,7 @@ async function Home() {
                 </div>
 
                 <div className="grid grid-cols-2 space-x-3">
-                    <ProductCards products={products} />
+                    <ProductCards products={products} pageTarget='/product/' />
                 </div>
             </div>
         </div>

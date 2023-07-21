@@ -1,6 +1,6 @@
 'use client'
 
-import Image from 'next/image'
+import Image from "next/legacy/image"
 import { useContext, useState, useEffect, useMemo } from "react";
 
 import BackButton from "@/components/back-btn";
@@ -41,10 +41,10 @@ const Cart = () => {
 
                                 Object.values(cart).map((item) => {
                                     return (
-                                        <div key={item.id} className='flex items-center justify-around bg-white rounded-xl py-8 space-y-3'>
-                                            <div>
+                                        <div key={item.id} className='flex items-center justify-evenly bg-white rounded-xl py-8 space-y-3'>
+                                            <div className='p-2'>
                                                 <Image
-                                                    className='object-cover justify-center m-auto p-2'
+                                                    className='object-contain'
                                                     src={item.thumbnail.src}
                                                     alt={item.thumbnail.alt}
                                                     width='200'

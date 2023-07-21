@@ -32,7 +32,7 @@ const Brand_Products = ({ brandName }: { brandName: string}) => {
     }, [fetchProducts])
     
     return (
-        <ProductCards products={brandProducts} />
+        <ProductCards products={brandProducts} pageTarget='/product/' />
     );
 }
  

@@ -1,7 +1,7 @@
 'use client'
 
 import React, { useEffect, useState, useRef, useMemo } from 'react'
-import Image from 'next/image'
+import Image from "next/legacy/image"
 import Switch from '@mui/material/Switch';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import TextField from '@mui/material/TextField';
@@ -232,6 +232,7 @@ const AdminProduct = () => {
                                     productImagesMemo && productImagesMemo.map((imageData: File) => {
                                         return (
                                             <Image
+                                                className='object-contain'
                                                 key={imageData.name}
                                                 src={URL.createObjectURL(imageData)}
                                                 alt={titleRef?.current?.value || 'NaN'}

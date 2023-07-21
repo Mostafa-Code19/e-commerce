@@ -54,7 +54,7 @@ const ProductLocations = async ({ params }: { params: { id: string } }) => {
     return (
         <div className='mx-8 my-16 relative'>
             {
-                await isAdmin() ?
+                (await isAdmin()) ?
                     pageContent(product)
                     :
                     <h1>شما اجازه وارد شدن به این صفحه را ندارید!</h1>

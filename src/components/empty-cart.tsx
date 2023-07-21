@@ -1,15 +1,17 @@
-import Image from 'next/image'
+import Image from "next/legacy/image"
 
 const EmptyCart = () => {
     return (
         <div className='space-y-10 m-10'>
-            <Image
-                className='object-cover justify-center m-auto p-2'
-                src={`/empty-cart.png`}
-                alt='empty cart'
-                width='300'
-                height='300'
-            />
+            <div className='flex justify-center'>
+                <Image
+                    className='object-contain'
+                    src={`/empty-cart.png`}
+                    alt='empty cart'
+                    width='300'
+                    height='300'
+                />
+            </div>
             <h1 style={{ fontSize: '1.5rem' }} className='text-center'>
                 شما هیچ محصولی را به سبد اضافه نکرده اید!
             </h1>

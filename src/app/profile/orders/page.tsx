@@ -1,7 +1,7 @@
 import BackButton from "@/components/back-btn";
 import User from "@/lib/user";
 import { Order } from "@prisma/client";
-import Image from 'next/image'
+import Image from "next/legacy/image"
 
 import { User as UserType } from '@prisma/client'
 
@@ -137,11 +137,11 @@ const Orders = async () => {
                                                 return (
                                                     <div key={item.id} className='relative w-fit'>
                                                         <Image
-                                                            className='object-cover justify-center m-auto p-2'
+                                                            className='object-contain'
                                                             src={item.item.product.gallery[0].src}
                                                             alt={item.item.product.gallery[0].alt}
                                                             width='100'
-                                                            height='100'
+                                                            height='70'
                                                         />
 
                                                         <span style={{ fontSize: '.6rem' }} className='absolute left-0 bottom-0 p-1 px-2 bg-slate-200 rounded-md text-black'>

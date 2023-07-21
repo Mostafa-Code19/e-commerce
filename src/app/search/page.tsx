@@ -46,7 +46,7 @@ const Search = () => {
                     <h1 className='text-center font-bold'>{query}</h1>
                     <span></span>
                 </div>
-                <ProductCards products={searchResult} />
+                <ProductCards products={searchResult} pageTarget='/product/' />
             </div>
         </>
     );
