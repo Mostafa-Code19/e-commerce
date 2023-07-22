@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useContext, useEffect, useRef, useMemo } from 'react'
+import { useState, useContext, useEffect, useMemo } from 'react'
 import Image from "next/legacy/image"
 import { useRouter } from 'next/navigation';
 import axios from 'axios';
@@ -12,6 +12,7 @@ import { CartContext } from "@/context/provider/cart";
 import EmptyCart from '@/components/empty-cart';
 import Link from 'next/link';
 import CartItemType from '@/types/type.cartItems';
+import CouponComponent from './coupon.component';
 
 type Discount = {
     type: string
@@ -22,8 +23,8 @@ const Payment = () => {
     const { cart, dispatch }: any = useContext(CartContext as any)
 
     const [paymentMethod, setPaymentMethod] = useState<string>('atTheDoor')
-    const [paymentPrice, setPaymentPrice] = useState(0)
     const [discount, setDiscount] = useState<Discount>(null)
+    const [paymentPrice, setPaymentPrice] = useState(0)
     const [discountPrice, setDiscountPrice] = useState(0)
     const [finalPaymentPrice, setFinalPaymentPrice] = useState(0)
 
@@ -31,7 +32,6 @@ const Payment = () => {
         return cart;
      }, [cart]);
 
-    const couponRef = useRef<HTMLInputElement>(null)
 
     const router = useRouter();
 
@@ -62,33 +62,6 @@ const Payment = () => {
 
     const changePaymentMethod = (event: React.ChangeEvent<HTMLInputElement>) => {
         setPaymentMethod((event.target as HTMLInputElement).value);
-    }
-
-    let checkPermission = true
-
-    const couponCheck = async () => {
-        if (couponRef.current !== null && checkPermission) {
-            checkPermission = false
-            const couponCode = couponRef.current.value
-
-            await axios.get(`/api/coupon?c=${couponCode}`,)
-                .then(res => {
-                    if (res.data) {
-                        setDiscount(res.data)
-                        toast.success(`تخفیف با موفقیت به شما تعلق گرفت`);
-                    }
-                    else {
-                        setDiscount(false)
-                        toast.error(`کد تخفیف وارد شده منقضی یا نامعتبر می‌باشد`);
-                    }
-                    checkPermission = true
-                })
-                .catch(err => {
-                    console.log('err couponCheck', err)
-                    checkPermission = true
-                    toast.error(`به مشکلی برخوردیم! لطفا مجدد تلاش کنید.`);
-                })
-        }
     }
 
     const submitOrder = async () => {
@@ -154,14 +127,9 @@ const Payment = () => {
                             </form>
                         </div>
 
+
                         <div className='bg-white rounded-xl py-8 px-6'>
-                            <div className='flex justify-between items-center'>
-                                <div className='border rounded-lg px-4 py-2 space-x-4'>
-                                    <button onClick={couponCheck}><span>ثبت</span></button>
-                                    <input ref={couponRef} type="text" className='text-right text-sm' placeholder='کد تخفیف' />
-                                </div>
-                                <h3>کد تخفیف</h3>
-                            </div>
+                            <CouponComponent setDiscount={setDiscount}/>
 
                             {
                                 discount &&
@@ -181,7 +149,7 @@ const Payment = () => {
                         <div className='bg-white rounded-xl py-8 px-6 space-y-6 text-right'>
                             <h3>خلاصه سفارش</h3>
                             <div className='space-x-5'>
-                                <div className='flex justify-end'>
+                                <div className='flex justify-end space-x-3'>
                                     {
 
                                         Object.values(cartItems).map((item) => {

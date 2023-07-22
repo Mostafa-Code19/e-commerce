@@ -6,23 +6,31 @@ import { User } from "@prisma/client";
 import prisma from "@/lib/prisma";
 
 export async function PATCH(request: Request) {
-    const session: {user: {email: string}}| null = await getServerSession(authOptions);
+    const session: {email: string} | null = await getServerSession(authOptions);
     const payload = await request.json()
 
     if (!session) return
 
-    const user = await prisma.user.update({
-        where: {
-            email: session.user.email
-        },
-        data: payload
-    })
-        .then((res: User) => {
-            return res
+    try {
+        const user: User | null = await prisma.user.update({
+            where: {
+                email: session.email
+            },
+            data: payload
         })
         
-  return NextResponse.json({
-    authenticated: !!session,
-    user,
-  });
+        console.log('res api/user/update', user)
+        
+        return NextResponse.json({
+            authenticated: !!session,
+            user,
+        });
+    } catch (err) {
+        console.log('err api/user/update', err)
+
+        return NextResponse.json({
+            statue: 500,
+            undefined
+        });
+    }
 }
