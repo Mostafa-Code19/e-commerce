@@ -37,8 +37,6 @@ const authOptions: NextAuthOptions = {
 
         if (!user) return null
 
-        // bcrypt.hashSync('password', bcrypt.genSaltSync(10))    // Encryption
-
         const passwordsMatch = bcrypt.compareSync(password, user.password)
 
         if (!passwordsMatch) return null

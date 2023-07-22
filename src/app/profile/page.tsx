@@ -1,5 +1,5 @@
 import BackButton from "@/components/back-btn";
-import { LogoutButton } from "@/components/buttons.component";
+import { LogoutButton } from "@/app/profile/button.login-out";
 import User from "@/lib/user";
 import Link from "next/link";
 
