@@ -3,16 +3,14 @@
 import { useState, useContext, useEffect, useMemo } from 'react'
 import Image from "next/legacy/image"
 import { useRouter } from 'next/navigation';
-import axios from 'axios';
-import { toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+
 
 import BackButton from "@/components/back-btn";
 import { CartContext } from "@/context/provider/cart";
 import EmptyCart from '@/components/empty-cart';
-import Link from 'next/link';
 import CartItemType from '@/types/type.cartItems';
 import CouponComponent from './coupon.component';
+import SubmitOrder from './submitOrder.component';
 
 type Discount = {
     type: string
@@ -62,30 +60,6 @@ const Payment = () => {
 
     const changePaymentMethod = (event: React.ChangeEvent<HTMLInputElement>) => {
         setPaymentMethod((event.target as HTMLInputElement).value);
-    }
-
-    const submitOrder = async () => {
-        const payload = {
-            cart: cartItems,
-            discount: discountPrice,
-            price: finalPaymentPrice
-        }
-
-        await axios.post('/api/order/submit', payload)
-            .then(res => {
-                if (res.status == 200) {
-                    const { id, message } = res.data 
-                    if (message == 'unAuthorized') toast.warning('ابتدا می‌بایست وارد شوید!')
-                    else if (message == 'userNotFound') toast.error('در دریافت اطلاعات کاربر خطایی رخ داد!')
-                    else if (message == 'incompleteProfile') toast.warning(<Link href='/profile/edit'>برای ثبت نهایی سفارش می‌بایست اطلاعات پروفایل خود را کامل کنید. برای ورود کلیک کنید</Link>, {autoClose: 10_000})
-                    else if (message == 'qtyNotEnough') toast.error(`تعداد موجودی "${cartItems[res.data.id].title}" ${cartItems[res.data.id].quantity} عدد است. لطفا پس از تغییر سبد خرید خود مجدد تلاش کنید.`)
-                    else if (id) {
-                        dispatch({ type: "RESET" })
-                        router.push(`/checkout/payment/success?id=${res.data.id}`)
-                    }
-                }
-            })
-            .catch(err => console.log('err submit order', err))
     }
 
     return (
@@ -189,9 +163,10 @@ const Payment = () => {
                             </div>
                         </div>
 
-                        <button onClick={submitOrder} className='bg-blue-500 text-white w-full py-3 rounded-xl yekan1'>
-                            پرداخت
-                        </button>
+                        <SubmitOrder
+                            discountPrice={discountPrice}
+                            finalPaymentPrice={finalPaymentPrice}
+                        />
                     </>
                     :
                     <EmptyCart />

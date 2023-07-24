@@ -81,28 +81,53 @@ const Edit = () => {
 
             <div className='space-y-10'>
                 <div className='flex justify-between items-center'>
-                    <input ref={nameRef} type="text" className='placeholder:text-slate-400 px-1 py-1 border-b bg-transparent border-black' placeholder={user?.name || ''} />
-                    <span className='text-base text-black'>نام و نام خانوادگی</span>
+                    <input
+                        ref={nameRef}
+                        name='name' type="text"
+                        className='placeholder:text-slate-400 px-1 py-1 border-b bg-transparent border-black'
+                        placeholder={nameRef.current?.value || user?.name || ''}
+                    />
+                    <label className='text-base text-black' htmlFor="name">نام و نام خانوادگی</label>
                 </div>
 
                 <div className='flex justify-between items-center'>
-                    <input ref={mobileNumberRef} type="text" className='placeholder:text-slate-400 px-1 py-1 border-b bg-transparent border-black' placeholder={user?.mobile_number || ''} />
-                    <span className='text-base text-black'>تلفن همراه</span>
+                    <input
+                        ref={mobileNumberRef}
+                        name='mobileNumber' type="text"
+                        className='placeholder:text-slate-400 px-1 py-1 border-b bg-transparent border-black'
+                        placeholder={mobileNumberRef.current?.value || user?.mobile_number || ''}
+                    />
+                    <label htmlFor='mobileNumber' className='text-base text-black'>تلفن همراه</label>
                 </div>
 
                 <div className='flex justify-between items-center'>
-                    <input ref={phoneNumberRef} type="text" className='placeholder:text-slate-400 px-1 py-1 border-b bg-transparent border-black' placeholder={user?.phone_number || ''} />
-                    <span className='text-base text-black'>تلفن منزل</span>
+                    <input
+                        ref={phoneNumberRef}
+                        name='phoneNumber' type="text"
+                        className='placeholder:text-slate-400 px-1 py-1 border-b bg-transparent border-black'
+                        placeholder={phoneNumberRef.current?.value || user?.phone_number || ''}
+                    />
+                    <label htmlFor='phoneNumber' className='text-base text-black'>تلفن منزل</label>
                 </div>
 
                 <div className='flex justify-between items-center'>
-                    <input ref={melliCodeRef} type="text" className='placeholder:text-slate-400 px-1 py-1 border-b bg-transparent border-black' placeholder={user?.melli_code || ''} />
-                    <span className='text-base text-black'>کد ملی</span>
+                    <input
+                        ref={melliCodeRef}
+                        name='melliCode' type="text"
+                        className='placeholder:text-slate-400 px-1 py-1 border-b bg-transparent border-black'
+                        placeholder={melliCodeRef.current?.value || user?.melli_code || ''}
+                    />
+                    <label htmlFor='melliCode' className='text-base text-black'>کد ملی</label>
                 </div>
 
                 <div className='flex justify-between items-center'>
-                    <textarea ref={addressRef} rows={3} className='placeholder:text-slate-400 px-1 py-1 border-b bg-transparent border-black' placeholder={user?.address || ''} />
-                    <span className='text-base text-black'>آدرس محل سکونت</span>
+                    <textarea
+                        ref={addressRef}
+                        rows={3}
+                        className='placeholder:text-slate-400 px-1 py-1 border-b bg-transparent border-black'
+                        placeholder={addressRef.current?.value || user?.address || ''}
+                    />
+                    <label className='text-base text-black'>آدرس محل سکونت</label>
                 </div>
             </div>
 

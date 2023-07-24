@@ -8,12 +8,30 @@ export async function POST(request: Request) {
 
     const searchResult = await prisma.product.findMany({
         where: {
-            title: {
-                contains: payload.title,
-                mode: 'insensitive',
-            }
+            OR: [
+                {
+                  title: {
+                    contains: payload.title,
+                    mode: 'insensitive',
+                  }
+                },
+                {
+                  brand: {
+                    name: {
+                        contains: payload.title,
+                        mode: 'insensitive',
+                    }
+                  }
+                }
+            ]
+          
         },
         include: {
+            brand: {
+                select: {
+                    name: true
+                }
+            },
             productLocation: {
                 where: {
                     public: {
