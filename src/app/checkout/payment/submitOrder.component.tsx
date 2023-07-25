@@ -33,7 +33,7 @@ const SubmitOrder = ({
         };
 
         try {
-            const res = await axios.post('/api/order/submit', payload)
+            const res = await axios.post('/api/order', payload)
             
             if (res.status == 200) {
                 const { id, message } = res.data;

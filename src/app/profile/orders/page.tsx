@@ -1,9 +1,9 @@
 import BackButton from "@/components/back-btn";
 import User from "@/lib/user";
-import { Order } from "@prisma/client";
 import Image from "next/legacy/image"
 
-import { User as UserType } from '@prisma/client'
+import { User as UserType, Order } from '@prisma/client'
+import DateFormat from "@/components/dateFormat";
 
 type UserAndOrders = UserType & { orders?: OrderAndItems[] }
 type UserWithoutPasswordAndOrders = Omit<UserAndOrders, 'password'>;
@@ -22,7 +22,6 @@ type OrderAndItems = Order & {
     }[]
 }
 
-
 export const metadata = {
     title: 'فروشگاه اینترنتی | سفارش های من'
 }
@@ -35,53 +34,6 @@ const Orders = async () => {
         if (status == 'POSTED') return '✅ ارسال شده'
         if (status == 'PREPARING') return '📦 در حال آماده سازی'
         if (status == 'PENDING') return '🛎️ در حال پردازش'
-    }
-
-    const toPersian = (fullDate: Date) => {
-        const persianDate = fullDate.toLocaleDateString('fa-IR').split('/')
-
-        let monthsInPersian
-
-        switch (persianDate[1]) {
-            case '۱':
-                monthsInPersian = 'فروردين'
-                break;
-            case '۲':
-                monthsInPersian = 'ارديبهشت'
-                break
-            case '۳':
-                monthsInPersian = 'خرداد'
-                break
-            case '۴':
-                monthsInPersian = 'تير'
-                break
-            case '۵':
-                monthsInPersian = 'مرداد'
-                break
-            case '۶':
-                monthsInPersian = 'شهريور'
-                break
-            case '۷':
-                monthsInPersian = 'مهر'
-                break
-            case '۸':
-                monthsInPersian = 'آبان'
-                break
-            case '۹':
-                monthsInPersian = 'آذر'
-                break
-            case '۱۰':
-                monthsInPersian = 'دي'
-                break
-            case '۱۱':
-                monthsInPersian = 'بهمن'
-                break
-            case '۱۲':
-                monthsInPersian = 'اسفند'
-                break
-        }
-
-        return <div className='flex space-x-1 justify-end'> <span>{persianDate[0]}</span> <span>{monthsInPersian}</span> <span>{persianDate[2]}</span> </div>
     }
 
     return (
@@ -104,7 +56,7 @@ const Orders = async () => {
                                         </span>
                                     </div>
                                     <div className='text-right space-y-2'>
-                                        <div><span>{toPersian(order.created_at)}</span></div>
+                                        <div><span>{DateFormat(order.created_at)}</span></div>
                                         <div className='space-x-2'>
                                             <span className='text-black font-semibold'>{order.id}</span>
                                             <span>کد سفارش</span>
