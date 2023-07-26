@@ -27,7 +27,6 @@ const CouponComponent = ({ setCoupon }: {setCoupon: Dispatch<SetStateAction<Disc
           setCoupon(res.data);
           toast.success("تخفیف با موفقیت به شما تعلق گرفت");
         } else {
-          setCoupon(-1);
           toast.error("کد تخفیف وارد شده منقضی یا نامعتبر می‌باشد");
         }
       } catch (err) {

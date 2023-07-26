@@ -1,6 +1,7 @@
 import BackButton from "@/components/back-btn";
 import isAdmin from "@/lib/isAdmin";
 import Tabs from "./tabs.components";
+import prisma from '@/lib/prisma'
 
 import { Order, User } from '@prisma/client'
 

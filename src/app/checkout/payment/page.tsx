@@ -168,14 +168,6 @@ const Payment = () => {
                                             </div>
                                             : ''
                                     }
-
-                                    {
-                                        couponValue === -1 ?
-                                            <div className='text-center mt-5'>
-                                                <span className='text-red-700'>کد تخفیف وارد شده منقضی یا نامعتبر می‌باشد</span>
-                                            </div>
-                                            : ''
-                                    }
                                 </div>
 
                                 <div className='bg-white rounded-xl py-8 px-6 space-y-6 text-right'>
