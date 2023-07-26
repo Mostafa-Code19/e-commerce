@@ -1,7 +1,7 @@
 'use client'
 
 import Link from 'next/link'
-import { useContext, useMemo } from "react";
+import { useContext } from "react";
 import { usePathname } from 'next/navigation'
 
 import { CartContext } from "@/context/provider/cart";
@@ -11,7 +11,7 @@ const Navbar = () => {
   const { cart }: any = useContext(CartContext as any)
 
   return (
-    <nav className='fixed bottom-0 left-0 py-7 px-8 rounded-t-[30%] bg-white w-full flex justify-around'>
+    <nav className='fixed bottom-0 md:hidden left-0 py-7 px-8 rounded-t-[30%] bg-white w-full flex justify-around'>
       <Link href='/'>
         <svg className={`${pathname == '/' ? 'text-blue-400' : 'text-gray-400'} h-8 w-8`} viewBox="0 0 24 24" fill={pathname == '/' ? "#60a5fa" : 'none'} stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><g id="Home"><path d="M21.12,9.79l-7-7a3.08,3.08,0,0,0-4.24,0l-7,7A3,3,0,0,0,2,11.91v7.18a3,3,0,0,0,3,3H9v-6a3,3,0,0,1,6,0v6h4a3,3,0,0,0,3-3V11.91A3,3,0,0,0,21.12,9.79Z" /></g></svg>
       </Link>

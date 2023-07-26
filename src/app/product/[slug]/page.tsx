@@ -1,9 +1,10 @@
-import Detail from '@/components/product/details'
-import Options from '@/components/product/options'
 import prisma from '@/lib/prisma'
-
 import Image from "next/legacy/image"
 import { Product } from '@prisma/client'
+
+import BackButton from '@/components/back-btn'
+import Images from '@/components/product/images'
+import Options from '@/components/product/options'
 
 const getProduct = async (slug: string) => {
     return await prisma.product.findUnique(
@@ -62,12 +63,29 @@ const Product = async ({ params }: { params: { slug: string } }) => {
     const product = await getProduct(params.slug)
 
     return (
-        <>
+        <div className='mx-8 my-16 space-y-11'>
+            <div className='flex justify-between items-center'>
+                <BackButton />
+                <h1 className='text-center font-bold'>ویرایش پروفایل</h1>
+                <span></span>
+            </div>
+            
             {
                 product?.productLocation.length ?
-                    <Options product={product}>
-                        <Detail product={product} />
-                    </Options>
+                    <div className='md:grid flex flex-col-reverse grid-cols-2 md:gap-12'>
+                        <div>
+                            <h1 style={{ fontSize: '1.75rem' }} className='text-right'>{product.title}</h1>
+
+                            <div className='text-right space-y-2 my-6'>
+                                <h2>توضیحات</h2>
+                                <p>{product.description}</p>
+                            </div>
+                            
+                            <Options product={product} />
+                        </div>
+
+                        <Images isAdmin={false} thumbnail={product.gallery[0]} product={product} />
+                    </div>
                     :
                     <div className='space-y-10 m-10'>
                         <div className='flex justify-center'>
@@ -89,7 +107,7 @@ const Product = async ({ params }: { params: { slug: string } }) => {
                         </div>
                     </div>
             }
-        </>
+        </div>
     );
 }
 

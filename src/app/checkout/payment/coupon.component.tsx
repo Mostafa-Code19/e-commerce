@@ -10,7 +10,7 @@ type Discount = {
 
 let previousCoupon = ""
 
-const CouponComponent = ({ setDiscount }: {setDiscount: Dispatch<SetStateAction<Discount>>}) => {
+const CouponComponent = ({ setCoupon }: {setCoupon: Dispatch<SetStateAction<Discount>>}) => {
   const [loading, setLoading] = useState(false);
   const couponRef = useRef<HTMLInputElement>(null)
 
@@ -24,10 +24,10 @@ const CouponComponent = ({ setDiscount }: {setDiscount: Dispatch<SetStateAction<
       try {
         const res = await axios.get(`/api/coupon?c=${couponCode}`);
         if (res.data) {
-          setDiscount(res.data);
+          setCoupon(res.data);
           toast.success("تخفیف با موفقیت به شما تعلق گرفت");
         } else {
-          setDiscount(false);
+          setCoupon(-1);
           toast.error("کد تخفیف وارد شده منقضی یا نامعتبر می‌باشد");
         }
       } catch (err) {
@@ -44,16 +44,16 @@ const CouponComponent = ({ setDiscount }: {setDiscount: Dispatch<SetStateAction<
 
   return (
     <div className='flex justify-between items-center'>
-        <div className='border rounded-lg px-4 py-2 space-x-4 relative'>
-            {
-                loading ?
-                    <span className='text-green-700 inline-block my-4 absolute -top-1'>در حال بررسی...</span>
-                    :
-                    <button disabled={loading} onClick={couponCheck}><span>ثبت</span></button>
-            }
-            <input ref={couponRef} type="text" className='text-right text-sm' placeholder='کد تخفیف' />
-        </div>
-        <h3>کد تخفیف</h3>
+      <div className='border rounded-lg px-4 py-2 space-x-4 relative'>
+          {
+              loading ?
+                <span className='text-green-700 inline-block my-4 absolute -top-1'>در حال بررسی...</span>
+                :
+                <button disabled={loading} onClick={couponCheck}><span>ثبت</span></button>
+          }
+          <input ref={couponRef} type="text" className='text-right text-sm' placeholder='کد تخفیف' />
+      </div>
+      <h3>کد تخفیف</h3>
     </div>
   );
 };

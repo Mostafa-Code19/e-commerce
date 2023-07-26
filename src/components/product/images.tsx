@@ -84,10 +84,13 @@ const Images = ({ isAdmin, thumbnail, product }: PropsType) => {
 
     return (
         <div className='space-y-3'>
-            <div onClick={() => {
-                setLightboxOpen(true)
-                setCurrentIndex(0)
-            }}>
+            <div
+                className='text-center'
+                onClick={() => {
+                    setLightboxOpen(true)
+                    setCurrentIndex(0)
+                }}
+            >
                 <Image
                     className='object-contain'
                     src={thumbnail.src}
@@ -100,10 +103,13 @@ const Images = ({ isAdmin, thumbnail, product }: PropsType) => {
                 {
                     galleryList.map((data, index) => {
                         return (
-                            <div key={index} onClick={() => {
-                                setLightboxOpen(true)
-                                setCurrentIndex(index)
-                            }}>
+                            <div
+                                key={index}
+                                onClick={() => {
+                                    setLightboxOpen(true)
+                                    setCurrentIndex(index)
+                                }}
+                            >
                                 <Image
                                     className='object-contain'
                                     src={`${data.src}`}

@@ -178,7 +178,7 @@ const AdminProduct = () => {
                             <span></span>
                         </div>
 
-                        <div className='flex flex-col space-y-3'>
+                        <div className='flex flex-col space-y-3 max-w-md mx-auto'>
 
                             <div className='flex space-x-5 w-full'>
                                 <button onClick={() => setNewProductPanel(true)}>
@@ -279,14 +279,14 @@ const AdminProduct = () => {
                                 <h5>رنگ چهره محصول</h5>
                             </div>
 
+                            <button
+                                className='w-full px-5 py-3 mt-10 border border-green-500 rounded hover:text-black hover:bg-green-500'
+                                onClick={addProductLocation}
+                            >
+                                افزودن
+                            </button>
                         </div>
 
-                        <button
-                            className='w-full px-5 py-3 mt-10 border border-green-500 rounded hover:text-black hover:bg-green-500'
-                            onClick={addProductLocation}
-                        >
-                            افزودن
-                        </button>
                     </>
                     :
                     <h1>شما اجازه وارد شدن به این صفحه را ندارید!</h1>

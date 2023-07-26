@@ -15,11 +15,7 @@ type ProductLocationExtended = ProductLocation & {
     price: number
 }[]
 
-const Options = ({
-    children,
-    product
-}: {
-    children: React.ReactNode,
+const Options = ({ product }: {
     product: {
         gallery: Image[]
         productLocation: ProductLocationExtended
@@ -96,15 +92,13 @@ const Options = ({
     }
 
     return (
-        <div className='mx-8 space-y-6'>
-            {children}
+        <div className='space-y-6'>
+            <div>
+                <h2 className='text-right'>رنگ ها</h2>
 
-            <h2 className='text-right'>رنگ ها</h2>
-
-            <div className='flex space-x-2 justify-end'>
-                {
-                    colors()
-                }
+                <div className='flex space-x-2 justify-end'>
+                    {colors()}
+                </div>
             </div>
 
             <div>

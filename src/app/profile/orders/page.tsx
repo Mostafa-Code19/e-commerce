@@ -49,7 +49,7 @@ const Orders = async () => {
                     user.orders?.length ?
                         user.orders.reverse().map((order) => {
                             return (
-                                <div key={order.id} className='px-4 py-10 space-y-2 bg-zinc-100 rounded-xl'>
+                                <div key={order.id} className='px-4 py-10 space-y-2 bg-zinc-100 rounded-xl max-w-md mx-auto'>
                                     <div className='text-right'>
                                         <span>
                                             {status(order.status)}

@@ -27,7 +27,8 @@ const Profile = async () => {
                 <h2 className='text-zinc-400 text-base'>{user?.mobile_number || user?.phone_number}</h2>
             </div>
 
-            <div className='px-4 py-10 space-y-8 bg-zinc-100 rounded-t-2xl'>
+            <div className='px-4 py-10 space-y-8 bg-zinc-100 rounded-t-2xl max-w-md mx-auto'>
+                
                 {
                     user?.role == 'ADMIN' ?
                     <div>
@@ -45,6 +46,7 @@ const Profile = async () => {
                     </div>
                     : ''
                 }
+
                 <div>
                     <Link href='/profile/edit'>
                         <div className='flex justify-between items-center'>
@@ -58,6 +60,7 @@ const Profile = async () => {
                         </div>
                     </Link>
                 </div>
+
                 <div>
                     <Link href='profile/orders'>
                         <div className='flex justify-between items-center'>
@@ -71,6 +74,7 @@ const Profile = async () => {
                         </div>
                     </Link>
                 </div>
+
                 <div className='text-slate-400'>
                     {/* <Link href='#'> */}
                     <div className='flex justify-between items-center'>
@@ -85,6 +89,7 @@ const Profile = async () => {
                     </div>
                     {/* </Link> */}
                 </div>
+
                 <div className='text-slate-400'>
                     {/* <Link href='#'> */}
                     <div className='flex justify-between items-center'>
@@ -99,9 +104,10 @@ const Profile = async () => {
                     </div>
                     {/* </Link> */}
                 </div>
+
+                <LogoutButton />
             </div>
 
-            <LogoutButton />
         </div>
     );
 }
