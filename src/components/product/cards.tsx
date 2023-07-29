@@ -82,7 +82,7 @@ const ProductCards = ({products, pageTarget} : {products: ProductExtended[], pag
                 }
             </div>
             :
-            <h1>!محصولی یافت نشد</h1>
+            <h3 className='text-center'>!محصولی یافت نشد</h3>
     )
 }
  

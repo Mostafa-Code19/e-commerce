@@ -65,7 +65,7 @@ const OrdersManagement = async () => {
                     <Tabs orders={orders} />
                 </>
                 :
-                <h1 className='text-center'>شما اجازه وارد شدن به این صفحه را ندارید!</h1>
+                <h3 className='text-center'>شما اجازه وارد شدن به این صفحه را ندارید!</h3>
             }
         </div>
 
