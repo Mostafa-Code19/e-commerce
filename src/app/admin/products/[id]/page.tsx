@@ -57,7 +57,7 @@ const ProductLocations = async ({ params }: { params: { id: string } }) => {
                 (await isAdmin()) ?
                     pageContent(product)
                     :
-                    <h1>شما اجازه وارد شدن به این صفحه را ندارید!</h1>
+                    <h1 className='text-center'>شما اجازه وارد شدن به این صفحه را ندارید!</h1>
             }
         </div>
     );

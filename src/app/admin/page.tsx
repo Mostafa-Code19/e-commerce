@@ -48,9 +48,24 @@ const AdminPanel = async () => {
                                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 19l-7-7 7-7" />
                                     </svg>
                                     <div className='flex space-x-3 items-center'>
-                                        <span className='text-base text-black'>مدیریت محصولات</span>
+                                        <span className='text-base text-black'>محصولات</span>
                                         <svg className="h-6 w-6 text-black"  fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 14v6m-3-3h6M6 10h2a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v2a2 2 0 002 2zm10 0h2a2 2 0 002-2V6a2 2 0 00-2-2h-2a2 2 0 00-2 2v2a2 2 0 002 2zM6 20h2a2 2 0 002-2v-2a2 2 0 00-2-2H6a2 2 0 00-2 2v2a2 2 0 002 2z"/>
+                                        </svg>
+                                    </div>
+                                </div>
+                            </Link>
+                        </div>
+                        <div>
+                            <Link href='/admin/brands'>
+                                <div className='flex justify-between items-center'>
+                                    <svg className="h-6 w-6 text-black" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 19l-7-7 7-7" />
+                                    </svg>
+                                    <div className='flex space-x-3 items-center'>
+                                        <span className='text-base text-black'>برند ها</span>
+                                        <svg className="h-6 w-6 text-black"  fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <svg className="h-6 w-6 text-black"  width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">  <path stroke="none" d="M0 0h24v24H0z"/>  <line x1="3" y1="21" x2="21" y2="21" />  <path d="M5 21v-14l8 -4v18" />  <path d="M19 21v-10l-6 -4" />  <line x1="9" y1="9" x2="9" y2="9.01" />  <line x1="9" y1="12" x2="9" y2="12.01" />  <line x1="9" y1="15" x2="9" y2="15.01" />  <line x1="9" y1="18" x2="9" y2="18.01" /></svg>
                                         </svg>
                                     </div>
                                 </div>
@@ -59,7 +74,7 @@ const AdminPanel = async () => {
                     </div>
                 </>
                 :
-                <h1>شما اجازه وارد شدن به این صفحه را ندارید!</h1>
+                <h1 className='text-center'>شما اجازه وارد شدن به این صفحه را ندارید!</h1>
             }
         </div>
     );

@@ -5,7 +5,7 @@ import { useState } from "react";
 
 export const LoginButton = () => {
   return (
-    <button style={{ marginRight: 10 }} onClick={() => signIn()}>
+    <button style={{ marginRight: 10 }} onClick={() => signIn(undefined, { callbackUrl: "/profile" })}>
       ورود به حساب
     </button>
   );
