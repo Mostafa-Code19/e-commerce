@@ -19,10 +19,18 @@ const Edit = () => {
     const addressRef = useRef<HTMLTextAreaElement>(null)
 
     const fetchUser = async () => {
-        return await axios.get('/api/user')
-            .then(res => {
-                setUser(res.data.user);
-            })
+        try {
+            const res = await axios.get('/api/user')
+
+            if (res.status == 200) return setUser(res.data.user);
+            else {
+                toast.error('در دریافت اطلاعات شما خطایی رخ داد')
+                console.log('profile/edit/api/user res not 200', res)
+            }
+        } catch (err) {
+            toast.error('در دریافت اطلاعات شما خطایی رخ داد')
+            console.log('profile/edit/api/user err', err)
+        }
     }
 
     useEffect(() => {

@@ -18,17 +18,16 @@ export const RegisterForm = () => {
     setFormValues({ email: "", password: "" });
 
     try {
-        await axios.post("/api/register", formValues)
-            .then(res => {
-                setLoading(false);
-                if (res.status !== 200) return setError(res.data.message)
-                else signIn()
-            })
+        const res = await axios.post("/api/register", formValues)
+        setLoading(false);
+        if (res.status == 200) return signIn()
+        else return setError(res.data.message)
+
     } catch (error: any) {
       setLoading(false);
       error = error.response.data.message
       if (error.includes('Unique')) error = 'این ایمیل از قبل ثبت نام شده است'
-      setError(error);
+      return setError(error);
     }
   };
 

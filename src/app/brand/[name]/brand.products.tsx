@@ -17,14 +17,18 @@ const Brand_Products = ({ brandName }: { brandName: string}) => {
     const fetchProducts = useCallback(async () => {
         if (!brandName?.trim().length) return
 
-        return await axios.post('/api/brand/product', { name: brandName })
-            .then(res => {
-                setBrandProducts(res.data.products)
-            })
-            .catch((err: AxiosError) => {
+        const res = await axios.post('/api/brand/product', { name: brandName })
+
+        try {
+            if (res.status == 200) return setBrandProducts(res.data.products)
+            else {
                 toast.error(`دریافت محصولات به مشکل برخورد کرد!`);
-                console.log('err fetch products', err)
-            })
+                return console.log('api/brand/products res not 200', res)
+            }
+        } catch (err) {
+            toast.error(`دریافت محصولات به مشکل برخورد کرد!`);
+            return console.log('err fetch products', err)
+        }
     }, [brandName])
 
     useEffect(() => {

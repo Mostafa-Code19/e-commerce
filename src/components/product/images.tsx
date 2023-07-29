@@ -63,14 +63,18 @@ const Images = ({ isAdmin, thumbnail, product }: PropsType) => {
         const payload = { imageId: galleryList[currentImageIndex]?.id }
 
         const deleteImage = async () => {
-            await axios.post('/api/product/image/delete', payload)
-                .then(res => {
-                    toast.success('تصویر با موفقیت حذف گردید.');
-                })
-                .catch(err => {
+            const res = await axios.post('/api/product/image/delete', payload)
+            
+            try {
+                if (res.status == 200) return toast.success('تصویر با موفقیت حذف گردید.');
+                else {
                     toast.error('تصویر موجود نمی باشد یا در حذف تصویر خطایی رخ داد!');
-                    console.log(err)
-                })
+                    console.log('api/product/image/delete !200', res)
+                }
+            } catch (err) {
+                toast.error('تصویر موجود نمی باشد یا در حذف تصویر خطایی رخ داد!');
+                console.log('api/product/image/delete', err)
+            }
         }
 
         return (

@@ -64,25 +64,31 @@ const AdminProduct = () => {
     }, [productImages]);
 
     const fetchProducts = async () => {
-        await axios.get('/api/product/')
-            .then(res => {
-                setProducts(res.data)
-            })
-            .catch(err => {
+        try {
+            const res = await axios.get('/api/product/')
+            if (res.status == 200) return setProducts(res.data)
+            else {
                 toast.error(`دریافت محصولات به مشکل برخورد کرد!`);
-                console.log('err fetch products', err)
-            })
+                console.log('err fetch products res not 200', res)
+            }
+        } catch (err) {
+            toast.error(`دریافت محصولات به مشکل برخورد کرد!`);
+            console.log('err fetch products', err)
+        }
     }
 
     const fetchBrands = async () => {
-        await axios.get('/api/brand/')
-            .then(res => {
-                setBrands(res.data)
-            })
-            .catch(err => {
+        try {
+            const res = await axios.get('/api/brand/')
+            if (res.status == 200) return setBrands(res.data)
+            else {
                 toast.error(`دریافت برند ها به مشکل برخورد کرد!`);
-                console.log('err fetch brands', err)
-            })
+                console.log('err fetch brands res not 200', res)
+            }
+        } catch (err) {
+            toast.error(`دریافت برند ها به مشکل برخورد کرد!`)
+            console.log('err fetch brands', err)
+        }
     }
 
     const addProductLocation = async () => {
@@ -102,19 +108,17 @@ const AdminProduct = () => {
             discount: discountRef.current?.value
         }
 
-        await axios.post(`/api/product/location/add`, payload)
-            .then(res => {
-                if (res.status === 200) {
-                    toast.success(`چهره جدید محصول با موفقیت اضافه شد.`);
-                    // enqueueSnackbar('کوییز تریویا با موفقیت ایجاد شد.', { variant: 'success', anchorOrigin: { horizontal: 'right', vertical: 'top' }})
-                }
-            })
-            .catch(err => {
-                // enqueueSnackbar('در ایجاد کوییز تریویا خطایی رخ داد.', { variant: 'success', anchorOrigin: { horizontal: 'right', vertical: 'top' }})
+        try {
+            const res = await axios.post(`/api/product/location/add`, payload)
+            if (res.status === 200) return toast.success(`چهره جدید محصول با موفقیت اضافه شد.`)
+            else {
                 toast.error(`در ثبت چهره جدید محصول خطایی رخ داد!`);
-                console.log('err: در ثبت چهره جدید محصول خطایی رخ داد!')
-                console.log(err)
-            })
+                console.log('err: در ثبت چهره جدید محصول خطایی رخ داد! res not 200', res)
+            }
+        } catch (err) {
+            toast.error(`در ثبت چهره جدید محصول خطایی رخ داد!`);
+            console.log('err: در ثبت چهره جدید محصول خطایی رخ داد!', err)
+        }
     }
 
     const addNewProduct = async () => {
@@ -123,23 +127,25 @@ const AdminProduct = () => {
 
         if (!title?.trim().length || !description?.trim().length || !selectedBrand) return toast.error('برای افزودن محصول جدید لطفا تمام ورودی ها را کامل کنید')
 
-        await axios.post('/api/product/add', {
-            title: title,
-            brand: selectedBrand,
-            description: description
-        })
-            .then(res => {
-                if (res.data.id) {
-                    fetchProducts()
-                    setNewProductPanel(false)
-                    toast.success(`محصول جدید با موفقیت اضافه شد.`);
-                }
-                else console.log('res add new product', res)
+        try {
+            const res = await axios.post('/api/product/add', {
+                title: title,
+                brand: selectedBrand,
+                description: description
             })
-            .catch(err => {
+
+            if (res.status == 200 && res.data.id) {
+                fetchProducts()
+                setNewProductPanel(false)
+                return toast.success(`محصول جدید با موفقیت اضافه شد.`);
+            } else {
                 toast.error(`در ثبت محصول جدید خطایی رخ داد!`);
-                console.log('err add new product', err)
-            })
+                return console.log('res add new product res not 200 or res.data.id not exist', res)
+            }
+        } catch(err) {
+            toast.error(`در ثبت محصول جدید خطایی رخ داد!`);
+            return console.log('err add new product', err)
+        }
     }
 
     const submitImagesToProduct = async () => {
@@ -157,14 +163,18 @@ const AdminProduct = () => {
             imageSources: imageSources
         }
 
-        await axios.post('/api/product/image/add', payload)
-            .then(res => {
-                toast.success(`تصویر با موفقیت آپلود گردید.`)
-            })
-            .catch(err => {
+        try {
+            const res = await axios.post('/api/product/image/add', payload)
+
+            if (res.status == 200) return toast.success(`تصویر با موفقیت آپلود گردید.`)
+            else {
                 toast.error(`در آپلود تصویر خطایی رخ داد!`)
-                console.log(err)
-            })
+                return console.log('api/product/image/add res not 200', res)
+            }
+        } catch (err) {
+            toast.error(`در آپلود تصویر خطایی رخ داد!`)
+            return console.log('api/product/image/add', err)
+        }
     }
 
     return (

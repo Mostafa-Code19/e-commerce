@@ -34,14 +34,18 @@ const PriceDiscountQtyEdit = ({ id, price, discount, quantity }: PropsType) => {
             qty: qtyRef?.current?.value
         }
 
-        await axios.patch('/api/product/location/update/price-discount-qty', payload)
-            .then(res => {
-                if (res.status == 200) toast.success('قیمت، تخفیف و تعداد با موفقیت تغییر یافت.')
-            })
-            .catch(err => {
+        try {
+            const res = await axios.patch('/api/product/location/update/price-discount-qty', payload)
+            
+            if (res.status == 200) return toast.success('قیمت، تخفیف و تعداد با موفقیت تغییر یافت.')
+            else {
                 toast.error('در قیمت، تخفیف و تعداد تعداد خطایی رخ داد!')
-                console.log('qty submit err', err)
-            })
+                return console.log('qty submit res not 200', res)
+            }
+        } catch (err) {
+            toast.error('در قیمت، تخفیف و تعداد تعداد خطایی رخ داد!')
+            console.log('qty submit err', err)
+        }
     }
 
     return (

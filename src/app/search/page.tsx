@@ -22,15 +22,18 @@ const Search = () => {
 
     const fetchProducts = useCallback(async () => {
         if (!query?.trim().length) return;
-      
-        return await axios.post('/api/search', { title: query })
-            .then(res => {
-                setSearchResult(res.data)
-            })
-            .catch((err: AxiosError) => {
-                toast.error(`دریافت محصولات به مشکل برخورد کرد!`);
-                console.log('err fetch products', err)
-            })
+
+        try {
+            const res = await axios.post('/api/search', { title: query })
+            if (res.status == 200) return setSearchResult(res.data)
+            else {
+                toast.error(`دریافت محصولات به مشکل برخورد کرد!`)
+                return console.log('api/search res not 200', res)
+            }
+        } catch (err) {
+            toast.error(`دریافت محصولات به مشکل برخورد کرد!`);
+            console.log('api/search err', err)
+        }
       }, [query]);
 
     useEffect(() => {
