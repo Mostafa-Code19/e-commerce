@@ -120,7 +120,7 @@ span {
 
 label {
   font-family: IRANYekanRegular, sans-serif;
-  font-size: .8rem;
+  font-size: 1rem;
 }
 
 hr {
@@ -170,6 +170,10 @@ h6 {
       font-family: IRANYekanRegular, sans-serif;
     }
   }
+}
+
+.invalidInput {
+  border: 2px solid red;
 }
 
 .Toastify__toast-body {

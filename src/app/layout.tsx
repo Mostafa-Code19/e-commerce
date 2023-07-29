@@ -36,7 +36,7 @@ export default function RootLayout({
               theme="light"
             />
 
-            <main className='mb-24 max-w-screen-lg mx-auto'>
+            <main className='mb-24 max-w-screen-lg overflow-x-hidden mx-auto'>
               {children}
             </main>
 
