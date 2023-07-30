@@ -19,8 +19,8 @@ const authOptions: NextAuthOptions = {
       name: 'Credentials',
 
       credentials: {
-        email: {label: 'ایمیل', type: 'text', placeholder: 'example@gmail.com'},
-        password: { label: 'رمز عبور', type: 'password', placeholder: '1234'}
+        email: { label: 'ایمیل', type: 'text', placeholder: 'example@gmail.com' },
+        password: { label: 'رمز عبور', type: 'password', placeholder: '1234' }
       },
 
       async authorize(credentials: Credential | undefined) {
@@ -31,7 +31,7 @@ const authOptions: NextAuthOptions = {
 
         const user = await prisma.user.findUnique({
           where: {
-              email: email
+            email: email
           }
         })
 
@@ -42,24 +42,24 @@ const authOptions: NextAuthOptions = {
         if (!passwordsMatch) return null
 
         const { password: _, ...filteredUser } = user as UserType & { password: string }
-        
+
         return filteredUser
       }
     })
   ],
   callbacks: {
     async jwt({ token, user }: { token: any; user?: UserAuth }) {
-        return { ...token, ...user };
+      return { ...token, ...user };
     },
     async session({ session, token }: { session: Session; token: any }) {
-        session.user = token;
+      session.user = token;
 
-        delete token.password
-        delete token.iat
-        delete token.exp
-        delete token.jti
+      delete token.password
+      delete token.iat
+      delete token.exp
+      delete token.jti
 
-        return token;
+      return token;
     },
   }
 }

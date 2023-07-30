@@ -18,7 +18,7 @@ export async function PATCH(req: Request, res: NextApiResponse) {
                 name: payload.name
             }
         })
-        
+
         return NextResponse.json({
             brand,
         });

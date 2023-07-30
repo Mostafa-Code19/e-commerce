@@ -17,7 +17,7 @@ export async function POST(req: Request, res: NextApiResponse) {
         return NextResponse.json(brand)
     } catch (error) {
         console.error('Error deleting brand:', error);
-        return NextResponse.json({status: 500, message: error})
+        return NextResponse.json({ status: 500, message: error })
     } finally {
         await prisma.$disconnect()
     }

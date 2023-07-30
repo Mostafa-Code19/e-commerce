@@ -9,14 +9,16 @@ export async function POST(req: Request) {
       password: string;
     };
 
-    const hashed_password = hashSync(password, genSaltSync(10))
+    const hashed_password = hashSync(password, genSaltSync(10));
 
-    const user = await prisma.user.create({
-      data: {
-        email: email.toLowerCase(),
-        password: hashed_password,
-      },
-    });
+    const user =
+      await prisma.user.create({
+        data: {
+          email: email.toLowerCase(),
+          password:
+            hashed_password,
+        },
+      });
 
     return NextResponse.json({
       user: {
@@ -25,10 +27,7 @@ export async function POST(req: Request) {
     });
   } catch (error: any) {
     return new NextResponse(
-      JSON.stringify({
-        status: "error",
-        message: error.message,
-      }),
+      JSON.stringify({ status: "error", message: error.message }),
       { status: 500 }
     );
   }

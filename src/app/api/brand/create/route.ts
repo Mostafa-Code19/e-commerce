@@ -14,7 +14,7 @@ export async function POST(req: Request, res: NextApiResponse) {
             }
         })
 
-        if (checkIfExist) return NextResponse.json({status: 405, message: 'Brand already exist'})  
+        if (checkIfExist) return NextResponse.json({ status: 405, message: 'Brand already exist' })
 
         const brand = await prisma.brand.create({
             data: {
@@ -25,7 +25,7 @@ export async function POST(req: Request, res: NextApiResponse) {
         return NextResponse.json(brand)
     } catch (error) {
         console.error('Error creating brand:', error);
-        return NextResponse.json({status: 500, message: error})
+        return NextResponse.json({ status: 500, message: error })
     } finally {
         await prisma.$disconnect()
     }

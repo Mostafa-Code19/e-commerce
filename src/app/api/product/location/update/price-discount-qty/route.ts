@@ -25,6 +25,6 @@ export async function PATCH(request: Request) {
         .then((res: ProductLocation) => {
             return res
         })
-        
-  return NextResponse.json(location);
+
+    return NextResponse.json(location);
 }

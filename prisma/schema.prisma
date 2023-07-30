@@ -25,7 +25,7 @@ model User {
   updated_at     DateTime  @updatedAt
   last_login     DateTime  @default(now())
   orders         Order[]
-  password       String         @default("")
+  password       String    @default("")
 }
 
 enum Role {
@@ -34,10 +34,10 @@ enum Role {
 }
 
 model Order {
-  id            String            @id @default(cuid())
-  status        Status            @default(PENDING)
-  created_at    DateTime          @default(now())
-  client        User              @relation(fields: [client_id], references: [id])
+  id            String      @id @default(cuid())
+  status        Status      @default(PENDING)
+  created_at    DateTime    @default(now())
+  client        User        @relation(fields: [client_id], references: [id])
   client_id     String
   price         Int
   discount      Int
@@ -60,35 +60,35 @@ enum Payment {
 }
 
 model OrderItem {
-  id          String   @id @default(cuid())
-  order       Order    @relation(fields: [order_id], references: [id])
-  order_id    String
-  item        ProductLocation     @relation(fields: [item_id], references: [id])
-  item_id     String
-  price       Int
-  discount    Int
-  quantity    Int
+  id       String          @id @default(cuid())
+  order    Order           @relation(fields: [order_id], references: [id])
+  order_id String
+  item     ProductLocation @relation(fields: [item_id], references: [id])
+  item_id  String
+  price    Int
+  discount Int
+  quantity Int
 }
 
 model ProductLocation {
-  id        String  @id @default(cuid())
-  public    Boolean @default(true)
-  product   Product @relation(fields: [productId], references: [id])
+  id        String      @id @default(cuid())
+  public    Boolean     @default(true)
+  product   Product     @relation(fields: [productId], references: [id])
   productId String
-  color     Color   @relation(fields: [colorId], references: [id])
-  colorId   String  @unique
-  size      Size    @relation(fields: [sizeId], references: [id])
-  sizeId    String  @unique
-  quantity  Int     @default(0)
+  color     Color       @relation(fields: [colorId], references: [id])
+  colorId   String      @unique
+  size      Size        @relation(fields: [sizeId], references: [id])
+  sizeId    String      @unique
+  quantity  Int         @default(0)
   price     Int
-  discount  Int     @default(0)
-  orderItem    OrderItem[]
+  discount  Int         @default(0)
+  orderItem OrderItem[]
 }
 
 model Brand {
-  id    String    @id @default(cuid())
-  name  String
-  products  Product[]
+  id       String    @id @default(cuid())
+  name     String
+  products Product[]
 }
 
 model Product {

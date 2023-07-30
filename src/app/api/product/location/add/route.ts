@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 import prisma from "@/lib/prisma";
 
 export async function POST(request: Request) {
-    const {publicState, productId, color, size, quantity, price, discount} = await request.json()
+    const { publicState, productId, color, size, quantity, price, discount } = await request.json()
 
     const colorData = await prisma.color.create({
         data: {

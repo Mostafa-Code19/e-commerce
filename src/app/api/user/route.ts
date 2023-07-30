@@ -13,7 +13,7 @@ type UserType = {
 } | null
 
 export async function GET() {
-    const session: {email: string} | null = await getServerSession(authOptions);
+    const session: { email: string } | null = await getServerSession(authOptions);
 
     if (!session) return
 
@@ -30,9 +30,9 @@ export async function GET() {
         }
     })
         .then((res: UserType) => res)
-        
-  return NextResponse.json({
-    authenticated: !!session,
-    user,
-  });
+
+    return NextResponse.json({
+        authenticated: !!session,
+        user,
+    });
 }

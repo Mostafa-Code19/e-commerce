@@ -15,9 +15,9 @@ export async function PATCH(request: Request) {
                 status: payload.updatedStatus
             }
         })
-        
+
         console.log('res api/order/status/update', order)
-        
+
         return NextResponse.json({
             order,
         });

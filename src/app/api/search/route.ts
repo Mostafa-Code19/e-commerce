@@ -4,27 +4,27 @@ import prisma from "@/lib/prisma";
 import { NextResponse } from "next/server";
 
 export async function POST(request: Request) {
-    const payload: {title: string} = await request.json()
+    const payload: { title: string } = await request.json()
 
     const searchResult = await prisma.product.findMany({
         where: {
             OR: [
                 {
-                  title: {
-                    contains: payload.title,
-                    mode: 'insensitive',
-                  }
-                },
-                {
-                  brand: {
-                    name: {
+                    title: {
                         contains: payload.title,
                         mode: 'insensitive',
                     }
-                  }
+                },
+                {
+                    brand: {
+                        name: {
+                            contains: payload.title,
+                            mode: 'insensitive',
+                        }
+                    }
                 }
             ]
-          
+
         },
         include: {
             brand: {

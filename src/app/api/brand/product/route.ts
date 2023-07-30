@@ -5,7 +5,7 @@ import { NextResponse } from "next/server";
 type Brand = { products: Product[] } | null
 
 export async function POST(request: Request) {
-    const payload: {name: string} = await request.json()
+    const payload: { name: string } = await request.json()
     const products = await prisma.brand.findFirst({
         where: {
             name: {
@@ -37,7 +37,7 @@ export async function POST(request: Request) {
                                 }
                             },
                         }
-                    },    
+                    },
                     gallery: {
                         select: {
                             src: true,

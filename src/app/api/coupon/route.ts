@@ -20,7 +20,7 @@ export async function GET(request: Request) {
             value: true
         }
     })
-        .then((res:CouponType) => res)
+        .then((res: CouponType) => res)
         .catch((err: Error) => console.log('err coupon api', err))
 
     return NextResponse.json(coupon);

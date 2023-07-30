@@ -2,7 +2,7 @@ import * as yup from "yup";
 
 const passwordRules = /^(?=.*\d)(?=.*[a-zA-Z])(?=.*[a-zA-Z]).{5,}$/;
 
-const RegisterSchemaValidation = yup.object().shape({
+const LoginSchemaValidation = yup.object().shape({
    email: yup
       .string()
       .email("ایمیل می‌بایست معتبر باشد")
@@ -15,10 +15,6 @@ const RegisterSchemaValidation = yup.object().shape({
             "رمز شما می‌بایست حداقل یک عدد و یک حرف کوچک یا بزرگ داشته باشد",
       })
       .required("لطفا یک رمز وارد کنید"),
-   confirmPassword: yup
-      .string()
-      .oneOf([yup.ref("password")], "رمز عبور شما یکسان نمی‌باشد")
-      .required("لطفا رمز عبور خود را تایید کنید"),
 });
 
-export default RegisterSchemaValidation;
+export default LoginSchemaValidation;

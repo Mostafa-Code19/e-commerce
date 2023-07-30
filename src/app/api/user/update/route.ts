@@ -6,7 +6,7 @@ import { User } from "@prisma/client";
 import prisma from "@/lib/prisma";
 
 export async function PATCH(request: Request) {
-    const session: {email: string} | null = await getServerSession(authOptions);
+    const session: { email: string } | null = await getServerSession(authOptions);
     const payload = await request.json()
 
     if (!session) return
@@ -18,9 +18,9 @@ export async function PATCH(request: Request) {
             },
             data: payload
         })
-        
+
         console.log('res api/user/update', user)
-        
+
         return NextResponse.json({
             authenticated: !!session,
             user,

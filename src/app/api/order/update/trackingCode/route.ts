@@ -15,9 +15,9 @@ export async function PATCH(request: Request) {
                 tracking_code: payload.trackingCode
             }
         })
-        
+
         console.log('res api/order/update/trackingCode', order)
-        
+
         return NextResponse.json({
             order,
         });

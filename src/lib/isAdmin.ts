@@ -4,7 +4,7 @@ import authOptions from "@/lib/auth";
 import prisma from "@/lib/prisma";
 
 const isAdmin = async () => {
-    const session: {email: string} | null = await getServerSession(authOptions);
+    const session: { email: string } | null = await getServerSession(authOptions);
 
     if (!session) return null
 

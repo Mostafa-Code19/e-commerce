@@ -3,197 +3,198 @@
 @tailwind utilities;
 
 :root {
-  --foreground-rgb: #eff4ff;
-  --background-start-rgb: 0, 0, 0;
-  --background-end-rgb: 0, 0, 0;
+   --foreground-rgb: #eff4ff;
+   --background-start-rgb: 0, 0, 0;
+   --background-end-rgb: 0, 0, 0;
 }
 
 @media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: 0, 0, 0;
-    --background-start-rgb: 214, 219, 220;
-    --background-end-rgb: 255, 255, 255;
-  }
+   :root {
+      --foreground-rgb: 0, 0, 0;
+      --background-start-rgb: 214, 219, 220;
+      --background-end-rgb: 255, 255, 255;
+   }
 }
 
 @font-face {
-  font-family: 'IRANYekanRegular';
-  font-display: swap;
-  src: url('/font/IRANYekanRegular.woff2') format('woff2'),
-      url('/font/IRANYekanRegular.woff') format('woff');
+   font-family: "IRANYekanRegular";
+   font-display: swap;
+   src: url("/font/IRANYekanRegular.woff2") format("woff2"),
+      url("/font/IRANYekanRegular.woff") format("woff");
 }
 
 @font-face {
-  font-family: 'IRANYekanBold';
-  font-display: swap;
-  src: url('/font/IRANYekanBold.woff2') format('woff2'),
-      url('/font/IRANYekanBold.woff') format('woff');
+   font-family: "IRANYekanBold";
+   font-display: swap;
+   src: url("/font/IRANYekanBold.woff2") format("woff2"),
+      url("/font/IRANYekanBold.woff") format("woff");
 }
 
 @font-face {
-  font-family: 'IRANYekanBlack';
-  font-display: swap;
-  src: url('/font/IRANYekanBlack.woff2') format('woff2'),
-    url('/font/IRANYekanBlack.woff') format('woff');
+   font-family: "IRANYekanBlack";
+   font-display: swap;
+   src: url("/font/IRANYekanBlack.woff2") format("woff2"),
+      url("/font/IRANYekanBlack.woff") format("woff");
 }
 
 * {
-  box-sizing: border-box;
-  padding: 0;
-  margin: 0;
+   box-sizing: border-box;
+   padding: 0;
+   margin: 0;
 }
 
 html {
-  min-height: 100vh;
+   min-height: 100vh;
 }
 
 body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+   color: rgb(var(--foreground-rgb));
+   background: linear-gradient(
+         to bottom,
+         transparent,
+         rgb(var(--background-end-rgb))
+      )
+      rgb(var(--background-start-rgb));
 }
 
 a {
-  color: inherit;
-  text-decoration: none;
-  font-size: 1rem;
-  font-family: IRANYekanBold, sans-serif;
+   color: inherit;
+   text-decoration: none;
+   font-size: 1rem;
+   font-family: IRANYekanBold, sans-serif;
 }
 
 h1 {
-  font-size: 1.4rem;
-  font-family: IRANYekanBlack, sans-serif;
+   font-size: 1.4rem;
+   font-family: IRANYekanBlack, sans-serif;
 }
 
 h2 {
-  font-size: 1.1rem;
-  font-weight: bold;
-  font-family: IRANYekanBlack, sans-serif;
+   font-size: 1.1rem;
+   font-weight: bold;
+   font-family: IRANYekanBlack, sans-serif;
 }
 
 h3 {
-  font-size: 1rem;
-  font-weight: bold;
-  font-family: IRANYekanRegular, sans-serif;
+   font-size: 1rem;
+   font-weight: bold;
+   font-family: IRANYekanRegular, sans-serif;
 }
 
 h4 {
-  font-size: 1rem;
-  font-family: IRANYekanRegular, sans-serif;
+   font-size: 1rem;
+   font-family: IRANYekanRegular, sans-serif;
 }
 
 h5 {
-  font-size: 1rem;
-  letter-spacing: -1px;
-  font-family: IRANYekanRegular, sans-serif;
+   font-size: 1rem;
+   letter-spacing: -1px;
+   font-family: IRANYekanRegular, sans-serif;
 }
 
 button {
-  font-size: 1rem;
-  letter-spacing: -1px;
-  font-family: IRANYekanRegular, sans-serif;
-  padding: .5rem .1rem;
+   font-size: 1rem;
+   letter-spacing: -1px;
+   font-family: IRANYekanRegular, sans-serif;
+   padding: 0.5rem 0.1rem;
 }
 
 p {
-  font-size: 1rem;
-  font-family: IRANYekanRegular, sans-serif;
+   font-size: 1rem;
+   font-family: IRANYekanRegular, sans-serif;
 }
 
-input, textarea {
-  font-size: 1rem;
-  font-family: IRANYekanRegular, sans-serif;
+input,
+textarea {
+   font-size: 1rem;
+   font-family: IRANYekanRegular, sans-serif;
 
-  &::placeholder {
-    color: rgb(203, 213, 225);
-  }
+   &::placeholder {
+      color: rgb(203, 213, 225);
+   }
 }
 
 span {
-    font-family: IRANYekanRegular, sans-serif;
-    font-size: .8rem;
+   font-family: IRANYekanRegular, sans-serif;
+   font-size: 0.8rem;
 }
 
 label {
-  font-family: IRANYekanRegular, sans-serif;
-  font-size: 1rem;
+   font-family: IRANYekanRegular, sans-serif;
+   font-size: 1rem;
 }
 
 hr {
-  border: solid 1px rgb(235, 235, 235);
-  margin: 1rem 0;
+   border: solid 1px rgb(235, 235, 235);
+   margin: 1rem 0;
 }
 
 h6 {
-  font-size: .8rem;
-  font-family: IRANYekanRegular, sans-serif;
-  color: gray;
+   font-size: 0.8rem;
+   font-family: IRANYekanRegular, sans-serif;
+   color: gray;
 }
 
 .rtl {
-  direction: rtl;
+   direction: rtl;
 }
 
 .ltr {
-  direction: ltr;
+   direction: ltr;
 }
 
 .yekan1 {
-  font-family: IRANYekanRegular, sans-serif;
+   font-family: IRANYekanRegular, sans-serif;
 }
 
 .toman {
-  &_card {
-    display: flex;
-  
-    &:before {
-      content: 'تومان';
-      display: block;
-      margin-right: .2rem;
-      font-size: .7rem;
-      font-family: IRANYekanRegular, sans-serif;
-    }
-  };
+   &_card {
+      display: flex;
 
-  &_product {
-    display: flex;
-  
-    &:before {
-      content: 'تومان';
-      display: block;
-      margin-right: .2rem;
-      font-size: 1rem;
-      font-family: IRANYekanRegular, sans-serif;
-    }
-  }
+      &:before {
+         content: "تومان";
+         display: block;
+         margin-right: 0.2rem;
+         font-size: 0.7rem;
+         font-family: IRANYekanRegular, sans-serif;
+      }
+   }
+
+   &_product {
+      display: flex;
+
+      &:before {
+         content: "تومان";
+         display: block;
+         margin-right: 0.2rem;
+         font-size: 1rem;
+         font-family: IRANYekanRegular, sans-serif;
+      }
+   }
 }
 
 .invalidInput {
-  border: 2px solid red;
+   border: 2px solid red;
 }
 
 .Toastify__toast-body {
-  font-size: 1rem;
-  font-family: IRANYekanRegular, sans-serif;
+   font-size: 1rem;
+   font-family: IRANYekanRegular, sans-serif;
 }
 
 .MuiFormLabel-root {
-  font-family: IRANYekanRegular, sans-serif !important;
+   font-family: IRANYekanRegular, sans-serif !important;
 }
 
-.MuiMenuItem-root { 
-  font-family: IRANYekanRegular, sans-serif !important;
+.MuiMenuItem-root {
+   font-family: IRANYekanRegular, sans-serif !important;
 }
 
 .MuiInputBase-root {
-  font-size: 0.9rem;
-  font-family: IRANYekanRegular, sans-serif !important;
+   font-size: 0.9rem;
+   font-family: IRANYekanRegular, sans-serif !important;
 }
 
 .MuiAutocomplete-option {
-  font-family: IRANYekanRegular, sans-serif !important;
+   font-family: IRANYekanRegular, sans-serif !important;
 }
