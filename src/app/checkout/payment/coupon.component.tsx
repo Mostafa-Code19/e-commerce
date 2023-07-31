@@ -1,7 +1,7 @@
-import { useState, useRef, Dispatch, SetStateAction } from "react";
-import axios from "axios";
-import { toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+import { useState, useRef, Dispatch, SetStateAction } from 'react';
+import axios from 'axios';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 type Discount =
    | {
@@ -11,7 +11,7 @@ type Discount =
    | null
    | false;
 
-let previousCoupon = "";
+let previousCoupon = '';
 
 const CouponComponent = ({
    setCoupon,
@@ -32,17 +32,17 @@ const CouponComponent = ({
             const res = await axios.get(`/api/coupon?c=${couponCode}`);
             if (res.data) {
                setCoupon(res.data);
-               toast.success("تخفیف با موفقیت به شما تعلق گرفت");
+               toast.success('تخفیف با موفقیت به شما تعلق گرفت');
             } else {
-               toast.error("کد تخفیف وارد شده منقضی یا نامعتبر می‌باشد");
+               toast.error('کد تخفیف وارد شده منقضی یا نامعتبر می‌باشد');
             }
          } catch (err) {
-            console.log("err couponCheck", err);
-            toast.error("به مشکلی برخوردیم! لطفا مجدد تلاش کنید.");
+            console.log('err couponCheck', err);
+            toast.error('به مشکلی برخوردیم! لطفا مجدد تلاش کنید.');
          }
       } else {
          if (!couponCode?.length)
-            toast.error("لطفا ابتدا کد تخفیف را وارد نمایٔید");
+            toast.error('لطفا ابتدا کد تخفیف را وارد نمایٔید');
       }
 
       setLoading(false);

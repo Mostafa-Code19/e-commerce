@@ -1,10 +1,10 @@
-import prisma from "@/lib/prisma";
-import Image from "next/legacy/image";
-import { Product } from "@prisma/client";
+import prisma from '@/lib/prisma';
+import Image from 'next/legacy/image';
+import { Product } from '@prisma/client';
 
-import BackButton from "@/components/back-btn";
-import Images from "@/components/product/images";
-import Options from "@/components/product/options";
+import BackButton from '@/components/back-btn';
+import Images from '@/components/product/images';
+import Options from '@/components/product/options';
 
 const getProduct = async (slug: string) => {
    return await prisma.product
@@ -56,7 +56,7 @@ export const generateMetadata = async ({
    const product = await getProduct(params.slug);
 
    return {
-      title: (product?.title || "محصولی یافت نشد!") + " | فروشگاه اینترنتی",
+      title: (product?.title || 'محصولی یافت نشد!') + ' | فروشگاه اینترنتی',
    };
 };
 
@@ -74,7 +74,7 @@ const Product = async ({ params }: { params: { slug: string } }) => {
          {product?.productLocation.length ? (
             <div className="md:grid flex flex-col-reverse grid-cols-2 md:gap-12">
                <div>
-                  <h1 style={{ fontSize: "1.75rem" }} className="text-right">
+                  <h1 style={{ fontSize: '1.75rem' }} className="text-right">
                      {product.title}
                   </h1>
 
@@ -103,7 +103,7 @@ const Product = async ({ params }: { params: { slug: string } }) => {
                      height="300"
                   />
                </div>
-               <h1 style={{ fontSize: "1.5rem" }} className="text-center">
+               <h1 style={{ fontSize: '1.5rem' }} className="text-center">
                   این محصول در حال حاضر در دسترس نمی‌باشد
                </h1>
                <div className="flex">

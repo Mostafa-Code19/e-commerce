@@ -1,15 +1,15 @@
-"use client";
+'use client';
 
-import { useState, useContext, useEffect, useMemo } from "react";
-import Image from "next/legacy/image";
-import { useRouter } from "next/navigation";
+import { useState, useContext, useEffect, useMemo } from 'react';
+import Image from 'next/legacy/image';
+import { useRouter } from 'next/navigation';
 
-import BackButton from "@/components/back-btn";
-import { CartContext } from "@/context/provider/cart";
-import EmptyCart from "@/components/empty-cart";
-import CartItemType from "@/types/type.cartItems";
-import CouponComponent from "./coupon.component";
-import SubmitOrder from "./submitOrder.component";
+import BackButton from '@/components/back-btn';
+import { CartContext } from '@/context/provider/cart';
+import EmptyCart from '@/components/empty-cart';
+import CartItemType from '@/types/type.cartItems';
+import CouponComponent from './coupon.component';
+import SubmitOrder from './submitOrder.component';
 
 type Coupon =
    | {
@@ -22,7 +22,7 @@ type Coupon =
 const Payment = () => {
    const { cart }: any = useContext(CartContext as any);
 
-   const [paymentMethod, setPaymentMethod] = useState<string>("atTheDoor");
+   const [paymentMethod, setPaymentMethod] = useState<string>('atTheDoor');
    const [coupon, setCoupon] = useState<Coupon>(null);
    const [couponValue, setCouponValue] = useState(0);
    const [price, setPrice] = useState(0);
@@ -36,7 +36,7 @@ const Payment = () => {
    const router = useRouter();
 
    useEffect(() => {
-      document.title = "فروشگاه اینترنتی | پرداخت ";
+      document.title = 'فروشگاه اینترنتی | پرداخت ';
    }, []);
 
    useEffect(() => {
@@ -57,9 +57,9 @@ const Payment = () => {
       let couponValue = 0;
 
       if (coupon) {
-         if (coupon.type == "PERCENTAGE") {
+         if (coupon.type == 'PERCENTAGE') {
             couponValue = (coupon.value * (price - discount)) / 100;
-         } else if (coupon.type == "PRICE") {
+         } else if (coupon.type == 'PRICE') {
             couponValue = coupon.value;
          } else return;
       }
@@ -68,7 +68,7 @@ const Payment = () => {
 
       setCouponValue(couponValue);
       setPaymentPrice(
-         Math.round((price - discount - couponValue) / 1000) * 1000
+         Math.round((price - discount - couponValue) / 1000) * 1000,
       );
    }, [price, coupon, discount]);
 
@@ -127,7 +127,7 @@ const Payment = () => {
                               <span className="text-red-500 font-semibold">
                                  {(discount + couponValue).toLocaleString()} (%
                                  {Math.round(
-                                    ((discount + couponValue) * 100) / price
+                                    ((discount + couponValue) * 100) / price,
                                  )}
                                  )
                               </span>
@@ -137,7 +137,7 @@ const Payment = () => {
                            </span>
                         </div>
                      ) : (
-                        ""
+                        ''
                      )}
 
                      <SubmitOrder
@@ -154,11 +154,11 @@ const Payment = () => {
                            <div
                               className={`flex space-x-3 space-x-reverse text-slate-400`}
                            >
-                              {" "}
+                              {' '}
                               {/* ${paymentMethod=='internet'?'text-blue-400':'text-black'} */}
                               <input
                                  disabled
-                                 checked={paymentMethod == "internet"}
+                                 checked={paymentMethod == 'internet'}
                                  onChange={changePaymentMethod}
                                  type="radio"
                                  id="methodInternet"
@@ -180,20 +180,20 @@ const Payment = () => {
                                     strokeLinecap="round"
                                     strokeLinejoin="round"
                                  >
-                                    {" "}
+                                    {' '}
                                     <path
                                        stroke="none"
                                        d="M0 0h24v24H0z"
-                                    />{" "}
+                                    />{' '}
                                     <rect
                                        x="3"
                                        y="5"
                                        width="18"
                                        height="14"
                                        rx="3"
-                                    />{" "}
-                                    <line x1="3" y1="10" x2="21" y2="10" />{" "}
-                                    <line x1="7" y1="15" x2="7.01" y2="15" />{" "}
+                                    />{' '}
+                                    <line x1="3" y1="10" x2="21" y2="10" />{' '}
+                                    <line x1="7" y1="15" x2="7.01" y2="15" />{' '}
                                     <line x1="11" y1="15" x2="13" y2="15" />
                                  </svg>
                                  <div>پرداخت اینترنتی (غیرفعال)</div>
@@ -202,13 +202,13 @@ const Payment = () => {
 
                            <div
                               className={`flex space-x-3 space-x-reverse ${
-                                 paymentMethod == "atTheDoor"
-                                    ? "text-blue-400"
-                                    : "text-black"
+                                 paymentMethod == 'atTheDoor'
+                                    ? 'text-blue-400'
+                                    : 'text-black'
                               }`}
                            >
                               <input
-                                 checked={paymentMethod == "atTheDoor"}
+                                 checked={paymentMethod == 'atTheDoor'}
                                  onChange={changePaymentMethod}
                                  type="radio"
                                  id="methodAtTheDoor"
@@ -244,12 +244,12 @@ const Payment = () => {
                         {couponValue ? (
                            <div className="text-center mt-5">
                               <span className="text-green-700">
-                                 کد تخفیف با موفقیت اعمال شد:{" "}
+                                 کد تخفیف با موفقیت اعمال شد:{' '}
                                  {couponValue.toLocaleString()} تومان
                               </span>
                            </div>
                         ) : (
-                           ""
+                           ''
                         )}
                      </div>
 
@@ -270,7 +270,7 @@ const Payment = () => {
                                           />
 
                                           <span
-                                             style={{ fontSize: ".6rem" }}
+                                             style={{ fontSize: '.6rem' }}
                                              className="absolute left-0 bottom-0 p-1 px-2 bg-slate-200 rounded-md text-black"
                                           >
                                              {item.quantity}
@@ -279,8 +279,8 @@ const Payment = () => {
                                        <div className="flex justify-center space-x-5 items-center">
                                           <span
                                              style={{
-                                                fontSize: ".6rem",
-                                                color: "black",
+                                                fontSize: '.6rem',
+                                                color: 'black',
                                              }}
                                           >
                                              {item.size}

@@ -1,42 +1,42 @@
-"use client";
+'use client';
 
-import { useState } from "react";
-import Image from "next/image";
+import { useState } from 'react';
+import Image from 'next/image';
 
-import DateFormat from "@/components/dateFormat";
-import OrderStatus from "./orderStatus.component";
-import { OrderExtended } from "./page";
-import TrackingCode from "./trackingCode";
+import DateFormat from '@/components/dateFormat';
+import OrderStatus from './orderStatus.component';
+import { OrderExtended } from './page';
+import TrackingCode from './trackingCode';
 
 const Tabs = ({ orders }: { orders: OrderExtended[] }) => {
-   const [activeTab, selectTab] = useState("PENDING");
+   const [activeTab, selectTab] = useState('PENDING');
 
-   const activeTabStyle = "border-b-4 border-blue-600";
+   const activeTabStyle = 'border-b-4 border-blue-600';
 
    return (
       <>
          <div className="flex justify-around max-w-lg mx-auto">
             <button
-               onClick={() => selectTab("CANCELED")}
-               className={activeTab == "CANCELED" ? activeTabStyle : ""}
+               onClick={() => selectTab('CANCELED')}
+               className={activeTab == 'CANCELED' ? activeTabStyle : ''}
             >
                کنسل شده
             </button>
             <button
-               onClick={() => selectTab("POSTED")}
-               className={activeTab == "POSTED" ? activeTabStyle : ""}
+               onClick={() => selectTab('POSTED')}
+               className={activeTab == 'POSTED' ? activeTabStyle : ''}
             >
                ارسال شده
             </button>
             <button
-               onClick={() => selectTab("PREPARING")}
-               className={activeTab == "PREPARING" ? activeTabStyle : ""}
+               onClick={() => selectTab('PREPARING')}
+               className={activeTab == 'PREPARING' ? activeTabStyle : ''}
             >
                در حال آماده سازی
             </button>
             <button
-               onClick={() => selectTab("PENDING")}
-               className={activeTab == "PENDING" ? activeTabStyle : ""}
+               onClick={() => selectTab('PENDING')}
+               className={activeTab == 'PENDING' ? activeTabStyle : ''}
             >
                ثبت اولیه
             </button>
@@ -74,7 +74,7 @@ const Tabs = ({ orders }: { orders: OrderExtended[] }) => {
 
                               <div className="space-x-2">
                                  <span className="text-black font-semibold">
-                                    {order.client.mobile_number} __{" "}
+                                    {order.client.mobile_number} __{' '}
                                     {order.client.phone_number}
                                  </span>
                                  <span>:سفارش دهنده</span>
@@ -100,7 +100,7 @@ const Tabs = ({ orders }: { orders: OrderExtended[] }) => {
                                     <span>تخفیف</span>
                                  </div>
                               ) : (
-                                 ""
+                                 ''
                               )}
                            </div>
                         </div>
@@ -166,8 +166,8 @@ const Tabs = ({ orders }: { orders: OrderExtended[] }) => {
                      strokeLinecap="round"
                      strokeLinejoin="round"
                   >
-                     {" "}
-                     <polyline points="22 12 16 12 14 15 10 15 8 12 2 12" />{" "}
+                     {' '}
+                     <polyline points="22 12 16 12 14 15 10 15 8 12 2 12" />{' '}
                      <path d="M5.45 5.11L2 12v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-6l-3.45-6.89A2 2 0 0 0 16.76 4H7.24a2 2 0 0 0-1.79 1.11z" />
                   </svg>
                </div>

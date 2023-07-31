@@ -1,9 +1,9 @@
-import Image from "next/legacy/image";
-import Link from "next/link";
+import Image from 'next/legacy/image';
+import Link from 'next/link';
 
-import prisma from "@/lib/prisma";
-import ProductCards from "@/components/product/cards";
-import { Product, ProductLocation } from "@prisma/client";
+import prisma from '@/lib/prisma';
+import ProductCards from '@/components/product/cards';
+import { Product, ProductLocation } from '@prisma/client';
 
 type ProductLocationExtended = ProductLocation & {
    color: { color: string };
@@ -52,8 +52,8 @@ async function getProducts() {
 }
 
 export const metadata = {
-   title: "فروشگاه اینترنتی",
-   description: "https://github.com/Mostafa-Code19",
+   title: 'فروشگاه اینترنتی',
+   description: 'https://github.com/Mostafa-Code19',
 };
 
 async function Home() {

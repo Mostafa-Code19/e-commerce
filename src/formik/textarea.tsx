@@ -1,4 +1,4 @@
-import { useField } from "formik";
+import { useField } from 'formik';
 
 const FormikTextarea = ({ label, ...props }: any) => {
    const [field, meta] = useField(props);
@@ -15,7 +15,7 @@ const FormikTextarea = ({ label, ...props }: any) => {
          {meta.error && meta.touched ? (
             <p className="text-sm text-red-500">{meta.error}</p>
          ) : (
-            ""
+            ''
          )}
       </div>
    );

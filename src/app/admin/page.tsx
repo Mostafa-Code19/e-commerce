@@ -1,10 +1,10 @@
-import BackButton from "@/components/back-btn";
-import User from "@/lib/user";
-import Link from "next/link";
-import isAdmin from "@/lib/isAdmin";
+import BackButton from '@/components/back-btn';
+import User from '@/lib/user';
+import Link from 'next/link';
+import isAdmin from '@/lib/isAdmin';
 
 export const metadata = {
-   title: "فروشگاه اینترنتی | پنل ادمین",
+   title: 'فروشگاه اینترنتی | پنل ادمین',
 };
 
 const AdminPanel = async () => {
@@ -22,8 +22,8 @@ const AdminPanel = async () => {
 
                <div className="text-center">
                   <h1 className="font-semibold">
-                     {" "}
-                     {user?.name || user?.email}{" "}
+                     {' '}
+                     {user?.name || user?.email}{' '}
                   </h1>
                   <h2 className="ext-zinc-400 text-base"> به پنل خوش آمدید </h2>
                </div>
@@ -60,11 +60,11 @@ const AdminPanel = async () => {
                                  stroke-linecap="round"
                                  stroke-linejoin="round"
                               >
-                                 {" "}
-                                 <path stroke="none" d="M0 0h24v24H0z" />{" "}
-                                 <circle cx="7" cy="17" r="2" />{" "}
-                                 <circle cx="17" cy="17" r="2" />{" "}
-                                 <path d="M5 17h-2v-4m-1 -8h11v12m-4 0h6m4 0h2v-6h-8m0 -5h5l3 5" />{" "}
+                                 {' '}
+                                 <path stroke="none" d="M0 0h24v24H0z" />{' '}
+                                 <circle cx="7" cy="17" r="2" />{' '}
+                                 <circle cx="17" cy="17" r="2" />{' '}
+                                 <path d="M5 17h-2v-4m-1 -8h11v12m-4 0h6m4 0h2v-6h-8m0 -5h5l3 5" />{' '}
                                  <line x1="3" y1="9" x2="7" y2="9" />
                               </svg>
                            </div>
@@ -145,17 +145,17 @@ const AdminPanel = async () => {
                                     stroke-linecap="round"
                                     stroke-linejoin="round"
                                  >
-                                    {" "}
+                                    {' '}
                                     <path
                                        stroke="none"
                                        d="M0 0h24v24H0z"
-                                    />{" "}
-                                    <line x1="3" y1="21" x2="21" y2="21" />{" "}
-                                    <path d="M5 21v-14l8 -4v18" />{" "}
-                                    <path d="M19 21v-10l-6 -4" />{" "}
-                                    <line x1="9" y1="9" x2="9" y2="9.01" />{" "}
-                                    <line x1="9" y1="12" x2="9" y2="12.01" />{" "}
-                                    <line x1="9" y1="15" x2="9" y2="15.01" />{" "}
+                                    />{' '}
+                                    <line x1="3" y1="21" x2="21" y2="21" />{' '}
+                                    <path d="M5 21v-14l8 -4v18" />{' '}
+                                    <path d="M19 21v-10l-6 -4" />{' '}
+                                    <line x1="9" y1="9" x2="9" y2="9.01" />{' '}
+                                    <line x1="9" y1="12" x2="9" y2="12.01" />{' '}
+                                    <line x1="9" y1="15" x2="9" y2="15.01" />{' '}
                                     <line x1="9" y1="18" x2="9" y2="18.01" />
                                  </svg>
                               </svg>

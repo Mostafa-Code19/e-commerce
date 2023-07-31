@@ -17,24 +17,27 @@
 }
 
 @font-face {
-   font-family: "IRANYekanRegular";
+   font-family: 'IRANYekanRegular';
    font-display: swap;
-   src: url("/font/IRANYekanRegular.woff2") format("woff2"),
-      url("/font/IRANYekanRegular.woff") format("woff");
+   src:
+      url('/font/IRANYekanRegular.woff2') format('woff2'),
+      url('/font/IRANYekanRegular.woff') format('woff');
 }
 
 @font-face {
-   font-family: "IRANYekanBold";
+   font-family: 'IRANYekanBold';
    font-display: swap;
-   src: url("/font/IRANYekanBold.woff2") format("woff2"),
-      url("/font/IRANYekanBold.woff") format("woff");
+   src:
+      url('/font/IRANYekanBold.woff2') format('woff2'),
+      url('/font/IRANYekanBold.woff') format('woff');
 }
 
 @font-face {
-   font-family: "IRANYekanBlack";
+   font-family: 'IRANYekanBlack';
    font-display: swap;
-   src: url("/font/IRANYekanBlack.woff2") format("woff2"),
-      url("/font/IRANYekanBlack.woff") format("woff");
+   src:
+      url('/font/IRANYekanBlack.woff2') format('woff2'),
+      url('/font/IRANYekanBlack.woff') format('woff');
 }
 
 * {
@@ -152,7 +155,7 @@ h6 {
       display: flex;
 
       &:before {
-         content: "تومان";
+         content: 'تومان';
          display: block;
          margin-right: 0.2rem;
          font-size: 0.7rem;
@@ -164,7 +167,7 @@ h6 {
       display: flex;
 
       &:before {
-         content: "تومان";
+         content: 'تومان';
          display: block;
          margin-right: 0.2rem;
          font-size: 1rem;

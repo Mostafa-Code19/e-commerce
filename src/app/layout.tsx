@@ -1,12 +1,12 @@
-"use client";
+'use client';
 
-import SearchInput from "@/components/search";
-import "./globals.scss";
-import Navbar from "@/components/navbar";
-import { CartContextProvider } from "@/context/provider/cart";
+import SearchInput from '@/components/search';
+import './globals.scss';
+import Navbar from '@/components/navbar';
+import { CartContextProvider } from '@/context/provider/cart';
 
-import { SessionProvider } from "next-auth/react";
-import { ToastContainer } from "react-toastify";
+import { SessionProvider } from 'next-auth/react';
+import { ToastContainer } from 'react-toastify';
 
 export default function RootLayout({
    children,

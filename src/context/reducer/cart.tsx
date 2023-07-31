@@ -1,4 +1,4 @@
-import CartItemType from "@/types/type.cartItems";
+import CartItemType from '@/types/type.cartItems';
 
 export const initialCart = {};
 
@@ -8,10 +8,10 @@ export const CartReducer = (cart: CartItemType, action: any) => {
    const item = cart[id];
 
    switch (action.type) {
-      case "initLocalStorage":
+      case 'initLocalStorage':
          return action.value;
 
-      case "ADD_TO_CART":
+      case 'ADD_TO_CART':
          return {
             ...cart,
             [id]: item
@@ -25,7 +25,7 @@ export const CartReducer = (cart: CartItemType, action: any) => {
                  },
          };
 
-      case "REMOVE_FROM_CART":
+      case 'REMOVE_FROM_CART':
          if (item.quantity == 1) {
             const { [item.id]: _, ...updatedCart } = cart;
             return updatedCart;
@@ -39,7 +39,7 @@ export const CartReducer = (cart: CartItemType, action: any) => {
             };
          }
 
-      case "RESET":
+      case 'RESET':
          return {};
 
       default:

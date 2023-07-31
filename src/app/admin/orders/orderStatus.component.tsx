@@ -1,10 +1,10 @@
-"use client";
+'use client';
 
-import { useState } from "react";
-import Select, { SelectChangeEvent } from "@mui/material/Select";
-import MenuItem from "@mui/material/MenuItem";
-import { OrderExtended } from "./page";
-import axios from "axios";
+import { useState } from 'react';
+import Select, { SelectChangeEvent } from '@mui/material/Select';
+import MenuItem from '@mui/material/MenuItem';
+import { OrderExtended } from './page';
+import axios from 'axios';
 
 const OrderStatus = ({ order }: { order: OrderExtended }) => {
    const [status, setStatus] = useState(String(order.status));
@@ -18,12 +18,12 @@ const OrderStatus = ({ order }: { order: OrderExtended }) => {
       };
 
       try {
-         const res = await axios.patch("/api/order/update/status", payload);
+         const res = await axios.patch('/api/order/update/status', payload);
          if (res.status == 200 && res.data.order)
             setStatus(updatedStatus as string);
-         else console.log("res update status not 200", res);
+         else console.log('res update status not 200', res);
       } catch (err) {
-         console.log("err update status", err);
+         console.log('err update status', err);
       }
    };
 

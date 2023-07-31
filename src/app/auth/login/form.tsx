@@ -1,14 +1,14 @@
-"use client";
+'use client';
 
-import { signIn } from "next-auth/react";
-import { toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
-import { Form, Formik } from "formik";
-import { useState } from "react";
-import { useRouter } from "next/navigation";
+import { signIn } from 'next-auth/react';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { Form, Formik } from 'formik';
+import { useState } from 'react';
+import { useRouter } from 'next/navigation';
 
-import FormikInput from "@/formik/input";
-import LoginSchemaValidation from "@/formik/schema/login";
+import FormikInput from '@/formik/input';
+import LoginSchemaValidation from '@/formik/schema/login';
 
 interface FormType {
    email: string;
@@ -16,47 +16,47 @@ interface FormType {
 }
 
 const errorsInPersian: { [key: string]: string } = {
-   Signin: "لطفا از ایمیل دیگری برای ورود استفاده کنید..",
-   OAuthSignin: "لطفا از ایمیل دیگری برای ورود استفاده کنید..",
-   OAuthCallback: "لطفا از ایمیل دیگری برای ورود استفاده کنید..",
-   OAuthCreateAccount: "لطفا از ایمیل دیگری برای ورود استفاده کنید..",
-   EmailCreateAccount: "لطفا از ایمیل دیگری برای ورود استفاده کنید..",
-   Callback: "لطفا از ایمیل دیگری برای ورود استفاده کنید..",
-   EmailSignin: "لطفا ایمیل خود رو بررسی کنید",
+   Signin: 'لطفا از ایمیل دیگری برای ورود استفاده کنید..',
+   OAuthSignin: 'لطفا از ایمیل دیگری برای ورود استفاده کنید..',
+   OAuthCallback: 'لطفا از ایمیل دیگری برای ورود استفاده کنید..',
+   OAuthCreateAccount: 'لطفا از ایمیل دیگری برای ورود استفاده کنید..',
+   EmailCreateAccount: 'لطفا از ایمیل دیگری برای ورود استفاده کنید..',
+   Callback: 'لطفا از ایمیل دیگری برای ورود استفاده کنید..',
+   EmailSignin: 'لطفا ایمیل خود رو بررسی کنید',
    CredentialsSignin:
-      "در ورود شما خطایی رخ داد. لطفا صحت اطلاعات خود را بررسی کنید.",
-   default: "امکان ورود نمی‌باشد",
+      'در ورود شما خطایی رخ داد. لطفا صحت اطلاعات خود را بررسی کنید.',
+   default: 'امکان ورود نمی‌باشد',
 };
 
 const LoginForm = () => {
    const router = useRouter();
 
-   const [error, setError] = useState("");
+   const [error, setError] = useState('');
 
    const onSubmit = async (values: FormType) => {
       try {
-         const res = await signIn("credentials", {
+         const res = await signIn('credentials', {
             ...values,
             redirect: false,
          });
 
          if (res?.status == 200) {
             if (res.error) return setError(errorsInPersian[res.error]);
-            else router.push("/profile");
+            else router.push('/profile');
          } else {
-            toast.error("در ورود شما خطایی رخ داد");
-            return console.log("auth/login signIn() res !200", res);
+            toast.error('در ورود شما خطایی رخ داد');
+            return console.log('auth/login signIn() res !200', res);
          }
       } catch (err: any) {
-         toast.error("در ورود شما خطایی رخ داد");
-         return console.log("auth/login signIn() err", err);
+         toast.error('در ورود شما خطایی رخ داد');
+         return console.log('auth/login signIn() err', err);
       }
    };
 
    return (
       <div className="border-2 border-white rounded-xl p-4">
          <Formik
-            initialValues={{ email: "", password: "" }}
+            initialValues={{ email: '', password: '' }}
             validationSchema={LoginSchemaValidation}
             onSubmit={onSubmit}
          >
@@ -99,7 +99,7 @@ const LoginForm = () => {
                            </svg>
                         </div>
                      ) : (
-                        "ورود"
+                        'ورود'
                      )}
                   </button>
                   {error ? (
@@ -107,7 +107,7 @@ const LoginForm = () => {
                         {error}
                      </p>
                   ) : (
-                     ""
+                     ''
                   )}
                </Form>
             )}

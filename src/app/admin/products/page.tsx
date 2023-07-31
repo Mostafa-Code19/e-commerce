@@ -1,11 +1,11 @@
-import Link from "next/link";
-import { Product, ProductLocation } from "@prisma/client";
+import Link from 'next/link';
+import { Product, ProductLocation } from '@prisma/client';
 
-import prisma from "@/lib/prisma";
-import isAdmin from "@/lib/isAdmin";
+import prisma from '@/lib/prisma';
+import isAdmin from '@/lib/isAdmin';
 
-import ProductCards from "@/components/product/cards";
-import BackButton from "@/components/back-btn";
+import ProductCards from '@/components/product/cards';
+import BackButton from '@/components/back-btn';
 
 type ProductLocationExtended = ProductLocation & {
    color: { color: string };
@@ -46,7 +46,7 @@ async function getProducts() {
 }
 
 export const metadata = {
-   title: "فروشگاه اینترنتی | پنل ادمین",
+   title: 'فروشگاه اینترنتی | پنل ادمین',
 };
 
 const AdminProducts = async () => {

@@ -1,22 +1,22 @@
-"use client";
+'use client';
 
-import React, { useEffect, useState, useRef, useMemo } from "react";
-import Image from "next/legacy/image";
-import Switch from "@mui/material/Switch";
-import FormControlLabel from "@mui/material/FormControlLabel";
-import TextField from "@mui/material/TextField";
-import Autocomplete from "@mui/material/Autocomplete";
-import Button from "@mui/material/Button";
-import { MuiColorInput } from "mui-color-input";
-import Dialog from "@mui/material/Dialog";
-import axios from "axios";
-import { toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
-import { Brand } from "@prisma/client";
+import React, { useEffect, useState, useRef, useMemo } from 'react';
+import Image from 'next/legacy/image';
+import Switch from '@mui/material/Switch';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import TextField from '@mui/material/TextField';
+import Autocomplete from '@mui/material/Autocomplete';
+import Button from '@mui/material/Button';
+import { MuiColorInput } from 'mui-color-input';
+import Dialog from '@mui/material/Dialog';
+import axios from 'axios';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { Brand } from '@prisma/client';
 
-import BackButton from "@/components/back-btn";
+import BackButton from '@/components/back-btn';
 
-import { useSession } from "next-auth/react";
+import { useSession } from 'next-auth/react';
 
 type ProductProps = {
    id: string;
@@ -40,7 +40,7 @@ const AdminProduct = () => {
    const [selectedProduct, selectProduct] = useState<string | null>(null);
    const [selectedBrand, selectBrand] = useState<string | null>(null);
    const [publicState, setPublic] = useState<boolean>(true);
-   const [color, setColor] = useState<string>("#696969");
+   const [color, setColor] = useState<string>('#696969');
    const [productImages, setProductImages] = useState<FileList | null>(null);
 
    const titleRef = useRef<HTMLInputElement>(null);
@@ -51,7 +51,7 @@ const AdminProduct = () => {
    const quantityRef = useRef<HTMLInputElement>(null);
 
    useEffect(() => {
-      document.title = "فروشگاه اینترنتی | ادمین | ‌افزودن محصول جدید";
+      document.title = 'فروشگاه اینترنتی | ادمین | ‌افزودن محصول جدید';
       fetchProducts();
       fetchBrands();
    }, []);
@@ -64,29 +64,29 @@ const AdminProduct = () => {
 
    const fetchProducts = async () => {
       try {
-         const res = await axios.get("/api/product/");
+         const res = await axios.get('/api/product/');
          if (res.status == 200) return setProducts(res.data);
          else {
             toast.error(`دریافت محصولات به مشکل برخورد کرد!`);
-            console.log("err fetch products res not 200", res);
+            console.log('err fetch products res not 200', res);
          }
       } catch (err) {
          toast.error(`دریافت محصولات به مشکل برخورد کرد!`);
-         console.log("err fetch products", err);
+         console.log('err fetch products', err);
       }
    };
 
    const fetchBrands = async () => {
       try {
-         const res = await axios.get("/api/brand/");
+         const res = await axios.get('/api/brand/');
          if (res.status == 200) return setBrands(res.data);
          else {
             toast.error(`دریافت برند ها به مشکل برخورد کرد!`);
-            console.log("err fetch brands res not 200", res);
+            console.log('err fetch brands res not 200', res);
          }
       } catch (err) {
          toast.error(`دریافت برند ها به مشکل برخورد کرد!`);
-         console.log("err fetch brands", err);
+         console.log('err fetch brands', err);
       }
    };
 
@@ -94,13 +94,13 @@ const AdminProduct = () => {
       if (selectedProduct === null)
          return toast.warning(`هیچ محصولی انتخاب نشده است!`);
       if (
-         color == "#696969" ||
+         color == '#696969' ||
          !sizeRef.current?.value ||
          !quantityRef.current?.value ||
          !priceRef.current?.value ||
          !discountRef.current?.value
       )
-         return toast.warning("برخی از ورود ها تکمیل نمی‌باشد!");
+         return toast.warning('برخی از ورود ها تکمیل نمی‌باشد!');
 
       const payload = {
          public: publicState,
@@ -119,13 +119,13 @@ const AdminProduct = () => {
          else {
             toast.error(`در ثبت چهره جدید محصول خطایی رخ داد!`);
             console.log(
-               "err: در ثبت چهره جدید محصول خطایی رخ داد! res not 200",
-               res
+               'err: در ثبت چهره جدید محصول خطایی رخ داد! res not 200',
+               res,
             );
          }
       } catch (err) {
          toast.error(`در ثبت چهره جدید محصول خطایی رخ داد!`);
-         console.log("err: در ثبت چهره جدید محصول خطایی رخ داد!", err);
+         console.log('err: در ثبت چهره جدید محصول خطایی رخ داد!', err);
       }
    };
 
@@ -139,11 +139,11 @@ const AdminProduct = () => {
          !selectedBrand
       )
          return toast.error(
-            "برای افزودن محصول جدید لطفا تمام ورودی ها را کامل کنید"
+            'برای افزودن محصول جدید لطفا تمام ورودی ها را کامل کنید',
          );
 
       try {
-         const res = await axios.post("/api/product/add", {
+         const res = await axios.post('/api/product/add', {
             title: title,
             brand: selectedBrand,
             description: description,
@@ -156,13 +156,13 @@ const AdminProduct = () => {
          } else {
             toast.error(`در ثبت محصول جدید خطایی رخ داد!`);
             return console.log(
-               "res add new product res not 200 or res.data.id not exist",
-               res
+               'res add new product res not 200 or res.data.id not exist',
+               res,
             );
          }
       } catch (err) {
          toast.error(`در ثبت محصول جدید خطایی رخ داد!`);
-         return console.log("err add new product", err);
+         return console.log('err add new product', err);
       }
    };
 
@@ -171,7 +171,7 @@ const AdminProduct = () => {
          return toast.warning(`هیچ تصویری برای آپلود انتخاب نشده است!`);
       if (selectedProduct === null)
          return toast.warning(
-            `محصول مورد نظر جهت آپلود تصویر انتخاب نشده است!`
+            `محصول مورد نظر جهت آپلود تصویر انتخاب نشده است!`,
          );
 
       let imageSources: string[] = [];
@@ -186,23 +186,23 @@ const AdminProduct = () => {
       };
 
       try {
-         const res = await axios.post("/api/product/image/add", payload);
+         const res = await axios.post('/api/product/image/add', payload);
 
          if (res.status == 200)
             return toast.success(`تصویر با موفقیت آپلود گردید.`);
          else {
             toast.error(`در آپلود تصویر خطایی رخ داد!`);
-            return console.log("api/product/image/add res not 200", res);
+            return console.log('api/product/image/add res not 200', res);
          }
       } catch (err) {
          toast.error(`در آپلود تصویر خطایی رخ داد!`);
-         return console.log("api/product/image/add", err);
+         return console.log('api/product/image/add', err);
       }
    };
 
    return (
       <div className="mx-8 my-16">
-         {session?.role === "ADMIN" ? (
+         {session?.role === 'ADMIN' ? (
             <>
                <div className="flex items-center justify-between">
                   <BackButton />
@@ -240,7 +240,7 @@ const AdminProduct = () => {
                            renderInput={(params) => (
                               <TextField {...params} label="محصول" />
                            )}
-                           sx={{ width: "100%" }}
+                           sx={{ width: '100%' }}
                         />
                      )}
                   </div>
@@ -263,7 +263,7 @@ const AdminProduct = () => {
                         renderInput={(params) => (
                            <TextField {...params} label="برند" />
                         )}
-                        sx={{ width: "100%" }}
+                        sx={{ width: '100%' }}
                      />
                      <textarea
                         placeholder="توضیحات"
@@ -296,7 +296,7 @@ const AdminProduct = () => {
                                  className="object-contain"
                                  key={imageData.name}
                                  src={URL.createObjectURL(imageData)}
-                                 alt={titleRef?.current?.value || "NaN"}
+                                 alt={titleRef?.current?.value || 'NaN'}
                                  width={300}
                                  height={200}
                                  layout="responsive"

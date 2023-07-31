@@ -1,8 +1,8 @@
-"use client";
+'use client';
 
-import { useRef } from "react";
-import axios from "axios";
-import { toast } from "react-toastify";
+import { useRef } from 'react';
+import axios from 'axios';
+import { toast } from 'react-toastify';
 
 type PropsType = {
    id: string;
@@ -17,7 +17,7 @@ const PriceDiscountQtyEdit = ({ id, price, discount, quantity }: PropsType) => {
    const discountRef = useRef<HTMLInputElement>(null);
 
    const checkKey = (e: { key: string }) => {
-      if (e.key == "Enter") submit();
+      if (e.key == 'Enter') submit();
    };
 
    const submit = async () => {
@@ -37,19 +37,19 @@ const PriceDiscountQtyEdit = ({ id, price, discount, quantity }: PropsType) => {
 
       try {
          const res = await axios.patch(
-            "/api/product/location/update/price-discount-qty",
-            payload
+            '/api/product/location/update/price-discount-qty',
+            payload,
          );
 
          if (res.status == 200)
-            return toast.success("قیمت، تخفیف و تعداد با موفقیت تغییر یافت.");
+            return toast.success('قیمت، تخفیف و تعداد با موفقیت تغییر یافت.');
          else {
-            toast.error("در قیمت، تخفیف و تعداد تعداد خطایی رخ داد!");
-            return console.log("qty submit res not 200", res);
+            toast.error('در قیمت، تخفیف و تعداد تعداد خطایی رخ داد!');
+            return console.log('qty submit res not 200', res);
          }
       } catch (err) {
-         toast.error("در قیمت، تخفیف و تعداد تعداد خطایی رخ داد!");
-         console.log("qty submit err", err);
+         toast.error('در قیمت، تخفیف و تعداد تعداد خطایی رخ داد!');
+         console.log('qty submit err', err);
       }
    };
 

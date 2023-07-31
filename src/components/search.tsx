@@ -1,14 +1,14 @@
-"use client";
+'use client';
 
-import Link from "next/link";
-import { useState, useContext } from "react";
-import { useRouter } from "next/navigation";
-import Image from "next/image";
+import Link from 'next/link';
+import { useState, useContext } from 'react';
+import { useRouter } from 'next/navigation';
+import Image from 'next/image';
 
-import { CartContext } from "@/context/provider/cart";
+import { CartContext } from '@/context/provider/cart';
 
 const SearchInput = () => {
-   const [searchQuery, setSearchQuery] = useState("");
+   const [searchQuery, setSearchQuery] = useState('');
    const router = useRouter();
 
    const { cart }: any = useContext(CartContext as any);
@@ -35,20 +35,20 @@ const SearchInput = () => {
                      strokeLinecap="round"
                      strokeLinejoin="round"
                   >
-                     {" "}
-                     <circle cx="9" cy="21" r="1" />{" "}
-                     <circle cx="20" cy="21" r="1" />{" "}
+                     {' '}
+                     <circle cx="9" cy="21" r="1" />{' '}
+                     <circle cx="20" cy="21" r="1" />{' '}
                      <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6" />
                   </svg>
                   {Object.keys(cart ?? {}).length ? (
                      <span
-                        style={{ paddingTop: ".1rem", paddingBottom: ".1rem" }}
+                        style={{ paddingTop: '.1rem', paddingBottom: '.1rem' }}
                         className="absolute -right-2 -bottom-2 bg-blue-400 text-white px-2 rounded-full font-semibold"
                      >
                         {Object.keys(cart ?? {}).length}
                      </span>
                   ) : (
-                     ""
+                     ''
                   )}
                </Link>
             </div>

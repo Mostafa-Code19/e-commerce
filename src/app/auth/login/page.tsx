@@ -1,6 +1,6 @@
-import BackButton from "@/components/back-btn";
-import LoginForm from "./form";
-import User from "@/lib/user";
+import BackButton from '@/components/back-btn';
+import LoginForm from './form';
+import User from '@/lib/user';
 
 const LoginPage = async () => {
    const user = await User();

@@ -1,14 +1,14 @@
-"use client";
+'use client';
 
-import { useSearchParams } from "next/navigation";
-import { useEffect } from "react";
+import { useSearchParams } from 'next/navigation';
+import { useEffect } from 'react';
 
 const Succuss = () => {
    const searchParams = useSearchParams();
-   const orderId = searchParams.get("id");
+   const orderId = searchParams.get('id');
 
    useEffect(() => {
-      document.title = "خرید با موفقیت ثبت گردید";
+      document.title = 'خرید با موفقیت ثبت گردید';
    }, []);
 
    return (
@@ -27,13 +27,13 @@ const Succuss = () => {
                      strokeLinecap="round"
                      strokeLinejoin="round"
                   >
-                     {" "}
-                     <path stroke="none" d="M0 0h24v24H0z" />{" "}
-                     <circle cx="12" cy="12" r="9" />{" "}
+                     {' '}
+                     <path stroke="none" d="M0 0h24v24H0z" />{' '}
+                     <circle cx="12" cy="12" r="9" />{' '}
                      <path d="M9 12l2 2l4 -4" />
                   </svg>
 
-                  <h1 style={{ fontSize: "1.5rem" }} className="text-center">
+                  <h1 style={{ fontSize: '1.5rem' }} className="text-center">
                      خرید شما با موفقیت ثبت گردید
                   </h1>
 
@@ -56,7 +56,7 @@ const Succuss = () => {
                </>
             ) : (
                <>
-                  <h1 style={{ fontSize: "1.5rem" }} className="text-center">
+                  <h1 style={{ fontSize: '1.5rem' }} className="text-center">
                      ! این صفحه منقضی شده است
                   </h1>
                   <div className="flex">

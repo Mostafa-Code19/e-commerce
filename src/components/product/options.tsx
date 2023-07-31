@@ -1,10 +1,10 @@
-"use client";
+'use client';
 
-import { useState, useContext, useEffect, useMemo } from "react";
+import { useState, useContext, useEffect, useMemo } from 'react';
 
-import styles from "./Product.module.scss";
-import { CartContext } from "@/context/provider/cart";
-import { ProductLocation, Color, Size, Image } from "@prisma/client";
+import styles from './Product.module.scss';
+import { CartContext } from '@/context/provider/cart';
+import { ProductLocation, Color, Size, Image } from '@prisma/client';
 
 type ProductLocationExtended = ProductLocation &
    {
@@ -26,13 +26,13 @@ const Options = ({
    };
 }) => {
    const [selectedColor, selectColor] = useState(
-      product.productLocation[0].color.color
+      product.productLocation[0].color.color,
    );
    const [selectedSize, selectSize] = useState(
-      product.productLocation[0].size.size
+      product.productLocation[0].size.size,
    );
    const [selectedLocation, selectFinalLocation] = useState(
-      product.productLocation[0]
+      product.productLocation[0],
    );
 
    const { cart, dispatch }: any = useContext(CartContext as any);
@@ -73,7 +73,7 @@ const Options = ({
                      <span
                         style={{
                            borderColor: `${
-                              selectedColor == color ? color : "transparent"
+                              selectedColor == color ? color : 'transparent'
                            }`,
                         }}
                         className="border-2 p-1 flex rounded-full"
@@ -102,7 +102,7 @@ const Options = ({
    }
 
    const addToCartReducer = (
-      payload: AddToCartReducerType | { id: string }
+      payload: AddToCartReducerType | { id: string },
    ) => {
       if (!selectedLocation.id || !selectedLocation.quantity) return;
 
@@ -111,7 +111,7 @@ const Options = ({
 
       if (addedToCart < available) {
          dispatch({
-            type: "ADD_TO_CART",
+            type: 'ADD_TO_CART',
             payload: payload,
          });
       }
@@ -142,7 +142,7 @@ const Options = ({
                      <button
                         key={size}
                         onClick={() => selectSize(size)}
-                        style={{ color: "green" }}
+                        style={{ color: 'green' }}
                         className="flex items-center"
                      >
                         <span
@@ -172,14 +172,14 @@ const Options = ({
                            {selectedLocation.discount}%
                         </span>
                      ) : (
-                        ""
+                        ''
                      )}
                   </div>
                ) : (
-                  ""
+                  ''
                )}
                <div
-                  style={{ fontSize: "2rem" }}
+                  style={{ fontSize: '2rem' }}
                   className="font-bold toman_product"
                >
                   {selectedLocation.discount
@@ -193,7 +193,7 @@ const Options = ({
             </div>
 
             <div
-               style={{ fontSize: "1.2rem" }}
+               style={{ fontSize: '1.2rem' }}
                className="justify-center flex from-blue-400 to-blue-200 bg-gradient-to-bl w-full ml-5 rounded-xl font-semibold "
             >
                {Object.keys(cartItems ?? {})?.length &&
@@ -202,7 +202,7 @@ const Options = ({
                      <button
                         onClick={() => {
                            dispatch({
-                              type: "REMOVE_FROM_CART",
+                              type: 'REMOVE_FROM_CART',
                               payload: { id: selectedLocation.id },
                            });
                         }}
@@ -218,9 +218,9 @@ const Options = ({
                            strokeLinecap="round"
                            strokeLinejoin="round"
                         >
-                           {" "}
-                           <path stroke="none" d="M0 0h24v24H0z" />{" "}
-                           <circle cx="12" cy="12" r="9" />{" "}
+                           {' '}
+                           <path stroke="none" d="M0 0h24v24H0z" />{' '}
+                           <circle cx="12" cy="12" r="9" />{' '}
                            <line x1="9" y1="12" x2="15" y2="12" />
                         </svg>
                      </button>
@@ -243,10 +243,10 @@ const Options = ({
                            strokeLinecap="round"
                            strokeLinejoin="round"
                         >
-                           {" "}
-                           <path stroke="none" d="M0 0h24v24H0z" />{" "}
-                           <circle cx="12" cy="12" r="9" />{" "}
-                           <line x1="9" y1="12" x2="15" y2="12" />{" "}
+                           {' '}
+                           <path stroke="none" d="M0 0h24v24H0z" />{' '}
+                           <circle cx="12" cy="12" r="9" />{' '}
+                           <line x1="9" y1="12" x2="15" y2="12" />{' '}
                            <line x1="12" y1="9" x2="12" y2="15" />
                         </svg>
                      </button>
@@ -267,7 +267,7 @@ const Options = ({
                      }
                   >
                      <span className="text-black text-base">
-                        {" "}
+                        {' '}
                         افزودن به سبد
                      </span>
                   </button>

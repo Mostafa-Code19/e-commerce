@@ -1,11 +1,11 @@
-import BackButton from "@/components/back-btn";
-import isAdmin from "@/lib/isAdmin";
-import BrandNewInput from "./create.Input";
-import DeleteButton from "./delete.button";
-import Name from "./name.component";
+import BackButton from '@/components/back-btn';
+import isAdmin from '@/lib/isAdmin';
+import BrandNewInput from './create.Input';
+import DeleteButton from './delete.button';
+import Name from './name.component';
 
 export const metadata = {
-   title: "‌فروشگاه اینترنتی | پنل ادمین | برند ها",
+   title: '‌فروشگاه اینترنتی | پنل ادمین | برند ها',
 };
 
 const getBrand = async () => {

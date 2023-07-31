@@ -1,10 +1,10 @@
-"use client";
+'use client';
 
-import axios from "axios";
-import { useState } from "react";
-import { toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
-import { useRouter } from "next/navigation";
+import axios from 'axios';
+import { useState } from 'react';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { useRouter } from 'next/navigation';
 
 const DeleteButton = ({ id }: { id: string }) => {
    const [loading, setLoading] = useState(false);
@@ -16,21 +16,21 @@ const DeleteButton = ({ id }: { id: string }) => {
 
       try {
          const payload = { id };
-         const res = await axios.post("/api/brand/delete", payload);
+         const res = await axios.post('/api/brand/delete', payload);
 
          if (res.status !== 200) {
-            console.log("api/brand/delete not 200", res);
+            console.log('api/brand/delete not 200', res);
             toast.error(res.data.message);
             return setLoading(false);
          }
 
-         toast.success("برند با موفقیت حذف گردید");
+         toast.success('برند با موفقیت حذف گردید');
          router.refresh();
          return setLoading(false);
       } catch (err) {
-         console.log("api/brand/delete err:", err);
+         console.log('api/brand/delete err:', err);
          setLoading(false);
-         return toast.error("در حذف برند خطایی رخ داد");
+         return toast.error('در حذف برند خطایی رخ داد');
       }
    };
 
@@ -69,8 +69,8 @@ const DeleteButton = ({ id }: { id: string }) => {
                   stroke-linecap="round"
                   stroke-linejoin="round"
                >
-                  {" "}
-                  <line x1="18" y1="6" x2="6" y2="18" />{" "}
+                  {' '}
+                  <line x1="18" y1="6" x2="6" y2="18" />{' '}
                   <line x1="6" y1="6" x2="18" y2="18" />
                </svg>
             </button>

@@ -1,13 +1,13 @@
-"use client";
+'use client';
 
-import Image from "next/legacy/image";
-import { useContext, useState, useEffect, useMemo } from "react";
+import Image from 'next/legacy/image';
+import { useContext, useState, useEffect, useMemo } from 'react';
 
-import BackButton from "@/components/back-btn";
-import { CartContext } from "@/context/provider/cart";
-import Link from "next/link";
-import EmptyCart from "@/components/empty-cart";
-import CartItemType from "@/types/type.cartItems";
+import BackButton from '@/components/back-btn';
+import { CartContext } from '@/context/provider/cart';
+import Link from 'next/link';
+import EmptyCart from '@/components/empty-cart';
+import CartItemType from '@/types/type.cartItems';
 
 const Cart = () => {
    const { cart, dispatch } = useContext(CartContext) as {
@@ -18,7 +18,7 @@ const Cart = () => {
    const [discount, setDiscount] = useState<number>(0);
 
    useEffect(() => {
-      document.title = "فروشگاه اینترنتی | سبد خرید";
+      document.title = 'فروشگاه اینترنتی | سبد خرید';
    }, []);
 
    useEffect(() => {
@@ -28,7 +28,7 @@ const Cart = () => {
          setPrice((prev) => prev + item.price * item.quantity);
          setDiscount(
             (prev) =>
-               prev + ((item.price * item.discount) / 100) * item.quantity
+               prev + ((item.price * item.discount) / 100) * item.quantity,
          );
       });
    }, [cart]);
@@ -80,7 +80,7 @@ const Cart = () => {
                               <span className="text-red-500 font-semibold">
                                  {discount.toLocaleString()} (%
                                  {Math.round(
-                                    (discount * 100) / (price - discount)
+                                    (discount * 100) / (price - discount),
                                  )}
                                  )
                               </span>
@@ -90,7 +90,7 @@ const Cart = () => {
                            </span>
                         </div>
                      ) : (
-                        ""
+                        ''
                      )}
 
                      <Link href="/checkout/payment" className="block">
@@ -133,10 +133,10 @@ const Cart = () => {
                                           </span>
                                        </div>
                                     ) : (
-                                       ""
+                                       ''
                                     )}
                                     <span
-                                       style={{ fontSize: "1.7rem" }}
+                                       style={{ fontSize: '1.7rem' }}
                                        className="text-black font-bold toman_product ltr"
                                     >
                                        {(
@@ -151,8 +151,8 @@ const Cart = () => {
                                     <div className="flex items-center space-x-reverse space-x-1">
                                        <span
                                           style={{
-                                             fontSize: ".8rem",
-                                             color: "black",
+                                             fontSize: '.8rem',
+                                             color: 'black',
                                           }}
                                        >
                                           رنگ :
@@ -165,16 +165,16 @@ const Cart = () => {
                                     <div className="flex items-center space-x-reverse space-x-1">
                                        <span
                                           style={{
-                                             fontSize: ".8rem",
-                                             color: "black",
+                                             fontSize: '.8rem',
+                                             color: 'black',
                                           }}
                                        >
                                           سایز :
                                        </span>
                                        <span
                                           style={{
-                                             fontSize: "1rem",
-                                             color: "black",
+                                             fontSize: '1rem',
+                                             color: 'black',
                                           }}
                                        >
                                           {item.size}
@@ -188,7 +188,7 @@ const Cart = () => {
                                              item.quantity < item.maxQuantity
                                           ) {
                                              dispatch({
-                                                type: "ADD_TO_CART",
+                                                type: 'ADD_TO_CART',
                                                 payload: { id: item.id },
                                              });
                                           }
@@ -205,18 +205,18 @@ const Cart = () => {
                                           strokeLinecap="round"
                                           strokeLinejoin="round"
                                        >
-                                          {" "}
+                                          {' '}
                                           <path
                                              stroke="none"
                                              d="M0 0h24v24H0z"
-                                          />{" "}
-                                          <circle cx="12" cy="12" r="9" />{" "}
+                                          />{' '}
+                                          <circle cx="12" cy="12" r="9" />{' '}
                                           <line
                                              x1="9"
                                              y1="12"
                                              x2="15"
                                              y2="12"
-                                          />{" "}
+                                          />{' '}
                                           <line
                                              x1="12"
                                              y1="9"
@@ -231,7 +231,7 @@ const Cart = () => {
                                     <button
                                        onClick={() => {
                                           dispatch({
-                                             type: "REMOVE_FROM_CART",
+                                             type: 'REMOVE_FROM_CART',
                                              payload: { id: item.id },
                                           });
                                        }}
@@ -247,12 +247,12 @@ const Cart = () => {
                                           strokeLinecap="round"
                                           strokeLinejoin="round"
                                        >
-                                          {" "}
+                                          {' '}
                                           <path
                                              stroke="none"
                                              d="M0 0h24v24H0z"
-                                          />{" "}
-                                          <circle cx="12" cy="12" r="9" />{" "}
+                                          />{' '}
+                                          <circle cx="12" cy="12" r="9" />{' '}
                                           <line
                                              x1="9"
                                              y1="12"

@@ -1,6 +1,6 @@
-import BackButton from "@/components/back-btn";
-import Images from "./images";
-import { Product, Image } from "@prisma/client";
+import BackButton from '@/components/back-btn';
+import Images from './images';
+import { Product, Image } from '@prisma/client';
 
 type ProductAndLocation = Product & { gallery: Image[] };
 
@@ -15,7 +15,7 @@ const Detail = ({ product }: { product: ProductAndLocation }) => {
             product={product}
          />
 
-         <h1 style={{ fontSize: "1.75rem" }} className="text-right">
+         <h1 style={{ fontSize: '1.75rem' }} className="text-right">
             {product.title}
          </h1>
 

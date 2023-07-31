@@ -1,16 +1,16 @@
-"use client";
+'use client';
 
-import { useEffect, useRef, useState } from "react";
-import axios from "axios";
-import { toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
-import { User } from "@prisma/client";
-import { Form, Formik } from "formik";
+import { useEffect, useRef, useState } from 'react';
+import axios from 'axios';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { User } from '@prisma/client';
+import { Form, Formik } from 'formik';
 
-import FormikInput from "@/formik/input";
-import FormikTextarea from "@/formik/textarea";
-import BackButton from "@/components/back-btn";
-import ProfileSchemaValidation from "@/formik/schema/profile";
+import FormikInput from '@/formik/input';
+import FormikTextarea from '@/formik/textarea';
+import BackButton from '@/components/back-btn';
+import ProfileSchemaValidation from '@/formik/schema/profile';
 
 interface FormType {
    name?: string;
@@ -25,41 +25,41 @@ const Edit = () => {
 
    const fetchUser = async () => {
       try {
-         const res = await axios.get("/api/user");
+         const res = await axios.get('/api/user');
 
          if (res.status == 200) return setUser(res.data.user);
          else {
-            toast.error("در دریافت اطلاعات شما خطایی رخ داد");
-            console.log("profile/edit/api/user res not 200", res);
+            toast.error('در دریافت اطلاعات شما خطایی رخ داد');
+            console.log('profile/edit/api/user res not 200', res);
          }
       } catch (err) {
-         toast.error("در دریافت اطلاعات شما خطایی رخ داد");
-         console.log("profile/edit/api/user err", err);
+         toast.error('در دریافت اطلاعات شما خطایی رخ داد');
+         console.log('profile/edit/api/user err', err);
       }
    };
 
    useEffect(() => {
-      document.title = "فروشگاه اینترنتی | ویرایش پروفایل";
+      document.title = 'فروشگاه اینترنتی | ویرایش پروفایل';
       fetchUser();
    }, []);
 
    const onSubmit = async (values: FormType) => {
       const payload: FormType = Object.fromEntries(
-         Object.entries(values).filter(([_, value]) => value !== "")
+         Object.entries(values).filter(([_, value]) => value !== ''),
       );
 
       const payloadLength = Object.keys(payload).length;
 
       if (payloadLength) {
          try {
-            const res = await axios.patch("/api/user/update", payload);
+            const res = await axios.patch('/api/user/update', payload);
 
             if (res.data.user) {
-               toast.success("تغییرات با موفقیت ثبت گردید.");
-            } else throw new Error("500");
+               toast.success('تغییرات با موفقیت ثبت گردید.');
+            } else throw new Error('500');
          } catch (err) {
-            toast.error("در ثبت تغییرات خطایی رخ داد. لطفا مجدد تلاش کنید.");
-            console.log("user/update", err);
+            toast.error('در ثبت تغییرات خطایی رخ داد. لطفا مجدد تلاش کنید.');
+            console.log('user/update', err);
          }
       }
    };
@@ -75,11 +75,11 @@ const Edit = () => {
          <div className="space-y-10 max-w-md mx-auto">
             <Formik
                initialValues={{
-                  name: "",
-                  mobile_number: "",
-                  phone_number: "",
-                  melli_code: "",
-                  address: "",
+                  name: '',
+                  mobile_number: '',
+                  phone_number: '',
+                  melli_code: '',
+                  address: '',
                }}
                validationSchema={ProfileSchemaValidation}
                onSubmit={onSubmit}
@@ -101,7 +101,7 @@ const Edit = () => {
                         type="string"
                         placeholder={
                            user?.mobile_number ||
-                           "لطفا شماره همراه خود را وارد کنید..."
+                           'لطفا شماره همراه خود را وارد کنید...'
                         }
                      />
                      <FormikInput
@@ -110,7 +110,7 @@ const Edit = () => {
                         type="string"
                         placeholder={
                            user?.phone_number ||
-                           "لطفا شماره ثابت خود را وارد کنید..."
+                           'لطفا شماره ثابت خود را وارد کنید...'
                         }
                      />
                      <FormikInput
@@ -118,7 +118,7 @@ const Edit = () => {
                         name="melli_code"
                         type="string"
                         placeholder={
-                           user?.melli_code || "لطفا کد ملی خود را وارد کنید..."
+                           user?.melli_code || 'لطفا کد ملی خود را وارد کنید...'
                         }
                      />
                      <FormikTextarea
@@ -127,7 +127,7 @@ const Edit = () => {
                         type="string"
                         placeholder={
                            user?.address ||
-                           "لطفا آدرس محل سکونت خود را وارد کنید..."
+                           'لطفا آدرس محل سکونت خود را وارد کنید...'
                         }
                      />
                      <button
@@ -155,7 +155,7 @@ const Edit = () => {
                               </svg>
                            </div>
                         ) : (
-                           "ذخیره تغییرات"
+                           'ذخیره تغییرات'
                         )}
                      </button>
                   </Form>

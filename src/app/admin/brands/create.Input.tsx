@@ -1,15 +1,15 @@
-"use client";
+'use client';
 
-import axios from "axios";
-import { NextResponse } from "next/server";
-import { useState } from "react";
-import { toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
-import { useRouter } from "next/navigation";
-import Backdrop from "@mui/material/Backdrop";
+import axios from 'axios';
+import { NextResponse } from 'next/server';
+import { useState } from 'react';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { useRouter } from 'next/navigation';
+import Backdrop from '@mui/material/Backdrop';
 
 const BrandNewInput = () => {
-   const [inputValue, setInputValue] = useState("");
+   const [inputValue, setInputValue] = useState('');
    const [loading, setLoading] = useState(false);
 
    const router = useRouter();
@@ -23,21 +23,21 @@ const BrandNewInput = () => {
             const payload = {
                name: inputValue.trim().toLowerCase(),
             };
-            const res = await axios.post("/api/brand/create", payload);
+            const res = await axios.post('/api/brand/create', payload);
 
             if (res.data.status == 405) {
                setLoading(false);
-               return toast.warning("این برند از قبل ثبت شده است");
+               return toast.warning('این برند از قبل ثبت شده است');
             }
 
-            setInputValue("");
-            toast.success("برند با موفقیت ثبت گردید");
+            setInputValue('');
+            toast.success('برند با موفقیت ثبت گردید');
             router.refresh();
             setLoading(false);
             return NextResponse.json(res.data);
          } catch (err) {
-            console.log("admin/brands err", err);
-            toast.warning("در ثبت برند خطایی رخ داد");
+            console.log('admin/brands err', err);
+            toast.warning('در ثبت برند خطایی رخ داد');
             setLoading(false);
             return NextResponse.json(err);
          }
@@ -75,9 +75,9 @@ const BrandNewInput = () => {
          </form>
          <Backdrop
             sx={{
-               color: "#fff",
+               color: '#fff',
                zIndex: (theme) => theme.zIndex.drawer + 1,
-               height: "100vh",
+               height: '100vh',
             }}
             open={loading}
          >

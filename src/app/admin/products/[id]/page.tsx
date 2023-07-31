@@ -1,12 +1,12 @@
-import Link from "next/link";
-import Images from "@/components/product/images";
-import PriceDiscountQtyEdit from "./priceDiscountQtyEdit";
-import prisma from "@/lib/prisma";
-import PublicEdit from "./button.publicEdit";
-import BackButton from "@/components/back-btn";
+import Link from 'next/link';
+import Images from '@/components/product/images';
+import PriceDiscountQtyEdit from './priceDiscountQtyEdit';
+import prisma from '@/lib/prisma';
+import PublicEdit from './button.publicEdit';
+import BackButton from '@/components/back-btn';
 
-import { Product, ProductLocation } from "@prisma/client";
-import isAdmin from "@/lib/isAdmin";
+import { Product, ProductLocation } from '@prisma/client';
+import isAdmin from '@/lib/isAdmin';
 
 type ProductLocationExtended = ProductLocation & {
    color: { color: string };
@@ -51,7 +51,7 @@ async function getProductLocations(productId: string) {
 }
 
 export const metadata = {
-   title: "فروشگاه اینترنتی | ادمین | چهره های محصول",
+   title: 'فروشگاه اینترنتی | ادمین | چهره های محصول',
 };
 
 const ProductLocations = async ({ params }: { params: { id: string } }) => {
@@ -166,7 +166,7 @@ const pageContent = (product: ProductExtended | null) => {
                                  />
                               </div>
                            );
-                        }
+                        },
                      )}
                   </div>
                </div>

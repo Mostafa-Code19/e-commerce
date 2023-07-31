@@ -1,5 +1,5 @@
-import BackButton from "@/components/back-btn";
-import Brand_Products from "./brand.products";
+import BackButton from '@/components/back-btn';
+import Brand_Products from './brand.products';
 
 export const generateMetadata = async ({
    params,
@@ -7,7 +7,7 @@ export const generateMetadata = async ({
    params: { name: string };
 }) => {
    return {
-      title: params.name + " | فروشگاه اینترنتی",
+      title: params.name + ' | فروشگاه اینترنتی',
    };
 };
 

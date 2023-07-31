@@ -1,15 +1,15 @@
-"use client";
+'use client';
 
-import BackButton from "@/components/back-btn";
-import axios, { AxiosError } from "axios";
+import BackButton from '@/components/back-btn';
+import axios, { AxiosError } from 'axios';
 
-import { useSearchParams } from "next/navigation";
-import { useCallback, useEffect, useState } from "react";
-import { toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+import { useSearchParams } from 'next/navigation';
+import { useCallback, useEffect, useState } from 'react';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
-import { Product, ProductLocation } from "@prisma/client";
-import ProductCards from "@/components/product/cards";
+import { Product, ProductLocation } from '@prisma/client';
+import ProductCards from '@/components/product/cards';
 
 type ProductLocationExtended = ProductLocation & {
    color: { color: string };
@@ -24,26 +24,26 @@ const Search = () => {
    const [searchResult, setSearchResult] = useState<ProductExtended[]>([]);
 
    const router = useSearchParams();
-   const query = router.get("query");
+   const query = router.get('query');
 
    const fetchProducts = useCallback(async () => {
       if (!query?.trim().length) return;
 
       try {
-         const res = await axios.post("/api/search", { title: query });
+         const res = await axios.post('/api/search', { title: query });
          if (res.status == 200) return setSearchResult(res.data);
          else {
             toast.error(`دریافت محصولات به مشکل برخورد کرد!`);
-            return console.log("api/search res not 200", res);
+            return console.log('api/search res not 200', res);
          }
       } catch (err) {
          toast.error(`دریافت محصولات به مشکل برخورد کرد!`);
-         console.log("api/search err", err);
+         console.log('api/search err', err);
       }
    }, [query]);
 
    useEffect(() => {
-      document.title = "Search | فروشگاه اینترنتی";
+      document.title = 'Search | فروشگاه اینترنتی';
       fetchProducts();
    }, [fetchProducts]);
 

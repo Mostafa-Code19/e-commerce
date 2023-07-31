@@ -1,12 +1,12 @@
-import BackButton from "@/components/back-btn";
-import User from "@/lib/user";
-import Image from "next/legacy/image";
+import BackButton from '@/components/back-btn';
+import User from '@/lib/user';
+import Image from 'next/legacy/image';
 
-import { User as UserType, Order } from "@prisma/client";
-import DateFormat from "@/components/dateFormat";
+import { User as UserType, Order } from '@prisma/client';
+import DateFormat from '@/components/dateFormat';
 
 type UserAndOrders = UserType & { orders?: OrderAndItems[] };
-type UserWithoutPasswordAndOrders = Omit<UserAndOrders, "password">;
+type UserWithoutPasswordAndOrders = Omit<UserAndOrders, 'password'>;
 type OrderAndItems = Order & {
    items: {
       id: string;
@@ -23,17 +23,17 @@ type OrderAndItems = Order & {
 };
 
 export const metadata = {
-   title: "فروشگاه اینترنتی | سفارش های من",
+   title: 'فروشگاه اینترنتی | سفارش های من',
 };
 
 const Orders = async () => {
    const user: UserWithoutPasswordAndOrders | null = await User();
 
    const status = (status: string) => {
-      if (status == "CANCELED") return "❌ لغو شده ";
-      if (status == "POSTED") return "✅ ارسال شده";
-      if (status == "PREPARING") return "📦 در حال آماده سازی";
-      if (status == "PENDING") return "🛎️ در حال پردازش";
+      if (status == 'CANCELED') return '❌ لغو شده ';
+      if (status == 'POSTED') return '✅ ارسال شده';
+      if (status == 'PREPARING') return '📦 در حال آماده سازی';
+      if (status == 'PENDING') return '🛎️ در حال پردازش';
    };
 
    return (
@@ -73,7 +73,7 @@ const Orders = async () => {
                                  <span>کد رهگیری پستی</span>
                               </div>
                            ) : (
-                              ""
+                              ''
                            )}
                            <div className="space-x-2 flex justify-end">
                               <span className="text-black font-semibold toman_card">
@@ -89,13 +89,13 @@ const Orders = async () => {
                                  <span>تخفیف</span>
                               </div>
                            ) : (
-                              ""
+                              ''
                            )}
                         </div>
                         <hr />
                         <div className="flex space-x-3 justify-end">
                            {order.items.map(
-                              (item: OrderAndItems["items"][0]) => {
+                              (item: OrderAndItems['items'][0]) => {
                                  return (
                                     <div
                                        key={item.id}
@@ -110,14 +110,14 @@ const Orders = async () => {
                                        />
 
                                        <span
-                                          style={{ fontSize: ".6rem" }}
+                                          style={{ fontSize: '.6rem' }}
                                           className="absolute left-0 bottom-0 p-1 px-2 bg-slate-200 rounded-md text-black"
                                        >
                                           {item.quantity}
                                        </span>
                                     </div>
                                  );
-                              }
+                              },
                            )}
                         </div>
                      </div>

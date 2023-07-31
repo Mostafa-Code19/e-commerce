@@ -1,7 +1,7 @@
-import NextAuth from 'next-auth'
+import NextAuth from 'next-auth';
 
 declare module 'next-auth' {
-  interface Session {
-    role?: 'ADMIN' | 'CLIENT' | undefined
-  }
+   interface Session {
+      role?: 'ADMIN' | 'CLIENT' | undefined;
+   }
 }

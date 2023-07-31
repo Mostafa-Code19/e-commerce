@@ -1,7 +1,7 @@
-import Image from "next/legacy/image";
-import Link from "next/link";
+import Image from 'next/legacy/image';
+import Link from 'next/link';
 
-import { Product, ProductLocation } from "@prisma/client";
+import { Product, ProductLocation } from '@prisma/client';
 
 type ProductLocationExtended = ProductLocation & {
    color: { color: string };
@@ -69,13 +69,13 @@ const ProductCards = ({
                            <div className="flex justify-between items-center">
                               {product.productLocation[0].discount ? (
                                  <span
-                                    style={{ paddingTop: ".1rem" }}
+                                    style={{ paddingTop: '.1rem' }}
                                     className="bg-red-500 rounded-2xl px-2 text-white"
                                  >
                                     {product.productLocation[0].discount}%
                                  </span>
                               ) : (
-                                 ""
+                                 ''
                               )}
                               <span className="font-semibold text-black text-sm toman_card">
                                  {product.productLocation[0].discount

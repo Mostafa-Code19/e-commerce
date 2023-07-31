@@ -1,9 +1,9 @@
-"use client";
+'use client';
 
-import { useState, useRef } from "react";
-import axios from "axios";
-import { toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+import { useState, useRef } from 'react';
+import axios from 'axios';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const TrackingCode = ({
    orderId,
@@ -23,7 +23,7 @@ const TrackingCode = ({
 
       if (!trackingCode) {
          setLoading(false);
-         return toast.warning("هیچ کدرهگیری برای ثبت وارد نشده است");
+         return toast.warning('هیچ کدرهگیری برای ثبت وارد نشده است');
       }
 
       try {
@@ -32,14 +32,14 @@ const TrackingCode = ({
             trackingCode: trackingCode,
          };
          const res = await axios.patch(
-            "/api/order/update/trackingCode",
-            payload
+            '/api/order/update/trackingCode',
+            payload,
          );
          if (res.status == 200 && res.data.order)
-            toast.success("کد رهگیری با موفقیت ثبت گردید");
+            toast.success('کد رهگیری با موفقیت ثبت گردید');
          else {
-            toast.error("خطایی در ثبت کد رهگیری رخ داد");
-            console.log("order/update/trackingCode not 200", res);
+            toast.error('خطایی در ثبت کد رهگیری رخ داد');
+            console.log('order/update/trackingCode not 200', res);
          }
       } catch (err) {
          console.log(err);
@@ -83,9 +83,9 @@ const TrackingCode = ({
                      stroke-linecap="round"
                      stroke-linejoin="round"
                   >
-                     {" "}
-                     <path stroke="none" d="M0 0h24v24H0z" />{" "}
-                     <circle cx="12" cy="12" r="9" />{" "}
+                     {' '}
+                     <path stroke="none" d="M0 0h24v24H0z" />{' '}
+                     <circle cx="12" cy="12" r="9" />{' '}
                      <path d="M9 12l2 2l4 -4" />
                   </svg>
                </button>
@@ -96,7 +96,7 @@ const TrackingCode = ({
                type="text"
                className="placeholder:text-slate-400 text-sm rounded-lg px-1 py-1 w-88"
                placeholder={
-                  trackingCodeRef.current?.value || availableTrackingCode || ""
+                  trackingCodeRef.current?.value || availableTrackingCode || ''
                }
             />
             <label htmlFor="trackingCode">:کد رهگیری پستی</label>

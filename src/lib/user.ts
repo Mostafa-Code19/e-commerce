@@ -1,43 +1,48 @@
-import { getServerSession } from "next-auth";
-import { User as UserType } from "@prisma/client";
+import { getServerSession } from 'next-auth';
+import { User as UserType } from '@prisma/client';
 
-import authOptions from "./auth";
-import prisma from "./prisma";
+import authOptions from './auth';
+import prisma from './prisma';
 
 const User = async () => {
-    const session: { email: string } | null = await getServerSession(authOptions);
+   const session: { email: string } | null = await getServerSession(
+      authOptions,
+   );
 
-    if (!session) return null
+   if (!session) return null;
 
-    return await prisma.user.findUnique({
-        where: {
-            email: session.email
-        },
-        include: {
+   return await prisma.user
+      .findUnique({
+         where: {
+            email: session.email,
+         },
+         include: {
             orders: {
-                include: {
-                    items: {
-                        select: {
-                            quantity: true,
-                            item: {
-                                include: {
-                                    product: {
-                                        include: {
-                                            gallery: true
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        }
-    })
-        .then((user: UserType | null) => {
-            const { password, ...filteredUser } = user as UserType & { password: string };
-            return filteredUser
-        })
-}
+               include: {
+                  items: {
+                     select: {
+                        quantity: true,
+                        item: {
+                           include: {
+                              product: {
+                                 include: {
+                                    gallery: true,
+                                 },
+                              },
+                           },
+                        },
+                     },
+                  },
+               },
+            },
+         },
+      })
+      .then((user: UserType | null) => {
+         const { password, ...filteredUser } = user as UserType & {
+            password: string;
+         };
+         return filteredUser;
+      });
+};
 
-export default User
+export default User;

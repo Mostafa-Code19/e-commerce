@@ -1,9 +1,9 @@
-"use client";
+'use client';
 
-import { useState } from "react";
-import axios from "axios";
-import { toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+import { useState } from 'react';
+import axios from 'axios';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const Name = ({ brand }: { brand: { id: string; name: string } }) => {
    const name = brand.name.charAt(0).toUpperCase() + brand.name.slice(1);
@@ -19,16 +19,16 @@ const Name = ({ brand }: { brand: { id: string; name: string } }) => {
       };
 
       try {
-         const res = await axios.patch("/api/brand/rename", payload);
+         const res = await axios.patch('/api/brand/rename', payload);
          if (res.status == 200) {
-            toast.success("نام برند با موفقیت تغییر کرد");
+            toast.success('نام برند با موفقیت تغییر کرد');
          } else {
-            toast.error("در تغییر نام برند خطایی رخ داد");
-            console.log("api/brand/rename res not 200:", res);
+            toast.error('در تغییر نام برند خطایی رخ داد');
+            console.log('api/brand/rename res not 200:', res);
          }
       } catch (err) {
-         toast.error("در تغییر نام برند خطایی رخ داد");
-         console.log("api/brand/rename err:", err);
+         toast.error('در تغییر نام برند خطایی رخ داد');
+         console.log('api/brand/rename err:', err);
       }
    };
 

@@ -1,9 +1,9 @@
-import BackButton from "@/components/back-btn";
-import isAdmin from "@/lib/isAdmin";
-import Tabs from "./tabs.components";
-import prisma from "@/lib/prisma";
+import BackButton from '@/components/back-btn';
+import isAdmin from '@/lib/isAdmin';
+import Tabs from './tabs.components';
+import prisma from '@/lib/prisma';
 
-import { Order, User } from "@prisma/client";
+import { Order, User } from '@prisma/client';
 
 export type OrderExtended = Order & {
    client: User;
@@ -46,7 +46,7 @@ async function getOrders() {
 }
 
 export const metadata = {
-   title: "فروشگاه اینترنتی | پنل ادمین | سفارشات",
+   title: 'فروشگاه اینترنتی | پنل ادمین | سفارشات',
 };
 
 const OrdersManagement = async () => {

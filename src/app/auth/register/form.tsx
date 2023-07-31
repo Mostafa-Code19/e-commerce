@@ -1,13 +1,13 @@
-"use client";
+'use client';
 
-import axios from "axios";
-import { signIn } from "next-auth/react";
-import { toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
-import { Form, Formik } from "formik";
+import axios from 'axios';
+import { signIn } from 'next-auth/react';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { Form, Formik } from 'formik';
 
-import RegisterSchemaValidation from "@/formik/schema/register";
-import FormikInput from "@/formik/input";
+import RegisterSchemaValidation from '@/formik/schema/register';
+import FormikInput from '@/formik/input';
 
 interface FormType {
    email: string;
@@ -18,24 +18,24 @@ interface FormType {
 export const RegisterForm = () => {
    const onSubmit = async (values: FormType) => {
       try {
-         const res = await axios.post("/api/auth/register", values);
+         const res = await axios.post('/api/auth/register', values);
          if (res.status == 200)
-            return signIn("credentials", {
+            return signIn('credentials', {
                ...values,
-               callbackUrl: "/profile",
+               callbackUrl: '/profile',
             });
          else {
-            toast.error("در ثبت نام شما خطایی رخ داد");
-            return console.log("api/auth/register !200", res);
+            toast.error('در ثبت نام شما خطایی رخ داد');
+            return console.log('api/auth/register !200', res);
          }
       } catch (err: any) {
          const errorMessage = err.response.data.message;
 
-         if (errorMessage.includes("Unique")) {
-            return toast.warning("این ایمیل از قبل ثبت نام شده است");
+         if (errorMessage.includes('Unique')) {
+            return toast.warning('این ایمیل از قبل ثبت نام شده است');
          } else {
-            toast.error("در ثبت نام شما خطایی رخ داد");
-            return console.log("api/auth/register err", err);
+            toast.error('در ثبت نام شما خطایی رخ داد');
+            return console.log('api/auth/register err', err);
          }
       }
    };
@@ -43,7 +43,7 @@ export const RegisterForm = () => {
    return (
       <div className="border-2 border-white rounded-xl p-4">
          <Formik
-            initialValues={{ email: "", password: "", confirmPassword: "" }}
+            initialValues={{ email: '', password: '', confirmPassword: '' }}
             validationSchema={RegisterSchemaValidation}
             onSubmit={onSubmit}
          >
@@ -92,7 +92,7 @@ export const RegisterForm = () => {
                            </svg>
                         </div>
                      ) : (
-                        "ثبت نام"
+                        'ثبت نام'
                      )}
                   </button>
                </Form>

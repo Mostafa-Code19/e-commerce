@@ -21,8 +21,6 @@
   </p>
 </div>
 
-
-
 <!-- TABLE OF CONTENTS -->
 <details>
   <summary>فهرست مطالب</summary>
@@ -46,9 +44,8 @@
   </ol>
 </details>
 
-
-
 <!-- ABOUT THE PROJECT -->
+
 ## درباره پروژه
 
 [![Product Name Screen Shot][product-screenshot]](https://example.com)
@@ -57,7 +54,7 @@
 
 در نقش برنامه‌نویس فرانت‌اند، با استفاده از React و Next.js برای ایجاد رابط‌های کاربری پویا و واکنش‌پذیر. با بهره‌گیری از قدرت React، اجزاء را ساخته و ویژگی‌های تعاملی را طراحی کردم که درگیری کاربر را افزایش داده و کارایی کلی را بهبود می‌بخشد. Next.js با قابلیت‌های رندر سمت سرور، زمان‌های بارگیری سریع و عملکرد بهینه در SEO را تضمین می‌کند و نتیجتاً تجربه‌ی مروری بی‌نظیری برای کاربران فراهم می‌کند.
 
- زبان برنامه نویسی TypeScript ابزاری برای چک‌کردن نوع‌های استاتیک در کدهاست و پایداری و قابلیت ارتقا در پایگاه کدها را تضمین می‌کند. این امکان را فراهم می‌کند که اشکالات را در زمان زودهنگام توسعه کشف کنیم و برنامه‌های بدون اشتباه ارائه دهیم.
+زبان برنامه نویسی TypeScript ابزاری برای چک‌کردن نوع‌های استاتیک در کدهاست و پایداری و قابلیت ارتقا در پایگاه کدها را تضمین می‌کند. این امکان را فراهم می‌کند که اشکالات را در زمان زودهنگام توسعه کشف کنیم و برنامه‌های بدون اشتباه ارائه دهیم.
 
 برای احراز هویت بدون دردسر و امن، از NextAuth استفاده شده که اینتگراسیون آسان با ارائه‌دهنده‌های مختلف را فراهم می‌کند و اقدامات امنیتی برتر را تضمین می‌کند. کاربران می‌توانند با امنیت ویژه وارد شوند که تجربه‌ی خرید شخصی‌شده را تسهیل می‌کند و اطلاعات حساس را حفظ می‌کند.
 
@@ -69,24 +66,19 @@
 
 و در نهایت، تجربه‌ی کاربر با بهره‌گیری از Tailwind بهینه‌سازی شده؛ یک چارچوب CSS ابزاری که باعث طراحی سبک و پاسخگویی و تجربه‌ی مرور نرم در انواع دستگاه‌ها می‌شود.
 
-
 <p align="right">(<a href="#readme-top">برگشت به بالا</a>)</p>
-
-
 
 ### ساخته شده با
 
-* [![Next][Next.js]][Next-url]
-* [![React][React.js]][React-url]
-* [![TypeScript][TypeScript]][TypeScript-url]
-* [![Mui][Mui]][Mui-url]
-* [![SCSS][SCSS]][SCSS-url]
-* [![PostgreSQL][PostgreSQL]][PostgreSQL-url]
-* [![Tailwind][Tailwind]][Tailwind-url]
+-  [![Next][Next.js]][Next-url]
+-  [![React][React.js]][React-url]
+-  [![TypeScript][TypeScript]][TypeScript-url]
+-  [![Mui][Mui]][Mui-url]
+-  [![SCSS][SCSS]][SCSS-url]
+-  [![PostgreSQL][PostgreSQL]][PostgreSQL-url]
+-  [![Tailwind][Tailwind]][Tailwind-url]
 
 <p align="right">(<a href="#readme-top">برگشت به بالا</a>)</p>
-
-
 
 <!-- GETTING STARTED -->
 <!-- ## برای اجرای برنامه
@@ -121,13 +113,11 @@
 
 <!-- <p align="right">(<a href="#readme-top">برگشت به بالا</a>)</p> -->
 
-
-
 <!-- CONTRIBUTING -->
+
 ## مشارکت
 
 مشارکت ها (Contributions) همان چیزی است که جامعه اپن سورس را به یک مکان شگفت‌انگیز برای یادگیری، الهام گرفتن و خلق تبدیل می‌کند. هر مشارکتی که شما داشته باشید، **بسیار قدردانی** می‌شود.
-
 
 اگر پیشنهادی دارید که این پروژه را بهتر می‌کند، لطفا پروژه را fork کنید و و یک pull request ایجاد کنید. شما همچنین می توانید به سادگی با تگ "Enhancement" مشکلی را باز کنید.فراموش نکنید که به پروژه ستاره بدهید! بازم ممنون
 
@@ -139,18 +129,16 @@
 
 <p align="right">(<a href="#readme-top">برگشت به بالا</a>)</p>
 
-
-
 <!-- LICENSE -->
+
 ## لایسنس
 
 Distributed under the MIT License. See `LICENSE.txt` for more information.
 
 <p align="right">(<a href="#readme-top">برگشت به بالا</a>)</p>
 
-
-
 <!-- CONTACT -->
+
 ## تماس با من
 
 <a href="mailto:tabrizian.codes.gmail.com">tabrizian.codes.gmail.com</a>
@@ -159,31 +147,19 @@ Project Link: [https://github.com/Mostafa-Code19/e-commerce](https://github.com/
 
 <p align="right">(<a href="#readme-top">برگشت به بالا</a>)</p>
 
-
-
 <!-- MARKDOWN LINKS & IMAGES -->
+
 [Next.js]: https://img.shields.io/badge/next.js-000000?style=for-the-badge&logo=nextdotjs&logoColor=white
 [Next-url]: https://nextjs.org/
-
 [React.js]: https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB
 [React-url]: https://reactjs.org/
-
 [TypeScript]: https://img.shields.io/badge/TypeScript-3178C6?style=for-the-badge&logo=typescript&logoColor=white
 [TypeScript-url]: https://www.typescriptlang.org/
-
 [Mui]: https://img.shields.io/badge/mui-007FFF?style=for-the-badge&logo=mui&logoColor=white
 [Mui-url]: https://mui.com
-
 [SCSS]: https://img.shields.io/badge/sass-CC6699?style=for-the-badge&logo=sass&logoColor=white
 [SCSS-url]: https://sass-lang.com
-
 [PostgreSQL]: https://img.shields.io/badge/postgresql-4169E1?style=for-the-badge&logo=postgresql&logoColor=white
 [PostgreSQL-url]: https://www.postgresql.org
-
 [Tailwind]: https://img.shields.io/badge/tailwindcss-06B6D4?style=for-the-badge&logo=tailwindcss&logoColor=white
 [Tailwind-url]: https://tailwindcss.com
-
-
-
-
-

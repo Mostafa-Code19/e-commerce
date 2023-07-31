@@ -1,4 +1,4 @@
-import Image from "next/legacy/image";
+import Image from 'next/legacy/image';
 
 const EmptyCart = () => {
    return (
@@ -12,7 +12,7 @@ const EmptyCart = () => {
                height="300"
             />
          </div>
-         <h3 style={{ fontSize: "1.5rem" }} className="text-center">
+         <h3 style={{ fontSize: '1.5rem' }} className="text-center">
             شما هیچ محصولی را به سبد اضافه نکرده اید!
          </h3>
          <div className="flex">

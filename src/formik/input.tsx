@@ -1,4 +1,4 @@
-import { useField } from "formik";
+import { useField } from 'formik';
 
 const FormikInput = ({ label, ...props }: any) => {
    const [field, meta] = useField(props);
@@ -10,13 +10,13 @@ const FormikInput = ({ label, ...props }: any) => {
             {...field}
             {...props}
             className={`${
-               meta.error && meta.touched ? "invalidInput" : ""
+               meta.error && meta.touched ? 'invalidInput' : ''
             } rounded-xl w-full pl-4 py-2`}
          />
          {meta.error && meta.touched ? (
             <p className="text-sm text-red-500">{meta.error}</p>
          ) : (
-            ""
+            ''
          )}
       </div>
    );
