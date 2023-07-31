@@ -41,7 +41,13 @@ const Brand_Products = ({ brandName }: { brandName: string }) => {
       fetchProducts();
    }, [fetchProducts]);
 
-   return <ProductCards products={brandProducts} pageTarget="/product/" />;
+   return (
+      <ProductCards
+         products={brandProducts}
+         pageTarget="/product/"
+         userTarget="client"
+      />
+   );
 };
 
 export default Brand_Products;

@@ -83,6 +83,7 @@ const AdminProducts = async () => {
                <ProductCards
                   products={products}
                   pageTarget="/admin/products/"
+                  userTarget="admin"
                />
             </>
          ) : (

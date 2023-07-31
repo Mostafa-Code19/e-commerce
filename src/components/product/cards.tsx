@@ -15,9 +15,11 @@ type ProductExtended = Product & {
 const ProductCards = ({
    products,
    pageTarget,
+   userTarget,
 }: {
    products: ProductExtended[];
    pageTarget: string;
+   userTarget: string;
 }) => {
    const colors = (locations: ProductLocationExtended[]) => {
       let list: string[] = [];
@@ -43,7 +45,8 @@ const ProductCards = ({
    return products?.length ? (
       <div className="grid grid-cols-2 md:flex flex-row-reverse flex-wrap">
          {products.map((product: ProductExtended) => {
-            if (!product.productLocation.length) return;
+            if (userTarget == 'client' && !product.productLocation.length)
+               return;
 
             return (
                <Link key={product.id} href={pageTarget + product.id}>
@@ -67,31 +70,31 @@ const ProductCards = ({
                            <h2>{product.title}</h2>
 
                            <div className="flex justify-between items-center">
-                              {product.productLocation[0].discount ? (
+                              {product.productLocation[0]?.discount ? (
                                  <span
                                     style={{ paddingTop: '.1rem' }}
                                     className="bg-red-500 rounded-2xl px-2 text-white"
                                  >
-                                    {product.productLocation[0].discount}%
+                                    {product.productLocation[0]?.discount}%
                                  </span>
                               ) : (
                                  ''
                               )}
                               <span className="font-semibold text-black text-sm toman_card">
-                                 {product.productLocation[0].discount
+                                 {product.productLocation[0]?.discount
                                     ? (
-                                         product.productLocation[0].price -
-                                         (product.productLocation[0].price *
+                                         product.productLocation[0]?.price -
+                                         (product.productLocation[0]?.price *
                                             product.productLocation[0]
-                                               .discount) /
+                                               ?.discount) /
                                             100
                                       ).toLocaleString()
-                                    : product.productLocation[0].price.toLocaleString()}
+                                    : product.productLocation[0]?.price.toLocaleString()}
                               </span>
                            </div>
-                           {product.productLocation[0].discount ? (
+                           {product.productLocation[0]?.discount ? (
                               <span className="text-slate-500 line-through ml-8">
-                                 {product.productLocation[0].price.toLocaleString()}
+                                 {product.productLocation[0]?.price.toLocaleString()}
                               </span>
                            ) : (
                               <span className="mb-3 block"></span>

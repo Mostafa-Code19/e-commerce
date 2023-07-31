@@ -125,7 +125,11 @@ async function Home() {
                <h2>جدیدترین ها</h2>
             </div>
 
-            <ProductCards products={products} pageTarget="/product/" />
+            <ProductCards
+               products={products}
+               pageTarget="/product/"
+               userTarget="client"
+            />
          </div>
       </div>
    );

@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect, useState, useRef, useMemo } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import Image from 'next/legacy/image';
 import Switch from '@mui/material/Switch';
 import FormControlLabel from '@mui/material/FormControlLabel';
@@ -41,7 +41,7 @@ const AdminProduct = () => {
    const [selectedBrand, selectBrand] = useState<string | null>(null);
    const [publicState, setPublic] = useState<boolean>(true);
    const [color, setColor] = useState<string>('#696969');
-   const [productImages, setProductImages] = useState<FileList | null>(null);
+   const [productImages, setProductImages] = useState<File | null>(null);
 
    const titleRef = useRef<HTMLInputElement>(null);
    const descriptionRef = useRef<HTMLTextAreaElement>(null);
@@ -57,10 +57,6 @@ const AdminProduct = () => {
    }, []);
 
    const { data: session } = useSession();
-
-   const productImagesMemo = useMemo(() => {
-      return productImages && Object.values(productImages);
-   }, [productImages]);
 
    const fetchProducts = async () => {
       try {
@@ -166,7 +162,7 @@ const AdminProduct = () => {
       }
    };
 
-   const submitImagesToProduct = async () => {
+   const submitImage = async () => {
       if (productImages === null)
          return toast.warning(`هیچ تصویری برای آپلود انتخاب نشده است!`);
       if (selectedProduct === null)
@@ -174,29 +170,32 @@ const AdminProduct = () => {
             `محصول مورد نظر جهت آپلود تصویر انتخاب نشده است!`,
          );
 
-      let imageSources: string[] = [];
-
-      Array.from(productImages).map((image: { name: string }) => {
-         imageSources.push(image.name);
-      });
-
       const payload = {
          productId: selectedProduct,
-         imageSources: imageSources,
+         imageName: productImages.name,
       };
 
       try {
          const res = await axios.post('/api/product/image/add', payload);
 
-         if (res.status == 200)
-            return toast.success(`تصویر با موفقیت آپلود گردید.`);
-         else {
+         if (res.status == 200) {
+            let { uploadUrl } = res.data;
+
+            const putRes = await axios.put(uploadUrl, productImages);
+
+            if (putRes.status == 200) {
+               return toast.success(`تصویر با موفقیت آپلود گردید.`);
+            } else {
+               toast.error(`در آپلود تصویر خطایی رخ داد!`);
+               return console.log('axios.put !200', putRes);
+            }
+         } else {
             toast.error(`در آپلود تصویر خطایی رخ داد!`);
             return console.log('api/product/image/add res not 200', res);
          }
-      } catch (err) {
+      } catch (error) {
          toast.error(`در آپلود تصویر خطایی رخ داد!`);
-         return console.log('api/product/image/add', err);
+         return console.log('api/product/image/add', error);
       }
    };
 
@@ -283,31 +282,31 @@ const AdminProduct = () => {
                         hidden
                         accept="image/*"
                         type="file"
-                        onChange={(e) => setProductImages(e.target.files)}
+                        name="productImage"
+                        onChange={(e) =>
+                           e.target.files && setProductImages(e.target.files[0])
+                        }
                         multiple
                      />
                   </Button>
 
                   <div>
-                     {productImagesMemo &&
-                        productImagesMemo.map((imageData: File) => {
-                           return (
-                              <Image
-                                 className="object-contain"
-                                 key={imageData.name}
-                                 src={URL.createObjectURL(imageData)}
-                                 alt={titleRef?.current?.value || 'NaN'}
-                                 width={300}
-                                 height={200}
-                                 layout="responsive"
-                              />
-                           );
-                        })}
+                     {productImages && (
+                        <Image
+                           className="object-contain"
+                           key={productImages.name}
+                           src={URL.createObjectURL(productImages)}
+                           alt={titleRef?.current?.value || 'NaN'}
+                           width={300}
+                           height={200}
+                           layout="responsive"
+                        />
+                     )}
                   </div>
 
                   <button
                      className="w-full px-5 py-3 mt-10 border border-green-500 rounded hover:text-black hover:bg-green-500"
-                     onClick={submitImagesToProduct}
+                     onClick={submitImage}
                   >
                      ثبت تصاویر
                   </button>
