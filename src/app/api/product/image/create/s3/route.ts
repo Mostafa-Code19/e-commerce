@@ -8,7 +8,7 @@ interface BodyType {
 }
 
 export async function POST(req: Request) {
-   const { productId, imageName }: BodyType = await req.json();
+   const { imageName }: BodyType = await req.json();
 
    const s3 = new S3({
       region: 'me-central-1',
@@ -23,19 +23,10 @@ export async function POST(req: Request) {
 
    const params = {
       Bucket: 'tabrizian',
-      Key: Key,
+      Key: Key
    };
 
-   const uploadUrl = s3.getSignedUrl('putObject', params);
-   const getUrl = s3.getSignedUrl('getObject', params);
+   const uploadUrl = s3.getSignedUrl('putObject', params)
 
-   await prisma.image.create({
-      data: {
-         productId: productId,
-         src: getUrl,
-         alt: imageName,
-      },
-   });
-
-   return NextResponse.json({ uploadUrl });
+   return NextResponse.json({ key: Key, uploadUrl });
 }

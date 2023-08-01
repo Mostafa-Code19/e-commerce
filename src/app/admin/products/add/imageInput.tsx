@@ -5,7 +5,11 @@ import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import axios from 'axios';
 
-const ImageInput = ({ selectedProduct }: { selectedProduct: string | null }) => {
+const ImageInput = ({
+   selectedProduct,
+}: {
+   selectedProduct: string | null;
+}) => {
    const [productImages, setProductImages] = useState<File[] | null>(null);
    const [loading, setLoading] = useState(false);
 
@@ -14,54 +18,69 @@ const ImageInput = ({ selectedProduct }: { selectedProduct: string | null }) => 
    }, [productImages]);
 
    const onSubmit = async () => {
-      if (productImages === null)
-         return toast.warning(`هیچ تصویری برای آپلود انتخاب نشده است!`);
-      if (selectedProduct === null)
+      if (!productImages || !productImagesMemo) {
+         return toast.warning('هیچ تصویری برای آپلود انتخاب نشده است!');
+      }
+      if (!selectedProduct) {
          return toast.warning(
-            `محصول مورد نظر جهت آپلود تصویر انتخاب نشده است!`,
+            'محصول مورد نظر جهت آپلود تصویر انتخاب نشده است!',
          );
+      }
 
       setLoading(true);
 
-      productImagesMemo?.forEach(async (image) => {
-         const imageName = image.name;
+      try {
+         for (const image of productImagesMemo) {
+            const imageName = image.name;
 
-         const payload = {
-            productId: selectedProduct,
-            imageName: imageName,
-         };
+            const resS3 = await axios.post('/api/product/image/create/s3', {
+               imageName,
+            });
 
-         try {
-            const res = await axios.post('/api/product/image/add', payload);
-
-            if (res.status === 200) {
-               const { uploadUrl } = res.data;
+            if (resS3.status === 200) {
+               const { key, uploadUrl } = resS3.data;
                const putRes = await axios.put(uploadUrl, image);
 
                if (putRes.status === 200) {
-                  setProductImages(null);
-                  toast.success(`تصویر ${imageName} با موفقیت آپلود شد.`);
+                  const payload = {
+                     key,
+                     productId: selectedProduct,
+                     imageName,
+                  };
+                  const resDB = await axios.post(
+                     '/api/product/image/create/db',
+                     payload,
+                  );
+
+                  if (resDB.status === 200) {
+                     setProductImages(null);
+                     toast.success(`تصویر ${imageName} با موفقیت آپلود شد.`);
+                  } else {
+                     //! delete the object from s3
+                     toast.error(`در آپلود تصویر ${imageName} خطایی رخ داد!`);
+                     console.log('api/product/image/create/db !200', resDB);
+                  }
                } else {
                   toast.error(`در آپلود تصویر ${imageName} خطایی رخ داد!`);
                   console.log('axios.put !200', putRes);
                }
             } else {
                toast.error(`در آپلود تصویر ${imageName} خطایی رخ داد!`);
-               console.log('api/product/image/add res not 200', res);
+               console.log('api/product/image/add res not 200', resS3);
             }
-         } catch (error: any) {
-            if (error.message === 'Network Error') {
-               toast.error(
-                  'در اتصال اینترنت شما خطایی رخ داد. (اگر از VPN استفاده می‌کنید لطفا ابتدا آن را خاموش کنید)',
-               );
-            } else {
-               toast.error(`در آپلود تصویر ${imageName} خطایی رخ داد!`);
-               console.log('api/product/image/add', error);
-            }
-         } finally {
-            setLoading(false);
          }
-      });
+      } catch (error: any) {
+         if (error.message === 'Network Error' || error.message === '"timeout exceeded"') {
+            toast.error(
+               'در اتصال اینترنت شما خطایی رخ داد. (اگر از VPN استفاده می‌کنید لطفا ابتدا آن را خاموش کنید)',
+            );
+         } else {
+            toast.error(`در آپلود تصویر خطایی رخ داد!`);
+            console.log('api/product/image/add', error);
+         }
+      } finally {
+         setLoading(false);
+      }
    };
 
    const checkIfFilesAreTooBig = (
@@ -105,14 +124,16 @@ const ImageInput = ({ selectedProduct }: { selectedProduct: string | null }) => 
 
       const filesList: File[] = Object.values(files);
 
-      const typeCheckRes: {invalidFile: any, valid: boolean} = checkIfFilesAreCorrectType(filesList);
+      const typeCheckRes: { invalidFile: any; valid: boolean } =
+         checkIfFilesAreCorrectType(filesList);
 
       if (!typeCheckRes.valid)
          return toast.warning(
             `تایپ فایل ${typeCheckRes.invalidFile.name} می‌بایست png, jpeg یا webp باشد`,
          );
 
-      const sizeCheckRes: {invalidFile: any, valid: boolean} = checkIfFilesAreTooBig(filesList);
+      const sizeCheckRes: { invalidFile: any; valid: boolean } =
+         checkIfFilesAreTooBig(filesList);
 
       if (!sizeCheckRes.valid) {
          const fileSize = Math.round(
@@ -131,7 +152,7 @@ const ImageInput = ({ selectedProduct }: { selectedProduct: string | null }) => 
       <div>
          <h1 className="text-center">افزودن تصاویر</h1>
 
-         <div className="flex items-center justify-around mt-3">
+         <div className="flex items-center my-3 justify-around">
             <div className="px-3 border border-green-500 rounded hover:text-black hover:bg-green-500">
                {loading ? (
                   <div className="px-5">
@@ -193,7 +214,7 @@ const ImageInput = ({ selectedProduct }: { selectedProduct: string | null }) => 
             </Button>
          </div>
 
-         <div>
+         <div className="mt-3">
             {productImagesMemo &&
                productImagesMemo.map((imageData: File) => {
                   return (
