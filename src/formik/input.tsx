@@ -11,7 +11,7 @@ const FormikInput = ({ label, ...props }: any) => {
             {...props}
             className={`${
                meta.error && meta.touched ? 'invalidInput' : ''
-            } rounded-xl w-full pl-4 py-2`}
+            } rounded-xl w-full rtl px-4 py-2`}
          />
          {meta.error && meta.touched ? (
             <p className="text-sm text-red-500">{meta.error}</p>

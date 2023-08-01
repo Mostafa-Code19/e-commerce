@@ -89,7 +89,7 @@ const Edit = () => {
                      <FormikInput
                         label="نام و نام خانوادگی"
                         name="name"
-                        type="string"
+                        type="text"
                         placeholder={
                            user?.name ||
                            `لطفا نام و نام خانوادگی خود را وارد کنید...`
@@ -98,7 +98,7 @@ const Edit = () => {
                      <FormikInput
                         label="شماره همراه"
                         name="mobile_number"
-                        type="string"
+                        type="text"
                         placeholder={
                            user?.mobile_number ||
                            'لطفا شماره همراه خود را وارد کنید...'
@@ -107,7 +107,7 @@ const Edit = () => {
                      <FormikInput
                         label="شماره ثابت"
                         name="phone_number"
-                        type="string"
+                        type="text"
                         placeholder={
                            user?.phone_number ||
                            'لطفا شماره ثابت خود را وارد کنید...'
@@ -116,7 +116,7 @@ const Edit = () => {
                      <FormikInput
                         label="کد ملی"
                         name="melli_code"
-                        type="string"
+                        type="text"
                         placeholder={
                            user?.melli_code || 'لطفا کد ملی خود را وارد کنید...'
                         }
@@ -124,7 +124,6 @@ const Edit = () => {
                      <FormikTextarea
                         label="آدرس محل سکونت"
                         name="address"
-                        type="string"
                         placeholder={
                            user?.address ||
                            'لطفا آدرس محل سکونت خود را وارد کنید...'
