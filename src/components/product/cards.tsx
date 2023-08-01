@@ -58,13 +58,15 @@ const ProductCards = ({
                            </div>
                         </div>
                         <div className="p-2">
-                           <Image
-                              className="object-contain"
-                              src={`${product.gallery[0].src}`}
-                              alt={product.title}
-                              width="170"
-                              height="90"
-                           />
+                           {product.gallery[0] && (
+                              <Image
+                                 className="object-contain"
+                                 src={`${product.gallery[0].src}`}
+                                 alt={product.title}
+                                 width="170"
+                                 height="90"
+                              />
+                           )}
                         </div>
                         <div className="mx-3 text-right space">
                            <h2>{product.title}</h2>

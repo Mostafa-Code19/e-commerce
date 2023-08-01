@@ -109,13 +109,15 @@ const Images = ({ isAdmin, thumbnail, product }: PropsType) => {
                setCurrentIndex(0);
             }}
          >
-            <Image
-               className="object-contain"
-               src={thumbnail.src}
-               alt={thumbnail.alt}
-               width="500"
-               height="300"
-            />
+            {thumbnail && (
+               <Image
+                  className="object-contain"
+                  src={thumbnail.src}
+                  alt={thumbnail.alt}
+                  width="500"
+                  height="300"
+               />
+            )}
          </div>
          <div className="flex space-x-3 justify-center">
             {galleryList.map((data, index) => {
