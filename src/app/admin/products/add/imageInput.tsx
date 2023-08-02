@@ -2,7 +2,6 @@ import { useState, useMemo } from 'react';
 import Image from 'next/legacy/image';
 import Button from '@mui/material/Button';
 import { toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
 import axios from 'axios';
 
 const ImageInput = ({
@@ -70,7 +69,10 @@ const ImageInput = ({
             }
          }
       } catch (error: any) {
-         if (error.message === 'Network Error' || error.message === '"timeout exceeded"') {
+         if (
+            error.message === 'Network Error' ||
+            error.message === '"timeout exceeded"'
+         ) {
             toast.error(
                'در اتصال اینترنت شما خطایی رخ داد. (اگر از VPN استفاده می‌کنید لطفا ابتدا آن را خاموش کنید)',
             );
@@ -91,8 +93,8 @@ const ImageInput = ({
 
       files.map((file) => {
          const size = file.size / 1024 / 1024; // ex: 0.4 MB
-         console.log(size);
-         if (size > 5) {
+
+         if (size > 0.3) {
             invalidFile = file;
             valid = false;
          }
@@ -140,7 +142,7 @@ const ImageInput = ({
             sizeCheckRes.invalidFile.size / 1024 / 1024,
          );
          toast.warning(
-            `سایز فایل ${sizeCheckRes.invalidFile.name} برابر با ${fileSize} مگابایت می‌باشد. حداکثر هر فایل می‌بایست ۵ مگابایت باشد`,
+            `سایز فایل ${sizeCheckRes.invalidFile.name} برابر با ${fileSize} مگابایت می‌باشد. حداکثر هر فایل می‌بایست ۰.۳ مگابایت باشد`,
          );
          return;
       }

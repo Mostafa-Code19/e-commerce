@@ -1,9 +1,5 @@
 import * as yup from 'yup';
-
-const persianRule = /^[آ-ی ء چ]+$/;
-const mobileNumberRule = /09(1[0-9]|3[1-9]|2[1-9])-?[0-9]{3}-?[0-9]{4}/;
-const phoneNumberRule = /^0[0-9]{2,}[0-9]{7,}$/;
-const melliCodeRule = /^(?!(\d)\1{9})\d{10}$/;
+import { melliCodeRule, mobileNumberRule, persianRule, phoneNumberRule } from './schemaRules';
 
 const ProfileSchemaValidation = yup.object().shape({
    name: yup

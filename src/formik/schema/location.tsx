@@ -1,6 +1,6 @@
 import * as yup from 'yup';
+import { colorRules } from './schemaRules';
 
-const colorRules = /^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$/;
 
 const RegisterSchemaValidation = yup.object().shape({
    price: yup

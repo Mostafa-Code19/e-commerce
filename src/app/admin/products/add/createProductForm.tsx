@@ -6,7 +6,6 @@ import Dialog from '@mui/material/Dialog';
 import { useEffect, useState } from 'react';
 import { Form, Formik } from 'formik';
 import { toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
 import axios from 'axios';
 import Autocomplete from '@mui/material/Autocomplete';
 import TextField from '@mui/material/TextField';

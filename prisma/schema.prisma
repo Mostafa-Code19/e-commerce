@@ -94,8 +94,8 @@ model Brand {
 model Product {
   id              String            @id @default(cuid())
   title           String
-  brand           Brand             @relation(fields: [brandId], references: [id])
-  brandId         String
+  brand           Brand?            @relation(fields: [brandId], references: [id])
+  brandId         String?
   description     String?
   productLocation ProductLocation[]
   gallery         Image[]

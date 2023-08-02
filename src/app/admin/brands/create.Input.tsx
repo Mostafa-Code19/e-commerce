@@ -4,7 +4,6 @@ import axios from 'axios';
 import { NextResponse } from 'next/server';
 import { useState } from 'react';
 import { toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
 import { useRouter } from 'next/navigation';
 import Backdrop from '@mui/material/Backdrop';
 

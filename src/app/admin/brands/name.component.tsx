@@ -3,7 +3,6 @@
 import { useState } from 'react';
 import axios from 'axios';
 import { toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
 
 const Name = ({ brand }: { brand: { id: string; name: string } }) => {
    const name = brand.name.charAt(0).toUpperCase() + brand.name.slice(1);

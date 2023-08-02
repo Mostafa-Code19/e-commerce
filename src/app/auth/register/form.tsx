@@ -3,7 +3,6 @@
 import axios from 'axios';
 import { signIn } from 'next-auth/react';
 import { toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
 import { Form, Formik } from 'formik';
 
 import RegisterSchemaValidation from '@/formik/schema/register';

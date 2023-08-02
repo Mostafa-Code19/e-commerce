@@ -6,7 +6,6 @@ import axios, { AxiosError } from 'axios';
 import { useSearchParams } from 'next/navigation';
 import { useCallback, useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
 
 import { Product, ProductLocation } from '@prisma/client';
 import ProductCards from '@/components/product/cards';

@@ -16,8 +16,6 @@ export async function PATCH(request: Request) {
          },
       });
 
-      console.log('res api/order/status/update', order);
-
       return NextResponse.json({
          order,
       });

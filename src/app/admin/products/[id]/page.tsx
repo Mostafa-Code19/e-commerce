@@ -7,6 +7,7 @@ import BackButton from '@/components/back-btn';
 
 import { Product, ProductLocation } from '@prisma/client';
 import isAdmin from '@/lib/isAdmin';
+import ProductTitleDescription from './titleAndDescription';
 
 type ProductLocationExtended = ProductLocation & {
    color: { color: string };
@@ -85,9 +86,9 @@ const pageContent = (product: ProductExtended | null) => {
 
                <div className="max-w-md mx-auto">
                   <Link href="/admin/products/add">
-                     <button className="bg-blue-400 rounded-full p-3 fixed bottom-24 right-5">
+                     <button className="bg-white z-10 border-2 border-blue-500 rounded-full p-3 fixed bottom-24 right-5">
                         <svg
-                           className="h-6 w-6 text-white"
+                           className="h-6 w-6 text-blue-500"
                            fill="none"
                            viewBox="0 0 24 24"
                            stroke="currentColor"
@@ -101,6 +102,14 @@ const pageContent = (product: ProductExtended | null) => {
                         </svg>
                      </button>
                   </Link>
+
+                  <div className="space-y-3">
+                     <ProductTitleDescription
+                        id={product.id}
+                        title={product.title}
+                        description={product.description}
+                     />
+                  </div>
 
                   <Images
                      isAdmin={true}

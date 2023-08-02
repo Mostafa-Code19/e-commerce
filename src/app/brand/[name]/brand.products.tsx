@@ -2,7 +2,6 @@
 
 import axios, { AxiosError } from 'axios';
 import { toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
 import { useState, useEffect, useCallback } from 'react';
 import { Product, ProductLocation } from '@prisma/client';
 

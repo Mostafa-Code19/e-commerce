@@ -3,7 +3,6 @@ import { CartContext } from '@/context/provider/cart';
 
 import axios from 'axios';
 import { toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useContext, useMemo, useState } from 'react';

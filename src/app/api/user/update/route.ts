@@ -21,8 +21,6 @@ export async function PATCH(request: Request) {
          data: payload,
       });
 
-      console.log('res api/user/update', user);
-
       return NextResponse.json({
          authenticated: !!session,
          user,

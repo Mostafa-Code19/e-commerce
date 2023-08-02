@@ -3,7 +3,6 @@
 import { useEffect, useRef, useState } from 'react';
 import axios from 'axios';
 import { toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
 import { User } from '@prisma/client';
 import { Form, Formik } from 'formik';
 

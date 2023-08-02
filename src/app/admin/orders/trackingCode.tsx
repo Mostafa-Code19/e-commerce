@@ -3,7 +3,6 @@
 import { useState, useRef } from 'react';
 import axios from 'axios';
 import { toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
 
 const TrackingCode = ({
    orderId,

@@ -1,6 +1,5 @@
 import * as yup from 'yup';
-
-const passwordRules = /^(?=.*\d)(?=.*[a-zA-Z])(?=.*[a-zA-Z]).{5,}$/;
+import { passwordRules } from './schemaRules';
 
 const RegisterSchemaValidation = yup.object().shape({
    email: yup

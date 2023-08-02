@@ -4,6 +4,7 @@ import SearchInput from '@/components/search';
 import './globals.scss';
 import Navbar from '@/components/navbar';
 import { CartContextProvider } from '@/context/provider/cart';
+import 'react-toastify/dist/ReactToastify.css';
 
 import { SessionProvider } from 'next-auth/react';
 import { ToastContainer } from 'react-toastify';

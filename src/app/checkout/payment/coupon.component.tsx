@@ -1,7 +1,6 @@
 import { useState, useRef, Dispatch, SetStateAction } from 'react';
 import axios from 'axios';
 import { toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
 
 type Discount =
    | {
