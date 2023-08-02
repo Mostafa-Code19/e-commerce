@@ -1,14 +1,13 @@
-import type { NextAuthOptions } from 'next-auth';
-import bcrypt from 'bcrypt';
-import CredentialsProvider from 'next-auth/providers/credentials';
-import type { Session, User as UserAuth } from 'next-auth';
+import type { NextAuthOptions } from 'next-auth'
+import bcrypt from 'bcrypt'
+import CredentialsProvider from 'next-auth/providers/credentials'
 
-import { User as UserType } from '@prisma/client';
-import prisma from './prisma';
+import { User as UserType } from '@prisma/client'
+import prisma from './prisma'
 
 interface Credential {
-   email: string;
-   password: string;
+   email: string
+   password: string
 }
 
 const authOptions: NextAuthOptions = {
@@ -32,45 +31,47 @@ const authOptions: NextAuthOptions = {
          },
 
          async authorize(credentials: Credential | undefined) {
-            if (!credentials) return null;
+            if (!credentials) return null
 
-            const { email, password } = credentials;
+            const { email, password } = credentials
 
             const user = await prisma.user.findUnique({
                where: {
                   email: email,
                },
-            });
+            })
 
-            if (!user) return null;
+            if (!user) return null
 
-            const passwordsMatch = bcrypt.compareSync(password, user.password);
+            const passwordsMatch = bcrypt.compareSync(password, user.password)
 
-            if (!passwordsMatch) return null;
+            if (!passwordsMatch) return null
 
             const { password: _, ...filteredUser } = user as UserType & {
-               password: string;
-            };
+               password: string
+            }
 
-            return filteredUser;
+            return filteredUser
          },
       }),
    ],
    callbacks: {
-      async jwt({ token, user }: { token: any; user?: UserAuth }) {
-         return { ...token, ...user };
+      // @ts-ignore
+      async jwt({ token, user }) {
+         return { ...token, ...user }
       },
-      async session({ session, token }: { session: Session; token: any }) {
-         session.user = token;
+      // @ts-ignore
+      async session({ session, token }) {
+         session.user = token
 
-         delete token.password;
-         delete token.iat;
-         delete token.exp;
-         delete token.jti;
+         delete token.password
+         delete token.iat
+         delete token.exp
+         delete token.jti
 
-         return token;
+         return token
       },
    },
-};
+}
 
-export default authOptions;
+export default authOptions

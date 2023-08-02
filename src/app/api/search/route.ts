@@ -1,10 +1,10 @@
-import { Product } from '@prisma/client';
-import prisma from '@/lib/prisma';
+import { Product } from '@prisma/client'
+import prisma from '@/lib/prisma'
 
-import { NextResponse } from 'next/server';
+import { NextResponse } from 'next/server'
 
 export async function POST(request: Request) {
-   const payload: { title: string } = await request.json();
+   const payload: { title: string } = await request.json()
 
    const searchResult = await prisma.product
       .findMany({
@@ -63,7 +63,7 @@ export async function POST(request: Request) {
          },
       })
       .then((res: Product[]) => res)
-      .catch((err: Error) => console.log('err products api', err));
+      .catch((err: Error) => console.log('err products api', err))
 
-   return NextResponse.json(searchResult);
+   return NextResponse.json(searchResult)
 }

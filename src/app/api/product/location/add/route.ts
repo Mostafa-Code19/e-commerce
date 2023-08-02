@@ -1,9 +1,8 @@
-import { NextResponse } from 'next/server';
-import prisma from '@/lib/prisma';
+import { NextResponse } from 'next/server'
+import prisma from '@/lib/prisma'
 
 export async function POST(request: Request) {
-   const { publicState, productId, color, size, quantity, price, discount } =
-      await request.json();
+   const { publicState, productId, color, size, quantity, price, discount } = await request.json()
 
    const colorData = await prisma.color
       .create({
@@ -11,7 +10,7 @@ export async function POST(request: Request) {
             color: color,
          },
       })
-      .then((res) => res);
+      .then((res) => res)
 
    const sizeData = await prisma.size
       .create({
@@ -19,7 +18,7 @@ export async function POST(request: Request) {
             size: parseInt(size),
          },
       })
-      .then((res) => res);
+      .then((res) => res)
 
    const locationData = await prisma.productLocation.create({
       data: {
@@ -31,7 +30,7 @@ export async function POST(request: Request) {
          price: parseInt(price),
          discount: parseInt(discount),
       },
-   });
+   })
 
-   return NextResponse.json(locationData);
+   return NextResponse.json(locationData)
 }

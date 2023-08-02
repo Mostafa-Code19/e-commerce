@@ -1,14 +1,14 @@
-import prisma from '@/lib/prisma';
-import { NextResponse } from 'next/server';
+import prisma from '@/lib/prisma'
+import { NextResponse } from 'next/server'
 
 interface BodyType {
-   key: string;
-   productId: string;
-   imageName: string;
+   key: string
+   productId: string
+   imageName: string
 }
 
 export async function POST(req: Request) {
-   const { key, productId, imageName }: BodyType = await req.json();
+   const { key, productId, imageName }: BodyType = await req.json()
 
    const res = await prisma.image.create({
       data: {
@@ -16,8 +16,7 @@ export async function POST(req: Request) {
          src: 'https://tabrizian.storage.iran.liara.space/' + key,
          alt: imageName,
       },
-   });
+   })
 
-
-   return NextResponse.json({ res });
+   return NextResponse.json({ res })
 }

@@ -1,16 +1,16 @@
-import { ProductLocation } from '@prisma/client';
-import prisma from '@/lib/prisma';
+import { ProductLocation } from '@prisma/client'
+import prisma from '@/lib/prisma'
 
-import { NextResponse } from 'next/server';
+import { NextResponse } from 'next/server'
 
 export async function PATCH(request: Request) {
-   const payload = await request.json();
+   const payload = await request.json()
 
-   let price, discount, qty;
+   let price, discount, qty
 
-   if (payload.price) price = parseInt(payload.price);
-   if (payload.discount) discount = parseInt(payload.discount);
-   if (payload.qty) qty = parseInt(payload.qty);
+   if (payload.price) price = parseInt(payload.price)
+   if (payload.discount) discount = parseInt(payload.discount)
+   if (payload.qty) qty = parseInt(payload.qty)
 
    const location = await prisma.productLocation
       .update({
@@ -24,8 +24,8 @@ export async function PATCH(request: Request) {
          },
       })
       .then((res: ProductLocation) => {
-         return res;
-      });
+         return res
+      })
 
-   return NextResponse.json(location);
+   return NextResponse.json(location)
 }

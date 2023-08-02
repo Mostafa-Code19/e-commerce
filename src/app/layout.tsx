@@ -1,21 +1,17 @@
-'use client';
+'use client'
 
-import SearchInput from '@/components/search';
-import './globals.scss';
-import Navbar from '@/components/navbar';
-import { CartContextProvider } from '@/context/provider/cart';
-import 'react-toastify/dist/ReactToastify.css';
+import SearchInput from '@/components/search'
+import './globals.scss'
+import Navbar from '@/components/navbar'
+import { CartContextProvider } from '@/context/provider/cart'
+import 'react-toastify/dist/ReactToastify.css'
 
-import { SessionProvider } from 'next-auth/react';
-import { ToastContainer } from 'react-toastify';
+import { SessionProvider } from 'next-auth/react'
+import { ToastContainer } from 'react-toastify'
 
-export default function RootLayout({
-   children,
-}: {
-   children: React.ReactNode;
-}) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
    return (
-      <html lang="en">
+      <html lang='en'>
          <body>
             <SessionProvider>
                <CartContextProvider>
@@ -24,7 +20,7 @@ export default function RootLayout({
                   </header>
 
                   <ToastContainer
-                     position="top-right"
+                     position='top-right'
                      autoClose={3000}
                      hideProgressBar={false}
                      newestOnTop={false}
@@ -33,10 +29,10 @@ export default function RootLayout({
                      pauseOnFocusLoss
                      draggable
                      pauseOnHover
-                     theme="light"
+                     theme='light'
                   />
 
-                  <main className="mb-24 max-w-screen-lg overflow-x-hidden mx-auto">
+                  <main className='mb-24 max-w-screen-lg overflow-x-hidden mx-auto'>
                      {children}
                   </main>
 
@@ -45,5 +41,5 @@ export default function RootLayout({
             </SessionProvider>
          </body>
       </html>
-   );
+   )
 }

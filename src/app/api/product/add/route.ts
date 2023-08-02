@@ -1,9 +1,9 @@
-import { Product } from '@prisma/client';
-import prisma from '@/lib/prisma';
-import { NextResponse } from 'next/server';
+import { Product } from '@prisma/client'
+import prisma from '@/lib/prisma'
+import { NextResponse } from 'next/server'
 
 export async function POST(request: Request) {
-   const payload = await request.json();
+   const payload = await request.json()
 
    const product = await prisma.product
       .create({
@@ -14,8 +14,8 @@ export async function POST(request: Request) {
          },
       })
       .then((res: Product) => {
-         return res;
-      });
+         return res
+      })
 
-   return NextResponse.json(product);
+   return NextResponse.json(product)
 }

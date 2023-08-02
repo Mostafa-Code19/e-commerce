@@ -1,11 +1,11 @@
-import { Product } from '@prisma/client';
-import prisma from '@/lib/prisma';
-import { NextResponse } from 'next/server';
+import { Product } from '@prisma/client'
+import prisma from '@/lib/prisma'
+import { NextResponse } from 'next/server'
 
-type Brand = { products: Product[] } | null;
+type Brand = { products: Product[] } | null
 
 export async function POST(request: Request) {
-   const payload: { name: string } = await request.json();
+   const payload: { name: string } = await request.json()
    const products = await prisma.brand
       .findFirst({
          where: {
@@ -50,7 +50,7 @@ export async function POST(request: Request) {
          },
       })
       .then((res: Brand) => res)
-      .catch((err: Error) => console.log('err products api', err));
+      .catch((err: Error) => console.log('err products api', err))
 
-   return NextResponse.json(products);
+   return NextResponse.json(products)
 }

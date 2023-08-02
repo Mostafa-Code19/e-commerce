@@ -1,5 +1,5 @@
-import * as yup from 'yup';
-import { persianRule } from './schemaRules';
+import * as yup from 'yup'
+import { persianRule } from './schemaRules'
 
 const ProductSchemaValidation = yup.object().shape({
    title: yup
@@ -15,6 +15,6 @@ const ProductSchemaValidation = yup.object().shape({
       .matches(persianRule, { message: 'لطفا توضیحات را به فارسی وارد کنید' }),
 
    brand: yup.string().required('برند محصول را وارد کنید'),
-});
+})
 
-export default ProductSchemaValidation;
+export default ProductSchemaValidation

@@ -1,22 +1,22 @@
-import Link from 'next/link';
-import Images from '@/components/product/images';
-import PriceDiscountQtyEdit from './priceDiscountQtyEdit';
-import prisma from '@/lib/prisma';
-import PublicEdit from './button.publicEdit';
-import BackButton from '@/components/back-btn';
+import Link from 'next/link'
+import Images from '@/components/product/images'
+import PriceDiscountQtyEdit from './priceDiscountQtyEdit'
+import prisma from '@/lib/prisma'
+import PublicEdit from './button.publicEdit'
+import BackButton from '@/components/back-btn'
 
-import { Product, ProductLocation } from '@prisma/client';
-import isAdmin from '@/lib/isAdmin';
-import ProductTitleDescription from './titleAndDescription';
+import { Product, ProductLocation } from '@prisma/client'
+import isAdmin from '@/lib/isAdmin'
+import ProductTitleDescription from './titleAndDescription'
 
 type ProductLocationExtended = ProductLocation & {
-   color: { color: string };
-   size: { size: number };
-};
+   color: { color: string }
+   size: { size: number }
+}
 type ProductExtended = Product & {
-   gallery: { id: string; src: string; alt: string }[];
-   productLocation: ProductLocationExtended[];
-};
+   gallery: { id: string; src: string; alt: string }[]
+   productLocation: ProductLocationExtended[]
+}
 
 async function getProductLocations(productId: string) {
    return await prisma.product
@@ -48,62 +48,60 @@ async function getProductLocations(productId: string) {
             },
          },
       })
-      .then((res: ProductExtended | null) => res);
+      .then((res: ProductExtended | null) => res)
 }
 
 export const metadata = {
    title: 'فروشگاه اینترنتی | ادمین | چهره های محصول',
-};
+}
 
 const ProductLocations = async ({ params }: { params: { id: string } }) => {
-   const product: ProductExtended | null = await getProductLocations(params.id);
+   const product: ProductExtended | null = await getProductLocations(params.id)
 
    return (
-      <div className="mx-8 my-16 relative">
+      <div className='mx-8 my-16 relative'>
          {(await isAdmin()) ? (
             pageContent(product)
          ) : (
-            <h3 className="text-center">
-               شما اجازه وارد شدن به این صفحه را ندارید!
-            </h3>
+            <h3 className='text-center'>شما اجازه وارد شدن به این صفحه را ندارید!</h3>
          )}
       </div>
-   );
-};
+   )
+}
 
-export default ProductLocations;
+export default ProductLocations
 
 const pageContent = (product: ProductExtended | null) => {
    return (
       <>
          {product ? (
             <>
-               <div className="flex items-center justify-between">
+               <div className='flex items-center justify-between'>
                   <BackButton />
                   <h1>چهره های محصول</h1>
                   <span></span>
                </div>
 
-               <div className="max-w-md mx-auto">
-                  <Link href="/admin/products/add">
-                     <button className="bg-white z-10 border-2 border-blue-500 rounded-full p-3 fixed bottom-24 right-5">
+               <div className='max-w-md mx-auto'>
+                  <Link href='/admin/products/add'>
+                     <button className='bg-white z-10 border-2 border-blue-500 rounded-full p-3 fixed bottom-24 right-5'>
                         <svg
-                           className="h-6 w-6 text-blue-500"
-                           fill="none"
-                           viewBox="0 0 24 24"
-                           stroke="currentColor"
+                           className='h-6 w-6 text-blue-500'
+                           fill='none'
+                           viewBox='0 0 24 24'
+                           stroke='currentColor'
                         >
                            <path
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                              strokeWidth="2"
-                              d="M12 4v16m8-8H4"
+                              strokeLinecap='round'
+                              strokeLinejoin='round'
+                              strokeWidth='2'
+                              d='M12 4v16m8-8H4'
                            />
                         </svg>
                      </button>
                   </Link>
 
-                  <div className="space-y-3">
+                  <div className='space-y-3'>
                      <ProductTitleDescription
                         id={product.id}
                         title={product.title}
@@ -111,72 +109,51 @@ const pageContent = (product: ProductExtended | null) => {
                      />
                   </div>
 
-                  <Images
-                     isAdmin={true}
-                     thumbnail={product.gallery[0]}
-                     product={product}
-                  />
+                  <Images isAdmin={true} thumbnail={product.gallery[0]} product={product} />
 
                   <hr />
 
-                  <div className="my-5">
-                     <div className="w-full relative grid grid-cols-6 rounded-lg items-center bg-white p-2 mt-3">
-                        <span className="font-semibold text-black text-sm">
-                           رنگ
-                        </span>
+                  <div className='my-5'>
+                     <div className='w-full relative grid grid-cols-6 rounded-lg items-center bg-white p-2 mt-3'>
+                        <span className='font-semibold text-black text-sm'>رنگ</span>
 
-                        <span className="font-semibold text-black text-sm">
-                           سایز
-                        </span>
+                        <span className='font-semibold text-black text-sm'>سایز</span>
 
-                        <span className="font-semibold text-black text-sm">
-                           قیمت
-                        </span>
+                        <span className='font-semibold text-black text-sm'>قیمت</span>
 
-                        <span className="font-semibold text-black text-sm">
-                           تخفیف
-                        </span>
+                        <span className='font-semibold text-black text-sm'>تخفیف</span>
 
-                        <span className="text-black font-semibold text-sm">
-                           تعداد
-                        </span>
+                        <span className='text-black font-semibold text-sm'>تعداد</span>
 
-                        <span className="text-black font-semibold text-sm">
-                           عمومی
-                        </span>
+                        <span className='text-black font-semibold text-sm'>عمومی</span>
                      </div>
 
-                     {product.productLocation.map(
-                        (location: ProductLocationExtended) => {
-                           return (
-                              <div
-                                 key={location.id}
-                                 className="w-full grid grid-cols-6 rounded-lg items-center bg-white p-2 mt-3"
-                              >
-                                 <span
-                                    style={{ background: location.color.color }}
-                                    className="w-6 h-6 block rounded-full"
-                                 ></span>
+                     {product.productLocation.map((location: ProductLocationExtended) => {
+                        return (
+                           <div
+                              key={location.id}
+                              className='w-full grid grid-cols-6 rounded-lg items-center bg-white p-2 mt-3'
+                           >
+                              <span
+                                 style={{ background: location.color.color }}
+                                 className='w-6 h-6 block rounded-full'
+                              ></span>
 
-                                 <span className="font-semibold text-black text-sm">
-                                    {location.size.size}
-                                 </span>
+                              <span className='font-semibold text-black text-sm'>
+                                 {location.size.size}
+                              </span>
 
-                                 <PriceDiscountQtyEdit
-                                    id={location.id}
-                                    price={String(location.price)}
-                                    discount={String(location.discount)}
-                                    quantity={String(location.quantity)}
-                                 />
+                              <PriceDiscountQtyEdit
+                                 id={location.id}
+                                 price={String(location.price)}
+                                 discount={String(location.discount)}
+                                 quantity={String(location.quantity)}
+                              />
 
-                                 <PublicEdit
-                                    id={location.id}
-                                    publicProp={location.public}
-                                 />
-                              </div>
-                           );
-                        },
-                     )}
+                              <PublicEdit id={location.id} publicProp={location.public} />
+                           </div>
+                        )
+                     })}
                   </div>
                </div>
             </>
@@ -184,5 +161,5 @@ const pageContent = (product: ProductExtended | null) => {
             <h1>آیتم پیدا نشد!</h1>
          )}
       </>
-   );
-};
+   )
+}

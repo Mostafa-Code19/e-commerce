@@ -1,15 +1,16 @@
-import CartItemType from '@/types/type.cartItems';
+import CartItemType from '@/types/type.cartItems'
 
-export const initialCart = {};
+export const initialCart = {}
 
-export const CartReducer = (cart: CartItemType, action: any) => {
-   const id = action.payload?.id;
+// @ts-ignore
+export const CartReducer = (cart: CartItemType, action) => {
+   const id = action.payload?.id
 
-   const item = cart[id];
+   const item = cart[id]
 
    switch (action.type) {
       case 'initLocalStorage':
-         return action.value;
+         return action.value
 
       case 'ADD_TO_CART':
          return {
@@ -23,12 +24,12 @@ export const CartReducer = (cart: CartItemType, action: any) => {
                     ...action.payload,
                     quantity: 1,
                  },
-         };
+         }
 
       case 'REMOVE_FROM_CART':
          if (item.quantity == 1) {
-            const { [item.id]: _, ...updatedCart } = cart;
-            return updatedCart;
+            const { [item.id]: _, ...updatedCart } = cart
+            return updatedCart
          } else {
             return {
                ...cart,
@@ -36,13 +37,13 @@ export const CartReducer = (cart: CartItemType, action: any) => {
                   ...item,
                   quantity: item.quantity - 1,
                },
-            };
+            }
          }
 
       case 'RESET':
-         return {};
+         return {}
 
       default:
-         return cart;
+         return cart
    }
-};
+}

@@ -1,142 +1,137 @@
-'use client';
+'use client'
 
-import Image from 'next/legacy/image';
-import Lightbox from 'react-spring-lightbox';
-import { useState, useEffect } from 'react';
-import axios from 'axios';
-import { toast } from 'react-toastify';
+import Image from 'next/legacy/image'
+import Lightbox from 'react-spring-lightbox'
+import { useState, useEffect } from 'react'
+import axios from 'axios'
+import { toast } from 'react-toastify'
 
 type ImageType = {
-   id: string;
-   src: string;
-   alt: string;
-};
+   id: string
+   src: string
+   alt: string
+}
 
 type PropsType = {
-   isAdmin: boolean;
+   isAdmin: boolean
    thumbnail: {
-      src: string;
-      alt: string;
-   };
+      src: string
+      alt: string
+   }
    product: {
       gallery: {
-         id: string;
-         src: string;
-         alt: string;
-      }[];
-   };
-};
+         id: string
+         src: string
+         alt: string
+      }[]
+   }
+}
 
 const Images = ({ isAdmin, thumbnail, product }: PropsType) => {
-   const [lightboxOpen, setLightboxOpen] = useState(false);
-   const [galleryList, setGalleryList] = useState<ImageType[]>([]);
-   const [currentImageIndex, setCurrentIndex] = useState(0);
+   const [lightboxOpen, setLightboxOpen] = useState(false)
+   const [galleryList, setGalleryList] = useState<ImageType[]>([])
+   const [currentImageIndex, setCurrentIndex] = useState(0)
 
-   const gotoPrevious = () =>
-      currentImageIndex > 0 && setCurrentIndex(currentImageIndex - 1);
+   const gotoPrevious = () => currentImageIndex > 0 && setCurrentIndex(currentImageIndex - 1)
 
    const gotoNext = () =>
       currentImageIndex + 1 < 2 && // project.gallery.length
-      setCurrentIndex(currentImageIndex + 1);
+      setCurrentIndex(currentImageIndex + 1)
 
    useEffect(() => {
-      let galleryList: { id: string; src: string; alt: string }[] = [];
+      const galleryList: { id: string; src: string; alt: string }[] = []
 
       product.gallery.map((img) => {
          galleryList.push({
             id: img.id,
             src: img.src,
             alt: img.alt,
-         });
-      });
+         })
+      })
 
-      setGalleryList(galleryList);
-   }, [product]);
+      setGalleryList(galleryList)
+   }, [product])
 
    const deleteButton = () => {
-      if (!isAdmin) return;
+      if (!isAdmin) return
 
-      const payload = { imageId: galleryList[currentImageIndex]?.id };
+      const payload = { imageId: galleryList[currentImageIndex]?.id }
 
       const deleteImage = async () => {
-         const res = await axios.post('/api/product/image/delete', payload);
+         const res = await axios.post('/api/product/image/delete', payload)
 
          try {
-            if (res.status == 200)
-               return toast.success('تصویر با موفقیت حذف گردید.');
+            if (res.status == 200) return toast.success('تصویر با موفقیت حذف گردید.')
             else {
-               toast.error(
-                  'تصویر موجود نمی باشد یا در حذف تصویر خطایی رخ داد!',
-               );
-               console.log('api/product/image/delete !200', res);
+               toast.error('تصویر موجود نمی باشد یا در حذف تصویر خطایی رخ داد!')
+               console.log('api/product/image/delete !200', res)
             }
          } catch (err) {
-            toast.error('تصویر موجود نمی باشد یا در حذف تصویر خطایی رخ داد!');
-            console.log('api/product/image/delete', err);
+            toast.error('تصویر موجود نمی باشد یا در حذف تصویر خطایی رخ داد!')
+            console.log('api/product/image/delete', err)
          }
-      };
+      }
 
       return (
          <button onClick={() => deleteImage()}>
-            <div className="py-2 bg-white rounded-full justify-center flex">
+            <div className='py-2 bg-white rounded-full justify-center flex'>
                <svg
-                  className="h-8 w-8 text-red-700"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
+                  className='h-8 w-8 text-red-700'
+                  viewBox='0 0 24 24'
+                  fill='none'
+                  stroke='currentColor'
+                  strokeWidth='2'
+                  strokeLinecap='round'
+                  strokeLinejoin='round'
                >
                   {' '}
-                  <polyline points="3 6 5 6 21 6" />{' '}
-                  <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2" />{' '}
-                  <line x1="10" y1="11" x2="10" y2="17" />{' '}
-                  <line x1="14" y1="11" x2="14" y2="17" />
+                  <polyline points='3 6 5 6 21 6' />{' '}
+                  <path d='M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2' />{' '}
+                  <line x1='10' y1='11' x2='10' y2='17' /> <line x1='14' y1='11' x2='14' y2='17' />
                </svg>
             </div>
          </button>
-      );
-   };
+      )
+   }
 
    return (
-      <div className="space-y-3">
+      <div className='space-y-3'>
          <div
-            className="text-center"
+            className='text-center'
             onClick={() => {
-               setLightboxOpen(true);
-               setCurrentIndex(0);
+               setLightboxOpen(true)
+               setCurrentIndex(0)
             }}
          >
             {thumbnail && (
                <Image
-                  className="object-contain"
+                  className='object-contain'
                   src={thumbnail.src}
                   alt={thumbnail.alt}
-                  width="500"
-                  height="300"
+                  width='500'
+                  height='300'
                />
             )}
          </div>
-         <div className="flex space-x-3 justify-center">
+         <div className='flex space-x-3 justify-center'>
             {galleryList.map((data, index) => {
                return (
                   <div
                      key={index}
                      onClick={() => {
-                        setLightboxOpen(true);
-                        setCurrentIndex(index);
+                        setLightboxOpen(true)
+                        setCurrentIndex(index)
                      }}
                   >
                      <Image
-                        className="object-contain"
+                        className='object-contain'
                         src={`${data.src}`}
                         alt={data.alt}
-                        width="100"
-                        height="120"
+                        width='100'
+                        height='120'
                      />
                   </div>
-               );
+               )
             })}
          </div>
 
@@ -151,7 +146,7 @@ const Images = ({ isAdmin, thumbnail, product }: PropsType) => {
             onClose={() => setLightboxOpen(false)}
          />
       </div>
-   );
-};
+   )
+}
 
-export default Images;
+export default Images

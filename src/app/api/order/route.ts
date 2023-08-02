@@ -1,54 +1,50 @@
-import authOptions from '@/lib/auth';
-import prisma from '@/lib/prisma';
+import authOptions from '@/lib/auth'
+import prisma from '@/lib/prisma'
 
-import { NextResponse } from 'next/server';
-import { getServerSession } from 'next-auth';
+import { NextResponse } from 'next/server'
+import { getServerSession } from 'next-auth'
 
 type ItemNotEnoughQtyType = {
-   message: string;
-   id: string | null;
-   quantity: number;
-};
-type ItemQtyType = { id: string; quantity: number };
+   message: string
+   id: string | null
+   quantity: number
+}
+type ItemQtyType = { id: string; quantity: number }
 type PayloadType = {
    cart: {
       [key: string]: {
-         id: string;
-         quantity: number;
-         price: number;
-         discount: number;
-      };
-   };
-   price: number;
-   discount: number;
-};
+         id: string
+         quantity: number
+         price: number
+         discount: number
+      }
+   }
+   price: number
+   discount: number
+}
 
 export async function POST(request: Request) {
-   const session: { email: string } | null = await getServerSession(
-      authOptions,
-   );
-   const payload: PayloadType = await request.json();
+   const session: { email: string } | null = await getServerSession(authOptions)
+   const payload: PayloadType = await request.json()
 
-   if (!session) return NextResponse.json({ message: 'unAuthorized' });
+   if (!session) return NextResponse.json({ message: 'unAuthorized' })
 
    const user = await prisma.user.findUnique({
       where: {
          email: session.email,
       },
-   });
+   })
 
    if (!user) {
-      return NextResponse.json({ message: 'userNotFound' });
+      return NextResponse.json({ message: 'userNotFound' })
    }
 
    // if profile must be complete
-   const { name, mobile_number, phone_number, melli_code, address } = user;
+   const { name, mobile_number, phone_number, melli_code, address } = user
    if (!name || !mobile_number || !phone_number || !melli_code || !address)
-      return NextResponse.json({ message: 'incompleteProfile' });
+      return NextResponse.json({ message: 'incompleteProfile' })
 
-   const cartItemsId: string[] = Object.values(payload.cart).map(
-      (item) => item.id,
-   );
+   const cartItemsId: string[] = Object.values(payload.cart).map((item) => item.id)
 
    const itemsQtyList: ItemQtyType[] = await prisma.productLocation.findMany({
       where: {
@@ -56,7 +52,7 @@ export async function POST(request: Request) {
             in: cartItemsId,
          },
       },
-   });
+   })
 
    const itemWithNotEnoughQty: ItemNotEnoughQtyType = itemsQtyList.reduce(
       (result: ItemNotEnoughQtyType, item: ItemQtyType) => {
@@ -65,15 +61,15 @@ export async function POST(request: Request) {
                message: 'qtyNotEnough',
                id: item.id,
                quantity: item.quantity,
-            };
+            }
          }
 
-         return result;
+         return result
       },
       { message: 'qtyNotEnough', id: null, quantity: -1 },
-   );
+   )
 
-   if (itemWithNotEnoughQty.id) return NextResponse.json(itemWithNotEnoughQty);
+   if (itemWithNotEnoughQty.id) return NextResponse.json(itemWithNotEnoughQty)
 
    itemsQtyList?.map(async (item) => {
       await prisma.productLocation.update({
@@ -81,8 +77,8 @@ export async function POST(request: Request) {
          data: {
             quantity: item.quantity - payload.cart[item.id].quantity,
          },
-      });
-   });
+      })
+   })
 
    const order = await prisma.order.create({
       data: {
@@ -92,7 +88,7 @@ export async function POST(request: Request) {
          shipping_cost: 0,
          client_id: user.id,
       },
-   });
+   })
 
    Object.values(payload.cart).map(async (item) => {
       await prisma.orderItem
@@ -106,9 +102,9 @@ export async function POST(request: Request) {
             },
          })
          .catch((err) => {
-            NextResponse.json({ 'orderItem.create error': err });
-         });
-   });
+            NextResponse.json({ 'orderItem.create error': err })
+         })
+   })
 
-   return NextResponse.json(order);
+   return NextResponse.json(order)
 }
