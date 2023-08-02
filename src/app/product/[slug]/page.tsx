@@ -60,7 +60,7 @@ const Product = async ({ params }: { params: { slug: string } }) => {
    const product = await getProduct(params.slug)
 
    return (
-      <div className='mx-8 my-16 space-y-11'>
+      <div className='mx-6 my-16 space-y-11'>
          <div className='flex justify-between items-center'>
             <BackButton />
             <h1 className='text-center font-bold'>ویرایش پروفایل</h1>

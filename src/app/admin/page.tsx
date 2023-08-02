@@ -11,7 +11,7 @@ const AdminPanel = async () => {
    const user = await User()
 
    return (
-      <div className='mx-8 my-16 space-y-10'>
+      <div className='mx-6 my-16 space-y-10'>
          {(await isAdmin()) ? (
             <>
                <div className='flex justify-between items-center'>
@@ -25,7 +25,7 @@ const AdminPanel = async () => {
                   <h2 className='ext-zinc-400 text-base'> به پنل خوش آمدید </h2>
                </div>
 
-               <div className='px-4 py-10 space-y-8 bg-zinc-100 rounded-t-2xl max-w-sm mx-auto'>
+               <div className='px-4 py-10 space-y-8 bg-zinc-100 rounded-2xl max-w-sm mx-auto'>
                   <div>
                      <Link href='/admin/orders'>
                         <div className='flex justify-between items-center'>

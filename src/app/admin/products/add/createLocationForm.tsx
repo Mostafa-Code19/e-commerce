@@ -75,7 +75,7 @@ const CreateLocationForm = ({ selectedProduct }: { selectedProduct: string | nul
                   placeholder='تعداد موجود'
                />
 
-               <div className='flex justify-between items-center'>
+               <div className='flex justify-between space-x-3 items-center'>
                   <MuiColorInput
                      name='color'
                      value={values.color}
@@ -86,7 +86,7 @@ const CreateLocationForm = ({ selectedProduct }: { selectedProduct: string | nul
                         borderRadius: '10px',
                      }}
                   />
-                  <h5>رنگ چهره محصول</h5>
+                  <h5 className='w-1/2 text-center'>رنگ چهره محصول</h5>
                </div>
 
                {errors.color && touched.color ? (

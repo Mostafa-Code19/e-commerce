@@ -59,7 +59,7 @@ const ProductLocations = async ({ params }: { params: { id: string } }) => {
    const product: ProductExtended | null = await getProductLocations(params.id)
 
    return (
-      <div className='mx-8 my-16 relative'>
+      <div className='mx-6 my-16 relative'>
          {(await isAdmin()) ? (
             pageContent(product)
          ) : (

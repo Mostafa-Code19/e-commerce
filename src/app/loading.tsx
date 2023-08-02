@@ -1,6 +1,6 @@
 const LoadingHome = () => {
    return (
-      <div className='mx-8 my-16 animate-pulse space-y-4'>
+      <div className='mx-6 my-16 animate-pulse space-y-4'>
          <div className='w-full h-40 bg-gray-300 rounded'></div>
          <div className='w-full h-20 bg-gray-300 rounded'></div>
          <div className='w-full h-10 bg-gray-300 rounded'></div>

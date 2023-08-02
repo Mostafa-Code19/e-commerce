@@ -3,6 +3,7 @@ import isAdmin from '@/lib/isAdmin'
 import BrandNewInput from './create.Input'
 import DeleteButton from './delete.button'
 import Name from './name.component'
+import prisma from '@/lib/prisma'
 
 export const metadata = {
    title: '‌فروشگاه اینترنتی | پنل ادمین | برند ها',
@@ -20,7 +21,7 @@ const AdminBrands = async () => {
    const brands = await getBrand()
 
    return (
-      <div className='mx-8 my-16'>
+      <div className='mx-6 my-16'>
          {(await isAdmin()) ? (
             <>
                <div className='flex justify-between items-center mb-10'>

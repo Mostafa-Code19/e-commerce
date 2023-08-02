@@ -66,6 +66,7 @@ const ImageInput = ({ selectedProduct }: { selectedProduct: string | null }) => 
             // @ts-ignore
             error.message === '"timeout exceeded"'
          ) {
+            console.log('network error', error)
             toast.error(
                'در اتصال اینترنت شما خطایی رخ داد. (اگر از VPN استفاده می‌کنید لطفا ابتدا آن را خاموش کنید)',
             )

@@ -53,7 +53,7 @@ const AdminProducts = async () => {
    const products = await getProducts()
 
    return (
-      <div className='mx-8 my-16 relative'>
+      <div className='mx-6 my-16 relative'>
          {(await isAdmin()) ? (
             <>
                <div className='flex justify-between items-center'>

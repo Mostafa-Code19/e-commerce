@@ -54,7 +54,7 @@ const AdminProduct = () => {
    }
 
    return (
-      <div className='mx-8 my-16'>
+      <div className='mx-6 my-16'>
          {
             // @ts-ignore
             session?.role === 'ADMIN' ? (

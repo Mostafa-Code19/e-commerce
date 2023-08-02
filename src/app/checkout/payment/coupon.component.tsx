@@ -31,7 +31,7 @@ const CouponComponent = ({
 
          try {
             const res = await axios.get(`/api/coupon?c=${couponCode}`)
-            let couponData = res.data
+            const couponData = res.data
             if (couponData) {
                if (couponData.value > price) couponData.value = price
 
@@ -52,8 +52,8 @@ const CouponComponent = ({
    }
 
    return (
-      <div className='flex justify-between items-center'>
-         <div className='border rounded-lg px-4 py-2 space-x-4 relative'>
+      <div className='flex justify-between items-center space-x-3'>
+         <div className='border flex rounded-lg px-2 py-2 space-x-4 relative'>
             {loading ? (
                <span className='text-green-700 inline-block my-4 absolute -top-1'>
                   در حال بررسی...
@@ -66,7 +66,7 @@ const CouponComponent = ({
             <input
                ref={couponRef}
                type='text'
-               className='text-right text-sm'
+               className='text-right text-sm pr-2 bg-transparent'
                placeholder='کد تخفیف'
             />
          </div>

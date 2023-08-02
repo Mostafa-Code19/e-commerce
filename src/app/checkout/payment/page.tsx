@@ -86,7 +86,7 @@ const Payment = () => {
                </div>
 
                <div className='md:grid md:justify-end flex flex-col-reverse md:grid-cols-2'>
-                  <div className='mx-7 mt-10 space-y-5'>
+                  <div className='md:mx-7 mt-10 space-y-5'>
                      <div className='flex justify-between'>
                         <div className='flex space-x-1'>
                            <span className='text-slate-600 font-semibold'>تومان</span>
@@ -126,7 +126,7 @@ const Payment = () => {
                   </div>
 
                   <div className='space-y-6'>
-                     <div className='bg-white rounded-xl py-8 px-6 space-y-6 text-right'>
+                     <div className='bg-white rounded-xl py-5 px-3 space-y-6 text-right'>
                         <h3>انتخاب روش پرداخت</h3>
 
                         <form className='flex flex-col space-y-4 yekan1 rtl'>
@@ -204,7 +204,7 @@ const Payment = () => {
                         </form>
                      </div>
 
-                     <div className='bg-white rounded-xl py-8 px-6'>
+                     <div className='bg-white rounded-xl py-5 px-3'>
                         <CouponComponent price={paymentPrice} setCoupon={setCoupon} />
 
                         {couponValue ? (
@@ -218,7 +218,7 @@ const Payment = () => {
                         )}
                      </div>
 
-                     <div className='bg-white rounded-xl py-8 px-6 space-y-6 text-right'>
+                     <div className='bg-white rounded-xl py-5 px-3 space-y-6 text-right'>
                         <h3>خلاصه سفارش</h3>
                         <div className='space-x-5'>
                            <div className='flex justify-end space-x-3'>

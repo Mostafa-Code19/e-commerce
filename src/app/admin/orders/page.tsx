@@ -53,7 +53,7 @@ const OrdersManagement = async () => {
    const orders = await getOrders()
 
    return (
-      <div className='mx-8 my-16 space-y-10'>
+      <div className='mx-6 my-16 space-y-10'>
          {(await isAdmin()) ? (
             <>
                <div className='flex justify-between items-center'>

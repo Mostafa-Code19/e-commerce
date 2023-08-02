@@ -9,10 +9,10 @@ import { CartContext } from '@/context/provider/cart'
 const Navbar = () => {
    const pathname = usePathname()
    // @ts-ignore
-   const { cart }: any = useContext(CartContext)
+   const { cart } = useContext(CartContext)
 
    return (
-      <nav className='fixed bottom-0 md:hidden left-0 py-7 px-8 rounded-t-[30%] bg-white w-full flex justify-around'>
+      <nav className='fixed bottom-0 md:hidden left-0 py-5 px-8 rounded-t-3xl bg-white w-full flex justify-around'>
          <Link href='/'>
             <svg
                className={`${pathname == '/' ? 'text-blue-400' : 'text-gray-400'} h-8 w-8`}

@@ -37,7 +37,7 @@ const Orders = async () => {
    }
 
    return (
-      <div className='mx-8 my-16 space-y-7'>
+      <div className='mx-6 my-16 space-y-7'>
          <div className='flex justify-between items-center'>
             <BackButton />
             <h1 className='text-center font-bold'>سفارش های من</h1>

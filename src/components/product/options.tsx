@@ -30,7 +30,7 @@ const Options = ({
    const [selectedLocation, selectFinalLocation] = useState(product.productLocation[0])
 
    // @ts-ignore
-   const { cart, dispatch }: any = useContext(CartContext)
+   const { cart, dispatch } = useContext(CartContext)
 
    const cartItems = useMemo(() => {
       return cart

@@ -45,7 +45,7 @@ const LoginForm = () => {
             toast.error('در ورود شما خطایی رخ داد')
             return console.log('auth/login signIn() res !200', res)
          }
-      } catch (err: any) {
+      } catch (err) {
          toast.error('در ورود شما خطایی رخ داد')
          return console.log('auth/login signIn() err', err)
       }

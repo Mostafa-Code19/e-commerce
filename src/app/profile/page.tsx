@@ -22,7 +22,7 @@ const Profile = async () => {
    const user = await User()
 
    return (
-      <div className='mx-8 my-16 space-y-10'>
+      <div className='mx-6 my-16 space-y-10'>
          {user ? (
             <>
                <div className='flex justify-between items-center'>
@@ -38,7 +38,7 @@ const Profile = async () => {
                   </h2>
                </div>
 
-               <div className='px-4 py-10 space-y-8 bg-zinc-100 rounded-t-2xl max-w-md mx-auto'>
+               <div className='px-4 py-10 space-y-8 bg-zinc-100 rounded-2xl max-w-md mx-auto'>
                   {user?.role == 'ADMIN' ? (
                      <div>
                         <Link href='/admin'>

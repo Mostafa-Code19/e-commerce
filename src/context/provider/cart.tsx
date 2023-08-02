@@ -6,7 +6,8 @@ import { CartReducer, initialCart } from '../reducer/cart'
 
 const CartContext = createContext({})
 
-const CartContextProvider = ({ children }: any) => {
+ // @ts-ignore
+const CartContextProvider = ({ children }) => {
    const [cart, dispatch] = useReducer(CartReducer, initialCart)
 
    useEffect(() => {
