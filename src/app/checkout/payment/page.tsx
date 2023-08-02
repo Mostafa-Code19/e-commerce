@@ -205,7 +205,7 @@ const Payment = () => {
                      </div>
 
                      <div className='bg-white rounded-xl py-8 px-6'>
-                        <CouponComponent setCoupon={setCoupon} />
+                        <CouponComponent price={paymentPrice} setCoupon={setCoupon} />
 
                         {couponValue ? (
                            <div className='text-center mt-5'>

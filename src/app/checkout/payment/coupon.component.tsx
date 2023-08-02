@@ -12,7 +12,13 @@ type Discount =
 
 let previousCoupon = ''
 
-const CouponComponent = ({ setCoupon }: { setCoupon: Dispatch<SetStateAction<Discount>> }) => {
+const CouponComponent = ({
+   price,
+   setCoupon,
+}: {
+   price: number,
+   setCoupon: Dispatch<SetStateAction<Discount>>
+}) => {
    const [loading, setLoading] = useState(false)
    const couponRef = useRef<HTMLInputElement>(null)
 
@@ -25,8 +31,11 @@ const CouponComponent = ({ setCoupon }: { setCoupon: Dispatch<SetStateAction<Dis
 
          try {
             const res = await axios.get(`/api/coupon?c=${couponCode}`)
-            if (res.data) {
-               setCoupon(res.data)
+            let couponData = res.data
+            if (couponData) {
+               if (couponData.value > price) couponData.value = price
+
+               setCoupon(couponData)
                toast.success('تخفیف با موفقیت به شما تعلق گرفت')
             } else {
                toast.error('کد تخفیف وارد شده منقضی یا نامعتبر می‌باشد')
