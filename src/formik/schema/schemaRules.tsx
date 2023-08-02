@@ -1,4 +1,4 @@
-export const persianRule = /^[آ-ی ء چ . ، ! ؟ 1-9 ۱-۹   ? ! _ - ' " ; : , ؛ : ( ) ژ]+$/;
+export const persianRule = /^[آ-ی ء چ . ، ! ؟ 1-9 ۱-۹   ? ! _ - ' " ; : , ؛ : ( ) ژ 0 ۰]+$/;
 
 export const colorRules = /^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$/;
 
