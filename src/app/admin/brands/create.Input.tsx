@@ -27,8 +27,10 @@ const BrandNewInput = () => {
                body: JSON.stringify(payload),
             })
 
-            if (res.status === 405) return toast.warning('این برند از قبل ثبت شده است')
+            const resData = await res.json()
+
             if (!res.ok) throw new Error()
+            else if (resData.status === 405) return toast.warning('این برند از قبل ثبت شده است')
             
             setInputValue('')
             toast.success('برند با موفقیت ثبت گردید')
