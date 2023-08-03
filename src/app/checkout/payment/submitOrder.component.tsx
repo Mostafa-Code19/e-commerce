@@ -75,7 +75,7 @@ const SubmitOrder = ({
    }
 
    return (
-      <div className='bg-blue-500 text-white w-full py-3 text-center rounded-xl yekan1'>
+      <div className='bg-blue-500 hover:bg-blue-600 transition-colors text-white w-full py-3 text-center rounded-xl yekan1'>
          {loading ? (
             <svg
                aria-hidden='true'

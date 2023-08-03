@@ -12,7 +12,7 @@ const LogoutButton = () => {
    }
 
    return (
-      <div className='border-2 border-red-700 text-red-700 text-center w-full py-2 yekan1 rounded-xl'>
+      <div className='border-2 hover:bg-red-100 transition-colors border-red-700 text-red-700 text-center w-full py-2 yekan1 rounded-xl'>
          {loading ? (
             <svg
                aria-hidden='true'
@@ -31,7 +31,7 @@ const LogoutButton = () => {
                />
             </svg>
          ) : (
-            <button disabled={loading} onClick={() => submitLogout()}>
+            <button className='w-full' disabled={loading} onClick={() => submitLogout()}>
                خروج از حساب
             </button>
          )}

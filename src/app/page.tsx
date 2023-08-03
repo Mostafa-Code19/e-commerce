@@ -73,7 +73,7 @@ async function Home() {
                      </button>
                   </div>
                   <div className='relative'>
-                     <div className='w-[240px] h-[240px] absolute -right-20 -top-12'>
+                     <div className='w-[240px] h-[240px] absolute -right-14 -top-12'>
                         <Image
                            priority
                            className='object-contain'

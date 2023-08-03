@@ -168,7 +168,7 @@ const Options = ({
 
             <div
                style={{ fontSize: '1.2rem' }}
-               className='justify-center flex from-blue-400 to-blue-200 bg-gradient-to-bl w-full ml-5 rounded-xl font-semibold '
+               className='justify-center flex from-blue-200 to-white bg-gradient-to-t w-full ml-5 rounded-xl font-semibold '
             >
                {Object.keys(cartItems ?? {})?.length && cartItems[selectedLocation.id] ? (
                   <div className='flex items-center justify-around w-full'>
@@ -181,11 +181,11 @@ const Options = ({
                         }}
                      >
                         <svg
-                           className='h-9 w-9 text-black'
+                           className='h-10 w-10 text-blue-600'
                            width='24'
                            height='24'
                            viewBox='0 0 24 24'
-                           strokeWidth='2'
+                           strokeWidth='1'
                            stroke='currentColor'
                            fill='none'
                            strokeLinecap='round'
@@ -201,11 +201,11 @@ const Options = ({
                      </span>
                      <button onClick={() => addToCartReducer({ id: selectedLocation.id })}>
                         <svg
-                           className='h-9 w-9 text-black'
+                           className='h-10 w-10 text-blue-600'
                            width='24'
                            height='24'
                            viewBox='0 0 24 24'
-                           strokeWidth='2'
+                           strokeWidth='1'
                            stroke='currentColor'
                            fill='none'
                            strokeLinecap='round'

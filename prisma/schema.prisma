@@ -13,17 +13,17 @@ model User {
   name           String?
   email          String    @unique
   emailVerified  DateTime?
-  phoneNumber   String?
-  mobileNumber  String?   @unique
+  phoneNumber    String?
+  mobileNumber   String?   @unique
   mobileVerified Boolean   @default(false)
-  melliCode     String?   @unique
+  melliCode      String?   @unique
   image          String?
   address        String?
   blocked        Boolean   @default(false)
-  blockedFor    String?
-  createdAt     DateTime  @default(now())
-  updatedAt     DateTime  @updatedAt
-  lastLogin     DateTime  @default(now())
+  blockedFor     String?
+  createdAt      DateTime  @default(now())
+  updatedAt      DateTime  @updatedAt
+  lastLogin      DateTime  @default(now())
   orders         Order[]
   password       String    @default("")
 }
@@ -34,17 +34,17 @@ enum Role {
 }
 
 model Order {
-  id            String      @id @default(cuid())
-  status        Status      @default(PENDING)
+  id           String      @id @default(cuid())
+  status       Status      @default(PENDING)
   createdAt    DateTime    @default(now())
-  client        User        @relation(fields: [clientId], references: [id])
+  client       User?       @relation(fields: [clientId], references: [id], onDelete: SetNull)
   clientId     String
-  price         Int
-  discount      Int
-  payment       Payment
+  price        Int
+  discount     Int
+  payment      Payment
   shippingCost Int
   trackingCode String?
-  items         OrderItem[]
+  items        OrderItem[]
 }
 
 enum Status {
@@ -60,11 +60,11 @@ enum Payment {
 }
 
 model OrderItem {
-  id       String          @id @default(cuid())
-  order    Order           @relation(fields: [orderId], references: [id])
-  orderId String
-  item     ProductLocation @relation(fields: [itemId], references: [id])
-  itemId  String
+  id       String           @id @default(cuid())
+  order    Order            @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  orderId  String
+  item     ProductLocation? @relation(fields: [itemId], references: [id], onDelete: SetNull)
+  itemId   String
   price    Int
   discount Int
   quantity Int
@@ -73,11 +73,11 @@ model OrderItem {
 model ProductLocation {
   id        String      @id @default(cuid())
   public    Boolean     @default(true)
-  product   Product     @relation(fields: [productId], references: [id])
+  product   Product     @relation(fields: [productId], references: [id], onDelete: Cascade)
   productId String
-  color     Color       @relation(fields: [colorId], references: [id])
+  color     Color?      @relation(fields: [colorId], references: [id], onDelete: SetNull)
   colorId   String      @unique
-  size      Size        @relation(fields: [sizeId], references: [id])
+  size      Size?       @relation(fields: [sizeId], references: [id], onDelete: SetNull)
   sizeId    String      @unique
   quantity  Int         @default(0)
   price     Int
@@ -94,21 +94,21 @@ model Brand {
 model Product {
   id              String            @id @default(cuid())
   title           String
-  brand           Brand?            @relation(fields: [brandId], references: [id])
+  brand           Brand?            @relation(fields: [brandId], references: [id], onDelete: SetNull)
   brandId         String?
   description     String?
   productLocation ProductLocation[]
   gallery         Image[]
-  createdAt      DateTime          @default(now())
-  updatedAt      DateTime          @updatedAt
+  createdAt       DateTime          @default(now())
+  updatedAt       DateTime          @updatedAt
 }
 
 model Image {
-  id         String   @id @default(cuid())
-  src        String   @default("/product/")
-  alt        String
-  product    Product  @relation(fields: [productId], references: [id])
-  productId  String
+  id        String   @id @default(cuid())
+  src       String   @default("/product/")
+  alt       String
+  product   Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
+  productId String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
@@ -117,24 +117,24 @@ model Color {
   id              String           @id @default(cuid())
   color           String
   productLocation ProductLocation?
-  createdAt      DateTime         @default(now())
-  updatedAt      DateTime         @updatedAt
+  createdAt       DateTime         @default(now())
+  updatedAt       DateTime         @updatedAt
 }
 
 model Size {
   id              String           @id @default(cuid())
   size            Int
   productLocation ProductLocation?
-  createdAt      DateTime         @default(now())
-  updatedAt      DateTime         @updatedAt
+  createdAt       DateTime         @default(now())
+  updatedAt       DateTime         @updatedAt
 }
 
 model Coupon {
-  id         String     @id @default(cuid())
-  code       String     @unique
-  type       CouponType @default(PERCENTAGE)
-  value      Int
-  quantity   Int        @default(1)
+  id        String     @id @default(cuid())
+  code      String     @unique
+  type      CouponType @default(PERCENTAGE)
+  value     Int
+  quantity  Int        @default(1)
   createdAt DateTime   @default(now())
   expiresAt DateTime?
 }

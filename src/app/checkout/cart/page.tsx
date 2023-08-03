@@ -42,7 +42,7 @@ const Cart = () => {
          <div>
             {Object.keys(cart ?? {}).length ? (
                <div className='md:grid md:justify-end flex flex-col-reverse md:grid-cols-2'>
-                  <div className='mx-7 mt-10 space-y-5'>
+                  <div className='mx-10 mt-10 space-y-5'>
                      <div className='flex justify-between'>
                         <div className='flex space-x-1'>
                            <span className='text-slate-600 font-semibold'>تومان</span>
@@ -79,7 +79,7 @@ const Cart = () => {
                      )}
 
                      <Link href='/checkout/payment' className='block'>
-                        <div className='bg-blue-500 text-white w-full py-3 text-center rounded-xl yekan1'>
+                        <div className='bg-blue-500 hover:bg-blue-600 transition-colors text-white w-full py-3 text-center rounded-xl yekan1'>
                            <button>ثبت سفارش</button>
                         </div>
                      </Link>
@@ -90,7 +90,7 @@ const Cart = () => {
                         return (
                            <div
                               key={item.id}
-                              className='flex md:px-10 items-center justify-evenly bg-white rounded-xl py-1 px-4 space-y-3'
+                              className='flex md:px-10 items-center justify-evenly bg-white rounded-xl px-4 space-y-3'
                            >
                               <div className='mx-2 flex flex-col'>
                                  <div>
@@ -100,13 +100,41 @@ const Cart = () => {
                                           src={item.thumbnail.src}
                                           alt={item.thumbnail.alt}
                                           width='200'
-                                          height='200'
+                                          height='150'
                                        />
                                     ) : (
                                        'NoImage'
                                     )}
                                  </div>
-                                 <div className='flex items-center mx-auto space-x-2'>
+                                 <div className='flex items-center mx-auto space-x-10'>
+                                    <button
+                                       onClick={() => {
+                                          dispatch({
+                                             type: 'REMOVE_FROM_CART',
+                                             payload: { id: item.id },
+                                          })
+                                       }}
+                                    >
+                                       <svg
+                                          className='h-10 w-10 text-blue-600'
+                                          width='24'
+                                          height='24'
+                                          viewBox='0 0 24 24'
+                                          strokeWidth='1'
+                                          stroke='currentColor'
+                                          fill='none'
+                                          strokeLinecap='round'
+                                          strokeLinejoin='round'
+                                       >
+                                          {' '}
+                                          <path stroke='none' d='M0 0h24v24H0z' />{' '}
+                                          <circle cx='12' cy='12' r='9' />{' '}
+                                          <line x1='9' y1='12' x2='15' y2='12' />
+                                       </svg>
+                                    </button>
+                                    <span className='text-black font-semibold text-base'>
+                                       {item.quantity}
+                                    </span>
                                     <button
                                        onClick={() => {
                                           if (item.quantity < item.maxQuantity) {
@@ -118,11 +146,11 @@ const Cart = () => {
                                        }}
                                     >
                                        <svg
-                                          className='h-7 w-7 text-black'
+                                          className='h-10 w-10 text-blue-600'
                                           width='24'
                                           height='24'
                                           viewBox='0 0 24 24'
-                                          strokeWidth='2'
+                                          strokeWidth='1'
                                           stroke='currentColor'
                                           fill='none'
                                           strokeLinecap='round'
@@ -135,41 +163,13 @@ const Cart = () => {
                                           <line x1='12' y1='9' x2='12' y2='15' />
                                        </svg>
                                     </button>
-                                    <span className='text-black font-semibold text-base'>
-                                       {item.quantity}
-                                    </span>
-                                    <button
-                                       onClick={() => {
-                                          dispatch({
-                                             type: 'REMOVE_FROM_CART',
-                                             payload: { id: item.id },
-                                          })
-                                       }}
-                                    >
-                                       <svg
-                                          className='h-7 w-7 text-black'
-                                          width='24'
-                                          height='24'
-                                          viewBox='0 0 24 24'
-                                          strokeWidth='2'
-                                          stroke='currentColor'
-                                          fill='none'
-                                          strokeLinecap='round'
-                                          strokeLinejoin='round'
-                                       >
-                                          {' '}
-                                          <path stroke='none' d='M0 0h24v24H0z' />{' '}
-                                          <circle cx='12' cy='12' r='9' />{' '}
-                                          <line x1='9' y1='12' x2='15' y2='12' />
-                                       </svg>
-                                    </button>
                                  </div>
                               </div>
                               <div className='space-y-3 rtl'>
                                  <h3>{item.title}</h3>
                                  <div className='-space-y-1'>
                                     {item.discount ? (
-                                       <div className='justify-end flex space-x-reverse space-x-1'>
+                                       <div className='flex space-x-reverse space-x-1'>
                                           <span className='text-red-400'>تخفیف</span>
                                           <span className='text-red-400 text-sm'>
                                              {(

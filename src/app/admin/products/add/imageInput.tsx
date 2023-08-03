@@ -35,7 +35,6 @@ const ImageInput = ({ selectedProduct }: { selectedProduct: string | null }) => 
             method: 'PUT',
             body: image,
          })
-         
 
          if (!res.ok) throw new Error()
 
@@ -91,26 +90,16 @@ const ImageInput = ({ selectedProduct }: { selectedProduct: string | null }) => 
             const { key, uploadUrl } = await s3SignedUrl.json()
 
             const fileUploadResult = await putInS3(uploadUrl, image)
-            
+
             if (!fileUploadResult) throw new Error('file upload to s3')
 
             await createDbData(key, imageName)
          }
       } catch (error) {
-         if (
-            // @ts-ignore
-            error.message === 'Network Error' ||
-            // @ts-ignore
-            error.message === '"timeout exceeded"'
-         ) {
-            toast.error(
-               'در اتصال اینترنت شما خطایی رخ داد. (اگر از VPN استفاده می‌کنید لطفا ابتدا آن را خاموش کنید)',
-            )
-            console.error(error)
-         } else {
-            toast.error('در ثبت تصویر خطایی رخ داد!')
-            console.error(error)
-         }
+         toast.error(
+            'در آپلود تصویر خطایی رخ داد. (اگر از VPN استفاده می‌کنید لطفا ابتدا آن را خاموش کنید)',
+         )
+         console.error(error)
       } finally {
          setLoading(false)
       }
@@ -168,7 +157,7 @@ const ImageInput = ({ selectedProduct }: { selectedProduct: string | null }) => 
          checkIfFilesAreTooBig(filesList)
 
       if (!sizeCheckRes.valid && sizeCheckRes.invalidFile) {
-         const fileSize = Math.round(sizeCheckRes.invalidFile.size / 1024 / 1024 * 1000)
+         const fileSize = Math.round((sizeCheckRes.invalidFile.size / 1024 / 1024) * 1000)
          toast.warning(
             `سایز فایل ${sizeCheckRes.invalidFile.name} برابر با ${fileSize} کیلوبایت می‌باشد. حداکثر هر فایل می‌بایست 300 کیلوبایت باشد`,
          )

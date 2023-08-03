@@ -112,7 +112,7 @@ const Edit = () => {
                      <button
                         type='submit'
                         disabled={isSubmitting}
-                        className='yekan1 bg-blue-500 text-white w-full py-2 rounded-xl'
+                        className='yekan1 bg-blue-500 hover:bg-blue-600 transition-colors text-white w-full py-3 rounded-xl'
                      >
                         {isSubmitting ? (
                            <div className='flex justify-center'>
