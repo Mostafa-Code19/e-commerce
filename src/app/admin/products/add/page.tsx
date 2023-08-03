@@ -31,7 +31,7 @@ type ProductProps = {
 
 const AdminProduct = () => {
    const [selectedProduct, selectProduct] = useState<string | null>(null)
-   const { data, error } = useSWR('/api/product/', fetcher)
+   const { data, error } = useSWR('/api/product', fetcher)
 
    if (error) {
       toast.error('دریافت محصولات به مشکل برخورد کرد!')

@@ -4,7 +4,7 @@ import { signIn } from 'next-auth/react'
 import { toast } from 'react-toastify'
 import { Form, Formik } from 'formik'
 import { useState } from 'react'
-import { useRouter } from 'next/navigation'
+import { useRouter, usePathname } from 'next/navigation'
 import Link from 'next/link'
 
 import FormikInput from '@/formik/input'
@@ -29,6 +29,7 @@ const errorsInPersian: { [key: string]: string } = {
 
 const LoginForm = () => {
    const router = useRouter()
+   const pathname = usePathname()
 
    const [error, setError] = useState('')
 
@@ -41,6 +42,7 @@ const LoginForm = () => {
 
          if (res?.status == 200) {
             if (res.error) return setError(errorsInPersian[res.error])
+            else if (pathname == '/profile') router.refresh()
             else router.push('/profile')
          } else {
             toast.error('در ورود شما خطایی رخ داد')

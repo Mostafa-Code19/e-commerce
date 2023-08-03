@@ -22,6 +22,7 @@ const OrderStatus = ({ order, mutate }: { order: OrderExtended, mutate: unknown 
 
          if (!res.ok) throw new Error()
 
+         // @ts-ignore
          mutate()
          toast.success('وضعیت با موفقیت تغییر یافت.')
       } catch (err) {

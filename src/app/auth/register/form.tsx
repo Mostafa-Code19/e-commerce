@@ -31,7 +31,8 @@ export const RegisterForm = () => {
             ...values,
             callbackUrl: '/profile',
          })
-      } catch (err: any) {
+      } catch (err) {
+         // @ts-ignore
          if (err?.message == '405') {
             toast.warning('این ایمیل از قبل ثبت نام شده است')
          } else {

@@ -22,7 +22,7 @@ export async function PATCH(request: Request) {
       const { password: _, ...filteredUser } = user
 
       return NextResponse.json(filteredUser)
-   } catch (err: any) {
+   } catch (err) {
       console.log('err api/user/update', err)
 
       return NextResponse.json({
