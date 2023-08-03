@@ -25,27 +25,26 @@ type PayloadType = {
 
 export async function GET() {
    try {
-      const res = await prisma.order
-         .findMany({
-            include: {
-               client: true,
-               items: {
-                  include: {
-                     item: {
-                        include: {
-                           product: {
-                              include: {
-                                 gallery: true,
-                              },
+      const res = await prisma.order.findMany({
+         include: {
+            client: true,
+            items: {
+               include: {
+                  item: {
+                     include: {
+                        product: {
+                           include: {
+                              gallery: true,
                            },
-                           color: true,
-                           size: true,
                         },
+                        color: true,
+                        size: true,
                      },
                   },
                },
             },
-         })
+         },
+      })
       return NextResponse.json(res)
    } catch (err) {
       console.log('api/brand err:', err)
@@ -69,7 +68,7 @@ export async function POST(request: Request) {
       return NextResponse.json({ message: 'userNotFound' })
    }
 
-   // if profile must be complete
+   // profile must be complete
    const { name, mobile_number, phone_number, melli_code, address } = user
    if (!name || !mobile_number || !phone_number || !melli_code || !address)
       return NextResponse.json({ message: 'incompleteProfile' })

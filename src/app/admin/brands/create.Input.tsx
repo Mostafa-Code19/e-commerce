@@ -22,7 +22,7 @@ const BrandNewInput = () => {
          }
 
          try {
-            const res = await fetch('/api/brand/create', {
+            const res = await fetch('/api/brand', {
                method: 'POST',
                body: JSON.stringify(payload),
             })

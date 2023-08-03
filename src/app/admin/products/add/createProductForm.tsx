@@ -30,7 +30,7 @@ const CreateProductForm = () => {
       { resetForm },
    ) => {
       try {
-         const res = await fetch('/api/product/add', {
+         const res = await fetch('/api/product', {
             method: 'POST',
             body: JSON.stringify(values),
          })

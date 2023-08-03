@@ -18,7 +18,7 @@ const PublicEdit = ({ id, publicProp }: PropsType) => {
       }
 
       try {
-         const res = await fetch('/api/product/location/update/public', {
+         const res = await fetch('/api/product/location/public', {
             method: 'PATCH',
             body: JSON.stringify(payload),
          })

@@ -35,7 +35,7 @@ const PriceDiscountQtyEdit = ({ id, price, discount, quantity }: PropsType) => {
       }
 
       try {
-         const res = await fetch('/api/product/location/update/price-discount-qty', {
+         const res = await fetch('/api/product/location/price-discount-qty', {
             method: 'PATCH',
             body: JSON.stringify(payload),
          })

@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server'
 import prisma from '@/lib/prisma'
 
-export async function POST(request: Request) {
+export async function DELETE(request: Request) {
    const payload: { imageId: string } = await request.json()
 
    await prisma.image.delete({

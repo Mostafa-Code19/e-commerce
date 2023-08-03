@@ -3,6 +3,7 @@ import { NextResponse } from 'next/server'
 
 import authOptions from '@/lib/auth'
 import prisma from '@/lib/prisma'
+import { User } from '@prisma/client'
 
 type UserType = {
    name: string | null
@@ -34,3 +35,33 @@ export async function GET() {
 
    return NextResponse.json(user)
 }
+
+
+
+export async function PATCH(request: Request) {
+   const session: { email: string } | null = await getServerSession(authOptions)
+   const payload = await request.json()
+
+   if (!session) return
+
+   try {
+      const user: User | null = await prisma.user.update({
+         where: {
+            email: session.email,
+         },
+         data: payload,
+      })
+
+      const { password: _, ...filteredUser } = user
+
+      return NextResponse.json(filteredUser)
+   } catch (err) {
+      console.log('err api/user', err)
+
+      return NextResponse.json({
+         statue: 500,
+         undefined,
+      })
+   }
+}
+

@@ -13,7 +13,7 @@ const ImageInput = ({ selectedProduct }: { selectedProduct: string | null }) => 
 
    const createS3 = async (imageName: string) => {
       try {
-         const res = await fetch('/api/product/image/create/s3', {
+         const res = await fetch('/api/product/image/s3', {
             method: 'POST',
             body: JSON.stringify({
                imageName,
@@ -53,7 +53,7 @@ const ImageInput = ({ selectedProduct }: { selectedProduct: string | null }) => 
       }
 
       try {
-         const res = await fetch('/api/product/image/create/db', {
+         const res = await fetch('/api/product/image/db', {
             method: 'POST',
             body: JSON.stringify(payload),
          })

@@ -58,8 +58,8 @@ const Images = ({ isAdmin, thumbnail, product }: PropsType) => {
 
       const deleteImage = async () => {
          try {
-            const res = await fetch('/api/product/image/delete', {
-               method: 'POST',
+            const res = await fetch('/api/product/image', {
+               method: 'DELETE',
                body: JSON.stringify(payload),
             })
 

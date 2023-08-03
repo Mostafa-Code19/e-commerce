@@ -42,7 +42,7 @@ const Edit = () => {
 
       if (payloadLength) {
          try {
-            const res = await fetch('/api/user/update', {
+            const res = await fetch('/api/user', {
                method: 'PATCH',
                body: JSON.stringify(payload),
             })

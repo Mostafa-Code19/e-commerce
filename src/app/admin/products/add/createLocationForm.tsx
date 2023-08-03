@@ -24,7 +24,7 @@ const CreateLocationForm = ({ selectedProduct }: { selectedProduct: string | nul
       if (!selectedProduct) return toast.warning('هیچ محصولی انتخاب نشده است!')
 
       try {
-         const res = await fetch('/api/product/location/add', {
+         const res = await fetch('/api/product/location', {
             method: 'POST',
             body: JSON.stringify(payload),
          })

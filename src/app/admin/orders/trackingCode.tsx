@@ -30,7 +30,7 @@ const TrackingCode = ({
       }
 
       try {
-         const res = await fetch('/api/order/update/trackingCode', {
+         const res = await fetch('/api/order/trackingCode', {
             method: 'PATCH',
             body: JSON.stringify(payload),
          })

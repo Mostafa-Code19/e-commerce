@@ -15,7 +15,7 @@ const OrderStatus = ({ order, mutate }: { order: OrderExtended, mutate: unknown 
       }
 
       try {
-         const res = await fetch('/api/order/update/status', {
+         const res = await fetch('/api/order/status', {
             method: 'PATCH',
             body: JSON.stringify(payload),
          })

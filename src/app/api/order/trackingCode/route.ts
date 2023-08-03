@@ -16,13 +16,13 @@ export async function PATCH(request: Request) {
          },
       })
 
-      console.log('res api/order/update/trackingCode', order)
+      console.log('res api/order/trackingCode', order)
 
       return NextResponse.json({
          order,
       })
    } catch (err) {
-      console.log('err api/order/update/trackingCode', err)
+      console.log('err api/order/trackingCode', err)
 
       return NextResponse.json({
          statue: 500,

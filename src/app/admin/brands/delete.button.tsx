@@ -15,8 +15,8 @@ const DeleteButton = ({ id }: { id: string }) => {
       const payload = { id }
 
       try {
-         const res = await fetch('/api/brand/delete', {
-            method: 'POST',
+         const res = await fetch('/api/brand', {
+            method: 'DELETE',
             body: JSON.stringify(payload),
          })
 

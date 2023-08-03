@@ -17,7 +17,7 @@ const Name = ({ brand }: { brand: { id: string; name: string } }) => {
       }
 
       try {
-         const res = await fetch('/api/brand/rename', {
+         const res = await fetch('/api/brand', {
             method: 'PATCH',
             body: JSON.stringify(payload),
          })
