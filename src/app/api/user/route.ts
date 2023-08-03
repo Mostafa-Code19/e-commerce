@@ -36,8 +36,6 @@ export async function GET() {
    return NextResponse.json(user)
 }
 
-
-
 export async function PATCH(request: Request) {
    const session: { email: string } | null = await getServerSession(authOptions)
    const payload = await request.json()
@@ -64,4 +62,3 @@ export async function PATCH(request: Request) {
       })
    }
 }
-

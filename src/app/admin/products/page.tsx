@@ -1,20 +1,10 @@
 import Link from 'next/link'
-import { Product, ProductLocation } from '@prisma/client'
 
 import prisma from '@/lib/prisma'
 import isAdmin from '@/lib/isAdmin'
 
 import ProductCards from '@/components/product/cards'
 import BackButton from '@/components/back-btn'
-
-type ProductLocationExtended = ProductLocation & {
-   color: { color: string }
-   size: { size: number }
-}
-type ProductExtended = Product & {
-   gallery: { src: string; alt: string }[]
-   productLocation: ProductLocationExtended[]
-}
 
 async function getProducts() {
    return await prisma.product
@@ -42,7 +32,7 @@ async function getProducts() {
             },
          },
       })
-      .then((res: ProductExtended[]) => res)
+      .then((res) => res)
 }
 
 export const metadata = {
@@ -80,7 +70,12 @@ const AdminProducts = async () => {
                   </button>
                </Link>
 
-               <ProductCards products={products} pageTarget='/admin/products/' userTarget='admin' />
+               <ProductCards
+                  // @ts-ignore
+                  products={products}
+                  pageTarget='/admin/products/'
+                  userTarget='admin'
+               />
             </>
          ) : (
             <h3 className='text-center'>شما اجازه وارد شدن به این صفحه را ندارید!</h3>

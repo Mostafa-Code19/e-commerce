@@ -48,7 +48,7 @@ async function getProducts() {
             },
          },
       })
-      .then((res: ProductExtended[]) => res)
+      .then((res) => res)
 }
 
 export const metadata = {
@@ -106,7 +106,7 @@ async function Home() {
                   </Link>
                </div>
             </div>
-
+            
             <div className='flex items-center justify-between mb-8'>
                <button disabled className='flex items-center space-x-1 space-x-reverse'>
                   <span className='text-sm text-gray-400'>نمایش همه</span>
@@ -114,7 +114,12 @@ async function Home() {
                <h2>جدیدترین ها</h2>
             </div>
 
-            <ProductCards products={products} pageTarget='/product/' userTarget='client' />
+            <ProductCards
+               // @ts-ignore
+               products={products}
+               pageTarget='/product/'
+               userTarget='client'
+            />
          </div>
       </div>
    )

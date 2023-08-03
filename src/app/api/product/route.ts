@@ -13,7 +13,6 @@ export async function GET() {
    return NextResponse.json(products)
 }
 
-
 export async function POST(request: Request) {
    const payload = await request.json()
 
@@ -32,9 +31,8 @@ export async function POST(request: Request) {
    return NextResponse.json(product)
 }
 
-
 export async function PATCH(request: Request) {
-   const session: { email: string; role: string } | null = await getServerSession(authOptions)  // ! try lib
+   const session: { email: string; role: string } | null = await getServerSession(authOptions) // ! try lib
    const reqData = await request.json()
 
    //  @ts-ignore
@@ -54,4 +52,3 @@ export async function PATCH(request: Request) {
       NextResponse.error()
    }
 }
-

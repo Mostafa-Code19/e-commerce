@@ -42,9 +42,7 @@ const SubmitOrder = ({
 
          if (message == 'unAuthorized')
             toast.warning(
-               <Link href='/auth/login'>
-                  ابتدا می‌بایست وارد شوید! برای ورود کلیک کنید
-               </Link>,
+               <Link href='/auth/login'>ابتدا می‌بایست وارد شوید! برای ورود کلیک کنید</Link>,
                { autoClose: 10000 },
             )
          else if (message == 'userNotFound') toast.error('در دریافت اطلاعات کاربر خطایی رخ داد!')
@@ -58,9 +56,7 @@ const SubmitOrder = ({
             )
          else if (message == 'qtyNotEnough')
             toast.error(
-               `تعداد موجودی "${cartItems[id].title}" ${
-                  cartItems[id].quantity
-               } عدد است. لطفا پس از تغییر سبد خرید خود مجدد تلاش کنید.`,
+               `تعداد موجودی "${cartItems[id].title}" ${cartItems[id].quantity} عدد است. لطفا پس از تغییر سبد خرید خود مجدد تلاش کنید.`,
             )
          else if (id) {
             dispatch({ type: 'RESET' })

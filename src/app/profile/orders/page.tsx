@@ -64,9 +64,7 @@ const Orders = async () => {
                         </div>
                         {order.trackingCode ? (
                            <div className='space-x-2'>
-                              <span className='text-black font-semibold'>
-                                 {order.trackingCode}
-                              </span>
+                              <span className='text-black font-semibold'>{order.trackingCode}</span>
                               <span>کد رهگیری پستی</span>
                            </div>
                         ) : (

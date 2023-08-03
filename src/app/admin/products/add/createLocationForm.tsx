@@ -7,16 +7,14 @@ import { MuiColorInput } from 'mui-color-input'
 import { Switch } from '@mui/material'
 
 const CreateLocationForm = ({ selectedProduct }: { selectedProduct: string | null }) => {
-   const onSubmit = async (
-      values: {
-         publicState: boolean
-         price: number | null
-         discount: number | null
-         size: number | null
-         quantity: number | null
-         color: string
-      }
-   ) => {
+   const onSubmit = async (values: {
+      publicState: boolean
+      price: number | null
+      discount: number | null
+      size: number | null
+      quantity: number | null
+      color: string
+   }) => {
       const payload = { ...values, productId: selectedProduct }
 
       if (!selectedProduct) return toast.warning('هیچ محصولی انتخاب نشده است!')

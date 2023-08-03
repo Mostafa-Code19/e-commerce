@@ -16,7 +16,6 @@ const BrandNewInput = () => {
       setLoading(true)
 
       if (inputValue.trim()) {
-
          const payload = {
             name: inputValue.trim().toLowerCase(),
          }
@@ -31,7 +30,7 @@ const BrandNewInput = () => {
 
             if (!res.ok) throw new Error()
             else if (resData.status === 405) return toast.warning('این برند از قبل ثبت شده است')
-            
+
             setInputValue('')
             toast.success('برند با موفقیت ثبت گردید')
             router.refresh()

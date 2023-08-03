@@ -23,7 +23,7 @@ export const RegisterForm = () => {
 
          const resData = await res.json()
 
-         if (!res.ok ) throw new Error()
+         if (!res.ok) throw new Error()
          if (resData.status === 500) throw new Error('405')
 
          toast.success('ثبت نام شما با موفقیت انجام شد. لطفا منتظر بمانید....')
@@ -42,7 +42,6 @@ export const RegisterForm = () => {
       }
 
       // const errorMessage = err.response.data.message
-
    }
 
    return (

@@ -19,8 +19,8 @@ export default function NotFound() {
                <h1 className='font-bold text-blue-600 text-9xl'>۴۰۴</h1>
 
                <h6 className='mb-2 text-xl items-end font-bold flex text-center text-gray-800 md:text-3xl'>
-                    !صفحه پیدا نشد
-                    <span className='text-red-500 text-2xl ml-3'>!اوپس</span>
+                  !صفحه پیدا نشد
+                  <span className='text-red-500 text-2xl ml-3'>!اوپس</span>
                </h6>
 
                <p className='mb-8 text-center text-gray-500 md:text-lg'>

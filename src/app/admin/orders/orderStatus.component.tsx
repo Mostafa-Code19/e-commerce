@@ -5,7 +5,7 @@ import MenuItem from '@mui/material/MenuItem'
 import { OrderExtended } from './page'
 import { toast } from 'react-toastify'
 
-const OrderStatus = ({ order, mutate }: { order: OrderExtended, mutate: unknown }) => {
+const OrderStatus = ({ order, mutate }: { order: OrderExtended; mutate: unknown }) => {
    const handleChangeStatus = async (event: SelectChangeEvent) => {
       const updatedStatus = event.target.value
 

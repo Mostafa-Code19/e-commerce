@@ -5,18 +5,8 @@ import prisma from '@/lib/prisma'
 import PublicEdit from './button.publicEdit'
 import BackButton from '@/components/back-btn'
 
-import { Product, ProductLocation } from '@prisma/client'
 import isAdmin from '@/lib/isAdmin'
 import ProductTitleDescription from './titleAndDescription'
-
-type ProductLocationExtended = ProductLocation & {
-   color: { color: string }
-   size: { size: number }
-}
-type ProductExtended = Product & {
-   gallery: { id: string; src: string; alt: string }[]
-   productLocation: ProductLocationExtended[]
-}
 
 async function getProductLocations(productId: string) {
    return await prisma.product
@@ -48,7 +38,7 @@ async function getProductLocations(productId: string) {
             },
          },
       })
-      .then((res: ProductExtended | null) => res)
+      .then((res) => res)
 }
 
 export const metadata = {
@@ -56,7 +46,7 @@ export const metadata = {
 }
 
 const ProductLocations = async ({ params }: { params: { id: string } }) => {
-   const product: ProductExtended | null = await getProductLocations(params.id)
+   const product = await getProductLocations(params.id)
 
    return (
       <div className='mx-6 my-16 relative'>
@@ -71,7 +61,30 @@ const ProductLocations = async ({ params }: { params: { id: string } }) => {
 
 export default ProductLocations
 
-const pageContent = (product: ProductExtended | null) => {
+type TypeProduct =
+   | ({
+        productLocation: ({ color: { color: string } | null; size: { size: number } | null } & {
+           id: string
+           public: boolean
+           productId: string
+           colorId: string
+           sizeId: string
+           quantity: number
+           price: number
+           discount: number
+        })[]
+        gallery: { id: string; src: string; alt: string }[]
+     } & {
+        id: string
+        title: string
+        brandId: string | null
+        description: string | null
+        createdAt: Date
+        updatedAt: Date
+     })
+   | null
+
+const pageContent = (product: TypeProduct) => {
    return (
       <>
          {product ? (
@@ -128,19 +141,19 @@ const pageContent = (product: ProductExtended | null) => {
                         <span className='text-black font-semibold text-sm'>عمومی</span>
                      </div>
 
-                     {product.productLocation.map((location: ProductLocationExtended) => {
+                     {product.productLocation.map((location) => {
                         return (
                            <div
                               key={location.id}
                               className='w-full grid grid-cols-6 rounded-lg items-center bg-white p-2 mt-3'
                            >
                               <span
-                                 style={{ background: location.color.color }}
+                                 style={{ background: location.color?.color }}
                                  className='w-6 h-6 block rounded-full'
                               ></span>
 
                               <span className='font-semibold text-black text-sm'>
-                                 {location.size.size}
+                                 {location.size?.size}
                               </span>
 
                               <PriceDiscountQtyEdit
