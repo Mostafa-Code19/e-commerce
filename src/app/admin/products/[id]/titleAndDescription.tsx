@@ -1,6 +1,5 @@
 'use client'
 
-import axios from 'axios'
 import { Formik, Form } from 'formik'
 import * as yup from 'yup'
 import { toast } from 'react-toastify'
@@ -30,32 +29,30 @@ const ProductTitleDescription = ({
    description: string | null
 }) => {
    const handleSubmit = async (values: { title: string; description: string }) => {
-      const payload: { title?: string; description?: string } = {}
+      const submitData: { title?: string; description?: string } = {}
 
-      if (values.title !== title) payload.title = values.title
-      if (values.description !== description) payload.description = values.description
+      if (values.title !== title) submitData.title = values.title
+      if (values.description !== description) submitData.description = values.description
 
-      if (!Object.keys(payload).length) return
+      if (!Object.keys(submitData).length) return
+
+      const payload = {
+         id: id,
+         data: submitData,
+      }
 
       try {
-         const res = await axios.patch('/api/product/update', {
-            data: payload,
-            id: id,
+         const res = await fetch('/api/product/update', {
+            method: 'PATCH',
+            body: JSON.stringify(payload),
          })
 
-         if (res.status === 200) {
-            toast.success('تغییرات با موفقیت ثبت گردید.')
-            return
-         } else {
-            toast.error('در ثبت تغییرات خطایی رخ داد. لطفا مجدد تلاش کنید.')
-            console.log('api/user/update !200', res)
-            throw new Error(res.data)
-         }
+         if (!res.ok) throw new Error()
+
+         toast.success('تغییرات با موفقیت ثبت گردید.')
       } catch (err) {
          toast.error('در ثبت تغییرات خطایی رخ داد. لطفا مجدد تلاش کنید.')
-         console.log('api/user/update', err)
-         // @ts-ignore
-         throw new Error(err.message)
+         console.error(err)
       }
    }
 

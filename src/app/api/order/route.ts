@@ -23,6 +23,36 @@ type PayloadType = {
    discount: number
 }
 
+export async function GET() {
+   try {
+      const res = await prisma.order
+         .findMany({
+            include: {
+               client: true,
+               items: {
+                  include: {
+                     item: {
+                        include: {
+                           product: {
+                              include: {
+                                 gallery: true,
+                              },
+                           },
+                           color: true,
+                           size: true,
+                        },
+                     },
+                  },
+               },
+            },
+         })
+      return NextResponse.json(res)
+   } catch (err) {
+      console.log('api/brand err:', err)
+      return NextResponse.json(err)
+   }
+}
+
 export async function POST(request: Request) {
    const session: { email: string } | null = await getServerSession(authOptions)
    const payload: PayloadType = await request.json()

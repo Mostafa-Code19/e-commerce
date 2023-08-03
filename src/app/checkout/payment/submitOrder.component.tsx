@@ -1,12 +1,10 @@
 import CartItemType from '@/types/type.cartItems'
 import { CartContext } from '@/context/provider/cart'
 
-import axios from 'axios'
 import { toast } from 'react-toastify'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { useContext, useMemo, useState } from 'react'
-import { signIn } from 'next-auth/react'
 
 const SubmitOrder = ({
    discountPrice,
@@ -33,44 +31,47 @@ const SubmitOrder = ({
       }
 
       try {
-         const res = await axios.post('/api/order', payload)
+         const res = await fetch('/api/order', {
+            method: 'POST',
+            body: JSON.stringify(payload),
+         })
 
-         if (res.status == 200) {
-            const { id, message } = res.data
-            if (message == 'unAuthorized')
-               toast.warning(
-                  <button onClick={() => signIn()}>
-                     ابتدا می‌بایست وارد شوید! برای ورود کلیک کنید
-                  </button>,
-                  { autoClose: 10000 },
-               )
-            else if (message == 'userNotFound') toast.error('در دریافت اطلاعات کاربر خطایی رخ داد!')
-            else if (message == 'incompleteProfile')
-               toast.warning(
-                  <Link href='/profile/edit'>
-                     برای ثبت نهایی سفارش می‌بایست اطلاعات پروفایل خود را کامل کنید. برای ورود کلیک
-                     کنید
-                  </Link>,
-                  { autoClose: 10000 },
-               )
-            else if (message == 'qtyNotEnough')
-               toast.error(
-                  `تعداد موجودی "${cartItems[res.data.id].title}" ${
-                     cartItems[res.data.id].quantity
-                  } عدد است. لطفا پس از تغییر سبد خرید خود مجدد تلاش کنید.`,
-               )
-            else if (id) {
-               dispatch({ type: 'RESET' })
-               router.push(`/checkout/payment/success?id=${res.data.id}`)
-            }
-         } else {
-            console.log('order/submit post error', res)
+         if (!res.ok) throw new Error()
+
+         const { id, message } = await res.json()
+
+         if (message == 'unAuthorized')
+            toast.warning(
+               <Link href='/auth/login'>
+                  ابتدا می‌بایست وارد شوید! برای ورود کلیک کنید
+               </Link>,
+               { autoClose: 10000 },
+            )
+         else if (message == 'userNotFound') toast.error('در دریافت اطلاعات کاربر خطایی رخ داد!')
+         else if (message == 'incompleteProfile')
+            toast.warning(
+               <Link href='/profile/edit'>
+                  برای ثبت نهایی سفارش می‌بایست اطلاعات پروفایل خود را کامل کنید. برای ورود کلیک
+                  کنید
+               </Link>,
+               { autoClose: 10000 },
+            )
+         else if (message == 'qtyNotEnough')
+            toast.error(
+               `تعداد موجودی "${cartItems[id].title}" ${
+                  cartItems[id].quantity
+               } عدد است. لطفا پس از تغییر سبد خرید خود مجدد تلاش کنید.`,
+            )
+         else if (id) {
+            dispatch({ type: 'RESET' })
+            router.push(`/checkout/payment/success?id=${id}`)
          }
       } catch (err) {
-         console.log('err submit order', err)
+         toast.error('خطایی رخ داد. لطفا مجدد تلاش کنید.')
+         console.error(err)
+      } finally {
+         setLoading(false)
       }
-
-      setLoading(false)
    }
 
    return (

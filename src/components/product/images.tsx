@@ -3,7 +3,6 @@
 import Image from 'next/legacy/image'
 import Lightbox from 'react-spring-lightbox'
 import { useState, useEffect } from 'react'
-import axios from 'axios'
 import { toast } from 'react-toastify'
 
 type ImageType = {
@@ -58,17 +57,18 @@ const Images = ({ isAdmin, thumbnail, product }: PropsType) => {
       const payload = { imageId: galleryList[currentImageIndex]?.id }
 
       const deleteImage = async () => {
-         const res = await axios.post('/api/product/image/delete', payload)
-
          try {
-            if (res.status == 200) return toast.success('تصویر با موفقیت حذف گردید.')
-            else {
-               toast.error('تصویر موجود نمی باشد یا در حذف تصویر خطایی رخ داد!')
-               console.log('api/product/image/delete !200', res)
-            }
+            const res = await fetch('/api/product/image/delete', {
+               method: 'POST',
+               body: JSON.stringify(payload),
+            })
+
+            if (!res.ok) throw new Error()
+
+            toast.success('تصویر با موفقیت حذف گردید.')
          } catch (err) {
             toast.error('تصویر موجود نمی باشد یا در حذف تصویر خطایی رخ داد!')
-            console.log('api/product/image/delete', err)
+            console.error(err)
          }
       }
 

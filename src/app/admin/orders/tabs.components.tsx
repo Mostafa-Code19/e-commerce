@@ -8,7 +8,7 @@ import OrderStatus from './orderStatus.component'
 import { OrderExtended } from './page'
 import TrackingCode from './trackingCode'
 
-const Tabs = ({ orders }: { orders: OrderExtended[] }) => {
+const Tabs = ({ orders, mutate }: { orders: OrderExtended[]; mutate: unknown }) => {
    const [activeTab, selectTab] = useState('PENDING')
 
    const activeTabStyle = 'border-b-4 border-blue-600'
@@ -54,7 +54,7 @@ const Tabs = ({ orders }: { orders: OrderExtended[] }) => {
                      >
                         <div className='text-right flex'>
                            <div>
-                              <OrderStatus order={order} />
+                              <OrderStatus order={order} mutate={mutate} />
                            </div>
 
                            <div className='space-y-2'>

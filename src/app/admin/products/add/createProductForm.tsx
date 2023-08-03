@@ -3,36 +3,25 @@ import FormikTextarea from '@/formik/textarea'
 import { Brand } from '@prisma/client'
 
 import Dialog from '@mui/material/Dialog'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { Form, Formik } from 'formik'
 import { toast } from 'react-toastify'
-import axios from 'axios'
 import Autocomplete from '@mui/material/Autocomplete'
 import TextField from '@mui/material/TextField'
+import useSWR from 'swr'
 
 import ProductSchemaValidation from '@/formik/schema/product'
+import fetcher from '@/lib/fetcher'
 
 // @ts-ignore
-const CreateProductForm = ({ fetchProducts }) => {
+const CreateProductForm = () => {
    const [newProductPanel, setNewProductPanel] = useState<boolean>(false)
-   const [brands, setBrands] = useState<Brand[]>([])
 
-   useEffect(() => {
-      fetchBrands()
-   }, [])
+   const { data: brands, error } = useSWR('/api/brand', fetcher)
 
-   const fetchBrands = async () => {
-      try {
-         const res = await axios.get('/api/brand/')
-         if (res.status == 200) return setBrands(res.data)
-         else {
-            toast.error('دریافت برند ها به مشکل برخورد کرد!')
-            console.log('err fetch brands res not 200', res)
-         }
-      } catch (err) {
-         toast.error('دریافت برند ها به مشکل برخورد کرد!')
-         console.log('err fetch brands', err)
-      }
+   if (error) {
+      toast.error('دریافت برند ها به مشکل برخورد کرد!')
+      console.error(error)
    }
 
    const handleSubmit = async (
@@ -41,20 +30,19 @@ const CreateProductForm = ({ fetchProducts }) => {
       { resetForm },
    ) => {
       try {
-         const res = await axios.post('/api/product/add', values)
+         const res = await fetch('/api/product/add', {
+            method: 'POST',
+            body: JSON.stringify(values),
+         })
 
-         if (res.status == 200 && res.data.id) {
-            fetchProducts()
-            setNewProductPanel(false)
-            resetForm()
-            return toast.success('محصول جدید با موفقیت اضافه شد.')
-         } else {
-            toast.error('در ثبت محصول جدید خطایی رخ داد!')
-            return console.log('res add new product res not 200 or res.data.id not exist', res)
-         }
+         if (!res.ok) throw new Error()
+
+         setNewProductPanel(false)
+         resetForm()
+         toast.success('محصول جدید با موفقیت اضافه شد.')
       } catch (err) {
          toast.error('در ثبت محصول جدید خطایی رخ داد!')
-         return console.log('err add new product', err)
+         console.error(err)
       }
    }
 

@@ -1,6 +1,5 @@
 'use client'
 
-import axios from 'axios'
 import { toast } from 'react-toastify'
 import { useState, useEffect, useCallback } from 'react'
 import { Product, ProductLocation } from '@prisma/client'
@@ -22,17 +21,23 @@ const BrandProducts = ({ brandName }: { brandName: string }) => {
    const fetchProducts = useCallback(async () => {
       if (!brandName?.trim().length) return
 
-      const res = await axios.post('/api/brand/product', { name: brandName })
+      const payload = { name: brandName }
 
       try {
-         if (res.status == 200) return setBrandProducts(res.data.products)
-         else {
-            toast.error('دریافت محصولات به مشکل برخورد کرد!')
-            return console.log('api/brand/products res not 200', res)
-         }
+         const res = await fetch('/api/brand/product', {
+            method: 'POST',
+            body: JSON.stringify(payload),
+         })
+
+         if (!res.ok) throw new Error()
+
+         const resData = await res.json()
+
+         setBrandProducts(resData.products)
+         toast.success('تغییرات با موفقیت ثبت گردید.')
       } catch (err) {
          toast.error('دریافت محصولات به مشکل برخورد کرد!')
-         return console.log('err fetch products', err)
+         console.error(err)
       }
    }, [brandName])
 

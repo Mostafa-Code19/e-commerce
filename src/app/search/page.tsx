@@ -1,7 +1,6 @@
 'use client'
 
 import BackButton from '@/components/back-btn'
-import axios from 'axios'
 
 import { useSearchParams } from 'next/navigation'
 import { useCallback, useEffect, useState } from 'react'
@@ -29,15 +28,19 @@ const Search = () => {
       if (!query?.trim().length) return
 
       try {
-         const res = await axios.post('/api/search', { title: query })
-         if (res.status == 200) return setSearchResult(res.data)
-         else {
-            toast.error('دریافت محصولات به مشکل برخورد کرد!')
-            return console.log('api/search res not 200', res)
-         }
+         const res = await fetch('/api/search', {
+            method: 'POST',
+            body: JSON.stringify({ title: query }),
+         })
+
+         if (!res.ok) throw new Error()
+
+         const resData = await res.json()
+
+         setSearchResult(resData)
       } catch (err) {
          toast.error('دریافت محصولات به مشکل برخورد کرد!')
-         console.log('api/search err', err)
+         console.error(err)
       }
    }, [query])
 

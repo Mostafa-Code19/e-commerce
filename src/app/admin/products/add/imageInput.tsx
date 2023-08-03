@@ -2,7 +2,6 @@ import { useState, useMemo } from 'react'
 import Image from 'next/legacy/image'
 import Button from '@mui/material/Button'
 import { toast } from 'react-toastify'
-import axios from 'axios'
 
 const ImageInput = ({ selectedProduct }: { selectedProduct: string | null }) => {
    const [productImages, setProductImages] = useState<File[] | null>(null)
@@ -11,6 +10,64 @@ const ImageInput = ({ selectedProduct }: { selectedProduct: string | null }) => 
    const productImagesMemo = useMemo(() => {
       return productImages && Object.values(productImages)
    }, [productImages])
+
+   const createS3 = async (imageName: string) => {
+      try {
+         const res = await fetch('/api/product/image/create/s3', {
+            method: 'POST',
+            body: JSON.stringify({
+               imageName,
+            }),
+         })
+
+         if (!res.ok) throw new Error()
+
+         return res
+      } catch (err) {
+         toast.error('در ایجاد لینک باکِت خطایی رخ داد. لطفا مجدد تلاش کنید.')
+         console.error(err)
+      }
+   }
+
+   const putInS3 = async (uploadUrl: string, image: File) => {
+      try {
+         const res = await fetch(uploadUrl, {
+            method: 'PUT',
+            body: JSON.stringify(image),
+         })
+
+         if (!res.ok) throw new Error()
+
+         return res
+      } catch (err) {
+         toast.error('در آپلود عکس خطایی رخ داد. لطفا مجدد تلاش کنید.')
+         console.error(err)
+      }
+   }
+
+   const createDbData = async (key: string, imageName: string) => {
+      const payload = {
+         key,
+         productId: selectedProduct,
+         imageName,
+      }
+
+      try {
+         const res = await fetch('/api/product/image/create/db', {
+            method: 'POST',
+            body: JSON.stringify(payload),
+         })
+
+         if (!res.ok) throw new Error()
+
+         setProductImages(null)
+         toast.success(`تصویر ${imageName} با موفقیت آپلود شد.`)
+      } catch (err) {
+         // ! delete the object from s3
+         toast.error(`در آپلود تصویر ${imageName} خطایی رخ داد!`)
+         console.error(err)
+      }
+   }
 
    const onSubmit = async () => {
       if (!productImages || !productImagesMemo) {
@@ -26,38 +83,17 @@ const ImageInput = ({ selectedProduct }: { selectedProduct: string | null }) => 
          for (const image of productImagesMemo) {
             const imageName = image.name
 
-            const resS3 = await axios.post('/api/product/image/create/s3', {
-               imageName,
-            })
+            const s3SignedUrl = await createS3(imageName)
 
-            if (resS3.status === 200) {
-               const { key, uploadUrl } = resS3.data
-               const putRes = await axios.put(uploadUrl, image)
+            if (!s3SignedUrl) throw new Error('s3 signed url')
 
-               if (putRes.status === 200) {
-                  const payload = {
-                     key,
-                     productId: selectedProduct,
-                     imageName,
-                  }
-                  const resDB = await axios.post('/api/product/image/create/db', payload)
+            const { key, uploadUrl } = await s3SignedUrl.json()
 
-                  if (resDB.status === 200) {
-                     setProductImages(null)
-                     toast.success(`تصویر ${imageName} با موفقیت آپلود شد.`)
-                  } else {
-                     // ! delete the object from s3
-                     toast.error(`در آپلود تصویر ${imageName} خطایی رخ داد!`)
-                     console.log('api/product/image/create/db !200', resDB)
-                  }
-               } else {
-                  toast.error(`در آپلود تصویر ${imageName} خطایی رخ داد!`)
-                  console.log('axios.put !200', putRes)
-               }
-            } else {
-               toast.error(`در آپلود تصویر ${imageName} خطایی رخ داد!`)
-               console.log('api/product/image/add res not 200', resS3)
-            }
+            const fileUploadResult = await putInS3(uploadUrl, image)
+
+            if (!fileUploadResult) throw new Error('file upload to s3')
+
+            await createDbData(key, imageName)
          }
       } catch (error) {
          if (
@@ -66,13 +102,13 @@ const ImageInput = ({ selectedProduct }: { selectedProduct: string | null }) => 
             // @ts-ignore
             error.message === '"timeout exceeded"'
          ) {
-            console.log('network error', error)
             toast.error(
                'در اتصال اینترنت شما خطایی رخ داد. (اگر از VPN استفاده می‌کنید لطفا ابتدا آن را خاموش کنید)',
             )
+            console.error(error)
          } else {
             toast.error('در آپلود تصویر خطایی رخ داد!')
-            console.log('api/product/image/add', error)
+            console.error(error)
          }
       } finally {
          setLoading(false)

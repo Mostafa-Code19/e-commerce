@@ -1,7 +1,6 @@
 'use client'
 
 import { useState, useRef } from 'react'
-import axios from 'axios'
 import { toast } from 'react-toastify'
 
 const TrackingCode = ({
@@ -25,19 +24,23 @@ const TrackingCode = ({
          return toast.warning('هیچ کدرهگیری برای ثبت وارد نشده است')
       }
 
+      const payload = {
+         id: orderId,
+         trackingCode: trackingCode,
+      }
+
       try {
-         const payload = {
-            id: orderId,
-            trackingCode: trackingCode,
-         }
-         const res = await axios.patch('/api/order/update/trackingCode', payload)
-         if (res.status == 200 && res.data.order) toast.success('کد رهگیری با موفقیت ثبت گردید')
-         else {
-            toast.error('خطایی در ثبت کد رهگیری رخ داد')
-            console.log('order/update/trackingCode not 200', res)
-         }
+         const res = await fetch('/api/order/update/trackingCode', {
+            method: 'PATCH',
+            body: JSON.stringify(payload),
+         })
+
+         if (!res.ok) throw new Error()
+
+         toast.success('کد رهگیری با موفقیت ثبت گردید')
       } catch (err) {
-         console.log(err)
+         toast.error('خطایی در ثبت کد رهگیری رخ داد')
+         console.error(err)
       }
 
       setLoading(false)
@@ -91,7 +94,9 @@ const TrackingCode = ({
                className='placeholder:text-slate-400 text-sm rounded-lg px-1 py-1 w-88'
                placeholder={trackingCodeRef.current?.value || availableTrackingCode || ''}
             />
-            <label htmlFor='trackingCode'>:کد رهگیری پستی</label>
+            <label htmlFor='trackingCode'>
+               <span>:کد رهگیری پستی</span>
+            </label>
          </div>
       </div>
    )

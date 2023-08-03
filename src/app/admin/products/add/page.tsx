@@ -3,8 +3,9 @@
 import React, { useEffect, useState } from 'react'
 import TextField from '@mui/material/TextField'
 import Autocomplete from '@mui/material/Autocomplete'
-import axios from 'axios'
 import { toast } from 'react-toastify'
+import useSWR from 'swr'
+import fetcher from '@/lib/fetcher'
 
 import BackButton from '@/components/back-btn'
 
@@ -29,29 +30,19 @@ type ProductProps = {
 }
 
 const AdminProduct = () => {
-   const [products, setProducts] = useState<ProductProps[]>([])
    const [selectedProduct, selectProduct] = useState<string | null>(null)
+   const { data, error } = useSWR('/api/product/', fetcher)
+
+   if (error) {
+      toast.error('دریافت محصولات به مشکل برخورد کرد!')
+      console.error(error)
+   }
 
    useEffect(() => {
       document.title = 'فروشگاه اینترنتی | ادمین | ‌افزودن/تغییر محصول'
-      fetchProducts()
    }, [])
 
    const { data: session } = useSession()
-
-   const fetchProducts = async () => {
-      try {
-         const res = await axios.get('/api/product/')
-         if (res.status == 200) return setProducts(res.data)
-         else {
-            toast.error('دریافت محصولات به مشکل برخورد کرد!')
-            console.log('err fetch products res not 200', res)
-         }
-      } catch (err) {
-         toast.error('دریافت محصولات به مشکل برخورد کرد!')
-         console.log('err fetch products', err)
-      }
-   }
 
    return (
       <div className='mx-6 my-16'>
@@ -68,18 +59,16 @@ const AdminProduct = () => {
                   <div className='flex flex-col max-w-md space-y-5 mx-auto'>
                      <div>
                         <div className='flex space-x-5 w-full'>
-                           <CreateProductForm fetchProducts={fetchProducts} />
+                           <CreateProductForm />
 
-                           {products && (
-                              <Autocomplete
-                                 id='productKey'
-                                 options={products}
-                                 onChange={(e, value) => value && selectProduct(value.id)}
-                                 getOptionLabel={(option: ProductProps) => option.title}
-                                 renderInput={(params) => <TextField {...params} label='محصول' />}
-                                 sx={{ width: '100%' }}
-                              />
-                           )}
+                           <Autocomplete
+                              id='productKey'
+                              options={data}
+                              onChange={(e, value) => value && selectProduct(value.id)}
+                              getOptionLabel={(option: ProductProps) => option.title}
+                              renderInput={(params) => <TextField {...params} label='محصول' />}
+                              sx={{ width: '100%' }}
+                           />
                         </div>
                      </div>
 

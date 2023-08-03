@@ -1,7 +1,6 @@
 'use client'
 
 import { useState } from 'react'
-import axios from 'axios'
 import { toast } from 'react-toastify'
 
 const Name = ({ brand }: { brand: { id: string; name: string } }) => {
@@ -18,16 +17,17 @@ const Name = ({ brand }: { brand: { id: string; name: string } }) => {
       }
 
       try {
-         const res = await axios.patch('/api/brand/rename', payload)
-         if (res.status == 200) {
-            toast.success('نام برند با موفقیت تغییر کرد')
-         } else {
-            toast.error('در تغییر نام برند خطایی رخ داد')
-            console.log('api/brand/rename res not 200:', res)
-         }
+         const res = await fetch('/api/brand/rename', {
+            method: 'PATCH',
+            body: JSON.stringify(payload),
+         })
+
+         if (!res.ok) throw new Error()
+
+         toast.success('نام برند با موفقیت تغییر کرد')
       } catch (err) {
          toast.error('در تغییر نام برند خطایی رخ داد')
-         console.log('api/brand/rename err:', err)
+         console.error(err)
       }
    }
 

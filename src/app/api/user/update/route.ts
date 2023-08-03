@@ -19,11 +19,10 @@ export async function PATCH(request: Request) {
          data: payload,
       })
 
-      return NextResponse.json({
-         authenticated: !!session,
-         user,
-      })
-   } catch (err) {
+      const { password: _, ...filteredUser } = user
+
+      return NextResponse.json(filteredUser)
+   } catch (err: any) {
       console.log('err api/user/update', err)
 
       return NextResponse.json({

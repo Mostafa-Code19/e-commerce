@@ -44,83 +44,79 @@ const Orders = async () => {
             <span></span>
          </div>
 
-         {user ? (
-            user.orders?.length ? (
-               user.orders.reverse().map((order) => {
-                  return (
-                     <div
-                        key={order.id}
-                        className='px-4 py-10 space-y-2 bg-zinc-100 rounded-xl max-w-md mx-auto'
-                     >
-                        <div className='text-right'>
-                           <span>{status(order.status)}</span>
+         {user?.orders?.length ? (
+            user.orders.reverse().map((order) => {
+               return (
+                  <div
+                     key={order.id}
+                     className='px-4 py-10 space-y-2 bg-zinc-100 rounded-xl max-w-md mx-auto'
+                  >
+                     <div className='text-right'>
+                        <span>{status(order.status)}</span>
+                     </div>
+                     <div className='text-right space-y-2'>
+                        <div>
+                           <span>{DateFormat(order.created_at)}</span>
                         </div>
-                        <div className='text-right space-y-2'>
-                           <div>
-                              <span>{DateFormat(order.created_at)}</span>
-                           </div>
+                        <div className='space-x-2'>
+                           <span className='text-black font-semibold'>{order.id}</span>
+                           <span>کد سفارش</span>
+                        </div>
+                        {order.tracking_code ? (
                            <div className='space-x-2'>
-                              <span className='text-black font-semibold'>{order.id}</span>
-                              <span>کد سفارش</span>
+                              <span className='text-black font-semibold'>
+                                 {order.tracking_code}
+                              </span>
+                              <span>کد رهگیری پستی</span>
                            </div>
-                           {order.tracking_code ? (
-                              <div className='space-x-2'>
-                                 <span className='text-black font-semibold'>
-                                    {order.tracking_code}
-                                 </span>
-                                 <span>کد رهگیری پستی</span>
-                              </div>
-                           ) : (
-                              ''
-                           )}
+                        ) : (
+                           ''
+                        )}
+                        <div className='space-x-2 flex justify-end'>
+                           <span className='text-black font-semibold toman_card'>
+                              {order.price.toLocaleString()}
+                           </span>
+                           <span>مبلغ</span>
+                        </div>
+                        {order.discount ? (
                            <div className='space-x-2 flex justify-end'>
                               <span className='text-black font-semibold toman_card'>
-                                 {order.price.toLocaleString()}
+                                 {order.discount.toLocaleString()}
                               </span>
-                              <span>مبلغ</span>
+                              <span>تخفیف</span>
                            </div>
-                           {order.discount ? (
-                              <div className='space-x-2 flex justify-end'>
-                                 <span className='text-black font-semibold toman_card'>
-                                    {order.discount.toLocaleString()}
-                                 </span>
-                                 <span>تخفیف</span>
-                              </div>
-                           ) : (
-                              ''
-                           )}
-                        </div>
-                        <hr />
-                        <div className='flex space-x-3 justify-end'>
-                           {order.items.map((item: OrderAndItems['items'][0]) => {
-                              return (
-                                 <div key={item.id} className='relative w-fit'>
-                                    <Image
-                                       className='object-contain'
-                                       src={item.item.product.gallery[0].src}
-                                       alt={item.item.product.gallery[0].alt}
-                                       width='100'
-                                       height='70'
-                                    />
-
-                                    <span
-                                       style={{ fontSize: '.6rem' }}
-                                       className='absolute left-0 bottom-0 p-1 px-2 bg-slate-200 rounded-md text-black'
-                                    >
-                                       {item.quantity}
-                                    </span>
-                                 </div>
-                              )
-                           })}
-                        </div>
+                        ) : (
+                           ''
+                        )}
                      </div>
-                  )
-               })
-            ) : (
-               <h3 className='text-center'>!شما تا به این لحظه هیچ سفارشی ثبت نکرده اید</h3>
-            )
+                     <hr />
+                     <div className='flex space-x-3 justify-end'>
+                        {order.items.map((item: OrderAndItems['items'][0]) => {
+                           return (
+                              <div key={item.id} className='relative w-fit'>
+                                 <Image
+                                    className='object-contain'
+                                    src={item.item.product.gallery[0].src}
+                                    alt={item.item.product.gallery[0].alt}
+                                    width='100'
+                                    height='70'
+                                 />
+
+                                 <span
+                                    style={{ fontSize: '.6rem' }}
+                                    className='absolute left-0 bottom-0 p-1 px-2 bg-slate-200 rounded-md text-black'
+                                 >
+                                    {item.quantity}
+                                 </span>
+                              </div>
+                           )
+                        })}
+                     </div>
+                  </div>
+               )
+            })
          ) : (
-            <h3 className='text-center'>ابتدا می‌بایست وارد شوید.</h3>
+            <h3 className='text-center'>!شما تا به این لحظه هیچ سفارشی ثبت نکرده اید</h3>
          )}
       </div>
    )

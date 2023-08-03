@@ -1,7 +1,5 @@
 'use client'
 
-import axios from 'axios'
-import { NextResponse } from 'next/server'
 import { useState } from 'react'
 import { toast } from 'react-toastify'
 import { useRouter } from 'next/navigation'
@@ -18,27 +16,28 @@ const BrandNewInput = () => {
       setLoading(true)
 
       if (inputValue.trim()) {
+
+         const payload = {
+            name: inputValue.trim().toLowerCase(),
+         }
+
          try {
-            const payload = {
-               name: inputValue.trim().toLowerCase(),
-            }
-            const res = await axios.post('/api/brand/create', payload)
+            const res = await fetch('/api/brand/create', {
+               method: 'POST',
+               body: JSON.stringify(payload),
+            })
 
-            if (res.data.status == 405) {
-               setLoading(false)
-               return toast.warning('این برند از قبل ثبت شده است')
-            }
-
+            if (res.status === 405) return toast.warning('این برند از قبل ثبت شده است')
+            if (!res.ok) throw new Error()
+            
             setInputValue('')
             toast.success('برند با موفقیت ثبت گردید')
             router.refresh()
-            setLoading(false)
-            return NextResponse.json(res.data)
          } catch (err) {
-            console.log('admin/brands err', err)
             toast.warning('در ثبت برند خطایی رخ داد')
+            console.error(err)
+         } finally {
             setLoading(false)
-            return NextResponse.json(err)
          }
       } else return setLoading(false)
    }

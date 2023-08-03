@@ -1,6 +1,5 @@
 'use client'
 
-import axios from 'axios'
 import { signIn } from 'next-auth/react'
 import { toast } from 'react-toastify'
 import { Form, Formik } from 'formik'
@@ -17,28 +16,32 @@ interface FormType {
 export const RegisterForm = () => {
    const onSubmit = async (values: FormType) => {
       try {
-         const res = await axios.post('/api/auth/register', values)
-         if (res.status == 200)
-            return signIn('credentials', {
-               ...values,
-               callbackUrl: '/profile',
-            })
-         else {
-            toast.error('در ثبت نام شما خطایی رخ داد')
-            return console.log('api/auth/register !200', res)
-         }
-         // @ts-ignore
-      } catch (err) {
-         // @ts-ignore
-         const errorMessage = err.response.data.message
+         const res = await fetch('/api/auth/register', {
+            method: 'POST',
+            body: JSON.stringify(values),
+         })
 
-         if (errorMessage.includes('Unique')) {
-            return toast.warning('این ایمیل از قبل ثبت نام شده است')
+         const resData = await res.json()
+
+         if (!res.ok ) throw new Error()
+         if (resData.status === 500) throw new Error('405')
+
+         toast.success('ثبت نام شما با موفقیت انجام شد. لطفا منتظر بمانید....')
+         return signIn('credentials', {
+            ...values,
+            callbackUrl: '/profile',
+         })
+      } catch (err: any) {
+         if (err?.message == '405') {
+            toast.warning('این ایمیل از قبل ثبت نام شده است')
          } else {
             toast.error('در ثبت نام شما خطایی رخ داد')
-            return console.log('api/auth/register err', err)
+            console.log('api/auth/register err', err)
          }
       }
+
+      // const errorMessage = err.response.data.message
+
    }
 
    return (

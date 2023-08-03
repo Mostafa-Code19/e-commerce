@@ -1,5 +1,5 @@
 const DateFormat = (fullDate: Date) => {
-   const persianDate = fullDate.toLocaleDateString('fa-IR').split('/')
+   const persianDate = new Date(fullDate).toLocaleDateString('fa-IR').split('/')
 
    let monthsInPersian
 

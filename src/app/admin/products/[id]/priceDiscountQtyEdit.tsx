@@ -1,7 +1,6 @@
 'use client'
 
 import { useRef } from 'react'
-import axios from 'axios'
 import { toast } from 'react-toastify'
 
 type PropsType = {
@@ -36,16 +35,17 @@ const PriceDiscountQtyEdit = ({ id, price, discount, quantity }: PropsType) => {
       }
 
       try {
-         const res = await axios.patch('/api/product/location/update/price-discount-qty', payload)
+         const res = await fetch('/api/product/location/update/price-discount-qty', {
+            method: 'PATCH',
+            body: JSON.stringify(payload),
+         })
 
-         if (res.status == 200) return toast.success('قیمت، تخفیف و تعداد با موفقیت تغییر یافت.')
-         else {
-            toast.error('در قیمت، تخفیف و تعداد تعداد خطایی رخ داد!')
-            return console.log('qty submit res not 200', res)
-         }
+         if (!res.ok) throw new Error()
+
+         toast.success('قیمت، تخفیف و تعداد با موفقیت تغییر یافت.')
       } catch (err) {
          toast.error('در قیمت، تخفیف و تعداد تعداد خطایی رخ داد!')
-         console.log('qty submit err', err)
+         console.error(err)
       }
    }
 

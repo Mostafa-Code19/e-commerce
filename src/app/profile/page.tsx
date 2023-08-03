@@ -249,10 +249,6 @@ const Profile = async () => {
                </div>
 
                <LoginForm />
-
-               <Link href='/auth/register' className='text-green-900'>
-                  حساب کاربری ندارید؟ اینجا کلیک کنید
-               </Link>
             </div>
          )}
       </div>

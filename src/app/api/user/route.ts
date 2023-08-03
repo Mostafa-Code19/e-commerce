@@ -32,8 +32,5 @@ export async function GET() {
       })
       .then((res: UserType) => res)
 
-   return NextResponse.json({
-      authenticated: !!session,
-      user,
-   })
+   return NextResponse.json(user)
 }

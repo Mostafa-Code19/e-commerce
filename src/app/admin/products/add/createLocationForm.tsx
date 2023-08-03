@@ -1,5 +1,4 @@
 import { toast } from 'react-toastify'
-import axios from 'axios'
 import { Form, Formik } from 'formik'
 
 import LocationSchemaValidation from '@/formik/schema/location'
@@ -25,17 +24,18 @@ const CreateLocationForm = ({ selectedProduct }: { selectedProduct: string | nul
       if (!selectedProduct) return toast.warning('هیچ محصولی انتخاب نشده است!')
 
       try {
-         const res = await axios.post('/api/product/location/add', payload)
-         if (res.status === 200) {
-            resetForm()
-            return toast.success('چهره جدید محصول با موفقیت اضافه شد.')
-         } else {
-            toast.error('در ثبت چهره جدید محصول خطایی رخ داد!')
-            console.log('err: در ثبت چهره جدید محصول خطایی رخ داد! res not 200', res)
-         }
+         const res = await fetch('/api/product/location/add', {
+            method: 'POST',
+            body: JSON.stringify(payload),
+         })
+
+         if (!res.ok) throw new Error()
+
+         resetForm()
+         toast.success('چهره جدید محصول با موفقیت اضافه شد.')
       } catch (err) {
          toast.error('در ثبت چهره جدید محصول خطایی رخ داد!')
-         console.log('err: در ثبت چهره جدید محصول خطایی رخ داد!', err)
+         console.error(err)
       }
    }
 

@@ -1,6 +1,5 @@
 'use client'
 
-import axios from 'axios'
 import { useState } from 'react'
 import { toast } from 'react-toastify'
 import { useRouter } from 'next/navigation'
@@ -13,23 +12,23 @@ const DeleteButton = ({ id }: { id: string }) => {
    const deleteHandler = async (id: string) => {
       setLoading(true)
 
-      try {
-         const payload = { id }
-         const res = await axios.post('/api/brand/delete', payload)
+      const payload = { id }
 
-         if (res.status !== 200) {
-            console.log('api/brand/delete not 200', res)
-            toast.error(res.data.message)
-            return setLoading(false)
-         }
+      try {
+         const res = await fetch('/api/brand/delete', {
+            method: 'POST',
+            body: JSON.stringify(payload),
+         })
+
+         if (!res.ok) throw new Error()
 
          toast.success('برند با موفقیت حذف گردید')
          router.refresh()
-         return setLoading(false)
       } catch (err) {
-         console.log('api/brand/delete err:', err)
+         toast.error('در ثبت تغییرات خطایی رخ داد. لطفا مجدد تلاش کنید.')
+         console.error(err)
+      } finally {
          setLoading(false)
-         return toast.error('در حذف برند خطایی رخ داد')
       }
    }
 

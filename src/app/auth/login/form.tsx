@@ -5,6 +5,7 @@ import { toast } from 'react-toastify'
 import { Form, Formik } from 'formik'
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
+import Link from 'next/link'
 
 import FormikInput from '@/formik/input'
 import LoginSchemaValidation from '@/formik/schema/login'
@@ -104,6 +105,10 @@ const LoginForm = () => {
                </Form>
             )}
          </Formik>
+
+         <div className='text-green-900 text-center mt-5'>
+            <Link href='/auth/register'>حساب کاربری ندارید؟ اینجا کلیک کنید</Link>
+         </div>
       </div>
    )
 }

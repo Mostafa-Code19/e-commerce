@@ -1,5 +1,4 @@
 import { useState, useRef, Dispatch, SetStateAction } from 'react'
-import axios from 'axios'
 import { toast } from 'react-toastify'
 
 type Discount =
@@ -16,22 +15,30 @@ const CouponComponent = ({
    price,
    setCoupon,
 }: {
-   price: number,
+   price: number
    setCoupon: Dispatch<SetStateAction<Discount>>
 }) => {
    const [loading, setLoading] = useState(false)
    const couponRef = useRef<HTMLInputElement>(null)
 
+   const getCouponData = async (couponCode: string) => {
+      const res = await fetch(`/api/coupon?c=${couponCode}`)
+
+      if (!res.ok) throw Error()
+
+      return res.json()
+   }
+
    const couponCheck = async () => {
-      setLoading(true)
       const couponCode = couponRef?.current?.value
 
       if (couponCode?.length && couponCode !== previousCoupon) {
+         setLoading(true)
          previousCoupon = couponCode
 
          try {
-            const res = await axios.get(`/api/coupon?c=${couponCode}`)
-            const couponData = res.data
+            const couponData = await getCouponData(couponCode)
+
             if (couponData) {
                if (couponData.value > price) couponData.value = price
 
@@ -41,14 +48,14 @@ const CouponComponent = ({
                toast.error('کد تخفیف وارد شده منقضی یا نامعتبر می‌باشد')
             }
          } catch (err) {
-            console.log('err couponCheck', err)
             toast.error('به مشکلی برخوردیم! لطفا مجدد تلاش کنید.')
+            console.error(err)
+         } finally {
+            setLoading(false)
          }
       } else {
          if (!couponCode?.length) toast.error('لطفا ابتدا کد تخفیف را وارد نمایٔید')
       }
-
-      setLoading(false)
    }
 
    return (

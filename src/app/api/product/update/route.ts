@@ -20,10 +20,7 @@ export async function PATCH(request: Request) {
          data: reqData.data,
       })
 
-      return NextResponse.json({
-         authenticated: !!session,
-         product,
-      })
+      return NextResponse.json(product)
    } catch (err) {
       console.log('err api/product/update', err)
       NextResponse.error()

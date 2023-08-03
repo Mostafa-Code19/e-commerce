@@ -1,7 +1,6 @@
 'use client'
 
 import { useState } from 'react'
-import axios from 'axios'
 import { toast } from 'react-toastify'
 
 type PropsType = {
@@ -19,18 +18,18 @@ const PublicEdit = ({ id, publicProp }: PropsType) => {
       }
 
       try {
-         const res = await axios.patch('/api/product/location/update/public', payload)
+         const res = await fetch('/api/product/location/update/public', {
+            method: 'PATCH',
+            body: JSON.stringify(payload),
+         })
 
-         if (res.status == 200) {
-            setPublicStatus((prev) => !prev)
-            return toast.success(' عمومیت با موفقیت تغییر یافت.')
-         } else {
-            toast.error('در تغییر عمومی بودن کالا خطایی رخ داد!')
-            console.log('public change res not 200', res)
-         }
+         if (!res.ok) throw new Error()
+
+         setPublicStatus((prev) => !prev)
+         toast.success(' عمومیت با موفقیت تغییر یافت.')
       } catch (err) {
          toast.error('در تغییر عمومی بودن کالا خطایی رخ داد!')
-         console.log('public change err', err)
+         console.error(err)
       }
    }
 
