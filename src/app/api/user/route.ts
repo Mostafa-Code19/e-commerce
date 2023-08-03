@@ -7,9 +7,9 @@ import { User } from '@prisma/client'
 
 type UserType = {
    name: string | null
-   mobile_number: string | null
-   phone_number: string | null
-   melli_code: string | null
+   mobileNumber: string | null
+   phoneNumber: string | null
+   melliCode: string | null
    address: string | null
 } | null
 
@@ -25,9 +25,9 @@ export async function GET() {
          },
          select: {
             name: true,
-            mobile_number: true,
-            phone_number: true,
-            melli_code: true,
+            mobileNumber: true,
+            phoneNumber: true,
+            melliCode: true,
             address: true,
          },
       })

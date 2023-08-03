@@ -15,9 +15,7 @@ const CreateLocationForm = ({ selectedProduct }: { selectedProduct: string | nul
          size: number | null
          quantity: number | null
          color: string
-      },
-      // @ts-ignore
-      { resetForm },
+      }
    ) => {
       const payload = { ...values, productId: selectedProduct }
 
@@ -31,7 +29,6 @@ const CreateLocationForm = ({ selectedProduct }: { selectedProduct: string | nul
 
          if (!res.ok) throw new Error()
 
-         resetForm()
          toast.success('چهره جدید محصول با موفقیت اضافه شد.')
       } catch (err) {
          toast.error('در ثبت چهره جدید محصول خطایی رخ داد!')

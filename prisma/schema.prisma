@@ -13,17 +13,17 @@ model User {
   name           String?
   email          String    @unique
   emailVerified  DateTime?
-  phone_number   String?
-  mobile_number  String?   @unique
+  phoneNumber   String?
+  mobileNumber  String?   @unique
   mobileVerified Boolean   @default(false)
-  melli_code     String?   @unique
+  melliCode     String?   @unique
   image          String?
   address        String?
   blocked        Boolean   @default(false)
-  blocked_for    String?
-  created_at     DateTime  @default(now())
-  updated_at     DateTime  @updatedAt
-  last_login     DateTime  @default(now())
+  blockedFor    String?
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+  lastLogin     DateTime  @default(now())
   orders         Order[]
   password       String    @default("")
 }
@@ -36,14 +36,14 @@ enum Role {
 model Order {
   id            String      @id @default(cuid())
   status        Status      @default(PENDING)
-  created_at    DateTime    @default(now())
-  client        User        @relation(fields: [client_id], references: [id])
-  client_id     String
+  createdAt    DateTime    @default(now())
+  client        User        @relation(fields: [clientId], references: [id])
+  clientId     String
   price         Int
   discount      Int
   payment       Payment
-  shipping_cost Int
-  tracking_code String?
+  shippingCost Int
+  trackingCode String?
   items         OrderItem[]
 }
 
@@ -61,10 +61,10 @@ enum Payment {
 
 model OrderItem {
   id       String          @id @default(cuid())
-  order    Order           @relation(fields: [order_id], references: [id])
-  order_id String
-  item     ProductLocation @relation(fields: [item_id], references: [id])
-  item_id  String
+  order    Order           @relation(fields: [orderId], references: [id])
+  orderId String
+  item     ProductLocation @relation(fields: [itemId], references: [id])
+  itemId  String
   price    Int
   discount Int
   quantity Int
@@ -99,8 +99,8 @@ model Product {
   description     String?
   productLocation ProductLocation[]
   gallery         Image[]
-  created_at      DateTime          @default(now())
-  updated_at      DateTime          @updatedAt
+  createdAt      DateTime          @default(now())
+  updatedAt      DateTime          @updatedAt
 }
 
 model Image {
@@ -109,24 +109,24 @@ model Image {
   alt        String
   product    Product  @relation(fields: [productId], references: [id])
   productId  String
-  created_at DateTime @default(now())
-  updated_at DateTime @updatedAt
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
 model Color {
   id              String           @id @default(cuid())
   color           String
   productLocation ProductLocation?
-  created_at      DateTime         @default(now())
-  updated_at      DateTime         @updatedAt
+  createdAt      DateTime         @default(now())
+  updatedAt      DateTime         @updatedAt
 }
 
 model Size {
   id              String           @id @default(cuid())
   size            Int
   productLocation ProductLocation?
-  created_at      DateTime         @default(now())
-  updated_at      DateTime         @updatedAt
+  createdAt      DateTime         @default(now())
+  updatedAt      DateTime         @updatedAt
 }
 
 model Coupon {
@@ -135,8 +135,8 @@ model Coupon {
   type       CouponType @default(PERCENTAGE)
   value      Int
   quantity   Int        @default(1)
-  created_at DateTime   @default(now())
-  expires_at DateTime?
+  createdAt DateTime   @default(now())
+  expiresAt DateTime?
 }
 
 enum CouponType {

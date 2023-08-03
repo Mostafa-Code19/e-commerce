@@ -56,16 +56,16 @@ const Orders = async () => {
                      </div>
                      <div className='text-right space-y-2'>
                         <div>
-                           <span>{DateFormat(order.created_at)}</span>
+                           <span>{DateFormat(order.createdAt)}</span>
                         </div>
                         <div className='space-x-2'>
                            <span className='text-black font-semibold'>{order.id}</span>
                            <span>کد سفارش</span>
                         </div>
-                        {order.tracking_code ? (
+                        {order.trackingCode ? (
                            <div className='space-x-2'>
                               <span className='text-black font-semibold'>
-                                 {order.tracking_code}
+                                 {order.trackingCode}
                               </span>
                               <span>کد رهگیری پستی</span>
                            </div>

@@ -14,9 +14,9 @@ import fetcher from '@/lib/fetcher'
 
 interface FormType {
    name?: string
-   mobile_number?: string
-   phone_number?: string
-   melli_code?: string
+   mobileNumber?: string
+   phoneNumber?: string
+   melliCode?: string
    address?: string
 }
 
@@ -70,9 +70,9 @@ const Edit = () => {
                enableReinitialize={true}
                initialValues={{
                   name: data?.name || '',
-                  mobile_number: data?.mobile_number || '',
-                  phone_number: data?.phone_number || '',
-                  melli_code: data?.melli_code || '',
+                  mobileNumber: data?.mobileNumber || '',
+                  phoneNumber: data?.phoneNumber || '',
+                  melliCode: data?.melliCode || '',
                   address: data?.address || '',
                }}
                validationSchema={ProfileSchemaValidation}
@@ -88,19 +88,19 @@ const Edit = () => {
                      />
                      <FormikInput
                         label='شماره همراه'
-                        name='mobile_number'
+                        name='mobileNumber'
                         type='text'
                         placeholder='لطفا شماره همراه خود را وارد کنید...'
                      />
                      <FormikInput
                         label='شماره ثابت'
-                        name='phone_number'
+                        name='phoneNumber'
                         type='text'
                         placeholder='لطفا شماره ثابت خود را وارد کنید...'
                      />
                      <FormikInput
                         label='کد ملی'
-                        name='melli_code'
+                        name='melliCode'
                         type='text'
                         placeholder='لطفا کد ملی خود را وارد کنید...'
                      />

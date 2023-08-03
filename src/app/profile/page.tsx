@@ -34,7 +34,7 @@ const Profile = async () => {
                <div className='text-center'>
                   <h1 className='font-semibold'>{user?.name || user?.email}</h1>
                   <h2 className='text-zinc-400 text-base'>
-                     {user?.mobile_number || user?.phone_number}
+                     {user?.mobileNumber || user?.phoneNumber}
                   </h2>
                </div>
 

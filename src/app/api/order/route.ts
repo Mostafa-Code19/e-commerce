@@ -69,8 +69,8 @@ export async function POST(request: Request) {
    }
 
    // profile must be complete
-   const { name, mobile_number, phone_number, melli_code, address } = user
-   if (!name || !mobile_number || !phone_number || !melli_code || !address)
+   const { name, mobileNumber, phoneNumber, melliCode, address } = user
+   if (!name || !mobileNumber || !phoneNumber || !melliCode || !address)
       return NextResponse.json({ message: 'incompleteProfile' })
 
    const cartItemsId: string[] = Object.values(payload.cart).map((item) => item.id)
@@ -114,8 +114,8 @@ export async function POST(request: Request) {
          price: payload.price,
          discount: payload.discount, // coupon
          payment: 'CASH',
-         shipping_cost: 0,
-         client_id: user.id,
+         shippingCost: 0,
+         clientId: user.id,
       },
    })
 
@@ -123,8 +123,8 @@ export async function POST(request: Request) {
       await prisma.orderItem
          .create({
             data: {
-               order_id: order.id,
-               item_id: item.id,
+               orderId: order.id,
+               itemId: item.id,
                price: item.price,
                discount: item.discount,
                quantity: item.quantity,

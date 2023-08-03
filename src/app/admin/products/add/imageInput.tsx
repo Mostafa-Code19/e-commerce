@@ -33,8 +33,9 @@ const ImageInput = ({ selectedProduct }: { selectedProduct: string | null }) => 
       try {
          const res = await fetch(uploadUrl, {
             method: 'PUT',
-            body: JSON.stringify(image),
+            body: image,
          })
+         
 
          if (!res.ok) throw new Error()
 
@@ -90,7 +91,7 @@ const ImageInput = ({ selectedProduct }: { selectedProduct: string | null }) => 
             const { key, uploadUrl } = await s3SignedUrl.json()
 
             const fileUploadResult = await putInS3(uploadUrl, image)
-
+            
             if (!fileUploadResult) throw new Error('file upload to s3')
 
             await createDbData(key, imageName)
@@ -107,7 +108,7 @@ const ImageInput = ({ selectedProduct }: { selectedProduct: string | null }) => 
             )
             console.error(error)
          } else {
-            toast.error('در آپلود تصویر خطایی رخ داد!')
+            toast.error('در ثبت تصویر خطایی رخ داد!')
             console.error(error)
          }
       } finally {
@@ -167,9 +168,9 @@ const ImageInput = ({ selectedProduct }: { selectedProduct: string | null }) => 
          checkIfFilesAreTooBig(filesList)
 
       if (!sizeCheckRes.valid && sizeCheckRes.invalidFile) {
-         const fileSize = Math.round(sizeCheckRes.invalidFile.size / 1024 / 1024)
+         const fileSize = Math.round(sizeCheckRes.invalidFile.size / 1024 / 1024 * 1000)
          toast.warning(
-            `سایز فایل ${sizeCheckRes.invalidFile.name} برابر با ${fileSize} مگابایت می‌باشد. حداکثر هر فایل می‌بایست ۰.۳ مگابایت باشد`,
+            `سایز فایل ${sizeCheckRes.invalidFile.name} برابر با ${fileSize} کیلوبایت می‌باشد. حداکثر هر فایل می‌بایست 300 کیلوبایت باشد`,
          )
          return
       }

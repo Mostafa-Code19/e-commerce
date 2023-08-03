@@ -4,10 +4,10 @@ const LoadingSearch = () => {
          <div className='w-45 h-10 bg-gray-300 rounded'></div>
 
          <div className='grid grid-cols-2'>
-            <div className='w-45 h-40 bg-gray-300 rounded m-2'></div>
-            <div className='w-45 h-40 bg-gray-300 rounded m-2'></div>
-            <div className='w-45 h-40 bg-gray-300 rounded m-2'></div>
-            <div className='w-45 h-40 bg-gray-300 rounded m-2'></div>
+            <div className='w-45 h-40 bg-gray-300 mr-3 mb-3 rounded'></div>
+            <div className='w-45 h-40 bg-gray-300 mb-3 rounded'></div>
+            <div className='w-45 h-40 bg-gray-300 mr-3 rounded'></div>
+            <div className='w-45 h-40 bg-gray-300 rounded'></div>
          </div>
       </div>
    )

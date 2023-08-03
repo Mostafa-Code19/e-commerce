@@ -4,14 +4,14 @@ import { melliCodeRule, mobileNumberRule, persianRule, phoneNumberRule } from '.
 const ProfileSchemaValidation = yup.object().shape({
    name: yup.string().matches(persianRule, 'لطفا نام و نام خانوادگی خود را به فارسی وارد کنید'),
 
-   mobile_number: yup.string().matches(mobileNumberRule, { message: 'شماره تماس نامعتبر می‌باشد' }),
+   mobileNumber: yup.string().matches(mobileNumberRule, { message: 'شماره تماس نامعتبر می‌باشد' }),
 
-   phone_number: yup
+   phoneNumber: yup
       .string()
       .min(11, 'لطفا کد استان بهمراه شماره تلفن ثابت درج شود')
       .matches(phoneNumberRule, { message: 'شماره تلفن ثابت نامعتبر می‌باشد' }),
 
-   melli_code: yup.string().matches(melliCodeRule, { message: 'کدملی وارد شده نامعتبر می‌باشد' }),
+   melliCode: yup.string().matches(melliCodeRule, { message: 'کدملی وارد شده نامعتبر می‌باشد' }),
 
    address: yup
       .string()
