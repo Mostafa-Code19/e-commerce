@@ -6,7 +6,7 @@ const FormikInput = ({ label, ...props }) => {
    const [field, meta] = useField(props)
 
    return (
-      <div className='mb-6 text-right space-y-2'>
+      <div className='text-right space-y-2'>
          <label>{label}</label>
          <input
             {...field}

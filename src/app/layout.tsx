@@ -1,8 +1,6 @@
 'use client'
 
-import SearchInput from '@/components/search'
-import './globals.scss'
-import Navbar from '@/components/navbar'
+import '@/app/globals.scss'
 import { CartContextProvider } from '@/context/provider/cart'
 import 'react-toastify/dist/ReactToastify.css'
 
@@ -15,9 +13,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
          <body>
             <SessionProvider>
                <CartContextProvider>
-                  <header>
-                     <SearchInput />
-                  </header>
 
                   <ToastContainer
                      position='top-right'
@@ -32,11 +27,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                      theme='light'
                   />
 
-                  <main className='mb-24 max-w-screen-lg overflow-x-hidden mx-auto'>
+                  <main className='overflow-x-hidden mx-auto'>
                      {children}
                   </main>
-
-                  <Navbar />
                </CartContextProvider>
             </SessionProvider>
          </body>

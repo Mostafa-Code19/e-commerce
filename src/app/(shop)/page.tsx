@@ -3,16 +3,7 @@ import Link from 'next/link'
 
 import prisma from '@/lib/prisma'
 import ProductCards from '@/components/product/cards'
-import { Product, ProductLocation } from '@prisma/client'
 
-type ProductLocationExtended = ProductLocation & {
-   color: { color: string }
-   size: { size: number }
-}
-type ProductExtended = Product & {
-   gallery: { src: string; alt: string }[]
-   productLocation: ProductLocationExtended[]
-}
 
 async function getProducts() {
    return await prisma.product
