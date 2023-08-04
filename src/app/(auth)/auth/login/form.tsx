@@ -47,20 +47,17 @@ const LoginForm = () => {
             redirect: false,
          })
 
-         console.log(res);
-         
-
          if (res?.status == 200) {
             if (res.error) return setError(errorsInPersian[res.error])
             router.refresh()
             router.push('/profile')
          } else {
             toast.error('در ورود شما خطایی رخ داد')
-            return console.log('auth/login signIn() res !200', res)
+            return console.error('auth/login signIn() res !200', res)
          }
       } catch (err) {
          toast.error('در ورود شما خطایی رخ داد')
-         return console.log('auth/login signIn() err', err)
+         return console.error('auth/login signIn() err', err)
       }
    }
 

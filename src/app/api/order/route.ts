@@ -47,7 +47,7 @@ export async function GET() {
       })
       return NextResponse.json(res)
    } catch (err) {
-      console.log('api/brand err:', err)
+      console.error('api/brand err:', err)
       return NextResponse.json(err)
    }
 }

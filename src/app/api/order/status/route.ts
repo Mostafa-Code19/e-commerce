@@ -20,7 +20,7 @@ export async function PATCH(request: Request) {
          order,
       })
    } catch (err) {
-      console.log('err api/order/status/update', err)
+      console.error('err api/order/status/update', err)
 
       return NextResponse.json({
          statue: 500,

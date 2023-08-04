@@ -46,8 +46,6 @@ const Orders = async () => {
 
          {user?.orders?.length ? (
             user.orders.reverse().map((order) => {
-               console.log(order.items[0].item)
-
                return (
                   <div
                      key={order.id}

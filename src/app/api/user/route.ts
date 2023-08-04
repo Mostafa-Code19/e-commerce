@@ -54,7 +54,7 @@ export async function PATCH(request: Request) {
 
       return NextResponse.json(filteredUser)
    } catch (err) {
-      console.log('err api/user', err)
+      console.error('err api/user', err)
 
       return NextResponse.json({
          statue: 500,

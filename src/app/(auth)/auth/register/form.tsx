@@ -44,7 +44,7 @@ export const RegisterForm = () => {
             toast.warning('این ایمیل از قبل ثبت نام شده است')
          } else {
             toast.error('در ثبت نام شما خطایی رخ داد')
-            console.log('api/auth/register err', err)
+            console.error('api/auth/register err', err)
          }
       }
 

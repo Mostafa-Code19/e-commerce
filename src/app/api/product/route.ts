@@ -8,7 +8,7 @@ export async function GET() {
    const products = await prisma.product
       .findMany()
       .then((res: Product[]) => res)
-      .catch((err: Error) => console.log('err products api', err))
+      .catch((err: Error) => console.error('err products api', err))
 
    return NextResponse.json(products)
 }
@@ -48,7 +48,7 @@ export async function PATCH(request: Request) {
 
       return NextResponse.json(product)
    } catch (err) {
-      console.log('err api/product/update', err)
+      console.error('err api/product/update', err)
       NextResponse.error()
    }
 }

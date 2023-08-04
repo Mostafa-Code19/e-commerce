@@ -10,7 +10,7 @@ export async function GET(request: Request) {
    const { searchParams } = new URL(request.url)
    const couponCode = searchParams.get('c')
 
-   if (!couponCode) return console.log('err coupon api: couponCode undefined')
+   if (!couponCode) return console.error('err coupon api: couponCode undefined')
 
    const coupon = await prisma.coupon
       .findUnique({
@@ -23,7 +23,7 @@ export async function GET(request: Request) {
          },
       })
       .then((res: CouponType) => res)
-      .catch((err: Error) => console.log('err coupon api', err))
+      .catch((err: Error) => console.error('err coupon api', err))
 
    return NextResponse.json(coupon)
 }

@@ -7,7 +7,7 @@ export async function GET() {
       const res = await prisma.brand.findMany()
       return NextResponse.json(res)
    } catch (err) {
-      console.log('api/brand err:', err)
+      console.error('api/brand err:', err)
       return NextResponse.json(err)
    }
 }
@@ -60,7 +60,7 @@ export async function PATCH(req: Request) {
          brand,
       })
    } catch (err) {
-      console.log('err api/order/status/update', err)
+      console.error('err api/order/status/update', err)
 
       return NextResponse.json({
          statue: 500,

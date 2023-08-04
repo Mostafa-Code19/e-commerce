@@ -50,7 +50,7 @@ export async function POST(request: Request) {
          },
       })
       .then((res: Brand) => res)
-      .catch((err: Error) => console.log('err products api', err))
+      .catch((err: Error) => console.error('err products api', err))
 
    return NextResponse.json(products)
 }
