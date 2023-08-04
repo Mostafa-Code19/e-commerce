@@ -49,7 +49,7 @@ const ProductCards = ({
 
             return (
                <Link key={product.id} href={pageTarget + product.id}>
-                  <div className='bg-white p-1 m-1 h-full rounded-lg'>
+                  <div className='from-gray-50 to-gray-100 bg-gradient-to-b p-1 m-1 h-full rounded-lg'>
                      <div className='w-full h-full relative flex flex-col aspect-square from-blue-200  to-white bg-gradient-to-t rounded-xl'>
                         <div className='m-2'>
                            <div className='flex space-x-1'>{colors(product.productLocation)}</div>

@@ -3,7 +3,7 @@ import bcrypt from 'bcrypt'
 import CredentialsProvider from 'next-auth/providers/credentials'
 
 import { User as UserType } from '@prisma/client'
-import prisma from './prisma'
+import { prisma } from '@/lib/prisma'
 
 interface Credential {
    email: string

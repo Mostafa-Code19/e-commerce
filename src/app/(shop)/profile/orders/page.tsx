@@ -46,10 +46,12 @@ const Orders = async () => {
 
          {user?.orders?.length ? (
             user.orders.reverse().map((order) => {
+               console.log(order.items[0].item)
+
                return (
                   <div
                      key={order.id}
-                     className='px-4 py-10 space-y-2 bg-zinc-100 rounded-xl max-w-md mx-auto'
+                     className='px-4 space-y-2 pb-3 from-gray-100 to-gray-200 bg-gradient-to-b rounded-lg max-w-md mx-auto'
                   >
                      <div className='text-right'>
                         <span>{status(order.status)}</span>
@@ -88,24 +90,44 @@ const Orders = async () => {
                         )}
                      </div>
                      <hr />
-                     <div className='flex space-x-3 justify-end'>
+                     <div className='flex flex-wrap justify-end'>
                         {order.items.map((item: OrderAndItems['items'][0]) => {
                            return (
-                              <div key={item.id} className='relative w-fit'>
-                                 <Image
-                                    className='object-contain'
-                                    src={item.item.product.gallery[0].src}
-                                    alt={item.item.product.gallery[0].alt}
-                                    width='100'
-                                    height='70'
-                                 />
+                              <div key={item.id} className='w-fit ml-3 mb-3 ring ring-white rounded-md
+                              '>
+                                 <div className='relative p-1'>
+                                    <Image
+                                       className='object-contain'
+                                       src={item.item.product.gallery[0].src}
+                                       alt={item.item.product.gallery[0].alt}
+                                       width='80'
+                                       height='50'
+                                    />
 
-                                 <span
-                                    style={{ fontSize: '.6rem' }}
-                                    className='absolute left-0 bottom-0 p-1 px-2 bg-slate-200 rounded-md text-black'
-                                 >
-                                    {item.quantity}
-                                 </span>
+                                    <span
+                                       style={{ fontSize: '.6rem' }}
+                                       className='absolute left-0 top-0 p-1 px-2 bg-white rounded-sm text-black'
+                                    >
+                                       {item.quantity}
+                                    </span>
+                                 </div>
+
+                                 <div className='flex justify-between px-2 items-center bg-white text-black'>
+                                    <span
+                                       style={{
+                                          // @ts-ignore
+                                          background: item.item.color.color,
+                                       }}
+                                       className='w-3 h-3 block rounded-full'
+                                    ></span>
+                                    <span>
+                                       {
+                                          // @ts-ignore
+                                          item.item.size.size
+                                       }
+                                       :سایز
+                                    </span>
+                                 </div>
                               </div>
                            )
                         })}

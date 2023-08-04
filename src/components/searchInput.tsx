@@ -75,7 +75,7 @@ const SearchInput = () => {
                <form onSubmit={handleFormSubmit} className='flex w-full'>
                   <input
                      onChange={(e) => setSearchQuery(e.target.value)}
-                     className='rounded-xl rtl w-full mx-7 pr-10 py-2'
+                     className='rounded-xl bg-slate-200 rtl w-full mx-7 pr-10 py-2'
                      type='text'
                      placeholder='جستجوی محصولات...'
                   />

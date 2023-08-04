@@ -87,7 +87,7 @@ const ProductTitleDescription = ({
                )}
 
                <div className='space-y-5 '>
-                  <div className='justify-end flex space-x-5 bg-slate-100 rounded-lg p-3'>
+                  <div className='justify-end flex space-x-5 bg-slate-200 rounded-lg p-3'>
                      <input
                         name='title'
                         onChange={(e) => setFieldValue('title', e.target.value)}
@@ -106,7 +106,7 @@ const ProductTitleDescription = ({
                      ''
                   )}
 
-                  <div className='justify-end flex space-x-5 bg-slate-100 rounded-lg p-3'>
+                  <div className='justify-end flex space-x-5 bg-slate-200 rounded-lg p-3'>
                      <input
                         name='description'
                         onChange={(e) => setFieldValue('description', e.target.value)}

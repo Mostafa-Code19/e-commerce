@@ -1,7 +1,7 @@
 import Image from 'next/legacy/image'
 import Link from 'next/link'
 
-import prisma from '@/lib/prisma'
+import { prisma } from '@/lib/prisma'
 import ProductCards from '@/components/product/cards'
 
 

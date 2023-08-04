@@ -65,7 +65,7 @@ const BrandNewInput = () => {
             <input
                onChange={(e) => setInputValue(e.target.value)}
                value={inputValue}
-               className='rounded-lg w-full rtl pr-6'
+               className='rounded-lg bg-slate-200 w-full rtl pr-6'
                type='text'
                placeholder='نام برند ...'
             />

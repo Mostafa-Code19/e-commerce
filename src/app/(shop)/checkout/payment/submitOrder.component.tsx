@@ -72,15 +72,19 @@ const SubmitOrder = ({
    }
 
    return (
-      <div className='bg-blue-500 hover:bg-blue-600 transition-colors text-white w-full py-3 text-center rounded-xl yekan1'>
+      <button
+         onClick={submit}
+         className='rounded-xl w-full bg-blue-500 hover:bg-blue-600 transition-colors shadow-lg shadow-indigo-300 text-white'
+         disabled={loading}
+      >
          {loading ? (
-            <CircularProgress color="inherit" size={25} />
+            <div className='flex justify-center'>
+               <CircularProgress color='inherit' size={25} />
+            </div>
          ) : (
-            <button className='w-full' disabled={loading} onClick={submit}>
-               پرداخت
-            </button>
+            'پرداخت'
          )}
-      </div>
+      </button>
    )
 }
 

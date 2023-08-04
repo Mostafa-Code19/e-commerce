@@ -86,7 +86,7 @@ const Payment = () => {
                </div>
 
                <div className='md:grid md:justify-end flex flex-col-reverse md:grid-cols-2'>
-                  <div className='md:mx-7 mt-10 space-y-5'>
+                  <div className='md:mx-7 my-10 space-y-5'>
                      <div className='flex justify-between'>
                         <div className='flex space-x-1'>
                            <span className='text-slate-600 font-semibold'>تومان</span>

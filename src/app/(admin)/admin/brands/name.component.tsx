@@ -36,7 +36,7 @@ const Name = ({ brand }: { brand: { id: string; name: string } }) => {
          <input
             onChange={(e) => setCurrentName(e.target.value)}
             value={currentName}
-            className='mr-3 w-full'
+            className='mr-3 w-full bg-transparent'
             type='text'
             placeholder='نام برند ...'
          />

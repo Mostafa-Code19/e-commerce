@@ -3,7 +3,7 @@ import isAdmin from '@/lib/isAdmin'
 import BrandNewInput from './create.Input'
 import DeleteButton from './delete.button'
 import Name from './name.component'
-import prisma from '@/lib/prisma'
+import { prisma } from '@/lib/prisma'
 
 export const metadata = {
    title: '‌تبریزیان ایکامرس | پنل ادمین | برند ها',

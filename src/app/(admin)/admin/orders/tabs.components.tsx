@@ -58,14 +58,14 @@ const Tabs = () => {
                   <CircularProgress size={40} />
                </div>
             ) : (
-               orders?.length &&
+               orders?.length ?
                orders.reverse().map((order: OrderExtended) => {
                   if (order.status !== activeTab) return
 
                   return (
                      <div
                         key={order.id}
-                        className='px-4 py-6 space-y-2 bg-zinc-100 rounded-xl max-w-lg mx-auto'
+                        className='px-4 py-6 space-y-2 from-gray-100 to-gray-200 bg-gradient-to-b rounded-lg max-w-lg mx-auto'
                      >
                         <div className='text-right flex'>
                            <div>
@@ -169,7 +169,7 @@ const Tabs = () => {
                         </div>
                      </div>
                   )
-               })
+               }) : <h5>هیچ سفارشی تا به این لحظه ثبت نشده</h5>
             )}
          </div>
       </>

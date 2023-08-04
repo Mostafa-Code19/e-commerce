@@ -2,7 +2,7 @@ import { getServerSession } from 'next-auth'
 import { User as UserType } from '@prisma/client'
 
 import authOptions from './auth'
-import prisma from './prisma'
+import { prisma } from '@/lib/prisma'
 
 const User = async () => {
    const session: { email: string } | null = await getServerSession(authOptions)
@@ -25,6 +25,16 @@ const User = async () => {
                               product: {
                                  include: {
                                     gallery: true,
+                                 },
+                              },
+                              color: {
+                                 select: {
+                                    color: true,
+                                 },
+                              },
+                              size: {
+                                 select: {
+                                    size: true,
                                  },
                               },
                            },

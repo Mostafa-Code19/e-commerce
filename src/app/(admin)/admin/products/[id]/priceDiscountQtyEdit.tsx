@@ -53,7 +53,7 @@ const PriceDiscountQtyEdit = ({ id, price, discount, quantity }: PropsType) => {
       <>
          <input
             ref={priceRef}
-            className='placeholder:text-black placeholder:font-semibold placeholder:text-sm font-semibold text-sm'
+            className='bg-transparent placeholder:text-black placeholder:font-semibold placeholder:text-sm font-semibold text-sm'
             min={0}
             placeholder={price.toLocaleString()}
             onKeyDown={checkKey}
@@ -63,7 +63,7 @@ const PriceDiscountQtyEdit = ({ id, price, discount, quantity }: PropsType) => {
          />
          <input
             ref={discountRef}
-            className='placeholder:text-black placeholder:font-semibold placeholder:text-sm font-semibold text-sm'
+            className='bg-transparent placeholder:text-black placeholder:font-semibold placeholder:text-sm font-semibold text-sm'
             min={0}
             max={100}
             placeholder={`${discount}%`}
@@ -74,7 +74,7 @@ const PriceDiscountQtyEdit = ({ id, price, discount, quantity }: PropsType) => {
          />
          <input
             ref={qtyRef}
-            className='placeholder:text-black placeholder:font-semibold placeholder:text-sm font-semibold text-sm'
+            className='bg-transparent placeholder:text-black placeholder:font-semibold placeholder:text-sm font-semibold text-sm'
             min={0}
             placeholder={quantity}
             onKeyDown={checkKey}

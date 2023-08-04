@@ -5,7 +5,7 @@ import { toast } from 'react-toastify'
 import { Form, Formik } from 'formik'
 import useSWR from 'swr'
 import Backdrop from '@mui/material/Backdrop'
-import CircularProgress from '@mui/material/CircularProgress';
+import CircularProgress from '@mui/material/CircularProgress'
 
 import FormikInput from '@/formik/input'
 import FormikTextarea from '@/formik/textarea'
@@ -30,7 +30,7 @@ const Edit = () => {
    }
 
    useEffect(() => {
-      document.title = 'تبریزیان ایکامرس | ویرایش پروفایل'
+      document.title = 'تبریزیان ایکامرس | اطلاعات حساب'
    }, [])
 
    const onSubmit = async (values: FormType) => {
@@ -59,10 +59,10 @@ const Edit = () => {
    }
 
    return (
-      <div className='mx-6 my-16 space-y-11'>
+      <div className='mx-6 my-16 from-gray-100 to-gray-200 bg-gradient-to-b rounded-lg px-5 space-y-11'>
          <div className='flex justify-between items-center'>
             <BackButton />
-            <h1 className='text-center font-bold'>ویرایش پروفایل</h1>
+            <h1 className='text-center font-bold'>اطلاعات حساب</h1>
             <span></span>
          </div>
 
@@ -80,7 +80,7 @@ const Edit = () => {
                onSubmit={onSubmit}
             >
                {({ isSubmitting }) => (
-                  <Form>
+                  <Form className='space-y-5 pb-5'>
                      <FormikInput
                         label='نام و نام خانوادگی'
                         name='name'
@@ -113,11 +113,11 @@ const Edit = () => {
                      <button
                         type='submit'
                         disabled={isSubmitting}
-                        className='yekan1 bg-blue-500 hover:bg-blue-600 transition-colors text-white w-full py-3 rounded-xl'
+                        className='bg-blue-500 hover:bg-blue-600 shadow-lg shadow-indigo-300 transition-colors text-white w-full py-3 rounded-xl'
                      >
                         {isSubmitting ? (
                            <div className='flex justify-center'>
-                              <CircularProgress color="inherit" size={25} />
+                              <CircularProgress color='inherit' size={25} />
                            </div>
                         ) : (
                            'ذخیره تغییرات'
@@ -136,7 +136,7 @@ const Edit = () => {
             }}
             open={isLoading}
          >
-            <CircularProgress color="inherit" size={40} />
+            <CircularProgress color='inherit' size={40} />
          </Backdrop>
       </div>
    )

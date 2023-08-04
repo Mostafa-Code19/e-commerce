@@ -1,7 +1,7 @@
 import Link from 'next/link'
 import Images from '@/components/product/images'
 import PriceDiscountQtyEdit from './priceDiscountQtyEdit'
-import prisma from '@/lib/prisma'
+import { prisma } from '@/lib/prisma'
 import PublicEdit from './button.publicEdit'
 import BackButton from '@/components/back-btn'
 
@@ -97,7 +97,7 @@ const pageContent = (product: TypeProduct) => {
 
                <div className='max-w-md mx-auto'>
                   <Link href='/admin/products/add'>
-                     <button className='bg-white z-10 border-2 border-blue-500 rounded-full p-3 fixed bottom-24 right-5'>
+                     <button className='bg-white z-10 border-2 border-blue-500 rounded-full p-3 fixed bottom-10 right-5'>
                         <svg
                            className='h-6 w-6 text-blue-500'
                            fill='none'

@@ -118,7 +118,7 @@ export const RegisterForm = () => {
                   </div>
                   <button
                      type='submit'
-                     className='rounded-xl w-full bg-blue-500 shadow-lg shadow-indigo-300 text-white'
+                     className='rounded-xl w-full bg-blue-500 hover:bg-blue-600 transition-colors shadow-lg shadow-indigo-300 text-white'
                      disabled={isSubmitting}
                   >
                      {isSubmitting ? (
