@@ -43,10 +43,10 @@ const AdminProducts = async () => {
    const products = await getProducts()
 
    return (
-      <div className='mx-6 my-16 relative'>
+      <div className='mx-auto max-w-screen-md my-16 relative'>
          {(await isAdmin()) ? (
             <>
-               <div className='flex justify-between items-center'>
+               <div className='flex justify-between items-center mx-auto max-w-md'>
                   <BackButton />
                   <h1>مدیریت محصولات</h1>
                   <span></span>

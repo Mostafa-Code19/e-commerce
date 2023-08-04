@@ -61,7 +61,7 @@ const Product = async ({ params }: { params: { slug: string } }) => {
 
    return (
       <div className='mx-6 my-16 space-y-11'>
-         <div className='flex justify-between items-center'>
+         <div className='flex justify-between items-center mx-auto max-w-md'>
             <BackButton />
             <h1 className='text-center font-bold'>ویرایش پروفایل</h1>
             <span></span>

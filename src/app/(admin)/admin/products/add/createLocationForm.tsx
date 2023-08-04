@@ -54,8 +54,9 @@ const CreateLocationForm = ({ selectedProduct }: { selectedProduct: string | nul
             <Form className='space-y-5'>
                <h1 className='text-center'>افزودن چهره</h1>
 
-               <div className='flex justify-end'>
+               <div className='flex justify-end items-center'>
                   <Switch defaultChecked name='publicState' onChange={handleChange} />
+                  <h6>عمومی</h6>
                </div>
 
                <FormikInput label='قیمت' name='price' type='number' placeholder='قیمت به تومان' />

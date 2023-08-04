@@ -32,7 +32,7 @@ const Cart = () => {
    }, [cart])
 
    return (
-      <div className='mx-8 space-y-6'>
+      <div className='mx-4 space-y-6'>
          <div className='flex items-center justify-between'>
             <BackButton />
             <h1>سبد خرید</h1>

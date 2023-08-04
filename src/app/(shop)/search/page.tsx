@@ -52,7 +52,7 @@ const Search = () => {
    return (
       <>
          <div className='mx-4 my-8 space-y-7'>
-            <div className='flex justify-between items-center'>
+            <div className='flex justify-between items-center mx-auto max-w-md'>
                <BackButton />
                <h1 className='text-center font-bold'>{query}</h1>
                <span></span>

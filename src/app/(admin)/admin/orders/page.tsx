@@ -24,7 +24,7 @@ export const metadata = {
 const OrdersManagement = () => {
    return (
       <div className='mx-6 my-16 space-y-10'>
-         <div className='flex justify-between items-center'>
+         <div className='flex justify-between items-center mx-auto max-w-md'>
             <BackButton />
             <h1>پنل ادمین | سفارشات</h1>
             <span></span>

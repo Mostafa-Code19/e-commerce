@@ -24,7 +24,7 @@ const AdminBrands = async () => {
       <div className='mx-6 my-16'>
          {(await isAdmin()) ? (
             <>
-               <div className='flex justify-between items-center mb-10'>
+               <div className='flex justify-between items-center mx-auto max-w-md mb-10'>
                   <BackButton />
                   <h1>پنل ادمین</h1>
                   <span></span>

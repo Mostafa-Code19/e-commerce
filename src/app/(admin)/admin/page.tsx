@@ -14,7 +14,7 @@ const AdminPanel = async () => {
       <div className='mx-6 my-16 space-y-10'>
          {(await isAdmin()) ? (
             <>
-               <div className='flex justify-between items-center'>
+               <div className='flex justify-between items-center mx-auto max-w-md'>
                   <BackButton />
                   <h1>پنل ادمین</h1>
                   <span></span>

@@ -12,7 +12,7 @@ const Brand = ({ params }: { params: { name: string } }) => {
 
    return (
       <div className='mx-4 my-8 space-y-7'>
-         <div className='flex justify-between items-center'>
+         <div className='flex justify-between items-center mx-auto max-w-md'>
             <BackButton />
             <h1 className='text-center font-bold'>{brandName}</h1>
             <span></span>

@@ -50,13 +50,13 @@ const AdminProduct = () => {
             // @ts-ignore
             session?.role === 'ADMIN' ? (
                <>
-                  <div className='flex items-center justify-between'>
+                  <div className='flex mx-auto max-w-md items-center justify-between'>
                      <BackButton />
                      <h1>‌افزودن/انتخاب محصول</h1>
                      <span></span>
                   </div>
 
-                  <div className='flex flex-col max-w-md space-y-5 mx-auto'>
+                  <div className='flex flex-col p-4 bg-gradient-to-b from-gray-100 to-gray-200 max-w-md space-y-5 mx-auto'>
                      <div>
                         <div className='flex space-x-5 w-full'>
                            <CreateProductForm />
