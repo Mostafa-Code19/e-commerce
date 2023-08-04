@@ -23,7 +23,7 @@ type OrderAndItems = Order & {
 }
 
 export const metadata = {
-   title: 'فروشگاه اینترنتی | سفارش های من',
+   title: 'تبریزیان ایکامرس | سفارش های من',
 }
 
 const Orders = async () => {

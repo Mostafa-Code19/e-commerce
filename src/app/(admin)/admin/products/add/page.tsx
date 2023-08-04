@@ -39,7 +39,7 @@ const AdminProduct = () => {
    }
 
    useEffect(() => {
-      document.title = 'فروشگاه اینترنتی | ادمین | ‌افزودن/تغییر محصول'
+      document.title = 'تبریزیان ایکامرس | ادمین | ‌افزودن/تغییر محصول'
    }, [])
 
    const { data: session } = useSession()

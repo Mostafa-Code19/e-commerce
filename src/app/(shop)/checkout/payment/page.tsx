@@ -37,7 +37,7 @@ const Payment = () => {
    const router = useRouter()
 
    useEffect(() => {
-      document.title = 'فروشگاه اینترنتی | پرداخت '
+      document.title = 'تبریزیان ایکامرس | پرداخت '
    }, [])
 
    useEffect(() => {

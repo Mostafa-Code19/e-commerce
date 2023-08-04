@@ -36,7 +36,7 @@ async function getProducts() {
 }
 
 export const metadata = {
-   title: 'فروشگاه اینترنتی | پنل ادمین',
+   title: 'تبریزیان ایکامرس | پنل ادمین',
 }
 
 const AdminProducts = async () => {

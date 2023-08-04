@@ -52,7 +52,7 @@ export const generateMetadata = async ({ params }: { params: { slug: string } })
    const product = await getProduct(params.slug)
 
    return {
-      title: (product?.title || 'محصولی یافت نشد!') + ' | فروشگاه اینترنتی',
+      title: (product?.title || 'محصولی یافت نشد!') + ' | تبریزیان ایکامرس',
    }
 }
 

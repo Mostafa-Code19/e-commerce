@@ -4,7 +4,7 @@ import Link from 'next/link'
 import isAdmin from '@/lib/isAdmin'
 
 export const metadata = {
-   title: 'فروشگاه اینترنتی | پنل ادمین',
+   title: 'تبریزیان ایکامرس | پنل ادمین',
 }
 
 const AdminPanel = async () => {

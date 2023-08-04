@@ -3,7 +3,7 @@ import BrandProducts from './brand.products'
 
 export const generateMetadata = async ({ params }: { params: { name: string } }) => {
    return {
-      title: params.name + ' | فروشگاه اینترنتی',
+      title: params.name + ' | تبریزیان ایکامرس',
    }
 }
 

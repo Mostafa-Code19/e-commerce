@@ -42,7 +42,7 @@ async function getProductLocations(productId: string) {
 }
 
 export const metadata = {
-   title: 'فروشگاه اینترنتی | ادمین | چهره های محصول',
+   title: 'تبریزیان ایکامرس | ادمین | چهره های محصول',
 }
 
 const ProductLocations = async ({ params }: { params: { id: string } }) => {

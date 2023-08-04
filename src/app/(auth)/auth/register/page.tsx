@@ -1,6 +1,10 @@
 import { RegisterForm } from './form'
 import User from '@/lib/user'
 
+export const metadata = {
+   title: 'تبریزیان ایکامرس | ثبت نام',
+}
+
 const RegisterPage = async () => {
    const user = await User()
 

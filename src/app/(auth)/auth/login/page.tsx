@@ -1,6 +1,10 @@
 import LoginForm from './form'
 import User from '@/lib/user'
 
+export const metadata = {
+   title: 'تبریزیان ایکامرس | ورود',
+}
+
 const LoginPage = async () => {
    const user = await User()
    return (

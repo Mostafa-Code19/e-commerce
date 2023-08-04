@@ -43,7 +43,7 @@ async function getProducts() {
 }
 
 export const metadata = {
-   title: 'فروشگاه اینترنتی',
+   title: 'تبریزیان ایکامرس',
    description: 'https://github.com/Mostafa-Code19',
 }
 

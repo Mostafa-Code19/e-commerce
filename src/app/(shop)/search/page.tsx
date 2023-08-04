@@ -45,7 +45,7 @@ const Search = () => {
    }, [query])
 
    useEffect(() => {
-      document.title = 'Search | فروشگاه اینترنتی'
+      document.title = 'Search | تبریزیان ایکامرس'
       fetchProducts()
    }, [fetchProducts])
 

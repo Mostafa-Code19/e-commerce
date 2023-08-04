@@ -18,7 +18,7 @@ export type OrderExtended = Order & {
 }
 
 export const metadata = {
-   title: 'فروشگاه اینترنتی | پنل ادمین | سفارشات',
+   title: 'تبریزیان ایکامرس | پنل ادمین | سفارشات',
 }
 
 const OrdersManagement = () => {

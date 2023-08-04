@@ -6,7 +6,7 @@ import Name from './name.component'
 import prisma from '@/lib/prisma'
 
 export const metadata = {
-   title: '‌فروشگاه اینترنتی | پنل ادمین | برند ها',
+   title: '‌تبریزیان ایکامرس | پنل ادمین | برند ها',
 }
 
 const getBrand = async () => {

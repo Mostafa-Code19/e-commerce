@@ -19,7 +19,7 @@ const Cart = () => {
    const [discount, setDiscount] = useState<number>(0)
 
    useEffect(() => {
-      document.title = 'فروشگاه اینترنتی | سبد خرید'
+      document.title = 'تبریزیان ایکامرس | سبد خرید'
    }, [])
 
    useEffect(() => {
