@@ -2,7 +2,7 @@ import { useState, useMemo } from 'react'
 import Image from 'next/legacy/image'
 import Button from '@mui/material/Button'
 import { toast } from 'react-toastify'
-import CircularProgress from '@mui/material/CircularProgress';
+import CircularProgress from '@mui/material/CircularProgress'
 
 const ImageInput = ({ selectedProduct }: { selectedProduct: string | null }) => {
    const [productImages, setProductImages] = useState<File[] | null>(null)
@@ -176,7 +176,7 @@ const ImageInput = ({ selectedProduct }: { selectedProduct: string | null }) => 
             <div className='px-3 border border-green-500 rounded hover:text-black hover:bg-green-500'>
                {loading ? (
                   <div className='px-5 mt-1'>
-                     <CircularProgress color="success" size={20} />
+                     <CircularProgress color='success' size={20} />
                   </div>
                ) : (
                   <button onClick={onSubmit} className='flex space-x-3 items-center'>

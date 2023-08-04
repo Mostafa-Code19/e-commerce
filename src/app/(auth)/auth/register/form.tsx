@@ -8,7 +8,7 @@ import Step from '@mui/material/Step'
 import StepLabel from '@mui/material/StepLabel'
 import StepConnector, { stepConnectorClasses } from '@mui/material/StepConnector'
 import { styled } from '@mui/material/styles'
-import CircularProgress from '@mui/material/CircularProgress';
+import CircularProgress from '@mui/material/CircularProgress'
 
 import RegisterSchemaValidation from '@/formik/schema/register'
 import FormikInput from '@/formik/input'
@@ -50,7 +50,7 @@ export const RegisterForm = () => {
 
       // const errorMessage = err.response.data.message
    }
-   
+
    const QontoConnector = styled(StepConnector)(() => ({
       [`&.${stepConnectorClasses.alternativeLabel}`]: {
          top: 10,
@@ -79,7 +79,7 @@ export const RegisterForm = () => {
             ))}
          </Stepper>
 
-      <h1>تبریزیان ایکامرس</h1>
+         <h1>تبریزیان ایکامرس</h1>
 
          <Formik
             initialValues={{ email: '', password: '', confirmPassword: '' }}
@@ -88,7 +88,6 @@ export const RegisterForm = () => {
          >
             {({ isSubmitting }) => (
                <Form className='mt-4'>
-                  
                   <div>
                      <h3 className='text-right mb-3'>ثبت نام</h3>
                      <p className='text-right text-sm'>
@@ -123,7 +122,7 @@ export const RegisterForm = () => {
                   >
                      {isSubmitting ? (
                         <div className='flex justify-center'>
-                           <CircularProgress color="inherit" size={25} />
+                           <CircularProgress color='inherit' size={25} />
                         </div>
                      ) : (
                         'ثبت نام'

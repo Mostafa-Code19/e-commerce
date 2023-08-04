@@ -1,4 +1,3 @@
-
 import { useField } from 'formik'
 
 // @ts-ignore
@@ -8,7 +7,9 @@ const FormikInput = ({ label, ...props }) => {
 
    return (
       <div className='text-right'>
-         <label><h6>{label}</h6></label>
+         <label>
+            <h6>{label}</h6>
+         </label>
          <input
             {...field}
             {...props}

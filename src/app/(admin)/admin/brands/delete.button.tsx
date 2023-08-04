@@ -37,7 +37,7 @@ const DeleteButton = ({ id }: { id: string }) => {
       <>
          {loading ? (
             <div className='flex justify-end my-1'>
-               <CircularProgress color="inherit" size={20} />
+               <CircularProgress color='inherit' size={20} />
             </div>
          ) : (
             <button className='flex justify-end' onClick={() => deleteHandler(id)}>

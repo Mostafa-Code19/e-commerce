@@ -57,8 +57,7 @@ const Tabs = () => {
                <div>
                   <CircularProgress size={40} />
                </div>
-            ) : (
-               orders?.length ?
+            ) : orders?.length ? (
                orders.reverse().map((order: OrderExtended) => {
                   if (order.status !== activeTab) return
 
@@ -67,20 +66,17 @@ const Tabs = () => {
                         key={order.id}
                         className='px-4 py-6 space-y-2 from-gray-100 to-gray-200 bg-gradient-to-b rounded-lg max-w-lg mx-auto'
                      >
-                        
                         <div className='text-right'>
-
                            <div className='space-y-2'>
                               <div className='flex justify-between'>
                                  <div>
                                     <OrderStatus order={order} mutate={mutate} />
                                  </div>
                                  <div>
-                                 <span>:تاریخ ثبت</span>
-                                 <span className='text-black font-semibold'>
-                                    {DateFormat(order.createdAt)}
-                                 </span>
-
+                                    <span>:تاریخ ثبت</span>
+                                    <span className='text-black font-semibold'>
+                                       {DateFormat(order.createdAt)}
+                                    </span>
                                  </div>
                               </div>
 
@@ -171,7 +167,9 @@ const Tabs = () => {
                         </div>
                      </div>
                   )
-               }) : <h5>هیچ سفارشی تا به این لحظه ثبت نشده</h5>
+               })
+            ) : (
+               <h5>هیچ سفارشی تا به این لحظه ثبت نشده</h5>
             )}
          </div>
       </>

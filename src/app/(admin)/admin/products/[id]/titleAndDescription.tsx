@@ -76,7 +76,7 @@ const ProductTitleDescription = ({
                   >
                      {isSubmitting ? (
                         <div className='flex justify-center'>
-                           <CircularProgress color="success" size={25} />
+                           <CircularProgress color='success' size={25} />
                         </div>
                      ) : (
                         'ذخیره'

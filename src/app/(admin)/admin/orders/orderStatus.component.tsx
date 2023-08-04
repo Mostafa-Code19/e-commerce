@@ -32,7 +32,12 @@ const OrderStatus = ({ order, mutate }: { order: OrderExtended; mutate: unknown 
    }
 
    return (
-      <Select sx={{fontSize: '0.8rem'}} size='small' value={order.status} onChange={handleChangeStatus}>
+      <Select
+         sx={{ fontSize: '0.8rem' }}
+         size='small'
+         value={order.status}
+         onChange={handleChangeStatus}
+      >
          <MenuItem value='PENDING'>ثبت اولیه</MenuItem>
          <MenuItem value='PREPARING'>در حال آماده سازی</MenuItem>
          <MenuItem value='POSTED'>ارسال شده</MenuItem>

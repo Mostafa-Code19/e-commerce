@@ -64,17 +64,17 @@ async function Home() {
                         </button>
                      </div>
                   </div>
-                     <div className='w-[500px] md:w-[300px] scale-150 md:scale-125 relative -right-0'>
-                        <Image
-                           priority
-                           className='object-contain'
-                           src='/hero.png'
-                           alt='nike shoe'
-                           height='250'
-                           width='300'
-                           layout='responsive'
-                        />
-                     </div>
+                  <div className='w-[500px] md:w-[300px] scale-150 md:scale-125 relative -right-0'>
+                     <Image
+                        priority
+                        className='object-contain'
+                        src='/hero.png'
+                        alt='nike shoe'
+                        height='250'
+                        width='300'
+                        layout='responsive'
+                     />
+                  </div>
                </div>
             </div>
          </Link>

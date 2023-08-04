@@ -78,7 +78,7 @@ const BrandNewInput = () => {
             }}
             open={loading}
          >
-            <CircularProgress color="inherit" size={50} />
+            <CircularProgress color='inherit' size={50} />
          </Backdrop>
       </>
    )

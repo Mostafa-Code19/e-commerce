@@ -96,7 +96,6 @@ const LoginForm = () => {
          >
             {({ isSubmitting }) => (
                <Form className='mt-4'>
-                  
                   <div>
                      <h3 className='text-right mb-3'>ورود</h3>
                      <p className='text-right text-sm'>
@@ -126,7 +125,7 @@ const LoginForm = () => {
                   >
                      {isSubmitting ? (
                         <div className='flex justify-center'>
-                           <CircularProgress color="inherit" size={25} />
+                           <CircularProgress color='inherit' size={25} />
                         </div>
                      ) : (
                         'ورود'

@@ -38,7 +38,7 @@ const Orders = async () => {
 
    return (
       <div className='mx-6 my-16 space-y-7'>
-         <div className='flex justify-between items-center mx-auto max-w-md mx-auto max-w-md'>
+         <div className='flex justify-between items-center mx-auto max-w-md'>
             <BackButton />
             <h1 className='text-center font-bold'>سفارش های من</h1>
             <span></span>
@@ -91,8 +91,11 @@ const Orders = async () => {
                      <div className='flex flex-wrap justify-end'>
                         {order.items.map((item: OrderAndItems['items'][0]) => {
                            return (
-                              <div key={item.id} className='w-fit ml-3 mb-3 ring ring-white rounded-md
-                              '>
+                              <div
+                                 key={item.id}
+                                 className='w-fit ml-3 mb-3 ring ring-white rounded-md
+                              '
+                              >
                                  <div className='relative p-1'>
                                     <Image
                                        className='object-contain'

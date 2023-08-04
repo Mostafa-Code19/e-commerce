@@ -13,7 +13,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
          <body>
             <SessionProvider>
                <CartContextProvider>
-
                   <ToastContainer
                      position='top-right'
                      autoClose={3000}
@@ -27,9 +26,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                      theme='light'
                   />
 
-                  <main className='overflow-x-hidden mx-auto'>
-                     {children}
-                  </main>
+                  <main className='overflow-x-hidden mx-auto'>{children}</main>
                </CartContextProvider>
             </SessionProvider>
          </body>

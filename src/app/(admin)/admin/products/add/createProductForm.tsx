@@ -9,7 +9,7 @@ import { toast } from 'react-toastify'
 import Autocomplete from '@mui/material/Autocomplete'
 import TextField from '@mui/material/TextField'
 import useSWR from 'swr'
-import CircularProgress from '@mui/material/CircularProgress';
+import CircularProgress from '@mui/material/CircularProgress'
 
 import ProductSchemaValidation from '@/formik/schema/product'
 import fetcher from '@/lib/fetcher'
@@ -116,10 +116,10 @@ const CreateProductForm = () => {
                            type='submit'
                            disabled={isSubmitting}
                            className='w-full px-5 py-3 mt-10 bg-green-500 shadow-lg shadow-green-300 rounded text-white'
-                           >
+                        >
                            {isSubmitting ? (
                               <div className='flex justify-center'>
-                                 <CircularProgress color="success" size={25} />
+                                 <CircularProgress color='success' size={25} />
                               </div>
                            ) : (
                               'ثبت محصول'
