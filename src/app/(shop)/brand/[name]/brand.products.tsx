@@ -34,7 +34,6 @@ const BrandProducts = ({ brandName }: { brandName: string }) => {
          const resData = await res.json()
 
          setBrandProducts(resData.products)
-         toast.success('تغییرات با موفقیت ثبت گردید.')
       } catch (err) {
          toast.error('دریافت محصولات به مشکل برخورد کرد!')
          console.error(err)

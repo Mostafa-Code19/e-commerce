@@ -1,7 +1,7 @@
 'use client'
 
 import CircularProgress from '@mui/material/CircularProgress'
-import { useState, useRef } from 'react'
+import { useState } from 'react'
 import { toast } from 'react-toastify'
 
 const TrackingCode = ({
@@ -9,25 +9,21 @@ const TrackingCode = ({
    availableTrackingCode,
 }: {
    orderId: string
-   availableTrackingCode: string | null
+   availableTrackingCode: string
 }) => {
    const [loading, setLoading] = useState(false)
+   const [code, setCode] = useState(availableTrackingCode || '')
 
-   const trackingCodeRef = useRef<HTMLInputElement>(null)
+   const submitTrackingCode = async (e: React.FormEvent) => {
+      e.preventDefault()
 
-   const submitTrackingCode = async () => {
+      if (!code.length) return
+
       setLoading(true)
-
-      const trackingCode = trackingCodeRef?.current?.value
-
-      if (!trackingCode) {
-         setLoading(false)
-         return toast.warning('هیچ کدرهگیری برای ثبت وارد نشده است')
-      }
 
       const payload = {
          id: orderId,
-         trackingCode: trackingCode,
+         code: code,
       }
 
       try {
@@ -48,42 +44,27 @@ const TrackingCode = ({
    }
 
    return (
-      <div className='space-x-2'>
-         <div className='flex justify-end space-x-3 items-center'>
-            {loading ? (
-               <div>
-                  <CircularProgress color="success" size={25} />
-               </div>
-            ) : (
-               <button onClick={submitTrackingCode}>
-                  <svg
-                     className='h-6 w-6 text-green-700'
-                     width='24'
-                     height='24'
-                     viewBox='0 0 24 24'
-                     strokeWidth='2'
-                     stroke='currentColor'
-                     fill='none'
-                     strokeLinecap='round'
-                     strokeLinejoin='round'
-                  >
-                     {' '}
-                     <path stroke='none' d='M0 0h24v24H0z' /> <circle cx='12' cy='12' r='9' />{' '}
-                     <path d='M9 12l2 2l4 -4' />
-                  </svg>
-               </button>
-            )}
+      <div className='flex justify-between'>
+         {loading ? (
+            <div>
+               <CircularProgress color='success' size={25} />
+            </div>
+         ) : (
+            ''
+         )}
+         <form onSubmit={submitTrackingCode}>
             <input
-               ref={trackingCodeRef}
                name='trackingCode'
                type='text'
+               value={code}
+               onChange={(e) => setCode(e.target.value)}
                className='placeholder:text-slate-400 text-sm rounded-lg px-1 py-1 w-88'
-               placeholder={trackingCodeRef.current?.value || availableTrackingCode || ''}
+               placeholder={code || ''}
             />
-            <label htmlFor='trackingCode'>
-               <span>:کد رهگیری پستی</span>
-            </label>
-         </div>
+         </form>
+         <label htmlFor='trackingCode'>
+            <span>:کد رهگیری پستی</span>
+         </label>
       </div>
    )
 }

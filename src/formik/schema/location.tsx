@@ -1,5 +1,4 @@
 import * as yup from 'yup'
-import { colorRules } from './schemaRules'
 
 const RegisterSchemaValidation = yup.object().shape({
    price: yup.number().min(1000, 'حداقل قیمت ۱۰۰۰ تومان است').required('قیمت چهره را وارد کنید'),
@@ -21,9 +20,28 @@ const RegisterSchemaValidation = yup.object().shape({
       .moreThan(-1, 'سایز می‌بایست مساوی یا بیشتر از ۰ باشد')
       .required('تعداد موجودی چهره را وارد کنید'),
 
-   color: yup.string().required('رنگ چهره را وارد کنید').matches(colorRules, {
-      message: 'رنگ وارد شده معتبر می‌باشد',
-   }),
+   color: yup
+      .string()
+      .required('رنگ چهره را وارد کنید')
+      .oneOf(
+         [
+            'WHITE',
+            'BLACK',
+            'YELLOW',
+            'ORANGE',
+            'RED',
+            'BROWN',
+            'PURPLE',
+            'DARKBLUE',
+            'BLUE',
+            'LIGHTBLUE',
+            'GREEN',
+            'YELLOWGREEN',
+         ],
+         {
+            message: 'رنگ وارد شده معتبر نمی‌باشد',
+         },
+      ),
 })
 
 export default RegisterSchemaValidation

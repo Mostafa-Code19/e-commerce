@@ -12,7 +12,7 @@ export async function PATCH(request: Request) {
             id: payload.id,
          },
          data: {
-            trackingCode: payload.trackingCode,
+            trackingCode: payload.code,
          },
       })
 

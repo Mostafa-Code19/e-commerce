@@ -3,9 +3,11 @@ import { Form, Formik } from 'formik'
 
 import LocationSchemaValidation from '@/formik/schema/location'
 import FormikInput from '@/formik/input'
-import { MuiColorInput } from 'mui-color-input'
 import { Switch } from '@mui/material'
-import CircularProgress from '@mui/material/CircularProgress';
+import CircularProgress from '@mui/material/CircularProgress'
+
+import Autocomplete from '@mui/material/Autocomplete'
+import TextField from '@mui/material/TextField'
 
 const CreateLocationForm = ({ selectedProduct }: { selectedProduct: string | null }) => {
    const onSubmit = async (values: {
@@ -48,7 +50,7 @@ const CreateLocationForm = ({ selectedProduct }: { selectedProduct: string | nul
          validationSchema={LocationSchemaValidation}
          onSubmit={onSubmit}
       >
-         {({ values, isSubmitting, handleChange, setFieldValue, errors, touched }) => (
+         {({ isSubmitting, handleChange, setFieldValue, errors, touched }) => (
             <Form className='space-y-5'>
                <h1 className='text-center'>افزودن چهره</h1>
 
@@ -72,16 +74,30 @@ const CreateLocationForm = ({ selectedProduct }: { selectedProduct: string | nul
                />
 
                <div className='flex justify-between space-x-3 items-center'>
-                  <MuiColorInput
-                     name='color'
-                     value={values.color}
-                     format='hex'
-                     onChange={(e) => setFieldValue('color', e)}
-                     sx={{
-                        border: errors.color && touched.color ? '2px solid red' : '',
-                        borderRadius: '10px',
+                  <Autocomplete
+                     id='color'
+                     options={[
+                        { id: 'سفید', value: 'WHITE' },
+                        { id: 'مشکی', value: 'BLACK' },
+                        { id: 'زرد', value: 'YELLOW' },
+                        { id: 'نارنجی', value: 'ORANGE' },
+                        { id: 'قرمز', value: 'RED' },
+                        { id: 'قهوه ای', value: 'BROWN' },
+                        { id: 'بنفش', value: 'PURPLE' },
+                        { id: 'سرمه ای', value: 'DARKBLUE' },
+                        { id: 'آبی', value: 'BLUE' },
+                        { id: 'آبی روشن', value: 'LIGHTBLUE' },
+                        { id: 'سبز', value: 'GREEN' },
+                        { id: 'سبز روشن', value: 'YELLOWGREEN' },
+                     ]}
+                     onChange={(e, color) => {
+                        if (color) setFieldValue('color', color.value)
                      }}
+                     getOptionLabel={(option) => option.id}
+                     renderInput={(params) => <TextField {...params} label='رنگ' />}
+                     sx={{ width: '100%' }}
                   />
+
                   <h5 className='w-1/2 text-center'>رنگ چهره محصول</h5>
                </div>
 
@@ -98,7 +114,7 @@ const CreateLocationForm = ({ selectedProduct }: { selectedProduct: string | nul
                >
                   {isSubmitting ? (
                      <div className='flex justify-center'>
-                        <CircularProgress color="success" size={25} />
+                        <CircularProgress color='success' size={25} />
                      </div>
                   ) : (
                      'افزودن'

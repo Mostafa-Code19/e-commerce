@@ -67,25 +67,29 @@ const Tabs = () => {
                         key={order.id}
                         className='px-4 py-6 space-y-2 from-gray-100 to-gray-200 bg-gradient-to-b rounded-lg max-w-lg mx-auto'
                      >
-                        <div className='text-right flex'>
-                           <div>
-                              <OrderStatus order={order} mutate={mutate} />
-                           </div>
+                        
+                        <div className='text-right'>
 
                            <div className='space-y-2'>
-                              <div className='flex  justify-end space-x-2'>
+                              <div className='flex justify-between'>
+                                 <div>
+                                    <OrderStatus order={order} mutate={mutate} />
+                                 </div>
+                                 <div>
+                                 <span>:تاریخ ثبت</span>
                                  <span className='text-black font-semibold'>
                                     {DateFormat(order.createdAt)}
                                  </span>
-                                 <span>:تاریخ ثبت</span>
+
+                                 </div>
                               </div>
 
-                              <div className='space-x-2'>
+                              <div className='flex justify-between'>
                                  <span className='text-black font-semibold'>{order.id}</span>
                                  <span>:کد سفارش</span>
                               </div>
 
-                              <div className='space-x-2'>
+                              <div className='flex justify-between'>
                                  <span className='text-black font-semibold'>
                                     {order.client.mobileNumber} __ {order.client.phoneNumber}
                                  </span>
@@ -94,10 +98,10 @@ const Tabs = () => {
 
                               <TrackingCode
                                  orderId={order.id}
-                                 availableTrackingCode={order.trackingCode}
+                                 availableTrackingCode={order.trackingCode || ''}
                               />
 
-                              <div className='space-x-2 flex justify-end'>
+                              <div className='justify-between flex'>
                                  <span className='text-black font-semibold toman_card'>
                                     {order.price.toLocaleString()}
                                  </span>
@@ -105,7 +109,7 @@ const Tabs = () => {
                               </div>
 
                               {order.discount ? (
-                                 <div className='space-x-2 flex justify-end'>
+                                 <div className='flex justify-between'>
                                     <span className='text-black font-semibold toman_card'>
                                        {order.discount.toLocaleString()}
                                     </span>
@@ -117,9 +121,7 @@ const Tabs = () => {
                            </div>
                         </div>
 
-                        <hr className='my-2' />
-
-                        <span>آیتم های خریداری شده:</span>
+                        <hr className='my-2 border-gray-200' />
 
                         <div className='flex space-x-3 justify-end'>
                            {order.items.map((item) => {
