@@ -1,7 +1,7 @@
 import { toast } from 'react-toastify'
 import { Form, Formik } from 'formik'
 
-import LocationSchemaValidation from '@/formik/schema/location'
+import { LocationSchemaValidation } from '@/formik/schema/validation'
 import FormikInput from '@/formik/input'
 import { Switch } from '@mui/material'
 import CircularProgress from '@mui/material/CircularProgress'
@@ -52,7 +52,7 @@ const CreateLocationForm = ({ selectedProduct }: { selectedProduct: string | nul
       >
          {({ isSubmitting, handleChange, setFieldValue, errors, touched }) => (
             <Form className='space-y-5'>
-               <h1 className='text-center'>افزودن چهره</h1>
+               <h1 className='text-center font-bold'>افزودن چهره</h1>
 
                <div className='flex justify-end items-center'>
                   <Switch defaultChecked name='publicState' onChange={handleChange} />

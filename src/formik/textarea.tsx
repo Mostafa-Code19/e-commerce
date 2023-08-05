@@ -10,7 +10,12 @@ const FormikTextarea = ({ label, ...props }) => {
          <label>
             <h6>{label}</h6>
          </label>
-         <textarea {...field} {...props} rows={3} className='w-full px-4 py-2 rtl rounded-xl' />
+         <textarea
+            {...field}
+            {...props}
+            rows={3}
+            className='whitespace-pre w-full px-4 py-2 rtl rounded-xl'
+         />
          {meta.error && meta.touched ? <p className='text-sm text-red-500'>{meta.error}</p> : ''}
       </div>
    )

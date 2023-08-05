@@ -11,7 +11,7 @@ import TextField from '@mui/material/TextField'
 import useSWR from 'swr'
 import CircularProgress from '@mui/material/CircularProgress'
 
-import ProductSchemaValidation from '@/formik/schema/product'
+import { ProductSchemaValidation } from '@/formik/schema/validation'
 import fetcher from '@/lib/fetcher'
 
 // @ts-ignore

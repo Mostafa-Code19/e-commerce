@@ -9,8 +9,7 @@ import CircularProgress from '@mui/material/CircularProgress'
 
 import FormikInput from '@/formik/input'
 import FormikTextarea from '@/formik/textarea'
-import BackButton from '@/components/back-btn'
-import ProfileSchemaValidation from '@/formik/schema/profile'
+import { ProfileSchemaValidation } from '@/formik/schema/validation'
 import fetcher from '@/lib/fetcher'
 
 interface FormType {
@@ -71,11 +70,7 @@ const Edit = () => {
             <CircularProgress color='inherit' size={40} />
          </Backdrop>
          <div className='my-16 from-gray-100 to-gray-200 max-w-md mx-auto bg-gradient-to-b rounded-lg px-5 space-y-11'>
-            <div className='flex justify-between items-center mx-auto max-w-md'>
-               <BackButton />
-               <h1 className='text-center font-bold'>اطلاعات حساب</h1>
-               <span></span>
-            </div>
+            <h1 className='text-center font-bold'>اطلاعات حساب</h1>
 
             <div className='space-y-10 max-w-md mx-auto'>
                <Formik

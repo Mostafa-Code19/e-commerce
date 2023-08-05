@@ -1,24 +1,10 @@
 'use client'
 
 import { Formik, Form } from 'formik'
-import * as yup from 'yup'
 import { toast } from 'react-toastify'
-import { persianRule } from '@/formik/schema/schemaRules'
 import CircularProgress from '@mui/material/CircularProgress'
 
-const validationSchema = yup.object().shape({
-   title: yup
-      .string()
-      .min(3, 'عنوان حداقل باید ۳ کارکتر باشد')
-      .required('عنوان محصول را وارد کنید')
-      .matches(persianRule, { message: 'لطفا عنوان را به فارسی وارد کنید' }),
-
-   description: yup
-      .string()
-      .min(30, 'توضیحات حداقل باید ۳۰ کارکتر باشد')
-      .required('عنوان محصول را وارد کنید')
-      .matches(persianRule, { message: 'لطفا توضیحات را به فارسی وارد کنید' }),
-})
+import { TitleAndDescriptionSchemaValidation } from '@/formik/schema/validation'
 
 const ProductTitleDescription = ({
    id,
@@ -63,7 +49,7 @@ const ProductTitleDescription = ({
             title: title,
             description: description || '',
          }}
-         validationSchema={validationSchema}
+         validationSchema={TitleAndDescriptionSchemaValidation}
          onSubmit={handleSubmit}
       >
          {({ values, setFieldValue, handleBlur, isSubmitting, errors, touched }) => (
@@ -107,10 +93,10 @@ const ProductTitleDescription = ({
                   )}
 
                   <div className='justify-end flex space-x-5 bg-slate-200 rounded-lg p-3'>
-                     <input
+                     <textarea
                         name='description'
                         onChange={(e) => setFieldValue('description', e.target.value)}
-                        type='text'
+                        rows={3}
                         onBlur={handleBlur}
                         value={values.description}
                         className='mr-3 w-full bg-transparent'

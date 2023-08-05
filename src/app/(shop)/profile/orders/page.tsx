@@ -1,4 +1,3 @@
-import BackButton from '@/components/back-btn'
 import User from '@/lib/user'
 import Image from 'next/legacy/image'
 
@@ -38,11 +37,7 @@ const Orders = async () => {
 
    return (
       <div className='mx-6 my-16 space-y-7'>
-         <div className='flex justify-between items-center mx-auto max-w-md'>
-            <BackButton />
-            <h1 className='text-center font-bold'>سفارش های من</h1>
-            <span></span>
-         </div>
+         <h1 className='text-center font-bold'>سفارش های من</h1>
 
          {user?.orders?.length ? (
             user.orders.reverse().map((order) => {

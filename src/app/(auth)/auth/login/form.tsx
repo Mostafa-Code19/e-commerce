@@ -13,7 +13,7 @@ import StepConnector, { stepConnectorClasses } from '@mui/material/StepConnector
 import { styled } from '@mui/material/styles'
 
 import FormikInput from '@/formik/input'
-import LoginSchemaValidation from '@/formik/schema/login'
+import { LoginSchemaValidation } from '@/formik/schema/validation'
 import CircularProgress from '@mui/material/CircularProgress'
 
 interface FormType {

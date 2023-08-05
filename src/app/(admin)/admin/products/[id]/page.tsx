@@ -3,10 +3,10 @@ import Images from '@/components/product/images'
 import PriceDiscountQtyEdit from './priceDiscountQtyEdit'
 import { prisma } from '@/lib/prisma'
 import PublicEdit from './button.publicEdit'
-import BackButton from '@/components/back-btn'
 
 import isAdmin from '@/lib/isAdmin'
 import ProductTitleDescription from './titleAndDescription'
+import Breadcrumbs from '@mui/material/Breadcrumbs'
 
 async function getProductLocations(productId: string) {
    return await prisma.product
@@ -86,14 +86,21 @@ type TypeProduct =
 
 const pageContent = (product: TypeProduct) => {
    return (
-      <>
+      <div className='mx-6 md:mx-auto max-w-screen-md space-y-10 my-16'>
          {product ? (
             <>
-               <div className='flex items-center justify-between'>
-                  <BackButton />
-                  <h1>چهره های محصول</h1>
-                  <span></span>
-               </div>
+               <Breadcrumbs aria-label='breadcrumb'>
+                  <Link className='text-gray-400' href='/'>
+                     فروشگاه
+                  </Link>
+                  <Link className='text-gray-400' href='/admin'>
+                     ادمین
+                  </Link>
+                  <Link className='text-gray-400' href='/admin/products'>
+                     محصولات
+                  </Link>
+                  <h5 className='font-semibold'>{product.title}</h5>
+               </Breadcrumbs>
 
                <div className='max-w-md mx-auto'>
                   <Link href='/admin/products/add'>
@@ -173,6 +180,6 @@ const pageContent = (product: TypeProduct) => {
          ) : (
             <h1>آیتم پیدا نشد!</h1>
          )}
-      </>
+      </div>
    )
 }

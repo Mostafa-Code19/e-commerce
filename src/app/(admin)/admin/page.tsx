@@ -1,7 +1,7 @@
-import BackButton from '@/components/back-btn'
 import User from '@/lib/user'
 import Link from 'next/link'
 import isAdmin from '@/lib/isAdmin'
+import Breadcrumbs from '@mui/material/Breadcrumbs'
 
 export const metadata = {
    title: 'تبریزیان ایکامرس | پنل ادمین',
@@ -14,11 +14,12 @@ const AdminPanel = async () => {
       <div className='mx-6 my-16 space-y-10'>
          {(await isAdmin()) ? (
             <>
-               <div className='flex justify-between items-center mx-auto max-w-md'>
-                  <BackButton />
-                  <h1>پنل ادمین</h1>
-                  <span></span>
-               </div>
+               <Breadcrumbs aria-label='breadcrumb'>
+                  <Link className='text-gray-400' href='/'>
+                     فروشگاه
+                  </Link>
+                  <h5 className='font-semibold'>ادمین</h5>
+               </Breadcrumbs>
 
                <div className='text-center'>
                   <h1 className='font-semibold'> {user?.name || user?.email} </h1>

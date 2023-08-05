@@ -2,7 +2,6 @@ import { prisma } from '@/lib/prisma'
 import Image from 'next/legacy/image'
 import { Product } from '@prisma/client'
 
-import BackButton from '@/components/back-btn'
 import Images from '@/components/product/images'
 import Options from '@/components/product/options'
 
@@ -60,13 +59,7 @@ const Product = async ({ params }: { params: { slug: string } }) => {
    const product = await getProduct(params.slug)
 
    return (
-      <div className='mx-6 my-16 space-y-11'>
-         <div className='flex justify-between items-center mx-auto max-w-md'>
-            <BackButton />
-            <h1 className='text-center font-bold'>ویرایش پروفایل</h1>
-            <span></span>
-         </div>
-
+      <div className='mx-6 md:mx-auto max-w-screen-md my-16 space-y-11'>
          {product?.productLocation.length ? (
             <div className='md:grid flex flex-col-reverse grid-cols-2 md:gap-12'>
                <div>
@@ -76,7 +69,7 @@ const Product = async ({ params }: { params: { slug: string } }) => {
 
                   <div className='text-right space-y-2 my-6'>
                      <h2>توضیحات</h2>
-                     <p>{product.description}</p>
+                     <p className='whitespace-pre'>{product.description}</p>
                   </div>
 
                   <Options product={product} />

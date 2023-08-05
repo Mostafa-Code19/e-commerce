@@ -4,7 +4,6 @@ import { useState, useContext, useEffect, useMemo } from 'react'
 import Image from 'next/legacy/image'
 import { useRouter } from 'next/navigation'
 
-import BackButton from '@/components/back-btn'
 import { CartContext } from '@/context/provider/cart'
 import EmptyCart from '@/components/empty-cart'
 import CartItemType from '@/types/type.cartItems'
@@ -76,14 +75,10 @@ const Payment = () => {
    }
 
    return (
-      <div className='mx-8 space-y-6'>
+      <div className='mx-8 md:mx-auto my-16 max-w-screen-md space-y-6'>
          {Object.keys(cartItems ?? {}).length ? (
             <>
-               <div className='flex items-center justify-between'>
-                  <BackButton />
-                  <h1>پرداخت</h1>
-                  <span></span>
-               </div>
+               <h1 className='text-center font-bold'>پرداخت</h1>
 
                <div className='md:grid md:justify-end flex flex-col-reverse md:grid-cols-2'>
                   <div className='md:mx-7 my-10 space-y-5'>

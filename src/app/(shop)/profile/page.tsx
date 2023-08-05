@@ -1,4 +1,3 @@
-import BackButton from '@/components/back-btn'
 import LogoutButton from '@/app/(shop)/profile/logout.button'
 import User from '@/lib/user'
 import Link from 'next/link'
@@ -22,11 +21,7 @@ const Profile = async () => {
 
    return (
       <div className='mx-6 my-16 space-y-10'>
-         <div className='flex justify-between items-center mx-auto max-w-md'>
-            <BackButton />
-            <h1>پروفایل من</h1>
-            <span></span>
-         </div>
+         <h1 className='text-center font-bold'>پروفایل من</h1>
 
          <div className='text-center'>
             <h1 className='font-semibold'>{user?.name || user?.email}</h1>

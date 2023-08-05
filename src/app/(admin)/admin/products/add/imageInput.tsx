@@ -170,7 +170,7 @@ const ImageInput = ({ selectedProduct }: { selectedProduct: string | null }) => 
 
    return (
       <div>
-         <h1 className='text-center'>افزودن تصاویر</h1>
+         <h1 className='text-center font-bold'>افزودن تصاویر</h1>
 
          <div className='flex items-center my-3 justify-around'>
             <div className='px-3 border border-green-500 rounded hover:text-black hover:bg-green-500'>

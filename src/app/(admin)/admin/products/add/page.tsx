@@ -7,12 +7,12 @@ import { toast } from 'react-toastify'
 import useSWR from 'swr'
 import fetcher from '@/lib/fetcher'
 
-import BackButton from '@/components/back-btn'
-
 import { useSession } from 'next-auth/react'
 import ImageInput from './imageInput'
 import CreateLocationForm from './createLocationForm'
 import CreateProductForm from './createProductForm'
+import Breadcrumbs from '@mui/material/Breadcrumbs'
+import Link from 'next/link'
 
 type ProductProps = {
    id: string
@@ -45,16 +45,23 @@ const AdminProduct = () => {
    const { data: session } = useSession()
 
    return (
-      <div className='mx-6 my-16'>
+      <div className='mx-6 md:mx-auto max-w-screen-md space-y-10 my-16'>
          {
             // @ts-ignore
             session?.role === 'ADMIN' ? (
                <>
-                  <div className='flex mx-auto max-w-md items-center justify-between'>
-                     <BackButton />
-                     <h1>‌افزودن/انتخاب محصول</h1>
-                     <span></span>
-                  </div>
+                  <Breadcrumbs aria-label='breadcrumb'>
+                     <Link className='text-gray-400' href='/'>
+                        فروشگاه
+                     </Link>
+                     <Link className='text-gray-400' href='/admin'>
+                        ادمین
+                     </Link>
+                     <Link className='text-gray-400' href='/admin/products'>
+                        محصولات
+                     </Link>
+                     <h5 className='font-semibold'>افزودن</h5>
+                  </Breadcrumbs>
 
                   <div className='flex flex-col p-4 bg-gradient-to-b from-gray-100 to-gray-200 max-w-md space-y-5 mx-auto'>
                      <div>

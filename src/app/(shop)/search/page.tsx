@@ -1,7 +1,5 @@
 'use client'
 
-import BackButton from '@/components/back-btn'
-
 import { useSearchParams } from 'next/navigation'
 import { useCallback, useEffect, useState } from 'react'
 import { toast } from 'react-toastify'
@@ -52,11 +50,7 @@ const Search = () => {
    return (
       <>
          <div className='mx-4 my-8 space-y-7'>
-            <div className='flex justify-between items-center mx-auto max-w-md'>
-               <BackButton />
-               <h1 className='text-center font-bold'>{query}</h1>
-               <span></span>
-            </div>
+            <h1 className='text-center font-bold'>{query}</h1>
             <ProductCards products={searchResult} pageTarget='/product/' userTarget='client' />
          </div>
       </>

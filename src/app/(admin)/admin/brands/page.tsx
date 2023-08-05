@@ -1,9 +1,10 @@
-import BackButton from '@/components/back-btn'
+import Link from 'next/link'
 import isAdmin from '@/lib/isAdmin'
 import BrandNewInput from './create.Input'
 import DeleteButton from './delete.button'
 import Name from './name.component'
 import { prisma } from '@/lib/prisma'
+import Breadcrumbs from '@mui/material/Breadcrumbs'
 
 export const metadata = {
    title: '‌تبریزیان ایکامرس | پنل ادمین | برند ها',
@@ -21,18 +22,22 @@ const AdminBrands = async () => {
    const brands = await getBrand()
 
    return (
-      <div className='mx-6 my-16'>
+      <div className='mx-6 md:mx-auto my-16 max-w-screen-md space-y-10'>
          {(await isAdmin()) ? (
             <>
-               <div className='flex justify-between items-center mx-auto max-w-md mb-10'>
-                  <BackButton />
-                  <h1>پنل ادمین</h1>
-                  <span></span>
-               </div>
+               <Breadcrumbs aria-label='breadcrumb'>
+                  <Link className='text-gray-400' href='/'>
+                     فروشگاه
+                  </Link>
+                  <Link className='text-gray-400' href='/admin'>
+                     ادمین
+                  </Link>
+                  <h5 className='font-semibold'>برند ها</h5>
+               </Breadcrumbs>
 
                <BrandNewInput />
 
-               <div className='mt-10'>
+               <div>
                   <div className='md:grid md:grid-cols-2 md:gap-2 mb-2'>
                      <div className='bg-white grid grid-cols-3 justify-between rounded-lg px-6 py-2 text-center items-center'>
                         <p className='flex'>نام برند</p>

@@ -4,7 +4,7 @@ import { prisma } from '@/lib/prisma'
 import isAdmin from '@/lib/isAdmin'
 
 import ProductCards from '@/components/product/cards'
-import BackButton from '@/components/back-btn'
+import Breadcrumbs from '@mui/material/Breadcrumbs'
 
 async function getProducts() {
    return await prisma.product
@@ -43,14 +43,18 @@ const AdminProducts = async () => {
    const products = await getProducts()
 
    return (
-      <div className='mx-auto max-w-screen-md my-16 relative'>
+      <div className='md:mx-auto mx-6 max-w-screen-md space-y-10 my-16 relative'>
          {(await isAdmin()) ? (
             <>
-               <div className='flex justify-between items-center mx-auto max-w-md'>
-                  <BackButton />
-                  <h1>مدیریت محصولات</h1>
-                  <span></span>
-               </div>
+               <Breadcrumbs aria-label='breadcrumb'>
+                  <Link className='text-gray-400' href='/'>
+                     فروشگاه
+                  </Link>
+                  <Link className='text-gray-400' href='/admin'>
+                     ادمین
+                  </Link>
+                  <h5 className='font-semibold'>محصولات</h5>
+               </Breadcrumbs>
 
                <Link href='/admin/products/add'>
                   <button className='bg-blue-400 rounded-full p-3 fixed bottom-24 right-5'>

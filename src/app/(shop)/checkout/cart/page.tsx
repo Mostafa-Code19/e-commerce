@@ -3,7 +3,6 @@
 import Image from 'next/legacy/image'
 import { useContext, useState, useEffect } from 'react'
 
-import BackButton from '@/components/back-btn'
 import { CartContext } from '@/context/provider/cart'
 import Link from 'next/link'
 import EmptyCart from '@/components/empty-cart'
@@ -32,12 +31,8 @@ const Cart = () => {
    }, [cart])
 
    return (
-      <div className='mx-4 space-y-6'>
-         <div className='flex items-center justify-between'>
-            <BackButton />
-            <h1>سبد خرید</h1>
-            <span></span>
-         </div>
+      <div className='mx-4 md:mx-auto my-16 max-w-screen-md space-y-6'>
+         <h1 className='text-center font-bold'>سبد خرید</h1>
 
          <div>
             {Object.keys(cart ?? {}).length ? (
