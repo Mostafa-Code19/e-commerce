@@ -2,11 +2,11 @@ import { NextResponse } from 'next/server'
 import { prisma } from '@/lib/prisma'
 
 export async function DELETE(request: Request) {
-   const payload: { imageId: string } = await request.json()
+   const { imageId }: { imageId: string } = await request.json()
 
    await prisma.image.delete({
       where: {
-         id: payload.imageId,
+         id: imageId,
       },
    })
 

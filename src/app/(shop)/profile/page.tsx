@@ -20,7 +20,7 @@ const Profile = async () => {
    const user = await User()
 
    return (
-      <div className='mx-6 my-16 space-y-10'>
+      <div className='mx-6 md:mx-auto max-w-screen-md my-16 space-y-10'>
          <h1 className='text-center font-bold'>پروفایل من</h1>
 
          <div className='text-center'>

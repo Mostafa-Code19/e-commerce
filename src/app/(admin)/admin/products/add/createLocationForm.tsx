@@ -12,10 +12,10 @@ import TextField from '@mui/material/TextField'
 const CreateLocationForm = ({ selectedProduct }: { selectedProduct: string | null }) => {
    const onSubmit = async (values: {
       publicState: boolean
-      price: number | null
-      discount: number | null
-      size: number | null
-      quantity: number | null
+      price: number | string
+      discount: number | string
+      size: number | string
+      quantity: number | string
       color: string
    }) => {
       const payload = { ...values, productId: selectedProduct }
@@ -41,10 +41,10 @@ const CreateLocationForm = ({ selectedProduct }: { selectedProduct: string | nul
       <Formik
          initialValues={{
             publicState: true,
-            price: null,
-            discount: null,
-            size: null,
-            quantity: null,
+            price: '',
+            discount: '',
+            size: '',
+            quantity: '',
             color: '',
          }}
          validationSchema={LocationSchemaValidation}

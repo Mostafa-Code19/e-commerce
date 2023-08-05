@@ -50,9 +50,9 @@ async function Home() {
    const products = await getProducts()
 
    return (
-      <div className='mx-4 mb-16 mt-24'>
+      <div className='px-8 md:mx-auto max-w-screen-md  mb-16 mt-24'>
          <Link href='#'>
-            <div className='from-blue-400 max-w-lg mx-auto to-blue-700 bg-gradient-to-r rounded-3xl'>
+            <div className='from-blue-400 mx-auto to-blue-700 bg-gradient-to-r rounded-3xl'>
                <div className='flex relative justify-around mb-16 mx-auto'>
                   <div className='ml-8 pt-8 pb-4'>
                      <div>
@@ -64,14 +64,14 @@ async function Home() {
                         </button>
                      </div>
                   </div>
-                  <div className='w-[500px] md:w-[300px] scale-150 md:scale-125 relative -right-0'>
+                  <div className='w-[200px] h-[150px] md:h-[180px] scale-150 md:scale-125 relative -right-0 md:-top-5'>
                      <Image
                         priority
                         className='object-contain'
                         src='/hero.png'
                         alt='nike shoe'
                         height='250'
-                        width='300'
+                        width='250'
                         layout='responsive'
                      />
                   </div>

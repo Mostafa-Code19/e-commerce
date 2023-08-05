@@ -2,7 +2,7 @@
 
 import '@/app/globals.scss'
 import { CartContextProvider } from '@/context/provider/cart'
-import 'react-toastify/dist/ReactToastify.css'
+import 'react-toastify/dist/ReactToastify.min.css'
 
 import { SessionProvider } from 'next-auth/react'
 import { ToastContainer } from 'react-toastify'

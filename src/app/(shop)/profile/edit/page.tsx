@@ -69,7 +69,7 @@ const Edit = () => {
          >
             <CircularProgress color='inherit' size={40} />
          </Backdrop>
-         <div className='my-16 from-gray-100 to-gray-200 max-w-md mx-auto bg-gradient-to-b rounded-lg px-5 space-y-11'>
+         <div className='my-16 from-gray-100 to-gray-200 max-w-md mx-6 md:mx-auto bg-gradient-to-b rounded-lg px-5 space-y-11'>
             <h1 className='text-center font-bold'>اطلاعات حساب</h1>
 
             <div className='space-y-10 max-w-md mx-auto'>

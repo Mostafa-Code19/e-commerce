@@ -3,7 +3,6 @@
 import SearchInput from '@/components/searchInput'
 import '@/app/globals.scss'
 import Navbar from '@/components/navbar'
-import 'react-toastify/dist/ReactToastify.css'
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
    return (

@@ -1,7 +1,7 @@
 <a name="readme-top"></a>
 
 <div align="center">
-  <a href="https://github.com/Mostafa-Code19/e-commerce">
+  <a href="tabrizian-ecommerce.iran.liara.run">
     <img src="public/hero.png" alt="Logo" width="200" height="200">
   </a>
 
@@ -143,7 +143,7 @@ Distributed under the MIT License. See `LICENSE.txt` for more information.
 
 <a href="mailto:tabrizian.codes.gmail.com">tabrizian.codes.gmail.com</a>
 
-Project Link: [https://github.com/Mostafa-Code19/e-commerce](https://github.com/Mostafa-Code19/e-commerce)
+Project Link: [tabrizian-ecommerce.iran.liara.run](https://github.com/Mostafa-Code19/e-commerce)
 
 <p align="right">(<a href="#readme-top">برگشت به بالا</a>)</p>
 

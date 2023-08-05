@@ -33,7 +33,7 @@ const BrandProducts = ({ brandName }: { brandName: string }) => {
 
          const resData = await res.json()
 
-         setBrandProducts(resData.products)
+         if (resData) setBrandProducts(resData.products)
       } catch (err) {
          toast.error('دریافت محصولات به مشکل برخورد کرد!')
          console.error(err)

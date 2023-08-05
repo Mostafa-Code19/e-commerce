@@ -10,7 +10,7 @@ const Brand = ({ params }: { params: { name: string } }) => {
    const brandName = params.name
 
    return (
-      <div className='mx-4 my-8 space-y-7'>
+      <div className='mx-6 md:mx-auto max-w-screen-md my-8 space-y-7'>
          <BrandProducts brandName={brandName} />
       </div>
    )

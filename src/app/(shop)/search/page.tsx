@@ -49,7 +49,7 @@ const Search = () => {
 
    return (
       <>
-         <div className='mx-4 my-8 space-y-7'>
+         <div className='mx-6 md:mx-auto max-w-screen-md my-8 space-y-16'>
             <h1 className='text-center font-bold'>{query}</h1>
             <ProductCards products={searchResult} pageTarget='/product/' userTarget='client' />
          </div>

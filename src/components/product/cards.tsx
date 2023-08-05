@@ -49,12 +49,14 @@ const ProductCards = ({
 
             return (
                <Link key={product.id} href={pageTarget + product.id}>
-                  <div className='from-gray-50 to-gray-100 bg-gradient-to-b p-1 m-1 h-full rounded-lg'>
-                     <div className='w-full h-full relative flex flex-col aspect-square from-blue-200  to-white bg-gradient-to-t rounded-xl'>
-                        <div className='m-2'>
-                           <div className='flex space-x-1'>{colors(product.productLocation)}</div>
-                        </div>
-                        <div className='p-2'>
+                  <div className='p-1 m-1 my-5 h-40 md:w-60 md:h-44 rounded-lg'>
+                     <div className='w-full h-full relative flex flex-col aspect-square p-2 bg-white rounded-xl'>
+                        <div className='from-blue-100 to-white bg-gradient-to-tr shadow-lg shadow-slate-200 rounded-xl -top-10 relative flex justify-center pb-3 mb-3'>
+                           <div className='m-2'>
+                              <div className='flex space-x-1'>
+                                 {colors(product.productLocation)}
+                              </div>
+                           </div>
                            {product.gallery[0] && (
                               <Image
                                  className='object-contain'
@@ -65,7 +67,7 @@ const ProductCards = ({
                               />
                            )}
                         </div>
-                        <div className='mx-3 text-right space'>
+                        <div className='mx-3 space-y-1 -top-10 relative text-right'>
                            <h2>{product.title}</h2>
 
                            <div className='flex justify-between items-center'>
@@ -77,7 +79,7 @@ const ProductCards = ({
                                     {product.productLocation[0]?.discount}%
                                  </span>
                               ) : (
-                                 ''
+                                 <span></span>
                               )}
                               <span className='font-semibold text-black text-sm toman_card'>
                                  {product.productLocation[0]?.discount
