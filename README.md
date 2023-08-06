@@ -48,7 +48,18 @@
 
 ## درباره پروژه
 
-[![Product Name Screen Shot][product-screenshot]](https://example.com)
+
+### تصاویری از پروژه
+
+<a href="https://tabrizian-ecommerce.iran.liara.run">
+  <img src="public/preview.jpg" alt="preview" width="300">
+  <img src="public/preview2.jpg" alt="preview" width="330">
+  <img src="public/preview4.jpg" alt="preview" width="345">
+  <img src="public/preview3.jpg" alt="preview" width="336">
+  <img src="public/preview5.jpg" alt="preview" width="343">
+</a>
+
+<hr />
 
 پلتفرم‌ فروشگاهی مدرن و کارآمد، تجربه‌ی عملی با مجموعه‌ای از تکنولوژی‌های پیشرو، که تجربه‌ی کاربری بی‌دردسر و با عملکرد بالا را فراهم می‌کند.
 
@@ -77,41 +88,9 @@
 -  [![SCSS][SCSS]][SCSS-url]
 -  [![PostgreSQL][PostgreSQL]][PostgreSQL-url]
 -  [![Tailwind][Tailwind]][Tailwind-url]
+-  [![AWS][AWS]][AWS-url]
 
 <p align="right">(<a href="#readme-top">برگشت به بالا</a>)</p>
-
-<!-- GETTING STARTED -->
-<!-- ## برای اجرای برنامه
-
-توضیح نحوه‌ی ارائه‌ی دستورالعمل‌ها برای راه‌اندازی پروژه بر روی سیستم خود است.
-برای دریافت یک نسخه لوکال و راه‌اندازی آن، این مراحل ساده را دنبال کنید. -->
-
-<!-- ### پیش نیاز ها
-
-با این دستور کلیه پکیج های مورد نظر نصب کنید
-* npm
-  ```sh
-  npm install npm@latest -g
-  ``` -->
-
-<!-- ### نصب و راه اندازی
-
-1. Clone the repo
-   ```sh
-   git clone https://github.com/Mostafa-Code19/e-commerce.git
-   ```
-2. Install NPM packages
-   ```sh
-   npm install
-   ```
-3. Enter these line in `.env`
-   ```js
-    DATABASE_URL='postgresql://postgres://user:pass@localhost/dbname'
-    NEXTAUTH_SECRET='1a14d87914f7e03672dd251983ffd06f'
-    NEXTAUTH_URL='http://localhost:3000'
-   ``` -->
-
-<!-- <p align="right">(<a href="#readme-top">برگشت به بالا</a>)</p> -->
 
 <!-- CONTRIBUTING -->
 
@@ -151,15 +130,24 @@ Project Link: [tabrizian-ecommerce.iran.liara.run](https://github.com/Mostafa-Co
 
 [Next.js]: https://img.shields.io/badge/next.js-000000?style=for-the-badge&logo=nextdotjs&logoColor=white
 [Next-url]: https://nextjs.org/
+
 [React.js]: https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB
 [React-url]: https://reactjs.org/
+
 [TypeScript]: https://img.shields.io/badge/TypeScript-3178C6?style=for-the-badge&logo=typescript&logoColor=white
 [TypeScript-url]: https://www.typescriptlang.org/
+
 [Mui]: https://img.shields.io/badge/mui-007FFF?style=for-the-badge&logo=mui&logoColor=white
 [Mui-url]: https://mui.com
+
 [SCSS]: https://img.shields.io/badge/sass-CC6699?style=for-the-badge&logo=sass&logoColor=white
 [SCSS-url]: https://sass-lang.com
+
 [PostgreSQL]: https://img.shields.io/badge/postgresql-4169E1?style=for-the-badge&logo=postgresql&logoColor=white
 [PostgreSQL-url]: https://www.postgresql.org
+
 [Tailwind]: https://img.shields.io/badge/tailwindcss-06B6D4?style=for-the-badge&logo=tailwindcss&logoColor=white
 [Tailwind-url]: https://tailwindcss.com
+
+[AWS]: https://img.shields.io/badge/aws-yellow?style=for-the-badge&logo=aws&logoColor=white
+[AWS-url]: https://aws.amazon.com
