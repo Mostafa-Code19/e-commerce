@@ -59,17 +59,19 @@ const Product = async ({ params }: { params: { slug: string } }) => {
    const product = await getProduct(params.slug)
 
    return (
-      <div className='mx-6 md:mx-auto max-w-screen-md my-16 space-y-11'>
+      <div className='mx-6 md:mx-auto max-w-screen-lg my-16 space-y-11'>
          {product?.productLocation.length ? (
             <div className='md:grid flex flex-col-reverse grid-cols-2 md:gap-12'>
-               <div>
-                  <h1 style={{ fontSize: '1.75rem' }} className='text-right'>
-                     {product.title}
-                  </h1>
+               <div className='mt-10 space-y-6'>
+                  <div className='bg-white rounded-lg px-3 py-2'>
+                     <h1 style={{ fontSize: '1.75rem' }} className='text-right'>
+                        {product.title}
+                     </h1>
 
-                  <div className='text-right space-y-2 my-6'>
-                     <h2>توضیحات</h2>
-                     <p className='whitespace-pre'>{product.description}</p>
+                     <div className='text-right space-y-2 my-6'>
+                        <h2>توضیحات</h2>
+                        <p className=' whitespace-break-spaces'>{product.description}</p>
+                     </div>
                   </div>
 
                   <Options product={product} />

@@ -111,11 +111,11 @@ const Cart = () => {
                                        }}
                                     >
                                        <svg
-                                          className='h-10 w-10 text-blue-600'
+                                          className='h-7 w-7 text-black'
                                           width='24'
                                           height='24'
                                           viewBox='0 0 24 24'
-                                          strokeWidth='1'
+                                          strokeWidth='2'
                                           stroke='currentColor'
                                           fill='none'
                                           strokeLinecap='round'
@@ -123,8 +123,7 @@ const Cart = () => {
                                        >
                                           {' '}
                                           <path stroke='none' d='M0 0h24v24H0z' />{' '}
-                                          <circle cx='12' cy='12' r='9' />{' '}
-                                          <line x1='9' y1='12' x2='15' y2='12' />
+                                          <line x1='5' y1='12' x2='19' y2='12' />
                                        </svg>
                                     </button>
                                     <span className='text-black font-semibold text-base'>
@@ -141,11 +140,11 @@ const Cart = () => {
                                        }}
                                     >
                                        <svg
-                                          className='h-10 w-10 text-blue-600'
+                                          className='h-7 w-7 text-black'
                                           width='24'
                                           height='24'
                                           viewBox='0 0 24 24'
-                                          strokeWidth='1'
+                                          strokeWidth='2'
                                           stroke='currentColor'
                                           fill='none'
                                           strokeLinecap='round'
@@ -153,9 +152,8 @@ const Cart = () => {
                                        >
                                           {' '}
                                           <path stroke='none' d='M0 0h24v24H0z' />{' '}
-                                          <circle cx='12' cy='12' r='9' />{' '}
-                                          <line x1='9' y1='12' x2='15' y2='12' />{' '}
-                                          <line x1='12' y1='9' x2='12' y2='15' />
+                                          <line x1='12' y1='5' x2='12' y2='19' />{' '}
+                                          <line x1='5' y1='12' x2='19' y2='12' />
                                        </svg>
                                     </button>
                                  </div>

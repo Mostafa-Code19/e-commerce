@@ -1,0 +1,15 @@
+{
+	"folders": [
+		{
+			"name": "e-commerce",
+			"path": "."
+		}
+	],
+	"settings": {
+		"cSpell.words": [
+			"Liara",
+			"toman"
+		],
+		"cSpell.enabled": true
+	}
+}

@@ -1,5 +1,3 @@
-'use client'
-
 import SearchInput from '@/components/searchInput'
 import '@/app/globals.scss'
 import Navbar from '@/components/navbar'

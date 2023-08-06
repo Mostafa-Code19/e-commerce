@@ -67,8 +67,8 @@ type TypeProduct =
            id: string
            public: boolean
            productId: string
-           colorId: string
-           sizeId: string
+           colorId: string | null
+           sizeId: string | null
            quantity: number
            price: number
            discount: number

@@ -142,6 +142,7 @@ const Images = ({ isAdmin, thumbnail, product }: PropsType) => {
                return (
                   <div
                      key={index}
+                     className=' bg-slate-200 px-2 rounded-lg shadow-md'
                      onClick={() => {
                         setLightboxOpen(true)
                         setCurrentIndex(index)
@@ -152,7 +153,7 @@ const Images = ({ isAdmin, thumbnail, product }: PropsType) => {
                         src={`${data.src}`}
                         alt={data.alt}
                         width='100'
-                        height='120'
+                        height='70'
                      />
                   </div>
                )

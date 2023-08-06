@@ -1,19 +1,10 @@
 import LogoutButton from '@/app/(shop)/profile/logout.button'
 import User from '@/lib/user'
+import { Metadata } from 'next'
 import Link from 'next/link'
 
-export const generateMetadata = async () => {
-   const user = await User()
-
-   if (user) {
-      return {
-         title: `پرفایل من | ${user?.name || user?.email}`,
-      }
-   } else {
-      return {
-         title: 'ورود / ثبت نام',
-      }
-   }
+export const metadata: Metadata = {
+   title: 'تبریزیان ایکامرس | پروفایل من',
 }
 
 const Profile = async () => {
